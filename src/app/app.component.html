@@ -1,21 +1,21 @@
 <p>
-  <mat-toolbar color="white">
+  <mat-toolbar color="white" style="border-bottom: 1px solid #0099ff">
     <span
       ><a [routerLink]=""
         ><img style="height: 48px" src="assets/images/logo.svg" /></a
     ></span>
     <span class="example-spacer"></span>
-    <ng-container *ngIf="authState === 'signedin' && user; else loggedOutMenu">
-      <span *ngTemplateOutlet="loggedInMenu"></span
+    <ng-container *ngIf="!loggedIn; else loggedInMenu">
+      <span *ngTemplateOutlet="loggedOutMenu"></span
     ></ng-container>
   </mat-toolbar>
 </p>
-<div *ngIf="authState === 'signedin' && user; else homePage" class="App">
+<div *ngIf="loggedIn; else homePage" class="App">
   <router-outlet></router-outlet>
 </div>
 
 <ng-template #homePage>
-  <div style="text-align: center"><h1>Here Block & Student Profiles</h1></div>
+  <div style="text-align: center"><h1>Hero Block & Student Profiles</h1></div>
 </ng-template>
 
 <ng-template #loggedOutMenu>

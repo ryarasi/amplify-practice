@@ -1,4 +1,9 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  SimpleChanges,
+  NgZone,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
   onAuthUIStateChange,
@@ -19,7 +24,11 @@ export class LoginComponent {
   authState: AuthState;
   formFields: FormFieldTypes;
 
-  constructor(private ref: ChangeDetectorRef, private dialog: MatDialog) {
+  constructor(
+    private ref: ChangeDetectorRef,
+    public dialog: MatDialog,
+    private ngZone: NgZone
+  ) {
     this.formFields = [
       {
         type: 'email',
@@ -44,14 +53,21 @@ export class LoginComponent {
 
   ngOnInit() {
     onAuthUIStateChange((authState, authData) => {
+      console.log('auth state has changed!');
       this.authState = authState;
       this.user = authData as CognitoUserInterface;
+      if (this.authState === 'signedin' && this.user) {
+        console.log('Closing all dialogs from login.component.ts');
+        this.closeDialog();
+      }
       this.ref.detectChanges();
     });
   }
 
   closeDialog() {
-    this.dialog.closeAll();
+    this.ngZone.run(() => {
+      this.dialog.closeAll();
+    });
   }
 
   ngOnDestroy() {

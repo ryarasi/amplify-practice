@@ -17,9 +17,15 @@ export class AppComponent {
   title = 'amplify-angular-auth';
   user: CognitoUserInterface | undefined;
   authState: AuthState;
+  loggedIn: Boolean;
   formFields: FormFieldTypes;
 
   constructor(private ref: ChangeDetectorRef, public dialog: MatDialog) {
+    console.log('this.logged in in constructor', {
+      loggedIn: this.loggedIn,
+      user: this.user,
+      authState: this.authState,
+    });
     this.formFields = [
       {
         type: 'email',
@@ -51,9 +57,20 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    console.log('this.logged in in the ngOnInit', {
+      loggedIn: this.loggedIn,
+      user: this.user,
+      authState: this.authState,
+    });
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState;
       this.user = authData as CognitoUserInterface;
+      this.loggedIn = this.authState === 'signedin' && this.user ? true : false;
+      console.log('this.logged in in the ngOnInit', {
+        loggedIn: this.loggedIn,
+        user: this.user,
+        authState: this.authState,
+      });
       this.ref.detectChanges();
     });
   }
