@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ebuy-dev-120406-authRole",
+      "UnauthRoleArn": "arn:aws:iam::881352520751:role/amplify-ebuy-dev-120406-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::881352520751:role/amplify-ebuy-dev-120406-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ebuy-dev-120406-deployment",
+      "UnauthRoleName": "amplify-ebuy-dev-120406-unauthRole",
+      "StackName": "amplify-ebuy-dev-120406",
+      "StackId": "arn:aws:cloudformation:us-east-1:881352520751:stack/amplify-ebuy-dev-120406/4836df10-8dfd-11eb-bfc2-0a726edfb5e3",
+      "AmplifyAppId": "d3f5fh0cwa3g3b"
+    },
+    "categories": {
+      "auth": {
+        "ebuya0a28ec3": {}
+      }
+    }
+  }
+}
