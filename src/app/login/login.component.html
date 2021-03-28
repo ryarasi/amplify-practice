@@ -1,0 +1,13 @@
+<button mat-menu-item style="float: right" (click)="closeDialog()">
+  <mat-icon>close</mat-icon>
+</button>
+<div style="clear: right">
+  <amplify-authenticator usernameAlias="email">
+    <amplify-sign-up
+      slot="sign-up"
+      usernameAlias="email"
+      [formFields]="formFields"
+    ></amplify-sign-up>
+    <amplify-sign-in slot="sign-in" usernameAlias="email"></amplify-sign-in>
+  </amplify-authenticator>
+</div>

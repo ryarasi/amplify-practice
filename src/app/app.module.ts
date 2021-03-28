@@ -9,11 +9,18 @@ import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import { Styling } from './styling.imports';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AmplifyUIAngularModule, Styling, BrowserAnimationsModule],
+  declarations: [AppComponent, LoginComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AmplifyUIAngularModule,
+    Styling,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

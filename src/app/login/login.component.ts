@@ -6,20 +6,20 @@ import {
   AuthState,
 } from '@aws-amplify/ui-components';
 import { FormFieldTypes } from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
-import { LoginComponent } from './login/login.component';
 
+/**
+ * @title Dialog with header, scrollable content and actions
+ */
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'login-component',
+  templateUrl: 'login.component.html',
 })
-export class AppComponent {
-  title = 'amplify-angular-auth';
+export class LoginComponent {
   user: CognitoUserInterface | undefined;
   authState: AuthState;
   formFields: FormFieldTypes;
 
-  constructor(private ref: ChangeDetectorRef, public dialog: MatDialog) {
+  constructor(private ref: ChangeDetectorRef, private dialog: MatDialog) {
     this.formFields = [
       {
         type: 'email',
@@ -42,20 +42,16 @@ export class AppComponent {
     ];
   }
 
-  showLoginDialog() {
-    const dialogRef = this.dialog.open(LoginComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
   ngOnInit() {
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState;
       this.user = authData as CognitoUserInterface;
       this.ref.detectChanges();
     });
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
   }
 
   ngOnDestroy() {
