@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import {
   onAuthUIStateChange,
   CognitoUserInterface,
@@ -20,7 +21,11 @@ export class AppComponent {
   loggedIn: Boolean;
   formFields: FormFieldTypes;
 
-  constructor(private ref: ChangeDetectorRef, public dialog: MatDialog) {
+  constructor(
+    private ref: ChangeDetectorRef,
+    public dialog: MatDialog,
+    private router: Router
+  ) {
     console.log('this.logged in in constructor', {
       loggedIn: this.loggedIn,
       user: this.user,
@@ -71,6 +76,11 @@ export class AppComponent {
         user: this.user,
         authState: this.authState,
       });
+      if (this.loggedIn) {
+        this.router.navigateByUrl('dashboard');
+      } else {
+        this.router.navigateByUrl('');
+      }
       this.ref.detectChanges();
     });
   }
