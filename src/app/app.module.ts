@@ -14,10 +14,18 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { SupportComponent } from './support/support.component';
+import { AuthenticationGuard } from './authentication.guard';
 
 Amplify.configure(awsconfig);
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, HomeComponent, ProfileComponent, AccountComponent, SupportComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    HomeComponent,
+    ProfileComponent,
+    AccountComponent,
+    SupportComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,7 +33,7 @@ Amplify.configure(awsconfig);
     Styling,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [AuthenticationGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
