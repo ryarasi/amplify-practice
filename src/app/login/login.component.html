@@ -1,6 +1,15 @@
 <button mat-menu-item style="float: right" (click)="closeDialog()">
   <mat-icon>close</mat-icon>
 </button>
+<p>
+  Don't have an account?
+  <a
+    href="https://forms.gle/Nteo4DVbNwvspVRH8"
+    target="_blank"
+    rel="noreferrer noopener"
+    >Learn more</a
+  >.
+</p>
 <div style="clear: right">
   <amplify-authenticator usernameAlias="email">
     <amplify-sign-up
@@ -8,6 +17,8 @@
       usernameAlias="email"
       [formFields]="formFields"
     ></amplify-sign-up>
-    <amplify-sign-in slot="sign-in" usernameAlias="email"></amplify-sign-in>
+    <amplify-sign-in slot="sign-in" usernameAlias="email" hideSignUp
+      ><div slot="federated-buttons"></div
+    ></amplify-sign-in>
   </amplify-authenticator>
 </div>

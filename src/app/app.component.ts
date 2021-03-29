@@ -6,7 +6,6 @@ import {
   CognitoUserInterface,
   AuthState,
 } from '@aws-amplify/ui-components';
-import { FormFieldTypes } from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
 import { LoginComponent } from './login/login.component';
 
 @Component({
@@ -19,7 +18,6 @@ export class AppComponent {
   user: CognitoUserInterface | undefined;
   authState: AuthState;
   loggedIn: Boolean;
-  formFields: FormFieldTypes;
 
   constructor(
     private ref: ChangeDetectorRef,
@@ -31,26 +29,6 @@ export class AppComponent {
       user: this.user,
       authState: this.authState,
     });
-    this.formFields = [
-      {
-        type: 'email',
-        label: 'Email',
-        placeholder: 'Email ID',
-        required: true,
-      },
-      {
-        type: 'password',
-        label: 'Password',
-        placeholder: 'Password',
-        required: true,
-      },
-      {
-        type: 'phone_number',
-        label: 'Phone',
-        placeholder: 'Phone number',
-        required: false,
-      },
-    ];
   }
 
   showLoginDialog() {

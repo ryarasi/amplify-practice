@@ -31,6 +31,12 @@ export class LoginComponent {
   ) {
     this.formFields = [
       {
+        type: 'username',
+        label: 'Usxername',
+        placeholder: 'Pick a username',
+        required: true,
+      },
+      {
         type: 'email',
         label: 'Email',
         placeholder: 'Email ID',
