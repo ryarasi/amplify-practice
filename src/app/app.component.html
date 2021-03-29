@@ -1,7 +1,7 @@
 <p>
   <mat-toolbar color="white" style="border-bottom: 1px solid #0099ff">
     <span
-      ><a [routerLink]=""
+      ><a [routerLink]="['']"
         ><img style="height: 48px" src="assets/images/logo.svg" /></a
     ></span>
     <span class="example-spacer"></span>
@@ -15,7 +15,7 @@
 </div>
 
 <ng-template #homePage>
-  <div style="text-align: center"><h1>Hero Block & Student Profiles</h1></div>
+  <app-home></app-home>
 </ng-template>
 
 <ng-template #loggedOutMenu>
@@ -37,6 +37,10 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" color="#0099ff">
+    <button mat-menu-item [routerLink]="['dashboard']">
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </button>
     <button mat-menu-item>
       <mat-icon>account_circle</mat-icon>
       <span>Profile</span>
