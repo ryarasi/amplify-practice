@@ -1,14 +1,8 @@
 import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import {
-  onAuthUIStateChange,
-  CognitoUserInterface,
-  AuthState,
-} from '@aws-amplify/ui-components';
+import { Auth } from 'aws-amplify';
 import { environment } from 'src/environments/environment';
-import { LoginComponent } from './login/login.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,60 +10,35 @@ import { LoginComponent } from './login/login.component';
 })
 export class AppComponent {
   title = 'amplify-angular-auth';
-  user: CognitoUserInterface | undefined;
-  authState: AuthState;
-  loggedIn: Boolean;
   cognitoClientId = environment.cognitoClientId;
   cognitoCallbackURL = environment.cognitoCallbackURL;
   cognitoDomainName = environment.cognitoDomainName;
   loginurl = `https://${this.cognitoDomainName}/login?response_type=code&client_id=${this.cognitoClientId}&redirect_uri=${this.cognitoCallbackURL}`;
+  isUserLoggedIn: boolean = false;
+  userName: string = '';
 
-  constructor(
-    private ref: ChangeDetectorRef,
-    public dialog: MatDialog,
-    private router: Router
-  ) {
-    console.log('loginURL ', this.loginurl);
-    console.log('this.logged in in constructor', {
-      loggedIn: this.loggedIn,
-      user: this.user,
-      authState: this.authState,
-    });
+  ngOnInit(): void {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log(user);
+        this.isUserLoggedIn = true;
+        this.userName = user?.attributes?.name;
+      })
+      .catch((err) => console.log(err));
   }
 
-  showLoginDialog() {
-    const dialogRef = this.dialog.open(LoginComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
+  login() {
+    window.location.assign(this.loginurl);
   }
 
-  ngOnInit() {
-    console.log('this.logged in in the ngOnInit', {
-      loggedIn: this.loggedIn,
-      user: this.user,
-      authState: this.authState,
-    });
-    onAuthUIStateChange((authState, authData) => {
-      this.authState = authState;
-      this.user = authData as CognitoUserInterface;
-      this.loggedIn = this.authState === 'signedin' && this.user ? true : false;
-      console.log('this.logged in in the ngOnInit', {
-        loggedIn: this.loggedIn,
-        user: this.user,
-        authState: this.authState,
-      });
-      if (this.loggedIn) {
-        this.router.navigateByUrl('dashboard');
-      } else {
-        this.router.navigateByUrl('');
-      }
-      this.ref.detectChanges();
-    });
+  logout() {
+    this.isUserLoggedIn = false;
+    Auth.signOut()
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   }
 
-  ngOnDestroy() {
-    return onAuthUIStateChange;
-  }
+  constructor() {}
+
+  ngOnDestroy() {}
 }

@@ -5,12 +5,12 @@
         ><img style="height: 48px" src="assets/images/logo.svg" /></a
     ></span>
     <span class="example-spacer"></span>
-    <ng-container *ngIf="!loggedIn; else loggedInMenu">
+    <ng-container *ngIf="!isUserLoggedIn; else loggedInMenu">
       <span *ngTemplateOutlet="loggedOutMenu"></span
     ></ng-container>
   </mat-toolbar>
 </p>
-<div *ngIf="loggedIn; else homePage" class="App">
+<div *ngIf="isUserLoggedIn; else homePage" class="App">
   <router-outlet></router-outlet>
 </div>
 
@@ -19,7 +19,7 @@
 </ng-template>
 
 <ng-template #loggedOutMenu>
-  <a [href]="loginurl">
+  <a (click)="login()">
     <button mat-menu-item>
       <mat-icon>login</mat-icon>
       <span>Login</span>
@@ -49,8 +49,9 @@
       <mat-icon>supporting_agent</mat-icon>
       <span>Support</span>
     </button>
-    <div>
-      <amplify-sign-out></amplify-sign-out>
-    </div>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
   </mat-menu>
 </ng-template>
