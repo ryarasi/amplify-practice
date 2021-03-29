@@ -11,10 +11,13 @@ import { Styling } from './styling.imports';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AccountComponent } from './account/account.component';
+import { SupportComponent } from './support/support.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, HomeComponent],
+  declarations: [AppComponent, DashboardComponent, HomeComponent, ProfileComponent, AccountComponent, SupportComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
