@@ -1,3 +1,4 @@
+import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -6,8 +7,8 @@ import {
   CognitoUserInterface,
   AuthState,
 } from '@aws-amplify/ui-components';
+import { environment } from 'src/environments/environment';
 import { LoginComponent } from './login/login.component';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,12 +19,17 @@ export class AppComponent {
   user: CognitoUserInterface | undefined;
   authState: AuthState;
   loggedIn: Boolean;
+  cognitoClientId = environment.cognitoClientId;
+  cognitoCallbackURL = environment.cognitoCallbackURL;
+  cognitoDomainName = environment.cognitoDomainName;
+  loginurl = `https://${this.cognitoDomainName}/login?response_type=code&client_id=${this.cognitoClientId}&redirect_uri=${this.cognitoCallbackURL}`;
 
   constructor(
     private ref: ChangeDetectorRef,
     public dialog: MatDialog,
     private router: Router
   ) {
+    console.log('loginURL ', this.loginurl);
     console.log('this.logged in in constructor', {
       loggedIn: this.loggedIn,
       user: this.user,

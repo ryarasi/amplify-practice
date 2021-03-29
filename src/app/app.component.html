@@ -19,7 +19,7 @@
 </ng-template>
 
 <ng-template #loggedOutMenu>
-  <a (click)="showLoginDialog()">
+  <a [href]="loginurl">
     <button mat-menu-item>
       <mat-icon>login</mat-icon>
       <span>Login</span>
