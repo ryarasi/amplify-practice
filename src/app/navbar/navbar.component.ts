@@ -1,30 +1,28 @@
 import { Component, Input, OnInit } from '@angular/core';
-import Auth from '@aws-amplify/auth';
-import { environment } from 'src/environments/environment';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { LoginAction, LogoutAction } from '../shared/ngxs/auth/auth.actions';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  @Input() isUserLoggedIn: Boolean;
-  cognitoClientId = environment.cognitoClientId;
-  cognitoCallbackURL = environment.cognitoCallbackURL;
-  cognitoDomainName = environment.cognitoDomainName;
-  loginurl = `https://${this.cognitoDomainName}/login?response_type=code&client_id=${this.cognitoClientId}&redirect_uri=${this.cognitoCallbackURL}`;
+  isUserLoggedIn$: Observable<Boolean>;
+  isUserLoggedIn: Boolean;
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor(private store: Store) {
+    this.isUserLoggedIn$ = this.store.select((state) => state.isUserLoggedIn);
+    this.isUserLoggedIn$.subscribe((val) => (this.isUserLoggedIn = val));
+  }
 
   login() {
-    window.location.assign(this.loginurl);
+    this.store.dispatch(new LoginAction());
   }
 
   logout() {
-    this.isUserLoggedIn = false;
-    Auth.signOut()
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    this.store.dispatch(new LogoutAction());
   }
+  ngOnInit(): void {}
 }

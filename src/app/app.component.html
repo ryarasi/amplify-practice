@@ -1,4 +1,4 @@
-<app-navbar [isUserLoggedIn]="isUserLoggedIn"></app-navbar>
+<app-navbar></app-navbar>
 <div *ngIf="isUserLoggedIn; else homePage">
   <router-outlet></router-outlet>
 </div>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Auth } from 'aws-amplify';
+import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { AuthenticationCheckAction } from './shared/ngxs/auth/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -8,21 +10,21 @@ import { Auth } from 'aws-amplify';
 })
 export class AppComponent {
   title = 'amplify-angular-auth';
-  isUserLoggedIn: boolean = false;
-  userName: string = '';
+  isUserLoggedIn$: Observable<Boolean>;
+  isUserLoggedIn: Boolean;
 
-  ngOnInit(): void {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log(user);
-        this.isUserLoggedIn = true;
-        this.userName = user?.attributes?.name;
-        console.log('Name of the user ', this.userName);
-      })
-      .catch((err) => console.log(err));
+  constructor(private store: Store) {
+    this.isUserLoggedIn$ = this.store.select((state) => state.isUserLoggedIn);
+    this.isUserLoggedIn$.subscribe((val) => (this.isUserLoggedIn = val));
   }
 
-  constructor() {}
+  ngOnInit(): void {
+    this.checkAuthentication();
+  }
+
+  checkAuthentication() {
+    this.store.dispatch(new AuthenticationCheckAction());
+  }
 
   ngOnDestroy() {}
 }
