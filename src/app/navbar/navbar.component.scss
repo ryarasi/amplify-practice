@@ -9,3 +9,16 @@
 #logo:hover {
   height: 50px;
 }
+
+#login-button {
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+#login-button > h1 {
+  font-size: 1.5em;
+}
+
+#login-button:visited {
+  color: inherit;
+}
