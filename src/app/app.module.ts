@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { SupportComponent } from './support/support.component';
 import { AuthenticationGuard } from './authentication.guard';
+import { NavbarComponent } from './navbar/navbar.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -25,6 +26,7 @@ Amplify.configure(awsconfig);
     ProfileComponent,
     AccountComponent,
     SupportComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
