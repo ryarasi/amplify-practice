@@ -16,6 +16,8 @@ import { AccountComponent } from './account/account.component';
 import { SupportComponent } from './support/support.component';
 import { AuthenticationGuard } from './authentication.guard';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -34,6 +36,9 @@ Amplify.configure(awsconfig);
     AmplifyUIAngularModule,
     Styling,
     BrowserAnimationsModule,
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production,
+    }),
   ],
   providers: [AuthenticationGuard],
   bootstrap: [AppComponent],
