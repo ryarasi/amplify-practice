@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { LoginAction, LogoutAction } from '../shared/ngxs/auth/auth.actions';
+import { AuthState } from '../shared/ngxs/auth/auth.state';
 
 @Component({
   selector: 'app-navbar',
@@ -9,12 +10,14 @@ import { LoginAction, LogoutAction } from '../shared/ngxs/auth/auth.actions';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  isUserLoggedIn$: Observable<Boolean>;
-  isUserLoggedIn: Boolean;
+  @Select(AuthState.getIsLoggedIn)
+  isLoggedIn$: Observable<Boolean>;
+  isLoggedIn: Boolean;
 
   constructor(private store: Store) {
-    this.isUserLoggedIn$ = this.store.select((state) => state.isUserLoggedIn);
-    this.isUserLoggedIn$.subscribe((val) => (this.isUserLoggedIn = val));
+    this.isLoggedIn$.subscribe((val) => {
+      this.isLoggedIn = val;
+    });
   }
 
   login() {

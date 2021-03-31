@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthenticationCheckAction } from './shared/ngxs/auth/auth.actions';
+import { AuthState } from './shared/ngxs/auth/auth.state';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,14 @@ import { AuthenticationCheckAction } from './shared/ngxs/auth/auth.actions';
 })
 export class AppComponent {
   title = 'amplify-angular-auth';
-  isUserLoggedIn$: Observable<Boolean>;
-  isUserLoggedIn: Boolean;
+  @Select(AuthState.getIsLoggedIn)
+  isLoggedIn$: Observable<Boolean>;
+  isLoggedIn: Boolean;
 
   constructor(private store: Store) {
-    this.isUserLoggedIn$ = this.store.select((state) => state.isUserLoggedIn);
-    this.isUserLoggedIn$.subscribe((val) => (this.isUserLoggedIn = val));
+    this.isLoggedIn$.subscribe((val) => {
+      this.isLoggedIn = val;
+    });
   }
 
   ngOnInit(): void {

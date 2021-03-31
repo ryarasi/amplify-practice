@@ -17,6 +17,7 @@ import { SupportComponent } from './support/support.component';
 import { AuthenticationGuard } from './authentication.guard';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
 import { AuthState } from './shared/ngxs/auth/auth.state';
 
@@ -37,9 +38,12 @@ Amplify.configure(awsconfig);
     AmplifyUIAngularModule,
     Styling,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([AuthState], {
-      developmentMode: !environment.production,
-    }),
+    [
+      NgxsModule.forRoot([AuthState], {
+        developmentMode: !environment.production,
+      }),
+      NgxsReduxDevtoolsPluginModule.forRoot(),
+    ],
   ],
   providers: [AuthenticationGuard],
   bootstrap: [AppComponent],

@@ -7,11 +7,13 @@ import {
 } from './auth.actions';
 import { Auth } from 'aws-amplify';
 import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
 
 @State<AuthStateModel>({
   name: 'authState',
   defaults: defaultAuthState,
 })
+@Injectable()
 export class AuthState {
   cognitoClientId = environment.cognitoClientId;
   cognitoCallbackURL = environment.cognitoCallbackURL;
@@ -19,7 +21,8 @@ export class AuthState {
   loginurl = `https://${this.cognitoDomainName}/login?response_type=code&client_id=${this.cognitoClientId}&redirect_uri=${this.cognitoCallbackURL}`;
 
   @Selector()
-  static getIsUserLoggedIn(state: AuthStateModel) {
+  static getIsLoggedIn(state: AuthStateModel) {
+    console.log('from getIsLoggedIn selector =>', state);
     return state.isLoggedIn;
   }
 
@@ -29,25 +32,20 @@ export class AuthState {
   }
 
   @Action(AuthenticationCheckAction)
-  checkLogin({ getState, patchState }): StateContext<AuthStateModel> {
+  checkLogin({ getState, patchState }: StateContext<AuthStateModel>) {
     const state = getState();
     Auth.currentAuthenticatedUser()
       .then((currentUser) => {
-        const isUserLoggedIn = true;
-        const userName = currentUser?.attributes?.name;
-        patchState({
-          currentUser,
-          isUserLoggedIn,
-          userName,
-        });
+        const isLoggedIn = true;
+        const username = currentUser?.attributes?.name;
+        patchState({ isLoggedIn, username });
       })
       .catch((err) => console.log(err));
     return;
   }
 
   @Action(LogoutAction)
-  logout({ patchState }): StateContext<AuthStateModel> {
-    const isUserLoggedIn = false;
+  logout({ patchState }: StateContext<AuthStateModel>) {
     Auth.signOut()
       .then((data) => {
         console.log(data);

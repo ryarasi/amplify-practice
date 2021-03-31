@@ -4,7 +4,7 @@
       ><a [routerLink]="['']"><img id="logo" src="assets/images/logo.svg" /></a
     ></span>
     <span class="example-spacer"></span>
-    <ng-container *ngIf="!isUserLoggedIn; else loggedInMenu">
+    <ng-container *ngIf="!isLoggedIn; else loggedInMenu">
       <span *ngTemplateOutlet="loggedOutMenu"></span
     ></ng-container>
   </mat-toolbar>
