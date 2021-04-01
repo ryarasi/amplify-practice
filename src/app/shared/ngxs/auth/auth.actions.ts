@@ -1,5 +1,3 @@
-import { AuthStateModel } from './auth.model';
-
 export class LoginAction {
   static readonly type = '[AUTH] Login';
 

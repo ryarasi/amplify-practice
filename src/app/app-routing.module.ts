@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountComponent } from './account/account.component';
+import { AccountComponent } from './pages/account/account.component';
 import { AuthenticationGuard } from './authentication.guard';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SupportComponent } from './support/support.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { SupportComponent } from './pages/support/support.component';
 
 const routes: Routes = [
   {
