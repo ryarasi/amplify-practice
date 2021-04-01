@@ -1,24 +1,29 @@
-<mat-tab-group mat-align-tabs="center" color="primary">
-  <mat-tab label="Admin">
+<mat-tab-group
+  mat-align-tabs="center"
+  color="primary"
+  [(selectedIndex)]="activeTab"
+  (selectedTabChange)="navigate($event)"
+>
+  <mat-tab label="admin">
     <div class="mat-tab"><app-admin-dashboard></app-admin-dashboard></div>
   </mat-tab>
-  <mat-tab label="Announcements">
+  <mat-tab label="announcement">
     <div class="mat-tab">
       <app-announcement-dashboard></app-announcement-dashboard>
     </div>
   </mat-tab>
-  <mat-tab label="Assignments">
+  <mat-tab label="assignment">
     <div class="mat-tab">
       <app-assignment-dashboard></app-assignment-dashboard>
     </div>
   </mat-tab>
-  <mat-tab label="Groups">
+  <mat-tab label="group">
     <div class="mat-tab"><app-course-dashboard></app-course-dashboard></div>
   </mat-tab>
-  <mat-tab label="Courses">
+  <mat-tab label="course">
     <div class="mat-tab"><app-group-dashboard></app-group-dashboard></div>
   </mat-tab>
-  <mat-tab label="Reports">
+  <mat-tab label="report">
     <div class="mat-tab"><app-report-dashboard></app-report-dashboard></div>
   </mat-tab>
 </mat-tab-group>
