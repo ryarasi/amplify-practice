@@ -25,7 +25,7 @@ export class AuthenticationGuard implements CanActivate {
         this._router.navigateByUrl('/');
         this.store.dispatch(
           new ShowNotificationAction({
-            message: 'You need to be logged in to do that',
+            message: 'You must to be logged in to do that!',
           })
         );
         return false;

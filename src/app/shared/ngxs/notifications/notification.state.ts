@@ -28,6 +28,7 @@ export class NotificationState {
     patchState({ message, action, duration });
     this.snackbar.open(message, action, {
       duration,
+      panelClass: ['color:#0099ff;'],
     });
   }
 }
