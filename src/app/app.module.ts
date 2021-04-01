@@ -15,7 +15,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SupportComponent } from './pages/support/support.component';
 import { AuthenticationGuard } from './authentication.guard';
-import { NavbarComponent } from './pages/navbar/navbar.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
@@ -27,12 +28,13 @@ Amplify.configure(awsconfig);
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    LoadingComponent,
     DashboardComponent,
     HomeComponent,
     ProfileComponent,
     AccountComponent,
     SupportComponent,
-    NavbarComponent,
   ],
   imports: [
     BrowserModule,

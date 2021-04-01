@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div *ngIf="isLoggedIn; else homePage">
+<div *ngIf="isLoggedIn$ | async; else homePage">
   <router-outlet></router-outlet>
 </div>
 
@@ -7,7 +7,4 @@
   <app-home></app-home>
 </ng-template>
 
-<div *ngIf="showLoading$ | async" class="center">
-  <div id="loader"></div>
-  <p id="loading-message">{{ loadingMessage$ | async }}</p>
-</div>
+<app-loading></app-loading>

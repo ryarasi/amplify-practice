@@ -72,7 +72,7 @@ export class AuthState {
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,
-            message: 'Authenticated...',
+            message: 'Authenticated!',
           })
         );
       });
@@ -101,7 +101,7 @@ export class AuthState {
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,
-            message: 'Logging out...',
+            message: 'Logged out!',
           })
         );
       })
@@ -112,7 +112,7 @@ export class AuthState {
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,
-            message: 'Logging out...',
+            message: 'Logged out!',
           })
         );
       });
