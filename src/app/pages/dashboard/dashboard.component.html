@@ -1,1 +1,24 @@
-<div style="text-align: center"><h1>Dashboard</h1></div>
+<mat-tab-group mat-align-tabs="center" color="primary">
+  <mat-tab label="Admin">
+    <div class="mat-tab"><app-admin-dashboard></app-admin-dashboard></div>
+  </mat-tab>
+  <mat-tab label="Announcements">
+    <div class="mat-tab">
+      <app-announcement-dashboard></app-announcement-dashboard>
+    </div>
+  </mat-tab>
+  <mat-tab label="Assignments">
+    <div class="mat-tab">
+      <app-assignment-dashboard></app-assignment-dashboard>
+    </div>
+  </mat-tab>
+  <mat-tab label="Groups">
+    <div class="mat-tab"><app-course-dashboard></app-course-dashboard></div>
+  </mat-tab>
+  <mat-tab label="Courses">
+    <div class="mat-tab"><app-group-dashboard></app-group-dashboard></div>
+  </mat-tab>
+  <mat-tab label="Reports">
+    <div class="mat-tab"><app-report-dashboard></app-report-dashboard></div>
+  </mat-tab>
+</mat-tab-group>

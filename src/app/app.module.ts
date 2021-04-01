@@ -23,6 +23,12 @@ import { environment } from 'src/environments/environment';
 import { AuthState } from './shared/ngxs/auth/auth.state';
 import { NotificationState } from './shared/ngxs/notifications/notification.state';
 import { LoadingState } from './shared/ngxs/loading/loading.state';
+import { AdminDashboardComponent } from './pages/dashboard/tabs/admin-dashboard/admin-dashboard.component';
+import { AnnouncementDashboardComponent } from './pages/dashboard/tabs/announcement-dashboard/announcement-dashboard.component';
+import { AssignmentDashboardComponent } from './pages/dashboard/tabs/assignment-dashboard/assignment-dashboard.component';
+import { GroupDashboardComponent } from './pages/dashboard/tabs/group-dashboard/group-dashboard.component';
+import { CourseDashboardComponent } from './pages/dashboard/tabs/course-dashboard/course-dashboard.component';
+import { ReportDashboardComponent } from './pages/dashboard/tabs/report-dashboard/report-dashboard.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -35,6 +41,12 @@ Amplify.configure(awsconfig);
     ProfileComponent,
     AccountComponent,
     SupportComponent,
+    AdminDashboardComponent,
+    AnnouncementDashboardComponent,
+    AssignmentDashboardComponent,
+    GroupDashboardComponent,
+    CourseDashboardComponent,
+    ReportDashboardComponent,
   ],
   imports: [
     BrowserModule,
