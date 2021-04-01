@@ -1,11 +1,11 @@
 export interface NotificationStateModel {
-  message: String;
-  action: String;
-  duration: number;
+  message: string;
+  action?: string;
+  duration?: number;
 }
 
 export const defaultNotificationState: NotificationStateModel = {
   message: '',
   action: 'Ok',
-  duration: 2000,
+  duration: 3000,
 };

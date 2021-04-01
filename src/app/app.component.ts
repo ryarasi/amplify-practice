@@ -3,6 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthenticationCheckAction } from './shared/ngxs/auth/auth.actions';
 import { AuthState } from './shared/ngxs/auth/auth.state';
+import { LoadingState } from './shared/ngxs/loading/loading.state';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,10 @@ import { AuthState } from './shared/ngxs/auth/auth.state';
 })
 export class AppComponent {
   title = 'amplify-angular-auth';
+  @Select(LoadingState.getShowLoading)
+  showLoading$: Observable<Boolean>;
+  @Select(LoadingState.getLoadingMessage)
+  loadingMessage$: Observable<String>;
   @Select(AuthState.getIsLoggedIn)
   isLoggedIn$: Observable<Boolean>;
   isLoggedIn: Boolean;

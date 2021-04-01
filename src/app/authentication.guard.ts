@@ -7,10 +7,12 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import Auth from '@aws-amplify/auth';
+import { Store } from '@ngxs/store';
+import { ShowNotificationAction } from './shared/ngxs/notifications/notification.actions';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, private store: Store) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -21,6 +23,11 @@ export class AuthenticationGuard implements CanActivate {
       })
       .catch(() => {
         this._router.navigateByUrl('/');
+        this.store.dispatch(
+          new ShowNotificationAction({
+            message: 'You need to be logged in to do that',
+          })
+        );
         return false;
       });
   }

@@ -20,6 +20,8 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
 import { AuthState } from './shared/ngxs/auth/auth.state';
+import { NotificationState } from './shared/ngxs/notifications/notification.state';
+import { LoadingState } from './shared/ngxs/loading/loading.state';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -39,7 +41,7 @@ Amplify.configure(awsconfig);
     Styling,
     BrowserAnimationsModule,
     [
-      NgxsModule.forRoot([AuthState], {
+      NgxsModule.forRoot([AuthState, NotificationState, LoadingState], {
         developmentMode: !environment.production,
       }),
       NgxsReduxDevtoolsPluginModule.forRoot(),

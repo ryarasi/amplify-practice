@@ -6,3 +6,8 @@
 <ng-template #homePage>
   <app-home></app-home>
 </ng-template>
+
+<div *ngIf="showLoading$ | async" class="center">
+  <div id="loader"></div>
+  <p id="loading-message">{{ loadingMessage$ | async }}</p>
+</div>

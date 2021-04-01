@@ -17,9 +17,14 @@ export class NotificationState {
 
   @Action(ShowNotificationAction)
   showNotification(
-    { patchState }: StateContext<NotificationStateModel>,
-    { message, action, duration }: ShowNotificationAction
+    { getState, patchState }: StateContext<NotificationStateModel>,
+    { payload }: ShowNotificationAction
   ) {
+    const state = getState();
+    let { action, duration } = state;
+    const { message } = payload;
+    action = payload.action ? payload.action : action;
+    duration = payload.duration ? payload.duration : duration;
     patchState({ message, action, duration });
     this.snackbar.open(message, action, {
       duration,
