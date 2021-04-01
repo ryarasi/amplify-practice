@@ -1,13 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+const ADMIN = 'Admin';
+const ANNOUNCEMENTS = 'Announcements';
+const ASSIGNMENTS = 'Assignments';
+const GROUPS = 'Groups';
+const COURSES = 'Courses';
+const REPORTS = 'Reports';
+
 const tabIndexList = {
-  admin: 1,
-  announcement: 2,
-  assignment: 3,
-  course: 4,
-  group: 5,
-  report: 6,
+  0: ADMIN,
+  1: ANNOUNCEMENTS,
+  2: ASSIGNMENTS,
+  3: GROUPS,
+  4: COURSES,
+  5: REPORTS,
 };
 
 @Component({
@@ -16,26 +23,39 @@ const tabIndexList = {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  activeTab = 0;
+  activeTabIndex = '1';
+  tabIndexList = tabIndexList;
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.activeTab = tabIndexList[params['tab']]
-        ? tabIndexList[params['tab']]
-        : this.activeTab;
+      const tabName = params['tab'];
+      const indexByParams = getIndexFromTabName(tabName);
+      if (indexByParams === 'NaN') {
+        this.onTabChange({ index: '0' });
+      }
+      this.activeTabIndex = indexByParams;
     });
   }
-  navigate($event) {
-    const tabName = $event['tab']['textLabel'];
-    console.log('navigate to ', $event, 'tabName', tabName);
-    this.router.navigate([this.route], {
+
+  onTabChange($event) {
+    const tabIndex = $event['index'];
+    this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { tab: ['tabName'] },
+      queryParams: { tab: this.tabIndexList[tabIndex] },
       queryParamsHandling: 'merge',
-      // preserve the existing query params in the route
-      skipLocationChange: true,
-      // do not trigger navigation
+      skipLocationChange: false,
     });
   }
 }
+
+const getIndexFromTabName = (tabName: string): string => {
+  const tabIndexKeys = Object.keys(tabIndexList);
+  let indexByParams = parseInt(
+    tabIndexKeys.find((key) => {
+      return tabIndexList[key] == tabName;
+    })
+  );
+
+  return indexByParams.toString();
+};

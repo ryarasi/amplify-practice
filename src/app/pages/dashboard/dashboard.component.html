@@ -1,29 +1,29 @@
 <mat-tab-group
   mat-align-tabs="center"
   color="primary"
-  [(selectedIndex)]="activeTab"
-  (selectedTabChange)="navigate($event)"
+  [(selectedIndex)]="activeTabIndex"
+  (selectedTabChange)="onTabChange($event)"
 >
-  <mat-tab label="admin">
+  <mat-tab [label]="tabIndexList[0]">
     <div class="mat-tab"><app-admin-dashboard></app-admin-dashboard></div>
   </mat-tab>
-  <mat-tab label="announcement">
+  <mat-tab [label]="tabIndexList[1]">
     <div class="mat-tab">
       <app-announcement-dashboard></app-announcement-dashboard>
     </div>
   </mat-tab>
-  <mat-tab label="assignment">
+  <mat-tab [label]="tabIndexList[2]">
     <div class="mat-tab">
       <app-assignment-dashboard></app-assignment-dashboard>
     </div>
   </mat-tab>
-  <mat-tab label="group">
+  <mat-tab [label]="tabIndexList[3]">
     <div class="mat-tab"><app-course-dashboard></app-course-dashboard></div>
   </mat-tab>
-  <mat-tab label="course">
+  <mat-tab [label]="tabIndexList[4]">
     <div class="mat-tab"><app-group-dashboard></app-group-dashboard></div>
   </mat-tab>
-  <mat-tab label="report">
+  <mat-tab [label]="tabIndexList[5]">
     <div class="mat-tab"><app-report-dashboard></app-report-dashboard></div>
   </mat-tab>
 </mat-tab-group>
