@@ -7,25 +7,30 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SupportComponent } from './pages/support/support.component';
 
+export const DASHBOARD_ROUTE = 'dashboard';
+export const PROFILE_ROUTE = 'profile';
+export const ACCOUNT_ROUTE = 'account';
+export const SUPPORT_ROUTE = 'support';
+
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: DASHBOARD_ROUTE,
     component: DashboardComponent,
     canActivate: [AuthenticationGuard],
   },
   {
-    path: 'profile',
+    path: PROFILE_ROUTE,
     component: ProfileComponent,
     pathMatch: 'full',
   },
   {
-    path: 'account',
+    path: ACCOUNT_ROUTE,
     component: AccountComponent,
     canActivate: [AuthenticationGuard],
     pathMatch: 'full',
   },
   {
-    path: 'support',
+    path: SUPPORT_ROUTE,
     component: SupportComponent,
     canActivate: [AuthenticationGuard],
     pathMatch: 'full',

@@ -42,7 +42,6 @@ export class AuthState {
 
   @Action(AuthenticationCheckAction)
   checkLogin({ getState, patchState }: StateContext<AuthStateModel>) {
-    console.log('check login action initiated...');
     const state = getState();
     this.store.dispatch(
       new ToggleLoadingScreen({
@@ -52,9 +51,12 @@ export class AuthState {
     );
     Auth.currentAuthenticatedUser()
       .then((currentUser) => {
+        console.log('The currentUser => ', currentUser);
+        const groups =
+          currentUser.signInUserSession.idToken.payload['cognito:groups'];
         const isLoggedIn = true;
-        const username = currentUser?.attributes?.name;
-        patchState({ isLoggedIn, username });
+        const username = currentUser?.username;
+        patchState({ isLoggedIn, username, groups });
         this.store.dispatch(
           new ShowNotificationAction({
             message: 'Login Successful!',

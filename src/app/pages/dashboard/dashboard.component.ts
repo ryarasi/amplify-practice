@@ -1,19 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DASHBOARD_ROUTE } from 'src/app/app-routing.module';
 
 const ADMIN = 'Admin';
 const ANNOUNCEMENTS = 'Announcements';
 const ASSIGNMENTS = 'Assignments';
-const GROUPS = 'Groups';
 const COURSES = 'Courses';
+const GROUPS = 'Groups';
 const REPORTS = 'Reports';
 
 const tabIndexList = {
   0: ADMIN,
   1: ANNOUNCEMENTS,
   2: ASSIGNMENTS,
-  3: GROUPS,
-  4: COURSES,
+  3: COURSES,
+  4: GROUPS,
   5: REPORTS,
 };
 
@@ -32,7 +33,7 @@ export class DashboardComponent implements OnInit {
       const tabName = params['tab'];
       const indexByParams = getIndexFromTabName(tabName);
       if (indexByParams === 'NaN') {
-        this.onTabChange({ index: '0' });
+        this.router.navigateByUrl(DASHBOARD_ROUTE);
       }
       this.activeTabIndex = indexByParams;
     });
