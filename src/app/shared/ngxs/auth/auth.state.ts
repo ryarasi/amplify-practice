@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
-
 @State<AuthStateModel>({
   name: 'authState',
   defaults: defaultAuthState,
@@ -49,9 +48,18 @@ export class AuthState {
         message: 'Authenticating...',
       })
     );
+
     Auth.currentAuthenticatedUser()
       .then((currentUser) => {
         console.log('The currentUser => ', currentUser);
+        console.log('User attributes', currentUser.attributes);
+        Auth.currentUserInfo()
+          .then((res) => {
+            console.log('Here are the current user info! =>', res);
+          })
+          .catch((err) => {
+            console.log('Current user info failed to fetch', err);
+          });
         const groups =
           currentUser.signInUserSession.idToken.payload['cognito:groups'];
         const isLoggedIn = true;

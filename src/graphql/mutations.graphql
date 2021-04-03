@@ -1,37 +1,484 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateUser(
-  $input: CreateUserInput!
-  $condition: ModelUserConditionInput
+mutation CreateSchool(
+  $input: CreateSchoolInput!
+  $condition: ModelSchoolConditionInput
 ) {
-  createUser(input: $input, condition: $condition) {
+  createSchool(input: $input, condition: $condition) {
     id
     name
-    type
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
 }
-mutation UpdateUser(
-  $input: UpdateUserInput!
-  $condition: ModelUserConditionInput
+mutation UpdateSchool(
+  $input: UpdateSchoolInput!
+  $condition: ModelSchoolConditionInput
 ) {
-  updateUser(input: $input, condition: $condition) {
+  updateSchool(input: $input, condition: $condition) {
     id
     name
-    type
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
 }
-mutation DeleteUser(
-  $input: DeleteUserInput!
-  $condition: ModelUserConditionInput
+mutation DeleteSchool(
+  $input: DeleteSchoolInput!
+  $condition: ModelSchoolConditionInput
 ) {
-  deleteUser(input: $input, condition: $condition) {
+  deleteSchool(input: $input, condition: $condition) {
     id
     name
-    type
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
+  }
+}
+mutation CreateClass(
+  $input: CreateClassInput!
+  $condition: ModelClassConditionInput
+) {
+  createClass(input: $input, condition: $condition) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateClass(
+  $input: UpdateClassInput!
+  $condition: ModelClassConditionInput
+) {
+  updateClass(input: $input, condition: $condition) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteClass(
+  $input: DeleteClassInput!
+  $condition: ModelClassConditionInput
+) {
+  deleteClass(input: $input, condition: $condition) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateMember(
+  $input: CreateMemberInput!
+  $condition: ModelMemberConditionInput
+) {
+  createMember(input: $input, condition: $condition) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    class {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateMember(
+  $input: UpdateMemberInput!
+  $condition: ModelMemberConditionInput
+) {
+  updateMember(input: $input, condition: $condition) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    class {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteMember(
+  $input: DeleteMemberInput!
+  $condition: ModelMemberConditionInput
+) {
+  deleteMember(input: $input, condition: $condition) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    class {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+    owner
   }
 }

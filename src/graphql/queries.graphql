@@ -1,25 +1,239 @@
 # this is an auto generated file. This will be overwritten
-query GetUser($id: ID!) {
-  getUser(id: $id) {
+query GetSchool($id: ID!) {
+  getSchool(id: $id) {
     id
     name
-    type
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
 }
-query ListUsers(
-  $filter: ModelUserFilterInput
+query ListSchools(
+  $filter: ModelSchoolFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listSchools(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
-      type
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
       createdAt
       updatedAt
+    }
+    nextToken
+  }
+}
+query GetClass($id: ID!) {
+  getClass(id: $id) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListClasss(
+  $filter: ModelClassFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listClasss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetMember($id: ID!) {
+  getMember(id: $id) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    class {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListMembers(
+  $filter: ModelMemberFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
     }
     nextToken
   }

@@ -1,28 +1,457 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateUser {
-  onCreateUser {
+subscription OnCreateSchool($admins: String!) {
+  onCreateSchool(admins: $admins) {
     id
     name
-    type
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
 }
-subscription OnUpdateUser {
-  onUpdateUser {
+subscription OnUpdateSchool($admins: String!) {
+  onUpdateSchool(admins: $admins) {
     id
     name
-    type
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
 }
-subscription OnDeleteUser {
-  onDeleteUser {
+subscription OnDeleteSchool($admins: String!) {
+  onDeleteSchool(admins: $admins) {
     id
     name
-    type
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
+  }
+}
+subscription OnCreateClass($admins: String!) {
+  onCreateClass(admins: $admins) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateClass($admins: String!) {
+  onUpdateClass(admins: $admins) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteClass($admins: String!) {
+  onDeleteClass(admins: $admins) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    admins {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      class {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    members {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateMember($owner: String!) {
+  onCreateMember(owner: $owner) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    class {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateMember($owner: String!) {
+  onUpdateMember(owner: $owner) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    class {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteMember($owner: String!) {
+  onDeleteMember(owner: $owner) {
+    id
+    name
+    school {
+      id
+      name
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    class {
+      id
+      name
+      school {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      admins {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+    owner
   }
 }

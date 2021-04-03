@@ -1,5 +1,30 @@
-type User @model {
+type School
+  @model
+  @auth(
+    rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
+  ) {
   id: ID!
   name: String!
-  type: String
+  admins: [Member]
+  classes: [Class] @connection(name: "SchoolClasses")
+  members: [Member] @connection(name: "SchoolMembers")
+}
+
+type Class
+  @model
+  @auth(
+    rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
+  ) {
+  id: ID!
+  name: String!
+  school: School @connection(name: "SchoolClasses")
+  admins: [Member]
+  members: [Member] @connection(name: "ClassMembers")
+}
+
+type Member @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  school: School @connection(name: "SchoolMembers")
+  class: Class @connection(name: "ClassMembers")
 }
