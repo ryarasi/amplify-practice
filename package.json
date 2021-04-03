@@ -24,7 +24,7 @@
     "@aws-amplify/ui-angular": "^1.0.6",
     "@ngxs/store": "^3.7.1",
     "aws-amplify": "^3.3.26",
-    "aws-appsync": "4.0.3",
+    "aws-appsync": "^4.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
