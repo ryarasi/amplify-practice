@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DASHBOARD_ROUTE } from 'src/app/app-routing.module';
+import { uiroutes } from './../../shared/common/ui-routes';
 
 const ADMIN = 'Admin';
 const ANNOUNCEMENTS = 'Announcements';
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
       const tabName = params['tab'];
       const indexByParams = getIndexFromTabName(tabName);
       if (indexByParams === 'NaN') {
-        this.router.navigateByUrl(DASHBOARD_ROUTE);
+        this.router.navigateByUrl(uiroutes.DASHBOARD_ROUTE);
       }
       this.activeTabIndex = indexByParams;
     });

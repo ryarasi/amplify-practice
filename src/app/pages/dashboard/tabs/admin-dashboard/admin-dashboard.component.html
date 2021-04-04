@@ -1,1 +1,11 @@
-<p>admin-dashboard works!</p>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    Sidenav content
+  </mat-sidenav>
+
+  <mat-sidenav-content class="flex-container">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>{{ iconName }}</mat-icon>
+    </button>
+  </mat-sidenav-content>
+</mat-sidenav-container>

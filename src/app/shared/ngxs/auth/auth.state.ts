@@ -51,25 +51,24 @@ export class AuthState {
 
     Auth.currentAuthenticatedUser()
       .then((currentUser) => {
-        console.log('The currentUser => ', currentUser);
-        console.log('User attributes', currentUser.attributes);
-        Auth.currentUserInfo()
-          .then((res) => {
-            console.log('Here are the current user info! =>', res);
-          })
-          .catch((err) => {
-            console.log('Current user info failed to fetch', err);
-          });
+        const attributes = currentUser.attributes;
         const groups =
           currentUser.signInUserSession.idToken.payload['cognito:groups'];
         const isLoggedIn = true;
-        const username = currentUser?.username;
-        patchState({ isLoggedIn, username, groups });
-        this.store.dispatch(
-          new ShowNotificationAction({
-            message: 'Login Successful!',
-          })
-        );
+        const username = attributes.username;
+        const name = attributes.name;
+        patchState({ isLoggedIn, username, name, groups });
+        // Using authTime to check if the user logged in just now...
+        const auth_time =
+          currentUser?.signInUserSession?.idToken?.payload?.auth_time;
+        if (authHappenedJustNow(auth_time)) {
+          // Showing the logged in notification only if the authentication happened recently.
+          this.store.dispatch(
+            new ShowNotificationAction({
+              message: `Welcome back, ${name}!`,
+            })
+          );
+        }
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,
@@ -130,3 +129,13 @@ export class AuthState {
     return;
   }
 }
+
+const authHappenedJustNow = (auth_time) => {
+  const auth_date_time = new Date(1000 * auth_time);
+  const current_date_time = new Date();
+  const minInMilliseconds = 1 * 60 * 1000;
+  return (
+    current_date_time.getTime() - auth_date_time.getTime() <
+    minInMilliseconds / 2
+  );
+};

@@ -1,36 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountComponent } from './pages/account/account.component';
-import { AuthenticationGuard } from './authentication.guard';
+import { AuthenticationGuard } from './shared/common/authentication.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SupportComponent } from './pages/support/support.component';
-
-export const DASHBOARD_ROUTE = 'dashboard';
-export const PROFILE_ROUTE = 'profile';
-export const ACCOUNT_ROUTE = 'account';
-export const SUPPORT_ROUTE = 'support';
+import { uiroutes } from './shared/common/ui-routes';
 
 const routes: Routes = [
   {
-    path: DASHBOARD_ROUTE,
+    path: uiroutes.DASHBOARD_ROUTE,
     component: DashboardComponent,
     canActivate: [AuthenticationGuard],
   },
   {
-    path: PROFILE_ROUTE,
+    path: uiroutes.PROFILE_ROUTE,
     component: ProfileComponent,
     pathMatch: 'full',
   },
   {
-    path: ACCOUNT_ROUTE,
+    path: uiroutes.ACCOUNT_ROUTE,
     component: AccountComponent,
     canActivate: [AuthenticationGuard],
     pathMatch: 'full',
   },
   {
-    path: SUPPORT_ROUTE,
+    path: uiroutes.SUPPORT_ROUTE,
     component: SupportComponent,
     canActivate: [AuthenticationGuard],
     pathMatch: 'full',
