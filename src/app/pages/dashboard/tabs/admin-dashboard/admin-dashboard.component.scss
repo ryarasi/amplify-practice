@@ -1,5 +1,10 @@
-.flex-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.drawer-container {
+  height: 80vh;
+  width: 90vw;
+  padding: 0px;
+}
+.drawer-content {
+  // padding: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  // height: 100vh;
 }

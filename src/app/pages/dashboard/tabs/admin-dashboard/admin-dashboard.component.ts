@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class AdminDashboardComponent implements OnInit {
   opened: boolean;
   iconName = 'arrow_forward';
+  entities: string[] = ['Schools', 'Classes', 'Groups'];
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -1,11 +1,15 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
-    Sidenav content
-  </mat-sidenav>
+<mat-drawer-container class="drawer-container">
+  <mat-drawer #drawer mode="side" [(opened)]="opened" class="drawer-content">
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let entity of entities" [value]="entity">
+        {{ entity }}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-drawer>
 
-  <mat-sidenav-content class="flex-container">
-    <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>{{ iconName }}</mat-icon>
-    </button>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>{{
+      opened === true ? "arrow_backward" : "arrow_forward"
+    }}</mat-icon>
+  </button>
+</mat-drawer-container>
