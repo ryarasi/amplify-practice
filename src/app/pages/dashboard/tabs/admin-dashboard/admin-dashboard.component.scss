@@ -1,5 +1,8 @@
-.flex-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.drawer-container {
+  height: 80vh;
+  width: 90vw;
+  padding: 0px;
+}
+.drawer-content {
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
 }

@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 const components = [
   MatToolbarModule,
@@ -17,6 +18,7 @@ const components = [
   MatSnackBarModule,
   MatTabsModule,
   MatSidenavModule,
+  MatListModule,
 ];
 
 @NgModule({
