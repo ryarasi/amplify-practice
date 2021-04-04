@@ -130,12 +130,15 @@ export class AuthState {
   }
 }
 
+<<<<<<< HEAD
 /**
  * Checks whether the login happened just now or not
  * @param auth_time
  * @returns
  */
 
+=======
+>>>>>>> bf0203939a8b5e312e66d6517884946c5e9e3799
 const authHappenedJustNow = (auth_time) => {
   const auth_date_time = new Date(1000 * auth_time);
   const current_date_time = new Date();
