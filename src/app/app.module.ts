@@ -14,7 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SupportComponent } from './pages/support/support.component';
-import { AuthenticationGuard } from './authentication.guard';
+import { AuthenticationGuard } from './shared/common/authentication.guard';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { NgxsModule } from '@ngxs/store';
