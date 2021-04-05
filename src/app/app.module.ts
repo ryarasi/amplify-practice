@@ -29,6 +29,7 @@ import { AssignmentDashboardComponent } from './pages/dashboard/tabs/assignment-
 import { GroupDashboardComponent } from './pages/dashboard/tabs/group-dashboard/group-dashboard.component';
 import { CourseDashboardComponent } from './pages/dashboard/tabs/course-dashboard/course-dashboard.component';
 import { ReportDashboardComponent } from './pages/dashboard/tabs/report-dashboard/report-dashboard.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -54,6 +55,7 @@ Amplify.configure(awsconfig);
     AmplifyUIAngularModule,
     Styling,
     BrowserAnimationsModule,
+    AgGridModule.withComponents([]),
     [
       NgxsModule.forRoot([AuthState, NotificationState, LoadingState], {
         developmentMode: !environment.production,

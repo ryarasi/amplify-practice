@@ -1,8 +1,23 @@
 .drawer-container {
-  height: 80vh;
-  width: 90vw;
+  height: calc(100vh - 180px);
+  width: 100%;
   padding: 0px;
+  min-height: 500px;
 }
+
 .drawer-content {
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#drawer-puller {
+  float: left;
+  display: block;
+}
+
+.table-style {
+  width: 99%;
+  height: calc(100vh - 240px);
+  margin: 10px;
+  min-height: 300px;
+  overflow: auto;
 }

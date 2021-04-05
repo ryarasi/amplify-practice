@@ -6,10 +6,16 @@
       </mat-list-option>
     </mat-selection-list>
   </mat-drawer>
-
-  <button mat-icon-button (click)="drawer.toggle()">
+  <button mat-icon-button (click)="drawer.toggle()" id="drawer-puller">
     <mat-icon>{{
       opened === true ? "arrow_backward" : "arrow_forward"
     }}</mat-icon>
   </button>
+  <h2 style="text-align: center">{{ tableTitle }}</h2>
+  <ag-grid-angular
+    class="ag-theme-alpine table-style"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+  >
+  </ag-grid-angular>
 </mat-drawer-container>

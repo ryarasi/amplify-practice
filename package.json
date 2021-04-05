@@ -23,6 +23,8 @@
     "@angular/router": "~11.2.6",
     "@aws-amplify/ui-angular": "^1.0.6",
     "@ngxs/store": "^3.7.1",
+    "ag-grid-angular": "^25.1.0",
+    "ag-grid-community": "^25.1.0",
     "aws-amplify": "^3.3.26",
     "aws-appsync": "^4.0.3",
     "rxjs": "~6.6.0",
