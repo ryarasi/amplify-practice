@@ -26,16 +26,23 @@ const tabIndexList = {
 export class DashboardComponent implements OnInit {
   activeTabIndex = '1';
   tabIndexList = tabIndexList;
+  params: object = {};
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
+      this.params = params;
       const tabName = params['tab'];
-      const indexByParams = getIndexFromTabName(tabName);
-      if (indexByParams === 'NaN') {
-        this.router.navigateByUrl(uiroutes.DASHBOARD_ROUTE);
+      if (tabName) {
+        const indexByParams = getIndexFromTabName(tabName);
+        if (indexByParams === 'NaN') {
+          this.router.navigateByUrl(uiroutes.DASHBOARD_ROUTE);
+        }
+        this.activeTabIndex = indexByParams;
+      } else {
+        // If there are no tabname params, inject the available ones here.
+        // Do this after authorization is implemented
       }
-      this.activeTabIndex = indexByParams;
     });
   }
 

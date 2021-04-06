@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SupportComponent } from './pages/support/support.component';
 import { uiroutes } from './shared/common/ui-routes';
+import { AddSchoolComponent } from './pages/entities/add-school/add-school.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,12 @@ const routes: Routes = [
   {
     path: uiroutes.SUPPORT_ROUTE,
     component: SupportComponent,
+    canActivate: [AuthenticationGuard],
+    pathMatch: 'full',
+  },
+  {
+    path: uiroutes.ADD_SCHOOL_ROUTE,
+    component: AddSchoolComponent,
     canActivate: [AuthenticationGuard],
     pathMatch: 'full',
   },

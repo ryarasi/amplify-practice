@@ -1,17 +1,33 @@
 <mat-drawer-container class="drawer-container">
   <mat-drawer #drawer mode="side" [(opened)]="opened" class="drawer-content">
     <mat-selection-list [multiple]="false">
-      <mat-list-option *ngFor="let entity of entities" [value]="entity">
+      <mat-list-option
+        *ngFor="let entity of entities"
+        [value]="entity"
+        (click)="onSelectEntity(entity)"
+      >
         {{ entity }}
       </mat-list-option>
     </mat-selection-list>
   </mat-drawer>
-  <button mat-icon-button (click)="drawer.toggle()" id="drawer-puller">
-    <mat-icon>{{
-      opened === true ? "arrow_backward" : "arrow_forward"
-    }}</mat-icon>
-  </button>
-  <h2 style="text-align: center">{{ tableTitle }}</h2>
+  <div id="title-tab">
+    <div class="title-block">
+      <button mat-icon-button (click)="drawer.toggle()" id="drawer-puller">
+        <mat-icon>{{
+          opened === true ? "arrow_left" : "arrow_right"
+        }}</mat-icon>
+      </button>
+    </div>
+    <div class="title-block" id="title">
+      <h2 style="text-align: center">List of {{ selectedEntity }}</h2>
+    </div>
+    <div class="title-block">
+      <button mat-icon-button (click)="createSchool()" id="add-button">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+
   <ag-grid-angular
     class="ag-theme-alpine table-style"
     [rowData]="rowData"

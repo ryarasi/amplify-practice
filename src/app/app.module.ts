@@ -30,6 +30,7 @@ import { GroupDashboardComponent } from './pages/dashboard/tabs/group-dashboard/
 import { CourseDashboardComponent } from './pages/dashboard/tabs/course-dashboard/course-dashboard.component';
 import { ReportDashboardComponent } from './pages/dashboard/tabs/report-dashboard/report-dashboard.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { AddSchoolComponent } from './pages/entities/add-school/add-school.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -48,6 +49,7 @@ Amplify.configure(awsconfig);
     GroupDashboardComponent,
     CourseDashboardComponent,
     ReportDashboardComponent,
+    AddSchoolComponent,
   ],
   imports: [
     BrowserModule,
