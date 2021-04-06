@@ -1,11 +1,11 @@
-import AWSAppSyncClient from 'aws-appsync';
+import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import awsconfig from '../../../aws-exports';
 
-export const client = new AWSAppSyncClient({
+export const Client = new AWSAppSyncClient({
   url: awsconfig.aws_appsync_graphqlEndpoint,
   region: awsconfig.aws_appsync_region,
   auth: {
-    type: awsconfig.aws_appsync_authenticationType,
+    type: AUTH_TYPE.API_KEY,
     apiKey: awsconfig.aws_appsync_apiKey,
   },
   cacheOptions: {

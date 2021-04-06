@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import AWSAppSyncClient from 'aws-appsync';
+import gql from 'graphql-tag';
+import listSchools from './../../../../../graphql/queries.graphql';
+import { Client } from './../../../../shared/api/appsync.service';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -19,5 +22,16 @@ export class AdminDashboardComponent implements OnInit {
   ];
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listSchools();
+  }
+
+  listSchools = () => {
+    debugger;
+    Client.query({
+      query: gql(listSchools),
+    }).then(({ data: { listSchools } }: any) => {
+      console.log(listSchools.items);
+    });
+  };
 }
