@@ -1,30 +1,84 @@
+"""
+These are institutions that are partnered with Shuddhi Vidhya
+These could be schools, colleges, corporates, organisations etc.
+They contain information like name, website, who the admins are,
+what classes/departments they contain
+"""
 type School
   @model
   @auth(
     rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
   ) {
   id: ID!
+  "Name of the school"
   name: String!
-  admins: [Member]
+  "Location of the school"
+  location: String!
+  "City or district that the school belongs to"
+  city: String!
+  "Website URL"
+  website: String
+  "admins of the school manage the school's properties"
+  admins: [SchoolAdmin]
+  "Fundamental units of learners belonging to the school"
   classes: [Class] @connection(name: "SchoolClasses")
+  "All members - earners, learning assistants, admins etc"
   members: [Member] @connection(name: "SchoolMembers")
 }
 
+"""
+Fundamental units of learners in the institution that this unit belongs to
+"""
 type Class
   @model
   @auth(
     rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
   ) {
   id: ID!
+  "name of the class"
   name: String!
+  "The id of the school that this class belongs to"
   school: School @connection(name: "SchoolClasses")
-  admins: [Member]
+  "The admins of the class who can manage members of the class etc"
+  admins: [ClassAdmin]
+  "Includes all the members of the class - learners, admins etc"
   members: [Member] @connection(name: "ClassMembers")
 }
-
+"""
+Members table, contains all individuals part of class/school
+"""
 type Member @model @auth(rules: [{ allow: owner }]) {
   id: ID!
+  "Name of the individual"
   name: String!
+  "Id of the school that this individual belongs to"
   school: School @connection(name: "SchoolMembers")
+  "Id of the class of the school in which the member is part of"
   class: Class @connection(name: "ClassMembers")
+}
+
+"""
+School admins table, contains the admins of school
+"""
+type SchoolAdmin @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  "Name of the individual"
+  name: String!
+  "Id of the school that this admin belongs to"
+  school: School
+  "This is a description to be shown on their profile"
+  role: String
+}
+
+"""
+Class admins table, contains the admins of class
+"""
+type ClassAdmin @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  "Name of the individual"
+  name: String!
+  "Id of the school that this admin belongs to"
+  school: School
+  "Id of the class of the school in which the member is part of"
+  class: Class
 }

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
 import * as queries from './../../../../../graphql/queries.graphql';
-// import { AppsyncService } from './../../../../shared/api/appsync.service';
 import { client } from './../../../../shared/api/appsync.service';
 
 @Component({
