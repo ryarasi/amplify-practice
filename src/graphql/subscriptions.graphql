@@ -9,9 +9,48 @@ subscription OnCreateInstitution($admins: String!) {
     phone
     logo
     bio
+    admins {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      title
+      bio
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    admins
   }
 }
 subscription OnUpdateInstitution($admins: String!) {
@@ -24,9 +63,48 @@ subscription OnUpdateInstitution($admins: String!) {
     phone
     logo
     bio
+    admins {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      title
+      bio
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    admins
   }
 }
 subscription OnDeleteInstitution($admins: String!) {
@@ -39,18 +117,96 @@ subscription OnDeleteInstitution($admins: String!) {
     phone
     logo
     bio
+    admins {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      title
+      bio
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    admins
   }
 }
 subscription OnCreateClass($admins: String!) {
   onCreateClass(admins: $admins) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -79,9 +235,48 @@ subscription OnUpdateClass($admins: String!) {
   onUpdateClass(admins: $admins) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -110,9 +305,48 @@ subscription OnDeleteClass($admins: String!) {
   onDeleteClass(admins: $admins) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -141,9 +375,48 @@ subscription OnCreateGroup($admins: String!) {
   onCreateGroup(admins: $admins) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -157,6 +430,18 @@ subscription OnCreateGroup($admins: String!) {
     learners {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -175,9 +460,48 @@ subscription OnUpdateGroup($admins: String!) {
   onUpdateGroup(admins: $admins) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -191,6 +515,18 @@ subscription OnUpdateGroup($admins: String!) {
     learners {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -209,9 +545,48 @@ subscription OnDeleteGroup($admins: String!) {
   onDeleteGroup(admins: $admins) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -225,6 +600,18 @@ subscription OnDeleteGroup($admins: String!) {
     learners {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -243,9 +630,48 @@ subscription OnCreateLearner($owner: String!) {
   onCreateLearner(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -268,9 +694,48 @@ subscription OnUpdateLearner($owner: String!) {
   onUpdateLearner(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -293,9 +758,48 @@ subscription OnDeleteLearner($owner: String!) {
   onDeleteLearner(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -318,6 +822,33 @@ subscription OnCreateInstitutionAdmin($owner: String!) {
   onCreateInstitutionAdmin(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     title
     bio
     createdAt
@@ -329,6 +860,33 @@ subscription OnUpdateInstitutionAdmin($owner: String!) {
   onUpdateInstitutionAdmin(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     title
     bio
     createdAt
@@ -340,6 +898,33 @@ subscription OnDeleteInstitutionAdmin($owner: String!) {
   onDeleteInstitutionAdmin(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     title
     bio
     createdAt
@@ -351,9 +936,48 @@ subscription OnCreateClassAdmin($owner: String!) {
   onCreateClassAdmin(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -376,9 +1000,48 @@ subscription OnUpdateClassAdmin($owner: String!) {
   onUpdateClassAdmin(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -401,9 +1064,48 @@ subscription OnDeleteClassAdmin($owner: String!) {
   onDeleteClassAdmin(owner: $owner) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name

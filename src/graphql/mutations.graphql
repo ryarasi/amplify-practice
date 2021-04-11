@@ -12,9 +12,48 @@ mutation CreateInstitution(
     phone
     logo
     bio
+    admins {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      title
+      bio
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    admins
   }
 }
 mutation UpdateInstitution(
@@ -30,9 +69,48 @@ mutation UpdateInstitution(
     phone
     logo
     bio
+    admins {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      title
+      bio
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    admins
   }
 }
 mutation DeleteInstitution(
@@ -48,9 +126,48 @@ mutation DeleteInstitution(
     phone
     logo
     bio
+    admins {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      title
+      bio
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    admins
   }
 }
 mutation CreateClass(
@@ -60,9 +177,48 @@ mutation CreateClass(
   createClass(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -94,9 +250,48 @@ mutation UpdateClass(
   updateClass(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -128,9 +323,48 @@ mutation DeleteClass(
   deleteClass(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -162,9 +396,48 @@ mutation CreateGroup(
   createGroup(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -178,6 +451,18 @@ mutation CreateGroup(
     learners {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -199,9 +484,48 @@ mutation UpdateGroup(
   updateGroup(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -215,6 +539,18 @@ mutation UpdateGroup(
     learners {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -236,9 +572,48 @@ mutation DeleteGroup(
   deleteGroup(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -252,6 +627,18 @@ mutation DeleteGroup(
     learners {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -273,9 +660,48 @@ mutation CreateLearner(
   createLearner(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -301,9 +727,48 @@ mutation UpdateLearner(
   updateLearner(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -329,9 +794,48 @@ mutation DeleteLearner(
   deleteLearner(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -357,6 +861,33 @@ mutation CreateInstitutionAdmin(
   createInstitutionAdmin(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     title
     bio
     createdAt
@@ -371,6 +902,33 @@ mutation UpdateInstitutionAdmin(
   updateInstitutionAdmin(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     title
     bio
     createdAt
@@ -385,6 +943,33 @@ mutation DeleteInstitutionAdmin(
   deleteInstitutionAdmin(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     title
     bio
     createdAt
@@ -399,9 +984,48 @@ mutation CreateClassAdmin(
   createClassAdmin(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -427,9 +1051,48 @@ mutation UpdateClassAdmin(
   updateClassAdmin(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -455,9 +1118,48 @@ mutation DeleteClassAdmin(
   deleteClassAdmin(input: $input, condition: $condition) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name

@@ -30,7 +30,8 @@ import { GroupDashboardComponent } from './pages/dashboard/tabs/group-dashboard/
 import { CourseDashboardComponent } from './pages/dashboard/tabs/course-dashboard/course-dashboard.component';
 import { ReportDashboardComponent } from './pages/dashboard/tabs/report-dashboard/report-dashboard.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { AddSchoolComponent } from './pages/entities/add-school/add-school.component';
+import { AddInstitutionComponent } from './pages/entities/add-institution/add-institution.component';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -49,10 +50,12 @@ Amplify.configure(awsconfig);
     GroupDashboardComponent,
     CourseDashboardComponent,
     ReportDashboardComponent,
-    AddSchoolComponent,
+    AddInstitutionComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     AmplifyUIAngularModule,
     Styling,
@@ -65,7 +68,7 @@ Amplify.configure(awsconfig);
       NgxsReduxDevtoolsPluginModule.forRoot(),
     ],
   ],
-  providers: [AuthenticationGuard],
+  providers: [AuthenticationGuard, FormBuilder],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

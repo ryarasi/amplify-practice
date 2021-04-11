@@ -30,8 +30,11 @@
 
   <ag-grid-angular
     class="ag-theme-alpine table-style"
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
+    [rowData]="institutions"
+    [columnDefs]="columns"
+    [overlayLoadingTemplate]="overlayLoadingTemplate"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    (gridReady)="onGridReady($event)"
   >
   </ag-grid-angular>
 </mat-drawer-container>

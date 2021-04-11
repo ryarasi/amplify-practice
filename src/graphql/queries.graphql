@@ -9,9 +9,48 @@ query GetInstitution($id: ID!) {
     phone
     logo
     bio
+    admins {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      title
+      bio
+      createdAt
+      updatedAt
+      owner
+    }
+    classes {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    admins
   }
 }
 query ListInstitutions(
@@ -29,9 +68,23 @@ query ListInstitutions(
       phone
       logo
       bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
       createdAt
       updatedAt
-      admins
     }
     nextToken
   }
@@ -40,9 +93,48 @@ query GetClass($id: ID!) {
   getClass(id: $id) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -76,6 +168,18 @@ query ListClasss(
     items {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -96,9 +200,48 @@ query GetGroup($id: ID!) {
   getGroup(id: $id) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     admins {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -112,6 +255,18 @@ query GetGroup($id: ID!) {
     learners {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -135,6 +290,18 @@ query ListGroups(
     items {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -159,9 +326,48 @@ query GetLearner($id: ID!) {
   getLearner(id: $id) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -189,6 +395,18 @@ query ListLearners(
     items {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name
@@ -206,6 +424,33 @@ query GetInstitutionAdmin($id: ID!) {
   getInstitutionAdmin(id: $id) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     title
     bio
     createdAt
@@ -222,6 +467,18 @@ query ListInstitutionAdmins(
     items {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       title
       bio
       createdAt
@@ -235,9 +492,48 @@ query GetClassAdmin($id: ID!) {
   getClassAdmin(id: $id) {
     id
     name
+    institution {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+        owner
+      }
+      classes {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     class {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       admins {
         id
         name
@@ -265,6 +561,18 @@ query ListClassAdmins(
     items {
       id
       name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
       class {
         id
         name

@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
 
 const components = [
   MatToolbarModule,
@@ -19,6 +20,7 @@ const components = [
   MatTabsModule,
   MatSidenavModule,
   MatListModule,
+  MatInputModule,
 ];
 
 @NgModule({

@@ -24,7 +24,7 @@ const tabIndexList = {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  activeTabIndex = '1';
+  activeTabIndex = '0';
   tabIndexList = tabIndexList;
   params: object = {};
   constructor(private route: ActivatedRoute, private router: Router) {}

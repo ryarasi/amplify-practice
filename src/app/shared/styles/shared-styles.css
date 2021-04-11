@@ -1,0 +1,45 @@
+.form-container {
+  display: block;
+  margin: auto;
+}
+
+.validation-error {
+  color: red;
+  position: absolute;
+  display: block;
+  margin-top: 20px;
+}
+.floating-back-button {
+  position: fixed;
+  margin-left: 20px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.floating-submit-button {
+  position: fixed;
+  color: var(--shuddhi-color);
+  right: 50px;
+  bottom: 50px;
+}
+
+.floating-submit-button .mat-icon {
+  height: 50px;
+}
+
+h2 {
+  text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .floating-back-button {
+    position: static;
+    margin-left: 20px;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .floating-submit-button {
+    position: static;
+    display: block;
+    margin: 20px auto;
+  }
+}

@@ -4,7 +4,12 @@
 
 #navbar {
   border-bottom: 1px solid #0099ff;
-  height: 50px;
+  height: var(--navbar-height);
+  position: fixed;
+  background: #fff;
+  top: 0px;
+  left: 0px;
+  z-index: 10000000;
 }
 
 #logo {

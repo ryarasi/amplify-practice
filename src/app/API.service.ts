@@ -82,9 +82,68 @@ export type Institution = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<InstitutionAdmin | null> | null;
+  classes?: ModelClassConnection;
+  learners?: ModelLearnerConnection;
   createdAt?: string;
   updatedAt?: string;
-  admins?: string | null;
+};
+
+export type InstitutionAdmin = {
+  __typename: "InstitutionAdmin";
+  id?: string;
+  name?: string;
+  institution?: Institution;
+  title?: string | null;
+  bio?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  owner?: string | null;
+};
+
+export type ModelClassConnection = {
+  __typename: "ModelClassConnection";
+  items?: Array<Class | null> | null;
+  nextToken?: string | null;
+};
+
+export type Class = {
+  __typename: "Class";
+  id?: string;
+  name?: string;
+  institution?: Institution;
+  admins?: Array<ClassAdmin | null> | null;
+  learners?: ModelLearnerConnection;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type ClassAdmin = {
+  __typename: "ClassAdmin";
+  id?: string;
+  name?: string;
+  institution?: Institution;
+  class?: Class;
+  createdAt?: string;
+  updatedAt?: string;
+  owner?: string | null;
+};
+
+export type ModelLearnerConnection = {
+  __typename: "ModelLearnerConnection";
+  items?: Array<Learner | null> | null;
+  nextToken?: string | null;
+};
+
+export type Learner = {
+  __typename: "Learner";
+  id?: string;
+  name?: string;
+  institution?: Institution;
+  class?: Class;
+  createdAt?: string;
+  updatedAt?: string;
+  owner?: string | null;
 };
 
 export type UpdateInstitutionInput = {
@@ -105,6 +164,7 @@ export type DeleteInstitutionInput = {
 export type CreateClassInput = {
   id?: string | null;
   name: string;
+  classInstitutionId?: string | null;
 };
 
 export type ModelClassConditionInput = {
@@ -114,45 +174,10 @@ export type ModelClassConditionInput = {
   not?: ModelClassConditionInput | null;
 };
 
-export type Class = {
-  __typename: "Class";
-  id?: string;
-  name?: string;
-  admins?: Array<ClassAdmin | null> | null;
-  learners?: ModelLearnerConnection;
-  createdAt?: string;
-  updatedAt?: string;
-};
-
-export type ClassAdmin = {
-  __typename: "ClassAdmin";
-  id?: string;
-  name?: string;
-  class?: Class;
-  createdAt?: string;
-  updatedAt?: string;
-  owner?: string | null;
-};
-
-export type ModelLearnerConnection = {
-  __typename: "ModelLearnerConnection";
-  items?: Array<Learner | null> | null;
-  nextToken?: string | null;
-};
-
-export type Learner = {
-  __typename: "Learner";
-  id?: string;
-  name?: string;
-  class?: Class;
-  createdAt?: string;
-  updatedAt?: string;
-  owner?: string | null;
-};
-
 export type UpdateClassInput = {
   id: string;
   name?: string | null;
+  classInstitutionId?: string | null;
 };
 
 export type DeleteClassInput = {
@@ -162,6 +187,7 @@ export type DeleteClassInput = {
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
+  groupInstitutionId?: string | null;
 };
 
 export type ModelGroupConditionInput = {
@@ -175,6 +201,7 @@ export type Group = {
   __typename: "Group";
   id?: string;
   name?: string;
+  institution?: Institution;
   admins?: Array<Learner | null> | null;
   learners?: Array<Learner | null> | null;
   createdAt?: string;
@@ -184,6 +211,7 @@ export type Group = {
 export type UpdateGroupInput = {
   id: string;
   name?: string | null;
+  groupInstitutionId?: string | null;
 };
 
 export type DeleteGroupInput = {
@@ -193,6 +221,7 @@ export type DeleteGroupInput = {
 export type CreateLearnerInput = {
   id?: string | null;
   name: string;
+  learnerInstitutionId?: string | null;
   learnerClassId?: string | null;
 };
 
@@ -206,6 +235,7 @@ export type ModelLearnerConditionInput = {
 export type UpdateLearnerInput = {
   id: string;
   name?: string | null;
+  learnerInstitutionId?: string | null;
   learnerClassId?: string | null;
 };
 
@@ -227,17 +257,6 @@ export type ModelInstitutionAdminConditionInput = {
   and?: Array<ModelInstitutionAdminConditionInput | null> | null;
   or?: Array<ModelInstitutionAdminConditionInput | null> | null;
   not?: ModelInstitutionAdminConditionInput | null;
-};
-
-export type InstitutionAdmin = {
-  __typename: "InstitutionAdmin";
-  id?: string;
-  name?: string;
-  title?: string | null;
-  bio?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
-  owner?: string | null;
 };
 
 export type UpdateInstitutionAdminInput = {
@@ -603,12 +622,6 @@ export type ModelClassFilterInput = {
   not?: ModelClassFilterInput | null;
 };
 
-export type ModelClassConnection = {
-  __typename: "ModelClassConnection";
-  items?: Array<Class | null> | null;
-  nextToken?: string | null;
-};
-
 export type ModelGroupFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
@@ -764,9 +777,54 @@ export type CreateInstitutionMutation = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  classes?: {
+    __typename: "ModelClassConnection";
+    items?: Array<{
+      __typename: "Class";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
+  learners?: {
+    __typename: "ModelLearnerConnection";
+    items?: Array<{
+      __typename: "Learner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
-  admins?: string | null;
 };
 
 export type UpdateInstitutionMutation = {
@@ -779,9 +837,54 @@ export type UpdateInstitutionMutation = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  classes?: {
+    __typename: "ModelClassConnection";
+    items?: Array<{
+      __typename: "Class";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
+  learners?: {
+    __typename: "ModelLearnerConnection";
+    items?: Array<{
+      __typename: "Learner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
-  admins?: string | null;
 };
 
 export type DeleteInstitutionMutation = {
@@ -794,19 +897,108 @@ export type DeleteInstitutionMutation = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  classes?: {
+    __typename: "ModelClassConnection";
+    items?: Array<{
+      __typename: "Class";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
+  learners?: {
+    __typename: "ModelLearnerConnection";
+    items?: Array<{
+      __typename: "Learner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
-  admins?: string | null;
 };
 
 export type CreateClassMutation = {
   __typename: "Class";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -838,10 +1030,54 @@ export type UpdateClassMutation = {
   __typename: "Class";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -873,10 +1109,54 @@ export type DeleteClassMutation = {
   __typename: "Class";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -908,10 +1188,54 @@ export type CreateGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -927,6 +1251,19 @@ export type CreateGroupMutation = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -946,10 +1283,54 @@ export type UpdateGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -965,6 +1346,19 @@ export type UpdateGroupMutation = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -984,10 +1378,54 @@ export type DeleteGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -1003,6 +1441,19 @@ export type DeleteGroupMutation = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -1022,10 +1473,54 @@ export type CreateLearnerMutation = {
   __typename: "Learner";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -1050,10 +1545,54 @@ export type UpdateLearnerMutation = {
   __typename: "Learner";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -1078,10 +1617,54 @@ export type DeleteLearnerMutation = {
   __typename: "Learner";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -1106,6 +1689,37 @@ export type CreateInstitutionAdminMutation = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -1117,6 +1731,37 @@ export type UpdateInstitutionAdminMutation = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -1128,6 +1773,37 @@ export type DeleteInstitutionAdminMutation = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -1139,10 +1815,54 @@ export type CreateClassAdminMutation = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -1167,10 +1887,54 @@ export type UpdateClassAdminMutation = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -1195,10 +1959,54 @@ export type DeleteClassAdminMutation = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -2189,9 +2997,54 @@ export type GetInstitutionQuery = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  classes?: {
+    __typename: "ModelClassConnection";
+    items?: Array<{
+      __typename: "Class";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
+  learners?: {
+    __typename: "ModelLearnerConnection";
+    items?: Array<{
+      __typename: "Learner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
-  admins?: string | null;
 };
 
 export type ListInstitutionsQuery = {
@@ -2206,9 +3059,26 @@ export type ListInstitutionsQuery = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    admins?: string | null;
   } | null> | null;
   nextToken?: string | null;
 };
@@ -2217,10 +3087,54 @@ export type GetClassQuery = {
   __typename: "Class";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -2254,6 +3168,19 @@ export type ListClasssQuery = {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -2276,10 +3203,54 @@ export type GetGroupQuery = {
   __typename: "Group";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -2295,6 +3266,19 @@ export type GetGroupQuery = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -2316,6 +3300,19 @@ export type ListGroupsQuery = {
     __typename: "Group";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "Learner";
       id: string;
@@ -2342,10 +3339,54 @@ export type GetLearnerQuery = {
   __typename: "Learner";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -2372,6 +3413,19 @@ export type ListLearnersQuery = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -2390,6 +3444,37 @@ export type GetInstitutionAdminQuery = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -2403,6 +3488,19 @@ export type ListInstitutionAdminsQuery = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -2416,10 +3514,54 @@ export type GetClassAdminQuery = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -2446,6 +3588,19 @@ export type ListClassAdminsQuery = {
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -2973,9 +4128,54 @@ export type OnCreateInstitutionSubscription = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  classes?: {
+    __typename: "ModelClassConnection";
+    items?: Array<{
+      __typename: "Class";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
+  learners?: {
+    __typename: "ModelLearnerConnection";
+    items?: Array<{
+      __typename: "Learner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
-  admins?: string | null;
 };
 
 export type OnUpdateInstitutionSubscription = {
@@ -2988,9 +4188,54 @@ export type OnUpdateInstitutionSubscription = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  classes?: {
+    __typename: "ModelClassConnection";
+    items?: Array<{
+      __typename: "Class";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
+  learners?: {
+    __typename: "ModelLearnerConnection";
+    items?: Array<{
+      __typename: "Learner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
-  admins?: string | null;
 };
 
 export type OnDeleteInstitutionSubscription = {
@@ -3003,19 +4248,108 @@ export type OnDeleteInstitutionSubscription = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  admins?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  classes?: {
+    __typename: "ModelClassConnection";
+    items?: Array<{
+      __typename: "Class";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
+  learners?: {
+    __typename: "ModelLearnerConnection";
+    items?: Array<{
+      __typename: "Learner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
-  admins?: string | null;
 };
 
 export type OnCreateClassSubscription = {
   __typename: "Class";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3047,10 +4381,54 @@ export type OnUpdateClassSubscription = {
   __typename: "Class";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3082,10 +4460,54 @@ export type OnDeleteClassSubscription = {
   __typename: "Class";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3117,10 +4539,54 @@ export type OnCreateGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3136,6 +4602,19 @@ export type OnCreateGroupSubscription = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3155,10 +4634,54 @@ export type OnUpdateGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3174,6 +4697,19 @@ export type OnUpdateGroupSubscription = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3193,10 +4729,54 @@ export type OnDeleteGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3212,6 +4792,19 @@ export type OnDeleteGroupSubscription = {
     __typename: "Learner";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     class?: {
       __typename: "Class";
       id: string;
@@ -3231,10 +4824,54 @@ export type OnCreateLearnerSubscription = {
   __typename: "Learner";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -3259,10 +4896,54 @@ export type OnUpdateLearnerSubscription = {
   __typename: "Learner";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -3287,10 +4968,54 @@ export type OnDeleteLearnerSubscription = {
   __typename: "Learner";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -3315,6 +5040,37 @@ export type OnCreateInstitutionAdminSubscription = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -3326,6 +5082,37 @@ export type OnUpdateInstitutionAdminSubscription = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -3337,6 +5124,37 @@ export type OnDeleteInstitutionAdminSubscription = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -3348,10 +5166,54 @@ export type OnCreateClassAdminSubscription = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -3376,10 +5238,54 @@ export type OnUpdateClassAdminSubscription = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -3404,10 +5310,54 @@ export type OnDeleteClassAdminSubscription = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
+  institution?: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   class?: {
     __typename: "Class";
     id: string;
     name: string;
+    institution?: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
@@ -4407,9 +6357,54 @@ export class APIService {
           phone
           logo
           bio
+          admins {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            title
+            bio
+            createdAt
+            updatedAt
+            owner
+          }
+          classes {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          learners {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
-          admins
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4438,9 +6433,54 @@ export class APIService {
           phone
           logo
           bio
+          admins {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            title
+            bio
+            createdAt
+            updatedAt
+            owner
+          }
+          classes {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          learners {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
-          admins
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4469,9 +6509,54 @@ export class APIService {
           phone
           logo
           bio
+          admins {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            title
+            bio
+            createdAt
+            updatedAt
+            owner
+          }
+          classes {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          learners {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
-          admins
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4494,10 +6579,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4545,10 +6674,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4596,10 +6769,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4647,10 +6864,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4666,6 +6927,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4701,10 +6975,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4720,6 +7038,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4755,10 +7086,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4774,6 +7149,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -4809,10 +7197,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -4853,10 +7285,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -4897,10 +7373,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -4941,6 +7461,37 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           title
           bio
           createdAt
@@ -4968,6 +7519,37 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           title
           bio
           createdAt
@@ -4995,6 +7577,37 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           title
           bio
           createdAt
@@ -5022,10 +7635,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -5066,10 +7723,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -5110,10 +7811,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -6453,9 +9198,54 @@ export class APIService {
           phone
           logo
           bio
+          admins {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            title
+            bio
+            createdAt
+            updatedAt
+            owner
+          }
+          classes {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          learners {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
-          admins
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -6484,9 +9274,26 @@ export class APIService {
             phone
             logo
             bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
             createdAt
             updatedAt
-            admins
           }
           nextToken
         }
@@ -6512,10 +9319,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -6563,6 +9414,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -6602,10 +9466,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -6621,6 +9529,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -6656,6 +9577,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -6699,10 +9633,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -6743,6 +9721,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -6778,6 +9769,37 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           title
           bio
           createdAt
@@ -6805,6 +9827,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             title
             bio
             createdAt
@@ -6835,10 +9870,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -6879,6 +9958,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7642,9 +10734,54 @@ export class APIService {
           phone
           logo
           bio
+          admins {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            title
+            bio
+            createdAt
+            updatedAt
+            owner
+          }
+          classes {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          learners {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
-          admins
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -7669,9 +10806,54 @@ export class APIService {
           phone
           logo
           bio
+          admins {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            title
+            bio
+            createdAt
+            updatedAt
+            owner
+          }
+          classes {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          learners {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
-          admins
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -7696,9 +10878,54 @@ export class APIService {
           phone
           logo
           bio
+          admins {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            title
+            bio
+            createdAt
+            updatedAt
+            owner
+          }
+          classes {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          learners {
+            __typename
+            items {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
-          admins
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -7717,10 +10944,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7764,10 +11035,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7811,10 +11126,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7858,10 +11217,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7877,6 +11280,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7908,10 +11324,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7927,6 +11387,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7958,10 +11431,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           admins {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -7977,6 +11494,19 @@ export class APIService {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             class {
               __typename
               id
@@ -8008,10 +11538,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -8048,10 +11622,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -8088,10 +11706,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -8128,6 +11790,37 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           title
           bio
           createdAt
@@ -8151,6 +11844,37 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           title
           bio
           createdAt
@@ -8174,6 +11898,37 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           title
           bio
           createdAt
@@ -8197,10 +11952,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -8237,10 +12036,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id
@@ -8277,10 +12120,54 @@ export class APIService {
           __typename
           id
           name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              title
+              bio
+              createdAt
+              updatedAt
+              owner
+            }
+            classes {
+              __typename
+              nextToken
+            }
+            learners {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           class {
             __typename
             id
             name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
             admins {
               __typename
               id

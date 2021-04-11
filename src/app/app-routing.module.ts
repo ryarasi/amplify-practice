@@ -7,7 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SupportComponent } from './pages/support/support.component';
 import { uiroutes } from './shared/common/ui-routes';
-import { AddSchoolComponent } from './pages/entities/add-school/add-school.component';
+import { AddInstitutionComponent } from './pages/entities/add-institution/add-institution.component';
 
 const routes: Routes = [
   {
@@ -33,8 +33,8 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: uiroutes.ADD_SCHOOL_ROUTE,
-    component: AddSchoolComponent,
+    path: uiroutes.ADD_INSTITUTION_ROUTE,
+    component: AddInstitutionComponent,
     canActivate: [AuthenticationGuard],
     pathMatch: 'full',
   },

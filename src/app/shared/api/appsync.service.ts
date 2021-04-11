@@ -37,8 +37,7 @@ export const client = new AWSAppSyncClient({
     jwtToken: async () =>
       (await Auth.currentSession()).getAccessToken().getJwtToken(),
   },
-  complexObjectsCredentials: () => Auth.currentCredentials(),
-  cacheOptions: {
-    dataIdFromObject: (obj: any) => `${obj.__typename}:${obj.myKey}`,
-  },
+  // cacheOptions: {
+  //   dataIdFromObject: (obj: any) => `${obj.__typename}:${obj.myKey}`,
+  // },
 });

@@ -12,20 +12,27 @@ import { client } from './../../../../shared/api/appsync.service';
 export class AdminDashboardComponent implements OnInit {
   @Input() params: object = {};
   opened: boolean;
-  entities: string[] = ['Schools', 'Classes', 'Groups', 'Courses'];
+  private gridApi;
+  private gridColumnApi;
+  entities: string[] = ['Institutions', 'Classes', 'Groups', 'Courses'];
   selectedEntity = this.entities[0];
-  tableTitle: string = 'List of Schools';
-  columnDefs = [{ field: 'make' }, { field: 'model' }, { field: 'price' }];
-
-  rowData = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 },
+  tableTitle: string = `List of ${this.entities[0]}`;
+  columns = [
+    { field: 'name' },
+    { field: 'location' },
+    { field: 'city' },
+    { field: 'bio' },
   ];
+  institutions: object[];
+  overlayLoadingTemplate =
+    '<span class="ag-overlay-loading-center">Fetching records...</span>';
+  overlayNoRowsTemplate =
+    '<span style="padding: 10px; border: 2px solid #444; background: lightgoldenrodyellow;">No records to display</span>';
+  overlayErrorTemplate =
+    '<span style="padding: 10px;color: red; border: 2px solid #444; background: lightgoldenrodyellow;">There was an error while fetching data. Try again later.</span>';
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.listSchools();
     console.log('params from admin dashboard', this.params);
   }
 
@@ -34,20 +41,43 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   createSchool = () => {
-    this.router.navigateByUrl(uiroutes.ADD_SCHOOL_ROUTE);
+    this.router.navigateByUrl(uiroutes.ADD_INSTITUTION_ROUTE);
   };
 
-  listSchools = () => {
-    // this.appsync
-    //   .hc()
-    //   .then({
+  showLoading() {
+    if (this.gridApi) {
+      this.gridApi.showLoadingOverlay();
+    }
+  }
+
+  hideLoading() {
+    if (this.gridApi) {
+      this.gridApi.hideOverlay();
+    }
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.listInstitutions();
+  }
+
+  listInstitutions = () => {
+    this.showLoading();
     client
       .query({
-        query: queries.ListSchools,
+        query: queries.ListInstitutions,
       })
-      .then((data: any) => {
-        console.log('data from listSchools ', JSON.stringify(data));
-        console.log(data.data.listSchools.items);
+      .then((res: any) => {
+        this.hideLoading();
+        this.institutions = res.data.listInstitutions.items;
+        console.log('this.institutions', this.institutions);
+      })
+      .catch((err) => {
+        console.error(err);
+        this.hideLoading();
+        this.institutions = [];
+        this.overlayNoRowsTemplate = this.overlayErrorTemplate;
       });
   };
 }
