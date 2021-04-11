@@ -27,9 +27,9 @@ type Institution
   "admins of the institution manage the institution's properties"
   admins: [InstitutionAdmin]
   "Fundamental units of learners belonging to the institution"
-  classes: [Class] @connection(name: "InstitutionClasses")
+  classes: [Class] @connection(name: "InstitutionClassesConnection")
   "All learners belonging to the institution"
-  learners: [Learner] @connection(name: "InstititionMembers")
+  learners: [Learner] @connection(name: "InstititionMembersConnection")
 }
 
 """
@@ -44,23 +44,27 @@ type Class
   "name of the class"
   name: String!
   "The id of the insitition that this class belongs to"
-  institution: Institution @connection(name: "InstitutionClasses")
+  institution: Institution @connection(name: "InstitutionClassesConnection")
   "The admins of the class who can manage members of the class etc"
   admins: [ClassAdmin]
   "Includes all the members of the class - learners, admins etc"
-  learners: [Learner] @connection(name: "ClassMembers")
+  learners: [Learner] @connection(name: "ClassMembersConnection")
 }
 
 """
 Groups of students other than classes.
 These are more volatile grouping than classes are.
 """
-type Group @model  @auth rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }])  {
+type Group
+  @model
+  @auth(
+    rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
+  ) {
   id: ID!
   "name of the group"
   name: String!
   "The id of the insitition that this group belongs to"
-  institution: Institution @connection(name: "InstitutionClasses")
+  institution: Institution @connection(name: "InstitutionClassesConnection")
   "The admins of the group who can manage members of the class etc"
   admins: [Learner]
   "List of members in this group"
@@ -75,9 +79,9 @@ type Learner @model @auth(rules: [{ allow: owner }]) {
   "Name of the individual"
   name: String!
   "Id of the institution that this individual belongs to"
-  institution: Institution @connection(name: "InstitutionMembers")
-       "Id of the class of the institution in which the member is part of"
-       class: Class @connection(name: "ClassMembers")
+  institution: Institution @connection(name: "InstititionMembersConnection")
+  "Id of the class of the institution in which the member is part of"
+  class: Class @connection(name: "ClassMembersConnection")
 }
 
 """
@@ -120,13 +124,13 @@ type Course
   ) {
   id: ID!
   "Instructor of the course"
-  instructor: Instructor @connection(name: "CourseInstructor")
+  instructor: Instructor @connection(name: "CourseInstructorConnection")
   "those who will be assisting with the course"
-  assistant: [Assistant] @connection(name: "CourseAssistant")
+  assistant: [CourseAssistant] @connection(name: "CourseAssistantConnection")
   "When the course starts"
-  start: DateTime
+  start: AWSDate
   "When the course is expected to end"
-  end: DateTime
+  end: AWSDate
   "Number of hours the learners are expected to invest per week"
   creditHours: Int
   "assignments as part of this course"
@@ -139,34 +143,34 @@ type Course
 CourseSections belong to courses and contain assignments
 """
 type CourseSection @model {
-id: ID!
-          "Name of the section"
-name: String!
-"Section number"
-index: Float!
-"Course that this section belongs to"
-course: Course!
+  id: ID!
+  "Name of the section"
+  name: String!
+  "Section number"
+  index: Float!
+  "Course that this section belongs to"
+  course: Course!
 }
 
 """
 Assignments are part of courses and need to be completed as part of the course
 """
 type Assignment @model {
-id: ID!
-"Title of the assignment"
-title: String!
-"Id of the course that this assignment belongs to"
-course: Course!
-"Id of the section that this assignment belongs to"
-section: CourseSection!
-"When this assignment is due"
-deadline: DateTime
-"Total number of points available to score in this assignment"
-points: Int
-"A description of what needs to be done in the assignment"
-instructions: String
-"A list of tasks to be completed as part of this assignment"
-tasks: [Task]
+  id: ID!
+  "Title of the assignment"
+  title: String!
+  "Id of the course that this assignment belongs to"
+  course: Course!
+  "Id of the section that this assignment belongs to"
+  section: CourseSection!
+  "When this assignment is due"
+  deadline: AWSDateTime
+  "Total number of points available to score in this assignment"
+  points: Int
+  "A description of what needs to be done in the assignment"
+  instructions: String
+  "A list of tasks to be completed as part of this assignment"
+  tasks: [Task]
 }
 
 """
@@ -174,11 +178,11 @@ Tasks to be completed as part of an assignment
 INCOMPLETE
 """
 type Task @model {
-id: ID!
-"Description of the task"
-task: String!
-"An enum of the fixed list of types of tasks"
-type: String!
+  id: ID!
+  "Description of the task"
+  task: String!
+  "An enum of the fixed list of types of tasks"
+  type: String!
 }
 
 """
@@ -191,7 +195,7 @@ type Instructor @model @auth(rules: [{ allow: owner }]) {
   "Title of the instructor"
   title: String
   "Instructor's self-description"
-  courses: [Course] @connection(name: "CourseInstructor")
+  courses: [Course] @connection(name: "CourseInstructorConnection")
 }
 
 """
@@ -204,6 +208,16 @@ type Assistant @model @auth(rules: [{ allow: owner }]) {
   "name of the assistant"
   name: String!
   "List of courses they are assisting for"
-  course: [Course] @connection(name: "CourseAssistant")
+  course: [CourseAssistant] @connection(name: "AssistantCourseConnection")
 }
-
+"""
+This is a join table that ties courses with Assistants
+This is the way to establish many-to-many relationships
+"""
+type CourseAssistant @model {
+  id: ID!
+  "The course that this assistant belongs to"
+  course: Course @connection(name: "CourseAssistantConnection")
+  "The assistants that are in a course"
+  assistant: Assistant @connection(name: "AssistantCourseConnection")
+}
