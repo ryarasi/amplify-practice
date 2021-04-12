@@ -66,11 +66,6 @@ export class AdminDashboardComponent implements OnInit {
   listInstitutions() {
     this.showLoading();
 
-    // const institutions = await API.graphql({
-    //   query: queries.ListInstitutions,
-    // });
-    // console.log('institutions', institutions);
-
     client
       .query({
         query: queries.ListInstitutions,
@@ -78,7 +73,6 @@ export class AdminDashboardComponent implements OnInit {
       .then((res: any) => {
         this.hideLoading();
         this.institutions = res.data.listInstitutions.items;
-        console.log('this.institutions', this.institutions);
       })
       .catch((err) => {
         console.error(err);

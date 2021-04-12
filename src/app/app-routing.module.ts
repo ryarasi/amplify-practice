@@ -7,7 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SupportComponent } from './pages/support/support.component';
 import { uiroutes } from './shared/common/ui-routes';
-import { AddInstitutionComponent } from './pages/entities/add-institution/add-institution.component';
+import { AddInstitutionComponent } from './pages/forms/add-institution/add-institution.component';
 
 const routes: Routes = [
   {

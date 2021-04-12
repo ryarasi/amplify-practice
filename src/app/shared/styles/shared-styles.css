@@ -17,7 +17,6 @@
 
 .floating-submit-button {
   position: fixed;
-  color: var(--shuddhi-color);
   right: 50px;
   bottom: 50px;
 }

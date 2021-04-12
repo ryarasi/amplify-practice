@@ -30,7 +30,7 @@ import { GroupDashboardComponent } from './pages/dashboard/tabs/group-dashboard/
 import { CourseDashboardComponent } from './pages/dashboard/tabs/course-dashboard/course-dashboard.component';
 import { ReportDashboardComponent } from './pages/dashboard/tabs/report-dashboard/report-dashboard.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { AddInstitutionComponent } from './pages/entities/add-institution/add-institution.component';
+import { AddInstitutionComponent } from './pages/forms/add-institution/add-institution.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 Amplify.configure(awsconfig);
