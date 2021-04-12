@@ -10720,11 +10720,12 @@ export class APIService {
     )) as any;
     return <ListCourseAssistantsQuery>response.data.listCourseAssistants;
   }
-  OnCreateInstitutionListener(
-    admins: string
-  ): Observable<SubscriptionResponse<OnCreateInstitutionSubscription>> {
-    const statement = `subscription OnCreateInstitution($admins: String!) {
-        onCreateInstitution(admins: $admins) {
+  OnCreateInstitutionListener: Observable<
+    SubscriptionResponse<OnCreateInstitutionSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateInstitution {
+        onCreateInstitution {
           __typename
           id
           name
@@ -10783,20 +10784,16 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      admins
-    };
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnCreateInstitutionSubscription>>;
-  }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateInstitutionSubscription>>;
 
-  OnUpdateInstitutionListener(
-    admins: string
-  ): Observable<SubscriptionResponse<OnUpdateInstitutionSubscription>> {
-    const statement = `subscription OnUpdateInstitution($admins: String!) {
-        onUpdateInstitution(admins: $admins) {
+  OnUpdateInstitutionListener: Observable<
+    SubscriptionResponse<OnUpdateInstitutionSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateInstitution {
+        onUpdateInstitution {
           __typename
           id
           name
@@ -10855,20 +10852,16 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      admins
-    };
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnUpdateInstitutionSubscription>>;
-  }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateInstitutionSubscription>>;
 
-  OnDeleteInstitutionListener(
-    admins: string
-  ): Observable<SubscriptionResponse<OnDeleteInstitutionSubscription>> {
-    const statement = `subscription OnDeleteInstitution($admins: String!) {
-        onDeleteInstitution(admins: $admins) {
+  OnDeleteInstitutionListener: Observable<
+    SubscriptionResponse<OnDeleteInstitutionSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteInstitution {
+        onDeleteInstitution {
           __typename
           id
           name
@@ -10927,14 +10920,9 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      admins
-    };
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnDeleteInstitutionSubscription>>;
-  }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteInstitutionSubscription>>;
 
   OnCreateClassListener(
     admins: string

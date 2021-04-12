@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { API } from 'aws-amplify';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
 import * as queries from './../../../../../graphql/queries.graphql';
 import { client } from './../../../../shared/api/appsync.service';
@@ -62,8 +63,14 @@ export class AdminDashboardComponent implements OnInit {
     this.listInstitutions();
   }
 
-  listInstitutions = () => {
+  listInstitutions() {
     this.showLoading();
+
+    // const institutions = await API.graphql({
+    //   query: queries.ListInstitutions,
+    // });
+    // console.log('institutions', institutions);
+
     client
       .query({
         query: queries.ListInstitutions,
@@ -79,5 +86,5 @@ export class AdminDashboardComponent implements OnInit {
         this.institutions = [];
         this.overlayNoRowsTemplate = this.overlayErrorTemplate;
       });
-  };
+  }
 }

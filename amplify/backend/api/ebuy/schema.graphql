@@ -4,11 +4,7 @@ These could be schools, colleges, corporates, organisations etc.
 They contain information like name, website, who the admins are,
 what classes/departments they contain
 """
-type Institution
-  @model
-  @auth(
-    rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
-  ) {
+type Institution @model {
   id: ID!
   "Name of the institution"
   name: String!

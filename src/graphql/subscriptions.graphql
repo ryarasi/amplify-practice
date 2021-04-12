@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateInstitution($admins: String!) {
-  onCreateInstitution(admins: $admins) {
+subscription OnCreateInstitution {
+  onCreateInstitution {
     id
     name
     location
@@ -53,8 +53,8 @@ subscription OnCreateInstitution($admins: String!) {
     updatedAt
   }
 }
-subscription OnUpdateInstitution($admins: String!) {
-  onUpdateInstitution(admins: $admins) {
+subscription OnUpdateInstitution {
+  onUpdateInstitution {
     id
     name
     location
@@ -107,8 +107,8 @@ subscription OnUpdateInstitution($admins: String!) {
     updatedAt
   }
 }
-subscription OnDeleteInstitution($admins: String!) {
-  onDeleteInstitution(admins: $admins) {
+subscription OnDeleteInstitution {
+  onDeleteInstitution {
     id
     name
     location
