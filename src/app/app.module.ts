@@ -9,11 +9,11 @@ import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import { Styling } from './styling.imports';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { AccountComponent } from './pages/account/account.component';
-import { SupportComponent } from './pages/support/support.component';
+import { DashboardComponent } from './pages/static/dashboard/dashboard.component';
+import { HomeComponent } from './pages/static/home/home.component';
+import { ProfileComponent } from './pages/static/profile/profile.component';
+import { AccountComponent } from './pages/static/account/account.component';
+import { SupportComponent } from './pages/static/support/support.component';
 import { AuthenticationGuard } from './shared/common/authentication.guard';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
@@ -23,15 +23,17 @@ import { environment } from 'src/environments/environment';
 import { AuthState } from './shared/ngxs/auth/auth.state';
 import { NotificationState } from './shared/ngxs/notifications/notification.state';
 import { LoadingState } from './shared/ngxs/loading/loading.state';
-import { AdminDashboardComponent } from './pages/dashboard/tabs/admin-dashboard/admin-dashboard.component';
-import { AnnouncementDashboardComponent } from './pages/dashboard/tabs/announcement-dashboard/announcement-dashboard.component';
-import { AssignmentDashboardComponent } from './pages/dashboard/tabs/assignment-dashboard/assignment-dashboard.component';
-import { GroupDashboardComponent } from './pages/dashboard/tabs/group-dashboard/group-dashboard.component';
-import { CourseDashboardComponent } from './pages/dashboard/tabs/course-dashboard/course-dashboard.component';
-import { ReportDashboardComponent } from './pages/dashboard/tabs/report-dashboard/report-dashboard.component';
+import { AdminDashboardComponent } from './pages/static/dashboard/tabs/admin-dashboard/admin-dashboard.component';
+import { AnnouncementDashboardComponent } from './pages/static/dashboard/tabs/announcement-dashboard/announcement-dashboard.component';
+import { AssignmentDashboardComponent } from './pages/static/dashboard/tabs/assignment-dashboard/assignment-dashboard.component';
+import { GroupDashboardComponent } from './pages/static/dashboard/tabs/group-dashboard/group-dashboard.component';
+import { CourseDashboardComponent } from './pages/static/dashboard/tabs/course-dashboard/course-dashboard.component';
+import { ReportDashboardComponent } from './pages/static/dashboard/tabs/report-dashboard/report-dashboard.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { AddInstitutionComponent } from './pages/forms/add-institution/add-institution.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InstitutionProfileRendererComponent } from './shared/cell-renderers/institution-profile/institution-profile-renderer.component';
+import { InstitutionProfileComponent } from './pages/modals/institution-profile/institution-profile.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -51,7 +53,10 @@ Amplify.configure(awsconfig);
     CourseDashboardComponent,
     ReportDashboardComponent,
     AddInstitutionComponent,
+    InstitutionProfileRendererComponent,
+    InstitutionProfileComponent,
   ],
+  entryComponents: [InstitutionProfileComponent],
   imports: [
     BrowserModule,
     FormsModule,

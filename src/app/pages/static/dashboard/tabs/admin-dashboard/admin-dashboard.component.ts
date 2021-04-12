@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { API } from 'aws-amplify';
+import { InstitutionProfileRendererComponent } from 'src/app/shared/cell-renderers/institution-profile/institution-profile-renderer.component';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
-import * as queries from './../../../../../graphql/queries.graphql';
-import { client } from './../../../../shared/api/appsync.service';
+import * as queries from './../../../../../../graphql/queries.graphql';
+import { client } from '../../../../../shared/api/appsync.service';
+import { MatDialog } from '@angular/material/dialog';
+import { InstitutionProfileComponent } from 'src/app/pages/modals/institution-profile/institution-profile.component';
+import { GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,13 +16,21 @@ import { client } from './../../../../shared/api/appsync.service';
 export class AdminDashboardComponent implements OnInit {
   @Input() params: object = {};
   opened: boolean;
-  private gridApi;
-  private gridColumnApi;
+  gridOptions: GridOptions;
+  gridApi;
+  selectedRows: any[] = [];
   entities: string[] = ['Institutions', 'Classes', 'Groups', 'Courses'];
   selectedEntity = this.entities[0];
   tableTitle: string = `List of ${this.entities[0]}`;
+  frameworkComponents = {
+    institutionRenderer: InstitutionProfileRendererComponent,
+  };
   columns = [
-    { field: 'name' },
+    {
+      field: 'name',
+      cellRenderer: 'institutionRenderer',
+      // checkboxSelection: true, headerCheckboxSelection: true
+    },
     { field: 'location' },
     { field: 'city' },
     { field: 'bio' },
@@ -31,7 +42,14 @@ export class AdminDashboardComponent implements OnInit {
     '<span style="padding: 10px; border: 2px solid #444; background: lightgoldenrodyellow;">No records to display</span>';
   overlayErrorTemplate =
     '<span style="padding: 10px;color: red; border: 2px solid #444; background: lightgoldenrodyellow;">There was an error while fetching data. Try again later.</span>';
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, public dialog: MatDialog) {
+    this.gridOptions = <GridOptions>{
+      context: {
+        componentParent: this,
+      },
+    };
+  }
 
   ngOnInit(): void {
     console.log('params from admin dashboard', this.params);
@@ -59,8 +77,30 @@ export class AdminDashboardComponent implements OnInit {
 
   onGridReady(params) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
     this.listInstitutions();
+  }
+
+  // onRowSelectionChange() {
+  //   const selectedNodes = this.gridApi.getSelectedNodes();
+  //   this.selectedRows = selectedNodes.map((node) => node.data);
+  // }
+  // unselectSelectedRows() {
+  //   this.gridApi.deselectAll();
+  // }
+  // deleteSelectedRows() {
+  //   console.log('Selected rows', this.selectedRows);
+  //   alert('Deletion code pending!');
+  // }
+
+  openInstitutionProfile(rowData) {
+    console.log('row data from the open dialog', rowData);
+    const dialogRef = this.dialog.open(InstitutionProfileComponent, {
+      data: rowData,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   listInstitutions() {

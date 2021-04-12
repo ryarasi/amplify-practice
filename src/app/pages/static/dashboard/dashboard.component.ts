@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { uiroutes } from './../../shared/common/ui-routes';
+import { uiroutes } from '../../../shared/common/ui-routes';
 
 const ADMIN = 'Admin';
 const ANNOUNCEMENTS = 'Announcements';

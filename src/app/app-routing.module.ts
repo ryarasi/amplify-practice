@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountComponent } from './pages/account/account.component';
+import { AccountComponent } from './pages/static/account/account.component';
 import { AuthenticationGuard } from './shared/common/authentication.guard';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { SupportComponent } from './pages/support/support.component';
+import { DashboardComponent } from './pages/static/dashboard/dashboard.component';
+import { HomeComponent } from './pages/static/home/home.component';
+import { ProfileComponent } from './pages/static/profile/profile.component';
+import { SupportComponent } from './pages/static/support/support.component';
 import { uiroutes } from './shared/common/ui-routes';
 import { AddInstitutionComponent } from './pages/forms/add-institution/add-institution.component';
 
