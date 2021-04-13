@@ -27,35 +27,13 @@
       </button>
     </div>
   </div>
-  <!-- <button (click)="openInstitutionProfile()">Open</button> -->
-  <!-- <div class="table-header-button-container">
-    <button
-      class="table-header-button"
-      *ngIf="selectedRows.length > 0"
-      (click)="unselectSelectedRows()"
-      mat-raised-button
-      color="primary"
-    >
-      Deselect
-    </button>
-    <button
-      class="table-header-button"
-      *ngIf="selectedRows.length > 0"
-      (click)="deleteSelectedRows()"
-      mat-raised-button
-      color="warn"
-    >
-      Delete
-    </button>
-  </div> -->
-
   <ag-grid-angular
     class="ag-theme-alpine table-style"
     [gridOptions]="gridOptions"
-    [rowData]="institutions"
+    [rowData]="institutions$ | async"
     [columnDefs]="columns"
-    [overlayLoadingTemplate]="overlayLoadingTemplate"
-    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [overlayLoadingTemplate]="overlayLoadingTemplate | async"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate | async"
     [frameworkComponents]="frameworkComponents"
     (gridReady)="onGridReady($event)"
   >

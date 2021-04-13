@@ -80,18 +80,6 @@ export class AdminDashboardComponent implements OnInit {
     this.listInstitutions();
   }
 
-  // onRowSelectionChange() {
-  //   const selectedNodes = this.gridApi.getSelectedNodes();
-  //   this.selectedRows = selectedNodes.map((node) => node.data);
-  // }
-  // unselectSelectedRows() {
-  //   this.gridApi.deselectAll();
-  // }
-  // deleteSelectedRows() {
-  //   console.log('Selected rows', this.selectedRows);
-  //   alert('Deletion code pending!');
-  // }
-
   openInstitutionProfile(rowData) {
     console.log('row data from the open dialog', rowData);
     const dialogRef = this.dialog.open(InstitutionProfileComponent, {

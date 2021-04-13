@@ -75,7 +75,7 @@ type Learner @model @auth(rules: [{ allow: owner }]) {
   "Name of the individual"
   name: String!
   "Id of the institution that this individual belongs to"
-  institution: Institution @connection(name: "InstititionMembersConnection")
+  institution: Institution! @connection(name: "InstititionMembersConnection")
   "Id of the class of the institution in which the member is part of"
   class: Class @connection(name: "ClassMembersConnection")
 }
@@ -88,7 +88,7 @@ type InstitutionAdmin @model @auth(rules: [{ allow: owner }]) {
   "Name of the individual"
   name: String!
   "Id of the institution that this admin belongs to"
-  institution: Institution
+  institution: Institution!
   "This is a description to be shown on their profile"
   title: String
   "This is the bio of the institution admin"
@@ -103,9 +103,13 @@ type ClassAdmin @model @auth(rules: [{ allow: owner }]) {
   "Name of the individual"
   name: String!
   "Id of the institution that this admin belongs to"
-  institution: Institution
+  institution: Institution!
   "Id of the class of the institution in which the member is part of"
   class: Class
+  "This is a description to be shown on their profile"
+  title: String
+  "This is the bio of the institution admin"
+  bio: String
 }
 
 """
