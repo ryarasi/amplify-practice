@@ -16,15 +16,12 @@ import { GridOptions } from 'ag-grid-community';
 export class AdminDashboardComponent implements OnInit {
   @Input() params: object = {};
   opened: boolean;
-  gridOptions: GridOptions;
-  gridApi;
-  selectedRows: any[] = [];
+
   entities: string[] = ['Institutions', 'Classes', 'Groups', 'Courses'];
   selectedEntity = this.entities[0];
   tableTitle: string = `List of ${this.entities[0]}`;
-  frameworkComponents = {
-    institutionRenderer: InstitutionProfileRendererComponent,
-  };
+
+  institutions: object[];
   columns = [
     {
       field: 'name',
@@ -34,7 +31,14 @@ export class AdminDashboardComponent implements OnInit {
     { field: 'city' },
     { field: 'bio' },
   ];
-  institutions: object[];
+  frameworkComponents = {
+    institutionRenderer: InstitutionProfileRendererComponent,
+  };
+  gridApi;
+  gridOptions: GridOptions;
+  fetchQuery = queries.ListInstitutions;
+  fetchOptions = {};
+  queryResponseItemName = 'listInstitutions';
   overlayLoadingTemplate =
     '<span class="ag-overlay-loading-center">Fetching records...</span>';
   overlayNoRowsTemplate =
@@ -58,7 +62,7 @@ export class AdminDashboardComponent implements OnInit {
     this.selectedEntity = entity;
   }
 
-  createSchool = () => {
+  createInstitution = () => {
     this.router.navigateByUrl(uiroutes.INSTITUTION_FORM_ROUTE);
   };
 
@@ -76,7 +80,6 @@ export class AdminDashboardComponent implements OnInit {
 
   onGridReady(params) {
     this.gridApi = params.api;
-    this.listInstitutions();
   }
 
   openInstitutionProfile(rowData) {
@@ -88,24 +91,5 @@ export class AdminDashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
-  }
-
-  listInstitutions() {
-    this.showLoading();
-
-    client
-      .query({
-        query: queries.ListInstitutions,
-      })
-      .then((res: any) => {
-        this.hideLoading();
-        this.institutions = res.data.listInstitutions.items;
-      })
-      .catch((err) => {
-        console.error(err);
-        this.hideLoading();
-        this.institutions = [];
-        this.overlayNoRowsTemplate = this.overlayErrorTemplate;
-      });
   }
 }

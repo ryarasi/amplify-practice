@@ -34,6 +34,7 @@ import { AddEditInstitutionComponent } from './pages/forms/add-edit-institution/
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InstitutionProfileRendererComponent } from './shared/cell-renderers/institution-profile/institution-profile-renderer.component';
 import { InstitutionProfileComponent } from './pages/modals/institution-profile/institution-profile.component';
+import { MasterGridComponent } from './shared/abstract/master-grid/master-grid.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -55,6 +56,7 @@ Amplify.configure(awsconfig);
     AddEditInstitutionComponent,
     InstitutionProfileRendererComponent,
     InstitutionProfileComponent,
+    MasterGridComponent,
   ],
   entryComponents: [InstitutionProfileComponent],
   imports: [
