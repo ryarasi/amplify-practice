@@ -1,5 +1,5 @@
-<div mat-dialog-content>
-  <mat-card class="example-card">
+<div mat-dialog-content class="dialog-box">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>{{ profileData.name }}</mat-card-title>
       <mat-card-subtitle>{{ profileData.location }}</mat-card-subtitle>
@@ -9,9 +9,13 @@
         {{ profileData.bio }}
       </p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-stroked-button>Edit</button>
-      <button mat-stroked-button>Delete</button>
-    </mat-card-actions>
   </mat-card>
+  <mat-dialog-actions class="card-actions">
+    <button mat-raised-button color="primary" (click)="editInstitution()">
+      Edit
+    </button>
+    <button mat-raised-button color="warn" (click)="deleteInstitution()">
+      Delete
+    </button>
+  </mat-dialog-actions>
 </div>

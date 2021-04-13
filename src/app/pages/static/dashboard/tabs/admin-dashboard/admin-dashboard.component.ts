@@ -29,7 +29,6 @@ export class AdminDashboardComponent implements OnInit {
     {
       field: 'name',
       cellRenderer: 'institutionRenderer',
-      // checkboxSelection: true, headerCheckboxSelection: true
     },
     { field: 'location' },
     { field: 'city' },
@@ -60,7 +59,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   createSchool = () => {
-    this.router.navigateByUrl(uiroutes.ADD_INSTITUTION_ROUTE);
+    this.router.navigateByUrl(uiroutes.INSTITUTION_FORM_ROUTE);
   };
 
   showLoading() {
@@ -79,18 +78,6 @@ export class AdminDashboardComponent implements OnInit {
     this.gridApi = params.api;
     this.listInstitutions();
   }
-
-  // onRowSelectionChange() {
-  //   const selectedNodes = this.gridApi.getSelectedNodes();
-  //   this.selectedRows = selectedNodes.map((node) => node.data);
-  // }
-  // unselectSelectedRows() {
-  //   this.gridApi.deselectAll();
-  // }
-  // deleteSelectedRows() {
-  //   console.log('Selected rows', this.selectedRows);
-  //   alert('Deletion code pending!');
-  // }
 
   openInstitutionProfile(rowData) {
     console.log('row data from the open dialog', rowData);
