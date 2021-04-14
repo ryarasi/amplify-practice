@@ -1,7 +1,6 @@
-<app-navbar></app-navbar>
-
-<div *ngIf="isLoggedIn$ | async; else homePage" id="main">
-  <router-outlet></router-outlet>
+<div id="main">
+  <app-navbar></app-navbar>
+  <router-outlet *ngIf="isLoggedIn$ | async; else homePage"></router-outlet>
 </div>
 
 <ng-template #homePage>

@@ -22,20 +22,20 @@
       <h2 style="text-align: center">List of {{ selectedEntity }}</h2>
     </div>
     <div class="title-block">
-      <button mat-icon-button (click)="createSchool()" id="add-button">
+      <button mat-icon-button (click)="createInstitution()" id="add-button">
         <mat-icon>add_circle</mat-icon>
       </button>
     </div>
   </div>
-  <ag-grid-angular
-    class="ag-theme-alpine table-style"
-    [gridOptions]="gridOptions"
-    [rowData]="institutions$ | async"
-    [columnDefs]="columns"
-    [overlayLoadingTemplate]="overlayLoadingTemplate | async"
-    [overlayNoRowsTemplate]="overlayNoRowsTemplate | async"
+  <app-master-grid
+    [defaultColDef]="defaultColDef"
+    [columns]="columns"
+    [rows]="rows$ | async"
+    [isFetching]="isFetching$ | async"
+    [errorFetching]="errorFetching$ | async"
     [frameworkComponents]="frameworkComponents"
-    (gridReady)="onGridReady($event)"
-  >
-  </ag-grid-angular>
+    [gridOptions]="gridOptions"
+    (fetchMethod)="fetchInstitutions()"
+    (createMethod)="createInstitution()"
+  ></app-master-grid>
 </mat-drawer-container>

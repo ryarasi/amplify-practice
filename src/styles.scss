@@ -19,6 +19,22 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
+:root {
+  --shuddhi-color: #0099ff;
+  --shuddhi-color-light: rgba(0, 153, 255, 0.8);
+  --shuddhi-color-translucent: rgba(0, 153, 255, 0.3);
+  --amplify-primary-color: #0099ff;
+  --amplify-primary-tint: #0377c5;
+  --amplify-primary-shade: #032a44;
+  --navbar-height: 50px;
+}
+:host {
+  --container-height: 100%;
+  --container-display: block;
+  --container-justify: center;
+  --container-align: center;
+}
+
 $shuddhi-mat-color: (
   50: #e0f3ff,
   100: #b3e0ff,
@@ -77,20 +93,6 @@ $ebuy-theme: mat-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 
-:root {
-  --shuddhi-color: #0099ff;
-  --shuddhi-color-light: rgba(0, 153, 255, 0.8);
-  --amplify-primary-color: #0099ff;
-  --amplify-primary-tint: #0377c5;
-  --amplify-primary-shade: #032a44;
-  --navbar-height: 50px;
-}
-:host {
-  --container-height: 100%;
-  --container-display: block;
-  --container-justify: center;
-  --container-align: center;
-}
 html,
 body {
   height: 100%;

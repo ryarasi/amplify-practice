@@ -3,5 +3,5 @@ export const uiroutes = {
   PROFILE_ROUTE: 'profile',
   ACCOUNT_ROUTE: 'account',
   SUPPORT_ROUTE: 'support',
-  ADD_INSTITUTION_ROUTE: 'add-institution',
+  INSTITUTION_FORM_ROUTE: 'institution-form',
 };
