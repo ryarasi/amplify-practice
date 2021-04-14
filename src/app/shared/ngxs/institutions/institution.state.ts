@@ -64,7 +64,6 @@ export class InstitutionState {
     let { institutions, isFetching, errorFetching } = state;
     isFetching = true;
     errorFetching = false;
-    institutions = [];
     patchState({ isFetching, errorFetching, institutions });
     client
       .query({

@@ -95,9 +95,9 @@
       class="floating-submit-button"
       mat-raised-button
       color="primary"
-      [disabled]="formSubmitting === true"
+      [disabled]="(formSubmitting$ | async) === true"
     >
-      {{ formSubmitting === true ? "Submitting..." : "Submit" }}
+      {{ (formSubmitting$ | async) === true ? "Submitting..." : "Submit" }}
     </button>
   </form>
 </div>

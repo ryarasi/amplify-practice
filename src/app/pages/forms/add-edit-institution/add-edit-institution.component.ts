@@ -31,6 +31,8 @@ export class AddEditInstitutionComponent implements OnInit {
   params: object = {};
   @Select(InstitutionState.getInstitutionFormRecord)
   institutionFormRecord$: Observable<Institution>;
+  @Select(InstitutionState.formSubmitting)
+  formSubmitting$: Observable<boolean>;
   institutionFormRecord: Institution = emptyInstitutionFormRecord;
   institutionForm: FormGroup;
 
