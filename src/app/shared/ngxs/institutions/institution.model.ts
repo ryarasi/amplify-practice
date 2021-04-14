@@ -17,7 +17,6 @@ export interface InstitutionStateModel {
   institutions: Institution[];
   institutionFormId: string;
   institutionFormRecord: Institution;
-  institutionFormGroup: FormGroup;
   isFetching: boolean;
   errorFetching: boolean;
   formSubmitting: boolean;
@@ -28,7 +27,6 @@ export const defaultInstitutionState: InstitutionStateModel = {
   institutions: [],
   institutionFormId: null,
   institutionFormRecord: emptyInstitutionFormRecord,
-  institutionFormGroup: null,
   isFetching: false,
   errorFetching: false,
   formSubmitting: false,

@@ -8,12 +8,6 @@ export class FetchInstitutions {
   constructor() {}
 }
 
-export class SetupInstitutionForm {
-  static readonly type = '[INSTITUTION] Setup form';
-
-  constructor() {}
-}
-
 export class GetInstitution {
   static readonly type = '[INSTITUTION] Get';
 

@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { client } from 'src/app/shared/api/appsync.service';
+import { Store } from '@ngxs/store';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
-import * as mutations from './../../../../graphql/mutations.graphql';
+import { DeleteInstitution } from 'src/app/shared/ngxs/institutions/institution.actions';
 @Component({
   selector: 'app-institution-profile',
   templateUrl: './institution-profile.component.html',
@@ -16,7 +16,8 @@ export class InstitutionProfileComponent {
     public dialogRef: MatDialogRef<InstitutionProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {
     this.profileData = data;
     console.log('profile data ', this.profileData);
@@ -38,20 +39,6 @@ export class InstitutionProfileComponent {
   }
 
   deleteInstitution() {
-    client
-      .mutate({
-        mutation: mutations.DeleteInstitution,
-        variables: {
-          input: {
-            id: this.profileData.id,
-          },
-        },
-      })
-      .then((res: any) => {
-        console.log('Item was deleted succesfully!', res);
-      })
-      .catch((err) => {
-        console.log('Something went wrong', err);
-      });
+    this.store.dispatch(new DeleteInstitution({ id: this.profileData.id }));
   }
 }
