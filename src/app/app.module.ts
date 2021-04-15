@@ -40,6 +40,9 @@ import { InstitutionsTableComponent } from './pages/tables/institutions-table/in
 import { ClassesTableComponent } from './pages/tables/classes-table/classes-table.component';
 import { GroupsTableComponent } from './pages/tables/groups-table/groups-table.component';
 import { CoursesTableComponent } from './pages/tables/courses-table/courses-table.component';
+import { ClassState } from './shared/ngxs/classes/class.state';
+import { ClassProfileRendererComponent } from './shared/cell-renderers/class-profile/class-profile-renderer.component';
+import { ClassProfileComponent } from './pages/modals/class-profile/class-profile.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -66,6 +69,8 @@ Amplify.configure(awsconfig);
     ClassesTableComponent,
     GroupsTableComponent,
     CoursesTableComponent,
+    ClassProfileRendererComponent,
+    ClassProfileComponent,
   ],
   entryComponents: [InstitutionProfileComponent],
   imports: [
@@ -79,7 +84,13 @@ Amplify.configure(awsconfig);
     AgGridModule.withComponents([]),
     [
       NgxsModule.forRoot(
-        [AuthState, NotificationState, LoadingState, InstitutionState],
+        [
+          AuthState,
+          NotificationState,
+          LoadingState,
+          InstitutionState,
+          ClassState,
+        ],
         {
           developmentMode: !environment.production,
         }

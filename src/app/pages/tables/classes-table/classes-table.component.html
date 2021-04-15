@@ -1,1 +1,12 @@
-<p>classes-table works!</p>
+<app-master-grid
+  [defaultColDef]="defaultColDef"
+  [columns]="columns"
+  [rows]="rows$ | async"
+  [isFetching]="isFetching$ | async"
+  [errorFetching]="errorFetching$ | async"
+  [tableTitle]="tableTitle"
+  [frameworkComponents]="frameworkComponents"
+  [gridOptions]="gridOptions"
+  (fetchMethod)="fetchClasses()"
+  (createMethod)="createClass()"
+></app-master-grid>

@@ -40,7 +40,7 @@ type Class
   "name of the class"
   name: String!
   "The id of the insitition that this class belongs to"
-  institution: Institution @connection(name: "InstitutionClassesConnection")
+  institution: Institution! @connection(name: "InstitutionClassesConnection")
   "The admins of the class who can manage members of the class etc"
   admins: [ClassAdmin]
   "Includes all the members of the class - learners, admins etc"
@@ -60,7 +60,7 @@ type Group
   "name of the group"
   name: String!
   "The id of the insitition that this group belongs to"
-  institution: Institution @connection(name: "InstitutionClassesConnection")
+  institution: Institution! @connection(name: "InstitutionClassesConnection")
   "The admins of the group who can manage members of the class etc"
   admins: [Learner]
   "List of members in this group"

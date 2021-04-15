@@ -17,9 +17,7 @@ import { InstitutionProfileComponent } from '../../modals/institution-profile/in
   styleUrls: ['./institutions-table.component.scss'],
 })
 export class InstitutionsTableComponent implements OnInit {
-  entities: string[] = ['Institutions', 'Classes', 'Groups', 'Courses'];
-  selectedEntity = this.entities[0];
-  tableTitle: string = `List of ${this.entities[0]}`;
+  tableTitle: string = 'Institutions';
   institutions: object[];
   @Select(InstitutionState.listInstitutions)
   rows$: Observable<Institution[]>;
