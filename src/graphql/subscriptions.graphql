@@ -213,6 +213,8 @@ subscription OnCreateClass($admins: String!) {
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner
@@ -283,6 +285,8 @@ subscription OnUpdateClass($admins: String!) {
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner
@@ -353,6 +357,8 @@ subscription OnDeleteClass($admins: String!) {
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner
@@ -675,6 +681,8 @@ subscription OnCreateLearner($owner: String!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -739,6 +747,8 @@ subscription OnUpdateLearner($owner: String!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -803,6 +813,8 @@ subscription OnDeleteLearner($owner: String!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -981,6 +993,8 @@ subscription OnCreateClassAdmin($owner: String!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -991,6 +1005,8 @@ subscription OnCreateClassAdmin($owner: String!) {
       createdAt
       updatedAt
     }
+    title
+    bio
     createdAt
     updatedAt
     owner
@@ -1045,6 +1061,8 @@ subscription OnUpdateClassAdmin($owner: String!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -1055,6 +1073,8 @@ subscription OnUpdateClassAdmin($owner: String!) {
       createdAt
       updatedAt
     }
+    title
+    bio
     createdAt
     updatedAt
     owner
@@ -1109,6 +1129,8 @@ subscription OnDeleteClassAdmin($owner: String!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -1119,6 +1141,8 @@ subscription OnDeleteClassAdmin($owner: String!) {
       createdAt
       updatedAt
     }
+    title
+    bio
     createdAt
     updatedAt
     owner

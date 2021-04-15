@@ -225,6 +225,8 @@ mutation CreateClass(
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner
@@ -298,6 +300,8 @@ mutation UpdateClass(
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner
@@ -371,6 +375,8 @@ mutation DeleteClass(
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner
@@ -705,6 +711,8 @@ mutation CreateLearner(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -772,6 +780,8 @@ mutation UpdateLearner(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -839,6 +849,8 @@ mutation DeleteLearner(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -1029,6 +1041,8 @@ mutation CreateClassAdmin(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -1039,6 +1053,8 @@ mutation CreateClassAdmin(
       createdAt
       updatedAt
     }
+    title
+    bio
     createdAt
     updatedAt
     owner
@@ -1096,6 +1112,8 @@ mutation UpdateClassAdmin(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -1106,6 +1124,8 @@ mutation UpdateClassAdmin(
       createdAt
       updatedAt
     }
+    title
+    bio
     createdAt
     updatedAt
     owner
@@ -1163,6 +1183,8 @@ mutation DeleteClassAdmin(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -1173,6 +1195,8 @@ mutation DeleteClassAdmin(
       createdAt
       updatedAt
     }
+    title
+    bio
     createdAt
     updatedAt
     owner

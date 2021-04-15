@@ -141,6 +141,8 @@ query GetClass($id: ID!) {
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner
@@ -183,6 +185,8 @@ query ListClasss(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -371,6 +375,8 @@ query GetLearner($id: ID!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -537,6 +543,8 @@ query GetClassAdmin($id: ID!) {
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
         owner
@@ -547,6 +555,8 @@ query GetClassAdmin($id: ID!) {
       createdAt
       updatedAt
     }
+    title
+    bio
     createdAt
     updatedAt
     owner
@@ -579,6 +589,8 @@ query ListClassAdmins(
         createdAt
         updatedAt
       }
+      title
+      bio
       createdAt
       updatedAt
       owner

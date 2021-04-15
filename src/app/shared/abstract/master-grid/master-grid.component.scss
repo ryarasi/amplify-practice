@@ -29,8 +29,12 @@
   top: 5px;
   left: 5px;
   font-size: 1em;
+  cursor: pointer;
 }
 
+.sync-spinner {
+  margin: 0 2px;
+}
 .syncing {
   animation: spin 2s linear infinite;
 }

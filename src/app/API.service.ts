@@ -124,6 +124,8 @@ export type ClassAdmin = {
   name?: string;
   institution?: Institution;
   class?: Class;
+  title?: string | null;
+  bio?: string | null;
   createdAt?: string;
   updatedAt?: string;
   owner?: string | null;
@@ -164,7 +166,7 @@ export type DeleteInstitutionInput = {
 export type CreateClassInput = {
   id?: string | null;
   name: string;
-  classInstitutionId?: string | null;
+  classInstitutionId: string;
 };
 
 export type ModelClassConditionInput = {
@@ -187,7 +189,7 @@ export type DeleteClassInput = {
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
-  groupInstitutionId?: string | null;
+  groupInstitutionId: string;
 };
 
 export type ModelGroupConditionInput = {
@@ -221,7 +223,7 @@ export type DeleteGroupInput = {
 export type CreateLearnerInput = {
   id?: string | null;
   name: string;
-  learnerInstitutionId?: string | null;
+  learnerInstitutionId: string;
   learnerClassId?: string | null;
 };
 
@@ -273,10 +275,14 @@ export type DeleteInstitutionAdminInput = {
 export type CreateClassAdminInput = {
   id?: string | null;
   name: string;
+  title?: string | null;
+  bio?: string | null;
 };
 
 export type ModelClassAdminConditionInput = {
   name?: ModelStringInput | null;
+  title?: ModelStringInput | null;
+  bio?: ModelStringInput | null;
   and?: Array<ModelClassAdminConditionInput | null> | null;
   or?: Array<ModelClassAdminConditionInput | null> | null;
   not?: ModelClassAdminConditionInput | null;
@@ -285,6 +291,8 @@ export type ModelClassAdminConditionInput = {
 export type UpdateClassAdminInput = {
   id: string;
   name?: string | null;
+  title?: string | null;
+  bio?: string | null;
 };
 
 export type DeleteClassAdminInput = {
@@ -663,6 +671,8 @@ export type ModelInstitutionAdminConnection = {
 export type ModelClassAdminFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
+  title?: ModelStringInput | null;
+  bio?: ModelStringInput | null;
   and?: Array<ModelClassAdminFilterInput | null> | null;
   or?: Array<ModelClassAdminFilterInput | null> | null;
   not?: ModelClassAdminFilterInput | null;
@@ -781,7 +791,7 @@ export type CreateInstitutionMutation = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -793,7 +803,7 @@ export type CreateInstitutionMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -841,7 +851,7 @@ export type UpdateInstitutionMutation = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -853,7 +863,7 @@ export type UpdateInstitutionMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -901,7 +911,7 @@ export type DeleteInstitutionMutation = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -913,7 +923,7 @@ export type DeleteInstitutionMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -951,7 +961,7 @@ export type CreateClassMutation = {
   __typename: "Class";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -981,12 +991,12 @@ export type CreateClassMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -998,7 +1008,7 @@ export type CreateClassMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1006,6 +1016,8 @@ export type CreateClassMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -1030,7 +1042,7 @@ export type UpdateClassMutation = {
   __typename: "Class";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1060,12 +1072,12 @@ export type UpdateClassMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1077,7 +1089,7 @@ export type UpdateClassMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1085,6 +1097,8 @@ export type UpdateClassMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -1109,7 +1123,7 @@ export type DeleteClassMutation = {
   __typename: "Class";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1139,12 +1153,12 @@ export type DeleteClassMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1156,7 +1170,7 @@ export type DeleteClassMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1164,6 +1178,8 @@ export type DeleteClassMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -1188,7 +1204,7 @@ export type CreateGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1218,12 +1234,12 @@ export type CreateGroupMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1235,7 +1251,7 @@ export type CreateGroupMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1251,7 +1267,7 @@ export type CreateGroupMutation = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1263,7 +1279,7 @@ export type CreateGroupMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1283,7 +1299,7 @@ export type UpdateGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1313,12 +1329,12 @@ export type UpdateGroupMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1330,7 +1346,7 @@ export type UpdateGroupMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1346,7 +1362,7 @@ export type UpdateGroupMutation = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1358,7 +1374,7 @@ export type UpdateGroupMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1378,7 +1394,7 @@ export type DeleteGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1408,12 +1424,12 @@ export type DeleteGroupMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1425,7 +1441,7 @@ export type DeleteGroupMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1441,7 +1457,7 @@ export type DeleteGroupMutation = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1453,7 +1469,7 @@ export type DeleteGroupMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -1473,7 +1489,7 @@ export type CreateLearnerMutation = {
   __typename: "Learner";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1503,12 +1519,12 @@ export type CreateLearnerMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1520,11 +1536,13 @@ export type CreateLearnerMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -1545,7 +1563,7 @@ export type UpdateLearnerMutation = {
   __typename: "Learner";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1575,12 +1593,12 @@ export type UpdateLearnerMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1592,11 +1610,13 @@ export type UpdateLearnerMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -1617,7 +1637,7 @@ export type DeleteLearnerMutation = {
   __typename: "Learner";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1647,12 +1667,12 @@ export type DeleteLearnerMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1664,11 +1684,13 @@ export type DeleteLearnerMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -1689,7 +1711,7 @@ export type CreateInstitutionAdminMutation = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1719,7 +1741,7 @@ export type CreateInstitutionAdminMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -1731,7 +1753,7 @@ export type UpdateInstitutionAdminMutation = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1761,7 +1783,7 @@ export type UpdateInstitutionAdminMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -1773,7 +1795,7 @@ export type DeleteInstitutionAdminMutation = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1797,6 +1819,82 @@ export type DeleteInstitutionAdminMutation = {
       __typename: "ModelClassConnection";
       nextToken?: string | null;
     } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  title?: string | null;
+  bio?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
+};
+
+export type CreateClassAdminMutation = {
+  __typename: "ClassAdmin";
+  id: string;
+  name: string;
+  institution: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  class?: {
+    __typename: "Class";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    admins?: Array<{
+      __typename: "ClassAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
     learners?: {
       __typename: "ModelLearnerConnection";
       nextToken?: string | null;
@@ -1811,83 +1909,11 @@ export type DeleteInstitutionAdminMutation = {
   owner?: string | null;
 };
 
-export type CreateClassAdminMutation = {
-  __typename: "ClassAdmin";
-  id: string;
-  name: string;
-  institution?: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    admins?: Array<{
-      __typename: "InstitutionAdmin";
-      id: string;
-      name: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null> | null;
-    classes?: {
-      __typename: "ModelClassConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  class?: {
-    __typename: "Class";
-    id: string;
-    name: string;
-    institution?: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null;
-    admins?: Array<{
-      __typename: "ClassAdmin";
-      id: string;
-      name: string;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null> | null;
-    learners?: {
-      __typename: "ModelLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-  owner?: string | null;
-};
-
 export type UpdateClassAdminMutation = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1917,12 +1943,12 @@ export type UpdateClassAdminMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -1934,11 +1960,13 @@ export type UpdateClassAdminMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -1950,6 +1978,8 @@ export type UpdateClassAdminMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  title?: string | null;
+  bio?: string | null;
   createdAt: string;
   updatedAt: string;
   owner?: string | null;
@@ -1959,7 +1989,7 @@ export type DeleteClassAdminMutation = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -1989,12 +2019,12 @@ export type DeleteClassAdminMutation = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -2006,11 +2036,13 @@ export type DeleteClassAdminMutation = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -2022,6 +2054,8 @@ export type DeleteClassAdminMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  title?: string | null;
+  bio?: string | null;
   createdAt: string;
   updatedAt: string;
   owner?: string | null;
@@ -3001,7 +3035,7 @@ export type GetInstitutionQuery = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3013,7 +3047,7 @@ export type GetInstitutionQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -3087,7 +3121,7 @@ export type GetClassQuery = {
   __typename: "Class";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -3117,12 +3151,12 @@ export type GetClassQuery = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3134,7 +3168,7 @@ export type GetClassQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -3142,6 +3176,8 @@ export type GetClassQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -3168,7 +3204,7 @@ export type ListClasssQuery = {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3180,11 +3216,13 @@ export type ListClasssQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -3203,7 +3241,7 @@ export type GetGroupQuery = {
   __typename: "Group";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -3233,12 +3271,12 @@ export type GetGroupQuery = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3250,7 +3288,7 @@ export type GetGroupQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -3266,7 +3304,7 @@ export type GetGroupQuery = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3278,7 +3316,7 @@ export type GetGroupQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -3300,7 +3338,7 @@ export type ListGroupsQuery = {
     __typename: "Group";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3312,7 +3350,7 @@ export type ListGroupsQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "Learner";
       id: string;
@@ -3339,7 +3377,7 @@ export type GetLearnerQuery = {
   __typename: "Learner";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -3369,12 +3407,12 @@ export type GetLearnerQuery = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3386,11 +3424,13 @@ export type GetLearnerQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -3413,7 +3453,7 @@ export type ListLearnersQuery = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3425,7 +3465,7 @@ export type ListLearnersQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -3444,7 +3484,7 @@ export type GetInstitutionAdminQuery = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -3468,6 +3508,110 @@ export type GetInstitutionAdminQuery = {
       __typename: "ModelClassConnection";
       nextToken?: string | null;
     } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  title?: string | null;
+  bio?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
+};
+
+export type ListInstitutionAdminsQuery = {
+  __typename: "ModelInstitutionAdminConnection";
+  items?: Array<{
+    __typename: "InstitutionAdmin";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    title?: string | null;
+    bio?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null> | null;
+  nextToken?: string | null;
+};
+
+export type GetClassAdminQuery = {
+  __typename: "ClassAdmin";
+  id: string;
+  name: string;
+  institution: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  class?: {
+    __typename: "Class";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    admins?: Array<{
+      __typename: "ClassAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
     learners?: {
       __typename: "ModelLearnerConnection";
       nextToken?: string | null;
@@ -3482,113 +3626,13 @@ export type GetInstitutionAdminQuery = {
   owner?: string | null;
 };
 
-export type ListInstitutionAdminsQuery = {
-  __typename: "ModelInstitutionAdminConnection";
-  items?: Array<{
-    __typename: "InstitutionAdmin";
-    id: string;
-    name: string;
-    institution?: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null;
-    title?: string | null;
-    bio?: string | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null> | null;
-  nextToken?: string | null;
-};
-
-export type GetClassAdminQuery = {
-  __typename: "ClassAdmin";
-  id: string;
-  name: string;
-  institution?: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    admins?: Array<{
-      __typename: "InstitutionAdmin";
-      id: string;
-      name: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null> | null;
-    classes?: {
-      __typename: "ModelClassConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  class?: {
-    __typename: "Class";
-    id: string;
-    name: string;
-    institution?: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null;
-    admins?: Array<{
-      __typename: "ClassAdmin";
-      id: string;
-      name: string;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null> | null;
-    learners?: {
-      __typename: "ModelLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-  owner?: string | null;
-};
-
 export type ListClassAdminsQuery = {
   __typename: "ModelClassAdminConnection";
   items?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -3600,7 +3644,7 @@ export type ListClassAdminsQuery = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -3608,6 +3652,8 @@ export type ListClassAdminsQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -4132,7 +4178,7 @@ export type OnCreateInstitutionSubscription = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4144,7 +4190,7 @@ export type OnCreateInstitutionSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -4192,7 +4238,7 @@ export type OnUpdateInstitutionSubscription = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4204,7 +4250,7 @@ export type OnUpdateInstitutionSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -4252,7 +4298,7 @@ export type OnDeleteInstitutionSubscription = {
     __typename: "InstitutionAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4264,7 +4310,7 @@ export type OnDeleteInstitutionSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     title?: string | null;
     bio?: string | null;
     createdAt: string;
@@ -4302,7 +4348,7 @@ export type OnCreateClassSubscription = {
   __typename: "Class";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4332,12 +4378,12 @@ export type OnCreateClassSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4349,7 +4395,7 @@ export type OnCreateClassSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4357,6 +4403,8 @@ export type OnCreateClassSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -4381,7 +4429,7 @@ export type OnUpdateClassSubscription = {
   __typename: "Class";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4411,12 +4459,12 @@ export type OnUpdateClassSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4428,7 +4476,7 @@ export type OnUpdateClassSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4436,6 +4484,8 @@ export type OnUpdateClassSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -4460,7 +4510,7 @@ export type OnDeleteClassSubscription = {
   __typename: "Class";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4490,12 +4540,12 @@ export type OnDeleteClassSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "ClassAdmin";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4507,7 +4557,7 @@ export type OnDeleteClassSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4515,6 +4565,8 @@ export type OnDeleteClassSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    title?: string | null;
+    bio?: string | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
@@ -4539,7 +4591,7 @@ export type OnCreateGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4569,12 +4621,12 @@ export type OnCreateGroupSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4586,7 +4638,7 @@ export type OnCreateGroupSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4602,7 +4654,7 @@ export type OnCreateGroupSubscription = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4614,7 +4666,7 @@ export type OnCreateGroupSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4634,7 +4686,7 @@ export type OnUpdateGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4664,12 +4716,12 @@ export type OnUpdateGroupSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4681,7 +4733,7 @@ export type OnUpdateGroupSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4697,7 +4749,7 @@ export type OnUpdateGroupSubscription = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4709,7 +4761,7 @@ export type OnUpdateGroupSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4729,7 +4781,7 @@ export type OnDeleteGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4759,12 +4811,12 @@ export type OnDeleteGroupSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   admins?: Array<{
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4776,7 +4828,7 @@ export type OnDeleteGroupSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4792,7 +4844,7 @@ export type OnDeleteGroupSubscription = {
     __typename: "Learner";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4804,7 +4856,7 @@ export type OnDeleteGroupSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     class?: {
       __typename: "Class";
       id: string;
@@ -4824,7 +4876,7 @@ export type OnCreateLearnerSubscription = {
   __typename: "Learner";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4854,12 +4906,12 @@ export type OnCreateLearnerSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4871,11 +4923,13 @@ export type OnCreateLearnerSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -4896,7 +4950,7 @@ export type OnUpdateLearnerSubscription = {
   __typename: "Learner";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4926,12 +4980,12 @@ export type OnUpdateLearnerSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -4943,11 +4997,13 @@ export type OnUpdateLearnerSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -4968,7 +5024,7 @@ export type OnDeleteLearnerSubscription = {
   __typename: "Learner";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -4998,12 +5054,12 @@ export type OnDeleteLearnerSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -5015,11 +5071,13 @@ export type OnDeleteLearnerSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -5040,7 +5098,7 @@ export type OnCreateInstitutionAdminSubscription = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -5070,7 +5128,7 @@ export type OnCreateInstitutionAdminSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -5082,7 +5140,7 @@ export type OnUpdateInstitutionAdminSubscription = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -5112,7 +5170,7 @@ export type OnUpdateInstitutionAdminSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   title?: string | null;
   bio?: string | null;
   createdAt: string;
@@ -5124,7 +5182,7 @@ export type OnDeleteInstitutionAdminSubscription = {
   __typename: "InstitutionAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -5148,6 +5206,82 @@ export type OnDeleteInstitutionAdminSubscription = {
       __typename: "ModelClassConnection";
       nextToken?: string | null;
     } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  title?: string | null;
+  bio?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
+};
+
+export type OnCreateClassAdminSubscription = {
+  __typename: "ClassAdmin";
+  id: string;
+  name: string;
+  institution: {
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "InstitutionAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
+    classes?: {
+      __typename: "ModelClassConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  class?: {
+    __typename: "Class";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    admins?: Array<{
+      __typename: "ClassAdmin";
+      id: string;
+      name: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null> | null;
     learners?: {
       __typename: "ModelLearnerConnection";
       nextToken?: string | null;
@@ -5162,83 +5296,11 @@ export type OnDeleteInstitutionAdminSubscription = {
   owner?: string | null;
 };
 
-export type OnCreateClassAdminSubscription = {
-  __typename: "ClassAdmin";
-  id: string;
-  name: string;
-  institution?: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    admins?: Array<{
-      __typename: "InstitutionAdmin";
-      id: string;
-      name: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null> | null;
-    classes?: {
-      __typename: "ModelClassConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  class?: {
-    __typename: "Class";
-    id: string;
-    name: string;
-    institution?: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null;
-    admins?: Array<{
-      __typename: "ClassAdmin";
-      id: string;
-      name: string;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null> | null;
-    learners?: {
-      __typename: "ModelLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-  owner?: string | null;
-};
-
 export type OnUpdateClassAdminSubscription = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -5268,12 +5330,12 @@ export type OnUpdateClassAdminSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -5285,11 +5347,13 @@ export type OnUpdateClassAdminSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -5301,6 +5365,8 @@ export type OnUpdateClassAdminSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  title?: string | null;
+  bio?: string | null;
   createdAt: string;
   updatedAt: string;
   owner?: string | null;
@@ -5310,7 +5376,7 @@ export type OnDeleteClassAdminSubscription = {
   __typename: "ClassAdmin";
   id: string;
   name: string;
-  institution?: {
+  institution: {
     __typename: "Institution";
     id: string;
     name: string;
@@ -5340,12 +5406,12 @@ export type OnDeleteClassAdminSubscription = {
     } | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   class?: {
     __typename: "Class";
     id: string;
     name: string;
-    institution?: {
+    institution: {
       __typename: "Institution";
       id: string;
       name: string;
@@ -5357,11 +5423,13 @@ export type OnDeleteClassAdminSubscription = {
       bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null;
+    };
     admins?: Array<{
       __typename: "ClassAdmin";
       id: string;
       name: string;
+      title?: string | null;
+      bio?: string | null;
       createdAt: string;
       updatedAt: string;
       owner?: string | null;
@@ -5373,6 +5441,8 @@ export type OnDeleteClassAdminSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  title?: string | null;
+  bio?: string | null;
   createdAt: string;
   updatedAt: string;
   owner?: string | null;
@@ -6634,6 +6704,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -6729,6 +6801,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -6824,6 +6898,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -7249,6 +7325,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -7337,6 +7415,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -7425,6 +7505,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -7687,6 +7769,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -7698,6 +7782,8 @@ export class APIService {
             createdAt
             updatedAt
           }
+          title
+          bio
           createdAt
           updatedAt
           owner
@@ -7775,6 +7861,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -7786,6 +7874,8 @@ export class APIService {
             createdAt
             updatedAt
           }
+          title
+          bio
           createdAt
           updatedAt
           owner
@@ -7863,6 +7953,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -7874,6 +7966,8 @@ export class APIService {
             createdAt
             updatedAt
           }
+          title
+          bio
           createdAt
           updatedAt
           owner
@@ -9374,6 +9468,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -9431,6 +9527,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -9685,6 +9783,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -9922,6 +10022,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -9933,6 +10035,8 @@ export class APIService {
             createdAt
             updatedAt
           }
+          title
+          bio
           createdAt
           updatedAt
           owner
@@ -9978,6 +10082,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -10987,6 +11093,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -11078,6 +11186,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -11169,6 +11279,8 @@ export class APIService {
               createdAt
               updatedAt
             }
+            title
+            bio
             createdAt
             updatedAt
             owner
@@ -11578,6 +11690,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -11662,6 +11776,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -11746,6 +11862,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -11992,6 +12110,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -12003,6 +12123,8 @@ export class APIService {
             createdAt
             updatedAt
           }
+          title
+          bio
           createdAt
           updatedAt
           owner
@@ -12076,6 +12198,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -12087,6 +12211,8 @@ export class APIService {
             createdAt
             updatedAt
           }
+          title
+          bio
           createdAt
           updatedAt
           owner
@@ -12160,6 +12286,8 @@ export class APIService {
               __typename
               id
               name
+              title
+              bio
               createdAt
               updatedAt
               owner
@@ -12171,6 +12299,8 @@ export class APIService {
             createdAt
             updatedAt
           }
+          title
+          bio
           createdAt
           updatedAt
           owner

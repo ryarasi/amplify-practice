@@ -10,6 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const components = [
   MatToolbarModule,
@@ -23,6 +24,7 @@ const components = [
   MatListModule,
   MatInputModule,
   MatCardModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({

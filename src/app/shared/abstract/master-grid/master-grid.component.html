@@ -5,11 +5,17 @@
       {{ tableTitle
       }}<mat-icon
         id="sync-records-icon"
-        [ngClass]="isFetching ? 'syncing' : 'not-syncing'"
+        *ngIf="!isFetching"
         (click)="fetchRecords()"
       >
         sync
       </mat-icon>
+      <mat-progress-spinner
+        class="sync-spinner"
+        mode="indeterminate"
+        color="primary"
+      >
+      </mat-progress-spinner>
     </h2>
   </div>
   <div class="title-block">
@@ -18,6 +24,8 @@
     </button>
   </div>
 </div>
+<mat-progress-spinner class="sync-spinner" mode="indeterminate" color="primary">
+</mat-progress-spinner>
 <ag-grid-angular
   class="ag-theme-alpine table-style"
   [gridOptions]="gridOptions"
