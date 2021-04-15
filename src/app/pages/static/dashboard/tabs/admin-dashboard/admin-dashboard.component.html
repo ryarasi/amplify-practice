@@ -2,6 +2,9 @@
   <mat-drawer #drawer mode="side" [(opened)]="opened" class="drawer-content">
     <mat-selection-list [multiple]="false">
       <mat-list-option
+        [ngClass]="
+          selectedEntity === entity ? 'selectedSection' : 'unselectedSection'
+        "
         *ngFor="let entity of entities"
         [value]="entity"
         (click)="onSelectEntity(entity)"
@@ -10,32 +13,10 @@
       </mat-list-option>
     </mat-selection-list>
   </mat-drawer>
-  <div id="title-tab">
-    <div class="title-block">
-      <button mat-icon-button (click)="drawer.toggle()" id="drawer-puller">
-        <mat-icon>{{
-          opened === true ? "arrow_left" : "arrow_right"
-        }}</mat-icon>
-      </button>
-    </div>
-    <div class="title-block" id="title">
-      <h2 style="text-align: center">List of {{ selectedEntity }}</h2>
-    </div>
-    <div class="title-block">
-      <button mat-icon-button (click)="createInstitution()" id="add-button">
-        <mat-icon>add_circle</mat-icon>
-      </button>
-    </div>
-  </div>
-  <app-master-grid
-    [defaultColDef]="defaultColDef"
-    [columns]="columns"
-    [rows]="rows$ | async"
-    [isFetching]="isFetching$ | async"
-    [errorFetching]="errorFetching$ | async"
-    [frameworkComponents]="frameworkComponents"
-    [gridOptions]="gridOptions"
-    (fetchMethod)="fetchInstitutions()"
-    (createMethod)="createInstitution()"
-  ></app-master-grid>
+  <button mat-icon-button (click)="drawer.toggle()" id="drawer-puller">
+    <mat-icon>{{ opened === true ? "arrow_left" : "arrow_right" }}</mat-icon>
+  </button>
+  <app-institutions-table
+    *ngIf="selectedEntity == institutions"
+  ></app-institutions-table>
 </mat-drawer-container>

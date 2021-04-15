@@ -7,39 +7,19 @@
 
 .drawer-content {
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 #drawer-puller {
   float: left;
-  display: block;
+  // position: absolute;
+  left: -10px;
 }
 
-.table-style {
-  width: 99%;
-  height: calc(100vh - 300px);
-  margin: 10px;
-  min-height: 300px;
-  overflow: auto;
+.selectedSection {
+  border-right: 2px solid var(--shuddhi-color);
 }
 
-#title-tab {
-  overflow: hidden;
-  width: 100%;
-  height: 30px;
-}
-
-.title-block {
-  float: left;
-  width: 33%;
-  text-align: center;
-  margin-top: -5px;
-  margin-bottom: -5px;
-}
-
-#title {
-  margin-top: 2px;
-}
-
-#add-button {
-  float: right;
+.unselectedSelection {
+  border-right: inherit;
 }

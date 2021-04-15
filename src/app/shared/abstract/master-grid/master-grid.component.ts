@@ -16,6 +16,7 @@ import { GridOptions } from 'ag-grid-community';
 })
 export class MasterGridComponent implements OnInit, OnChanges {
   gridApi;
+  columnApi;
   overlayLoadingTemplate =
     '<span class="ag-overlay-loading-center" style="padding: 10px 20px; border: 2px solid var(--shuddhi-color-translucent); border-radius: 3px; background: #fff;">Fetching records...</span>';
   overlayNoRowsTemplate =
@@ -36,6 +37,8 @@ export class MasterGridComponent implements OnInit, OnChanges {
   isFetching: boolean;
   @Input()
   errorFetching: boolean;
+  @Input()
+  tableTitle: string;
   @Output()
   fetchMethod: EventEmitter<any> = new EventEmitter();
   @Output()
@@ -58,21 +61,49 @@ export class MasterGridComponent implements OnInit, OnChanges {
     }
   }
 
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.columnApi = params.columnApi;
+    this.fetchRecords();
+    this.sizeToFit();
+  }
+
+  sizeToFit() {
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  autoSizeAll(skipHeader = false) {
+    var allColumnIds = [];
+    console.log('gridApi', this.gridApi);
+    this.columnApi.getAllColumns().forEach(function (column) {
+      allColumnIds.push(column.colId);
+    });
+
+    console.log('allColumnIds', allColumnIds);
+
+    this.columnApi.autoSizeColumns(allColumnIds, skipHeader);
+  }
+
   showLoading() {
     if (this.gridApi) {
+      console.log('showing loading...');
       this.gridApi.showLoadingOverlay();
     }
   }
 
   hideLoading() {
     if (this.gridApi) {
+      console.log('hiding loading...');
       this.gridApi.hideOverlay();
     }
   }
 
-  onGridReady(params) {
-    this.gridApi = params.api;
+  fetchRecords() {
     this.fetchMethod.emit([]);
+  }
+
+  createRecord() {
+    this.createMethod.emit([]);
   }
 
   ngOnInit(): void {}

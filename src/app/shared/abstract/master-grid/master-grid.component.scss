@@ -5,3 +5,48 @@
   min-height: 300px;
   overflow: auto;
 }
+
+#title-tab {
+  overflow: hidden;
+  width: 100%;
+  height: 30px;
+}
+
+.title-block {
+  float: left;
+  width: 33%;
+  text-align: center;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
+#title {
+  margin-top: 2px;
+}
+
+#sync-records-icon {
+  position: relative;
+  top: 5px;
+  left: 5px;
+  font-size: 1em;
+}
+
+.syncing {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.not-syncing {
+  cursor: pointer;
+}
+
+#add-button {
+  float: right;
+}

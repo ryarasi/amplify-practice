@@ -36,6 +36,10 @@ import { InstitutionProfileRendererComponent } from './shared/cell-renderers/ins
 import { InstitutionProfileComponent } from './pages/modals/institution-profile/institution-profile.component';
 import { MasterGridComponent } from './shared/abstract/master-grid/master-grid.component';
 import { InstitutionState } from './shared/ngxs/institutions/institution.state';
+import { InstitutionsTableComponent } from './pages/tables/institutions-table/institutions-table.component';
+import { ClassesTableComponent } from './pages/tables/classes-table/classes-table.component';
+import { GroupsTableComponent } from './pages/tables/groups-table/groups-table.component';
+import { CoursesTableComponent } from './pages/tables/courses-table/courses-table.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -58,6 +62,10 @@ Amplify.configure(awsconfig);
     InstitutionProfileRendererComponent,
     InstitutionProfileComponent,
     MasterGridComponent,
+    InstitutionsTableComponent,
+    ClassesTableComponent,
+    GroupsTableComponent,
+    CoursesTableComponent,
   ],
   entryComponents: [InstitutionProfileComponent],
   imports: [

@@ -1,0 +1,12 @@
+<app-master-grid
+  [defaultColDef]="defaultColDef"
+  [columns]="columns"
+  [rows]="rows$ | async"
+  [isFetching]="isFetching$ | async"
+  [errorFetching]="errorFetching$ | async"
+  [tableTitle]="selectedEntity"
+  [frameworkComponents]="frameworkComponents"
+  [gridOptions]="gridOptions"
+  (fetchMethod)="fetchInstitutions()"
+  (createMethod)="createInstitution()"
+></app-master-grid>
