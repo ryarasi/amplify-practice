@@ -33,7 +33,10 @@ import { AgGridModule } from 'ag-grid-angular';
 import { AddEditInstitutionComponent } from './pages/forms/add-edit-institution/add-edit-institution.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InstitutionProfileRendererComponent } from './shared/cell-renderers/institution-profile/institution-profile-renderer.component';
-import { InstitutionProfileComponent } from './pages/modals/institution-profile/institution-profile.component';
+import {
+  InstitutionDeleteConfirmationDialog,
+  InstitutionProfileComponent,
+} from './pages/modals/institution-profile/institution-profile.component';
 import { MasterGridComponent } from './shared/abstract/master-grid/master-grid.component';
 import { InstitutionState } from './shared/ngxs/institutions/institution.state';
 import { InstitutionsTableComponent } from './pages/tables/institutions-table/institutions-table.component';
@@ -71,6 +74,7 @@ Amplify.configure(awsconfig);
     CoursesTableComponent,
     ClassProfileRendererComponent,
     ClassProfileComponent,
+    InstitutionDeleteConfirmationDialog,
   ],
   entryComponents: [InstitutionProfileComponent],
   imports: [

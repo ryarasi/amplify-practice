@@ -1,5 +1,5 @@
 .center {
-  z-index: 1000;
+  z-index: 999999999;
   margin: 0;
   background: rgba(0, 0, 0, 0.5);
   width: 100vw;
@@ -38,5 +38,5 @@
   margin: auto;
   font-size: 10px;
   position: relative;
-  z-index: 1001;
+  z-index: 9999999999;
 }

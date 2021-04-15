@@ -8,6 +8,11 @@ export class FetchClasses {
   constructor() {}
 }
 
+export class ForceRefetchClasses {
+  static readonly type = '[CLASSES] Refetch from network';
+
+  constructor() {}
+}
 export class GetClass {
   static readonly type = '[CLASS] Get';
 

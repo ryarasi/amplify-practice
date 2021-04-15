@@ -1,4 +1,6 @@
+import { NullVisitor } from '@angular/compiler/src/render3/r3_ast';
 import { Class } from 'src/app/API.service';
+import { FetchPolicy } from '../../models';
 
 export const emptyClassFormRecord: Class = {
   __typename: 'Class',
@@ -12,6 +14,7 @@ export const emptyClassFormRecord: Class = {
 };
 export interface ClassStateModel {
   classes: Class[];
+  fetchPolicy: FetchPolicy;
   classFormId: string;
   classFormRecord: Class;
   isFetching: boolean;
@@ -22,6 +25,7 @@ export interface ClassStateModel {
 
 export const defaultClassState: ClassStateModel = {
   classes: [],
+  fetchPolicy: null,
   classFormId: null,
   classFormRecord: emptyClassFormRecord,
   isFetching: false,

@@ -2,10 +2,20 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 const INSTITUTIONS = 'Institutions';
+const MEMBERS = 'Members';
 const CLASSES = 'Classes';
-const USERS = 'Users';
+const INSTITUTION_ADMINS = 'Institution Admins';
+const CLASS_ADMINS = 'Class Admins';
+const LEARNERS = 'Learners';
 
-const entities = [INSTITUTIONS, CLASSES, USERS];
+const entities = [
+  INSTITUTIONS,
+  MEMBERS,
+  CLASSES,
+  INSTITUTION_ADMINS,
+  CLASS_ADMINS,
+  LEARNERS,
+];
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -16,8 +26,11 @@ export class AdminDashboardComponent implements OnInit {
   opened: boolean = true;
   entities: string[] = entities;
   institutions: string = INSTITUTIONS;
+  members: string = MEMBERS;
   classes: string = CLASSES;
-  users: string = USERS;
+  institutionAdmins: string = INSTITUTION_ADMINS;
+  classAdmins: string = CLASS_ADMINS;
+  learners: string = LEARNERS;
 
   selectedEntity = this.entities[0];
 

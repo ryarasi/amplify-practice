@@ -7,7 +7,10 @@ import { Observable } from 'rxjs';
 import { Class } from 'src/app/API.service';
 import { ClassProfileRendererComponent } from 'src/app/shared/cell-renderers/class-profile/class-profile-renderer.component';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
-import { FetchClasses } from 'src/app/shared/ngxs/classes/class.actions';
+import {
+  FetchClasses,
+  ForceRefetchClasses,
+} from 'src/app/shared/ngxs/classes/class.actions';
 import { ClassState } from 'src/app/shared/ngxs/classes/class.state';
 import { ClassProfileComponent } from '../../modals/class-profile/class-profile.component';
 
@@ -55,6 +58,10 @@ export class ClassesTableComponent implements OnInit {
 
   fetchClasses() {
     this.store.dispatch(new FetchClasses());
+  }
+
+  forceRefetchClasses() {
+    this.store.dispatch(new ForceRefetchClasses());
   }
 
   createClass() {

@@ -24,33 +24,14 @@
   margin-top: 2px;
 }
 
+#add-button {
+  float: right;
+}
+
 #sync-records-icon {
   position: relative;
   top: 5px;
   left: 5px;
   font-size: 1em;
   cursor: pointer;
-}
-
-.sync-spinner {
-  margin: 0 2px;
-}
-.syncing {
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.not-syncing {
-  cursor: pointer;
-}
-
-#add-button {
-  float: right;
 }

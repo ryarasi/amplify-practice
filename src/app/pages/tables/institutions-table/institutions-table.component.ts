@@ -7,7 +7,10 @@ import { Observable } from 'rxjs';
 import { Institution } from 'src/app/API.service';
 import { InstitutionProfileRendererComponent } from 'src/app/shared/cell-renderers/institution-profile/institution-profile-renderer.component';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
-import { FetchInstitutions } from 'src/app/shared/ngxs/institutions/institution.actions';
+import {
+  ForceRefetchInstitutions,
+  FetchInstitutions,
+} from 'src/app/shared/ngxs/institutions/institution.actions';
 import { InstitutionState } from 'src/app/shared/ngxs/institutions/institution.state';
 import { InstitutionProfileComponent } from '../../modals/institution-profile/institution-profile.component';
 
@@ -61,6 +64,10 @@ export class InstitutionsTableComponent implements OnInit {
 
   createInstitution() {
     this.router.navigateByUrl(uiroutes.INSTITUTION_FORM_ROUTE);
+  }
+
+  forceRefetchInstitutions() {
+    this.store.dispatch(new ForceRefetchInstitutions());
   }
 
   openInstitutionProfile(rowData) {

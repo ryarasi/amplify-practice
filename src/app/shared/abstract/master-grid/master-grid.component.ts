@@ -43,6 +43,8 @@ export class MasterGridComponent implements OnInit, OnChanges {
   fetchMethod: EventEmitter<any> = new EventEmitter();
   @Output()
   createMethod: EventEmitter<any> = new EventEmitter();
+  @Output()
+  refreshData: EventEmitter<any> = new EventEmitter();
 
   constructor(private store: Store) {}
 
@@ -104,6 +106,10 @@ export class MasterGridComponent implements OnInit, OnChanges {
 
   createRecord() {
     this.createMethod.emit([]);
+  }
+
+  refreshRecords() {
+    this.refreshData.emit([]);
   }
 
   ngOnInit(): void {}

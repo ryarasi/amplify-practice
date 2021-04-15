@@ -8,6 +8,7 @@ import {
   CreateInstitution,
   DeleteInstitution,
   FetchInstitutions,
+  ForceRefetchInstitutions,
   GetInstitution,
 } from './institution.actions';
 import { Injectable } from '@angular/core';
@@ -54,6 +55,12 @@ export class InstitutionState {
     return state.institutionFormRecord;
   }
 
+  @Action(ForceRefetchInstitutions)
+  fetchClassesFromNetwork({ patchState }: StateContext<InstitutionStateModel>) {
+    patchState({ fetchPolicy: 'network-only' });
+    this.store.dispatch(new FetchInstitutions());
+  }
+
   @Action(FetchInstitutions)
   fetchInstitutions({
     getState,
@@ -61,19 +68,21 @@ export class InstitutionState {
   }: StateContext<InstitutionStateModel>) {
     console.log('Fetching institutions...');
     const state = getState();
-    let { institutions, isFetching, errorFetching } = state;
+    let { institutions, isFetching, errorFetching, fetchPolicy } = state;
     isFetching = true;
     errorFetching = false;
     patchState({ isFetching, errorFetching, institutions });
     client
       .query({
         query: queries.ListInstitutions,
+        fetchPolicy,
       })
       .then((res: any) => {
         isFetching = false;
         const institutions = res.data.listInstitutions.items;
         console.log('Fetched institutions ', institutions);
-        patchState({ institutions, isFetching });
+        fetchPolicy = null;
+        patchState({ institutions, isFetching, fetchPolicy });
       })
       .catch((err) => {
         isFetching = false;
@@ -153,19 +162,17 @@ export class InstitutionState {
           },
         })
         .then((res: any) => {
+          this.store.dispatch(new ForceRefetchInstitutions());
           formSubmitting = false;
           patchState({ institutionFormRecord: emptyInstitutionFormRecord });
           form.reset();
           formDirective.resetForm();
           patchState({ formSubmitting });
-          this.store.dispatch(new FetchInstitutions());
           this.store.dispatch(
             new ShowNotificationAction({
               message: 'Form submitted successfully!',
             })
           );
-
-          this.store.dispatch(new FetchInstitutions());
         })
         .catch((err) => {
           console.error(err);
@@ -209,8 +216,8 @@ export class InstitutionState {
         },
       })
       .then((res: any) => {
+        this.store.dispatch(new ForceRefetchInstitutions());
         console.log(res);
-        this.store.dispatch(new FetchInstitutions());
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,

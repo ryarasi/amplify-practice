@@ -8,6 +8,7 @@ import {
   CreateClass,
   DeleteClass,
   FetchClasses,
+  ForceRefetchClasses,
   GetClass,
 } from './class.actions';
 import { Injectable } from '@angular/core';
@@ -54,23 +55,30 @@ export class ClassState {
     return state.classFormRecord;
   }
 
+  @Action(ForceRefetchClasses)
+  fetchClassesFromNetwork({ patchState }: StateContext<ClassStateModel>) {
+    patchState({ fetchPolicy: 'network-only' });
+  }
+
   @Action(FetchClasses)
   fetchClasss({ getState, patchState }: StateContext<ClassStateModel>) {
     console.log('Fetching classes...');
     const state = getState();
-    let { classes, isFetching, errorFetching } = state;
+    let { classes, isFetching, errorFetching, fetchPolicy } = state;
     isFetching = true;
     errorFetching = false;
     patchState({ isFetching, errorFetching, classes });
     client
       .query({
         query: queries.ListClasss,
+        fetchPolicy: fetchPolicy,
       })
       .then((res: any) => {
         isFetching = false;
         const classes = res.data.listClasss.items;
         console.log('Fetched classes ', classes);
-        patchState({ classes, isFetching });
+        fetchPolicy = null;
+        patchState({ classes, isFetching, fetchPolicy });
       })
       .catch((err) => {
         isFetching = false;
@@ -134,7 +142,7 @@ export class ClassState {
   ) {
     const state = getState();
     const { form, formDirective } = payload;
-    let { formSubmitting } = state;
+    let { formSubmitting, fetchPolicy } = state;
     if (form.valid) {
       formSubmitting = true;
       const values = form.value;
@@ -149,18 +157,18 @@ export class ClassState {
         })
         .then((res: any) => {
           formSubmitting = false;
-          patchState({ classFormRecord: emptyClassFormRecord });
           form.reset();
           formDirective.resetForm();
-          patchState({ formSubmitting });
-          this.store.dispatch(new FetchClasses());
+          patchState({
+            classFormRecord: emptyClassFormRecord,
+            formSubmitting,
+          });
+          this.store.dispatch(new ForceRefetchClasses());
           this.store.dispatch(
             new ShowNotificationAction({
               message: 'Form submitted successfully!',
             })
           );
-
-          this.store.dispatch(new FetchClasses());
         })
         .catch((err) => {
           console.error(err);
@@ -183,11 +191,9 @@ export class ClassState {
   }
 
   @Action(DeleteClass)
-  deleteClass(
-    { getState, patchState }: StateContext<ClassStateModel>,
-    { payload }: GetClass
-  ) {
+  deleteClass({ payload }: GetClass) {
     const { id } = payload;
+
     this.store.dispatch(
       new ToggleLoadingScreen({
         showLoadingScreen: true,
@@ -205,7 +211,7 @@ export class ClassState {
       })
       .then((res: any) => {
         console.log(res);
-        this.store.dispatch(new FetchClasses());
+        this.store.dispatch(new ForceRefetchClasses());
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,
