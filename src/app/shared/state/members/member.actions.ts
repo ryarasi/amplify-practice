@@ -1,25 +1,25 @@
 import { FormGroup, FormGroupDirective } from '@angular/forms';
-import { Class } from 'src/app/API.service';
+import { Member } from 'src/app/API.service';
 import { idPayload } from '../../models';
 
-export class FetchClasses {
+export class FetchMembers {
   static readonly type = '[CLASSES] Fetch';
 
   constructor() {}
 }
 
-export class ForceRefetchClasses {
+export class ForceRefetchMembers {
   static readonly type = '[CLASSES] Refetch from network';
 
   constructor() {}
 }
-export class GetClass {
+export class GetMember {
   static readonly type = '[CLASS] Get';
 
   constructor(public payload: idPayload) {}
 }
 
-export class CreateClass {
+export class CreateMember {
   static readonly type = '[CLASS] Create';
 
   constructor(
@@ -27,13 +27,13 @@ export class CreateClass {
   ) {}
 }
 
-export class UpdateClass {
+export class UpdateMember {
   static readonly type = '[CLASS] Update';
 
-  constructor(public payload: Class) {}
+  constructor(public payload: Member) {}
 }
 
-export class DeleteClass {
+export class DeleteMember {
   static readonly type = '[CLASS] Delete';
 
   constructor(public payload: idPayload) {}

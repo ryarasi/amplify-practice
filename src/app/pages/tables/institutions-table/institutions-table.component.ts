@@ -10,8 +10,8 @@ import { uiroutes } from 'src/app/shared/common/ui-routes';
 import {
   ForceRefetchInstitutions,
   FetchInstitutions,
-} from 'src/app/shared/ngxs/institutions/institution.actions';
-import { InstitutionState } from 'src/app/shared/ngxs/institutions/institution.state';
+} from 'src/app/shared/state/institutions/institution.actions';
+import { InstitutionState } from 'src/app/shared/state/institutions/institution.state';
 import { InstitutionProfileComponent } from '../../modals/institution-profile/institution-profile.component';
 
 @Component({

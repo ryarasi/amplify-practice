@@ -12,6 +12,8 @@ subscription OnCreateInstitution {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -24,30 +26,46 @@ subscription OnCreateInstitution {
         createdAt
         updatedAt
       }
-      title
-      bio
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
-    classes {
-      items {
+    members {
+      id
+      name
+      title
+      bio
+      institution {
         id
         name
+        location
+        city
+        website
+        phone
+        logo
+        bio
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
+      instructor {
+        nextToken
       }
-      nextToken
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -66,6 +84,8 @@ subscription OnUpdateInstitution {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -78,30 +98,46 @@ subscription OnUpdateInstitution {
         createdAt
         updatedAt
       }
-      title
-      bio
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
-    classes {
-      items {
+    members {
+      id
+      name
+      title
+      bio
+      institution {
         id
         name
+        location
+        city
+        website
+        phone
+        logo
+        bio
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
+      instructor {
+        nextToken
       }
-      nextToken
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -120,6 +156,8 @@ subscription OnDeleteInstitution {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -132,69 +170,23 @@ subscription OnDeleteInstitution {
         createdAt
         updatedAt
       }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    members {
+      id
+      name
       title
       bio
-      createdAt
-      updatedAt
-      owner
-    }
-    classes {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-subscription OnCreateClass($admins: String!) {
-  onCreateClass(admins: $admins) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    admins {
-      id
-      name
       institution {
         id
         name
@@ -207,171 +199,17 @@ subscription OnCreateClass($admins: String!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-subscription OnUpdateClass($admins: String!) {
-  onUpdateClass(admins: $admins) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
+      instructor {
         nextToken
       }
-      learners {
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-    }
-    admins {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-subscription OnDeleteClass($admins: String!) {
-  onDeleteClass(admins: $admins) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    admins {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
     }
     createdAt
     updatedAt
@@ -397,13 +235,14 @@ subscription OnCreateGroup($admins: String!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -411,6 +250,8 @@ subscription OnCreateGroup($admins: String!) {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -423,19 +264,23 @@ subscription OnCreateGroup($admins: String!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     learners {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -448,15 +293,17 @@ subscription OnCreateGroup($admins: String!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     createdAt
     updatedAt
@@ -482,13 +329,14 @@ subscription OnUpdateGroup($admins: String!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -496,6 +344,8 @@ subscription OnUpdateGroup($admins: String!) {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -508,19 +358,23 @@ subscription OnUpdateGroup($admins: String!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     learners {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -533,15 +387,17 @@ subscription OnUpdateGroup($admins: String!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     createdAt
     updatedAt
@@ -567,13 +423,14 @@ subscription OnDeleteGroup($admins: String!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -581,6 +438,8 @@ subscription OnDeleteGroup($admins: String!) {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -593,19 +452,23 @@ subscription OnDeleteGroup($admins: String!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     learners {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -618,76 +481,13 @@ subscription OnDeleteGroup($admins: String!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-    createdAt
-    updatedAt
-  }
-}
-subscription OnCreateLearner($owner: String!) {
-  onCreateLearner(owner: $owner) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
+      instructor {
         nextToken
       }
-      learners {
+      assistant {
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
+      learner {
         nextToken
       }
       createdAt
@@ -695,183 +495,14 @@ subscription OnCreateLearner($owner: String!) {
     }
     createdAt
     updatedAt
-    owner
   }
 }
-subscription OnUpdateLearner($owner: String!) {
-  onUpdateLearner(owner: $owner) {
+subscription OnCreateMember {
+  onCreateMember {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnDeleteLearner($owner: String!) {
-  onDeleteLearner(owner: $owner) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnCreateInstitutionAdmin($owner: String!) {
-  onCreateInstitutionAdmin(owner: $owner) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
     title
     bio
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnUpdateInstitutionAdmin($owner: String!) {
-  onUpdateInstitutionAdmin(owner: $owner) {
-    id
-    name
     institution {
       id
       name
@@ -888,28 +519,52 @@ subscription OnUpdateInstitutionAdmin($owner: String!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
     }
-    title
-    bio
+    instructor {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    assistant {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learner {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    owner
   }
 }
-subscription OnDeleteInstitutionAdmin($owner: String!) {
-  onDeleteInstitutionAdmin(owner: $owner) {
+subscription OnUpdateMember {
+  onUpdateMember {
     id
     name
+    title
+    bio
     institution {
       id
       name
@@ -926,28 +581,52 @@ subscription OnDeleteInstitutionAdmin($owner: String!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
     }
-    title
-    bio
+    instructor {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    assistant {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learner {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    owner
   }
 }
-subscription OnCreateClassAdmin($owner: String!) {
-  onCreateClassAdmin(owner: $owner) {
+subscription OnDeleteMember {
+  onDeleteMember {
     id
     name
+    title
+    bio
     institution {
       id
       name
@@ -964,205 +643,66 @@ subscription OnCreateClassAdmin($owner: String!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
+      members {
         id
         name
         title
         bio
         createdAt
         updatedAt
-        owner
-      }
-      learners {
-        nextToken
       }
       createdAt
       updatedAt
     }
-    title
-    bio
+    instructor {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    assistant {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learner {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    owner
-  }
-}
-subscription OnUpdateClassAdmin($owner: String!) {
-  onUpdateClassAdmin(owner: $owner) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    title
-    bio
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnDeleteClassAdmin($owner: String!) {
-  onDeleteClassAdmin(owner: $owner) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    title
-    bio
-    createdAt
-    updatedAt
-    owner
   }
 }
 subscription OnCreateCourse($instructor: String!) {
   onCreateCourse(instructor: $instructor) {
     id
-    instructor {
-      id
-      name
-      title
-      courses {
-        nextToken
+    instructors {
+      items {
+        id
+        createdAt
+        updatedAt
       }
-      createdAt
-      updatedAt
-      owner
+      nextToken
     }
-    assistant {
+    assistants {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
       items {
         id
         createdAt
@@ -1183,6 +723,7 @@ subscription OnCreateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -1215,29 +756,36 @@ subscription OnCreateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
+    instructor
   }
 }
 subscription OnUpdateCourse($instructor: String!) {
   onUpdateCourse(instructor: $instructor) {
     id
-    instructor {
-      id
-      name
-      title
-      courses {
-        nextToken
+    instructors {
+      items {
+        id
+        createdAt
+        updatedAt
       }
-      createdAt
-      updatedAt
-      owner
+      nextToken
     }
-    assistant {
+    assistants {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
       items {
         id
         createdAt
@@ -1258,6 +806,7 @@ subscription OnUpdateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -1290,29 +839,36 @@ subscription OnUpdateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
+    instructor
   }
 }
 subscription OnDeleteCourse($instructor: String!) {
   onDeleteCourse(instructor: $instructor) {
     id
-    instructor {
-      id
-      name
-      title
-      courses {
-        nextToken
+    instructors {
+      items {
+        id
+        createdAt
+        updatedAt
       }
-      createdAt
-      updatedAt
-      owner
+      nextToken
     }
-    assistant {
+    assistants {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
       items {
         id
         createdAt
@@ -1333,6 +889,7 @@ subscription OnDeleteCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -1365,12 +922,14 @@ subscription OnDeleteCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
+    instructor
   }
 }
 subscription OnCreateCourseSection {
@@ -1380,15 +939,13 @@ subscription OnCreateCourseSection {
     index
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1412,6 +969,7 @@ subscription OnCreateCourseSection {
       }
       createdAt
       updatedAt
+      instructor
     }
     createdAt
     updatedAt
@@ -1424,15 +982,13 @@ subscription OnUpdateCourseSection {
     index
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1456,6 +1012,7 @@ subscription OnUpdateCourseSection {
       }
       createdAt
       updatedAt
+      instructor
     }
     createdAt
     updatedAt
@@ -1468,15 +1025,13 @@ subscription OnDeleteCourseSection {
     index
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1500,6 +1055,7 @@ subscription OnDeleteCourseSection {
       }
       createdAt
       updatedAt
+      instructor
     }
     createdAt
     updatedAt
@@ -1511,15 +1067,13 @@ subscription OnCreateAssignment {
     title
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1543,6 +1097,7 @@ subscription OnCreateAssignment {
       }
       createdAt
       updatedAt
+      instructor
     }
     section {
       id
@@ -1555,6 +1110,7 @@ subscription OnCreateAssignment {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -1579,15 +1135,13 @@ subscription OnUpdateAssignment {
     title
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1611,6 +1165,7 @@ subscription OnUpdateAssignment {
       }
       createdAt
       updatedAt
+      instructor
     }
     section {
       id
@@ -1623,6 +1178,7 @@ subscription OnUpdateAssignment {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -1647,15 +1203,13 @@ subscription OnDeleteAssignment {
     title
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1679,6 +1233,7 @@ subscription OnDeleteAssignment {
       }
       createdAt
       updatedAt
+      instructor
     }
     section {
       id
@@ -1691,6 +1246,7 @@ subscription OnDeleteAssignment {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -1736,134 +1292,18 @@ subscription OnDeleteTask {
     updatedAt
   }
 }
-subscription OnCreateInstructor($owner: String!) {
-  onCreateInstructor(owner: $owner) {
-    id
-    name
-    title
-    courses {
-      items {
-        id
-        start
-        end
-        creditHours
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnUpdateInstructor($owner: String!) {
-  onUpdateInstructor(owner: $owner) {
-    id
-    name
-    title
-    courses {
-      items {
-        id
-        start
-        end
-        creditHours
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnDeleteInstructor($owner: String!) {
-  onDeleteInstructor(owner: $owner) {
-    id
-    name
-    title
-    courses {
-      items {
-        id
-        start
-        end
-        creditHours
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnCreateAssistant($owner: String!) {
-  onCreateAssistant(owner: $owner) {
-    id
-    name
-    course {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnUpdateAssistant($owner: String!) {
-  onUpdateAssistant(owner: $owner) {
-    id
-    name
-    course {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnDeleteAssistant($owner: String!) {
-  onDeleteAssistant(owner: $owner) {
-    id
-    name
-    course {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnCreateCourseAssistant {
-  onCreateCourseAssistant {
+subscription OnCreateCourseInstructor {
+  onCreateCourseInstructor {
     id
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1887,16 +1327,246 @@ subscription OnCreateCourseAssistant {
       }
       createdAt
       updatedAt
+      instructor
     }
-    assistant {
+    instructor {
       id
       name
-      course {
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-      owner
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCourseInstructor {
+  onUpdateCourseInstructor {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    instructor {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCourseInstructor {
+  onDeleteCourseInstructor {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    instructor {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateCourseAssistant {
+  onCreateCourseAssistant {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    assistant {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -1907,15 +1577,13 @@ subscription OnUpdateCourseAssistant {
     id
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1939,16 +1607,36 @@ subscription OnUpdateCourseAssistant {
       }
       createdAt
       updatedAt
+      instructor
     }
     assistant {
       id
       name
-      course {
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     createdAt
     updatedAt
@@ -1959,15 +1647,13 @@ subscription OnDeleteCourseAssistant {
     id
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1991,16 +1677,246 @@ subscription OnDeleteCourseAssistant {
       }
       createdAt
       updatedAt
+      instructor
     }
     assistant {
       id
       name
-      course {
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-      owner
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateCourseLearner {
+  onCreateCourseLearner {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    learner {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCourseLearner {
+  onUpdateCourseLearner {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    learner {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCourseLearner {
+  onDeleteCourseLearner {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    learner {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt

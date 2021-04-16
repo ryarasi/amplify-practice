@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import Auth from '@aws-amplify/auth';
 import { Store } from '@ngxs/store';
-import { ShowNotificationAction } from '../ngxs/notifications/notification.actions';
+import { ShowNotificationAction } from '../state/notifications/notification.actions';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {

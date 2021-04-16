@@ -20,9 +20,9 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
-import { AuthState } from './shared/ngxs/auth/auth.state';
-import { NotificationState } from './shared/ngxs/notifications/notification.state';
-import { LoadingState } from './shared/ngxs/loading/loading.state';
+import { AuthState } from './shared/state/auth/auth.state';
+import { NotificationState } from './shared/state/notifications/notification.state';
+import { LoadingState } from './shared/state/loading/loading.state';
 import { AdminDashboardComponent } from './pages/static/dashboard/tabs/admin-dashboard/admin-dashboard.component';
 import { AnnouncementDashboardComponent } from './pages/static/dashboard/tabs/announcement-dashboard/announcement-dashboard.component';
 import { AssignmentDashboardComponent } from './pages/static/dashboard/tabs/assignment-dashboard/assignment-dashboard.component';
@@ -38,14 +38,14 @@ import {
   InstitutionProfileComponent,
 } from './pages/modals/institution-profile/institution-profile.component';
 import { MasterGridComponent } from './shared/abstract/master-grid/master-grid.component';
-import { InstitutionState } from './shared/ngxs/institutions/institution.state';
+import { InstitutionState } from './shared/state/institutions/institution.state';
 import { InstitutionsTableComponent } from './pages/tables/institutions-table/institutions-table.component';
-import { ClassesTableComponent } from './pages/tables/classes-table/classes-table.component';
+import { MembersTableComponent } from './pages/tables/members-table/members-table.component';
 import { GroupsTableComponent } from './pages/tables/groups-table/groups-table.component';
 import { CoursesTableComponent } from './pages/tables/courses-table/courses-table.component';
-import { ClassState } from './shared/ngxs/classes/class.state';
-import { ClassProfileRendererComponent } from './shared/cell-renderers/class-profile/class-profile-renderer.component';
-import { ClassProfileComponent } from './pages/modals/class-profile/class-profile.component';
+import { MemberState } from './shared/state/members/member.state';
+import { MemberProfileRendererComponent } from './shared/cell-renderers/member-profile/member-profile-renderer.component';
+import { MemberProfileComponent } from './pages/modals/member-profile/member-profile.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -69,11 +69,11 @@ Amplify.configure(awsconfig);
     InstitutionProfileComponent,
     MasterGridComponent,
     InstitutionsTableComponent,
-    ClassesTableComponent,
+    MembersTableComponent,
     GroupsTableComponent,
     CoursesTableComponent,
-    ClassProfileRendererComponent,
-    ClassProfileComponent,
+    MemberProfileRendererComponent,
+    MemberProfileComponent,
     InstitutionDeleteConfirmationDialog,
   ],
   entryComponents: [InstitutionProfileComponent],
@@ -93,7 +93,7 @@ Amplify.configure(awsconfig);
           NotificationState,
           LoadingState,
           InstitutionState,
-          ClassState,
+          MemberState,
         ],
         {
           developmentMode: !environment.production,

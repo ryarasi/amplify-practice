@@ -15,6 +15,8 @@ mutation CreateInstitution(
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -27,30 +29,46 @@ mutation CreateInstitution(
         createdAt
         updatedAt
       }
-      title
-      bio
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
-    classes {
-      items {
+    members {
+      id
+      name
+      title
+      bio
+      institution {
         id
         name
+        location
+        city
+        website
+        phone
+        logo
+        bio
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
+      instructor {
+        nextToken
       }
-      nextToken
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -72,6 +90,8 @@ mutation UpdateInstitution(
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -84,30 +104,46 @@ mutation UpdateInstitution(
         createdAt
         updatedAt
       }
-      title
-      bio
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
-    classes {
-      items {
+    members {
+      id
+      name
+      title
+      bio
+      institution {
         id
         name
+        location
+        city
+        website
+        phone
+        logo
+        bio
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
+      instructor {
+        nextToken
       }
-      nextToken
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -129,6 +165,8 @@ mutation DeleteInstitution(
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -141,72 +179,23 @@ mutation DeleteInstitution(
         createdAt
         updatedAt
       }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    members {
+      id
+      name
       title
       bio
-      createdAt
-      updatedAt
-      owner
-    }
-    classes {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation CreateClass(
-  $input: CreateClassInput!
-  $condition: ModelClassConditionInput
-) {
-  createClass(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    admins {
-      id
-      name
       institution {
         id
         name
@@ -219,177 +208,17 @@ mutation CreateClass(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation UpdateClass(
-  $input: UpdateClassInput!
-  $condition: ModelClassConditionInput
-) {
-  updateClass(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
+      instructor {
         nextToken
       }
-      learners {
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-    }
-    admins {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation DeleteClass(
-  $input: DeleteClassInput!
-  $condition: ModelClassConditionInput
-) {
-  deleteClass(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    admins {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
     }
     createdAt
     updatedAt
@@ -418,13 +247,14 @@ mutation CreateGroup(
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -432,6 +262,8 @@ mutation CreateGroup(
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -444,19 +276,23 @@ mutation CreateGroup(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     learners {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -469,15 +305,17 @@ mutation CreateGroup(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     createdAt
     updatedAt
@@ -506,13 +344,14 @@ mutation UpdateGroup(
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -520,6 +359,8 @@ mutation UpdateGroup(
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -532,19 +373,23 @@ mutation UpdateGroup(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     learners {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -557,15 +402,17 @@ mutation UpdateGroup(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     createdAt
     updatedAt
@@ -594,13 +441,14 @@ mutation DeleteGroup(
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -608,6 +456,8 @@ mutation DeleteGroup(
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -620,19 +470,23 @@ mutation DeleteGroup(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     learners {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -645,79 +499,13 @@ mutation DeleteGroup(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation CreateLearner(
-  $input: CreateLearnerInput!
-  $condition: ModelLearnerConditionInput
-) {
-  createLearner(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
+      instructor {
         nextToken
       }
-      learners {
+      assistant {
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
+      learner {
         nextToken
       }
       createdAt
@@ -725,195 +513,17 @@ mutation CreateLearner(
     }
     createdAt
     updatedAt
-    owner
   }
 }
-mutation UpdateLearner(
-  $input: UpdateLearnerInput!
-  $condition: ModelLearnerConditionInput
+mutation CreateMember(
+  $input: CreateMemberInput!
+  $condition: ModelMemberConditionInput
 ) {
-  updateLearner(input: $input, condition: $condition) {
+  createMember(input: $input, condition: $condition) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation DeleteLearner(
-  $input: DeleteLearnerInput!
-  $condition: ModelLearnerConditionInput
-) {
-  deleteLearner(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation CreateInstitutionAdmin(
-  $input: CreateInstitutionAdminInput!
-  $condition: ModelInstitutionAdminConditionInput
-) {
-  createInstitutionAdmin(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
     title
     bio
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation UpdateInstitutionAdmin(
-  $input: UpdateInstitutionAdminInput!
-  $condition: ModelInstitutionAdminConditionInput
-) {
-  updateInstitutionAdmin(input: $input, condition: $condition) {
-    id
-    name
     institution {
       id
       name
@@ -930,31 +540,55 @@ mutation UpdateInstitutionAdmin(
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
     }
-    title
-    bio
+    instructor {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    assistant {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learner {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    owner
   }
 }
-mutation DeleteInstitutionAdmin(
-  $input: DeleteInstitutionAdminInput!
-  $condition: ModelInstitutionAdminConditionInput
+mutation UpdateMember(
+  $input: UpdateMemberInput!
+  $condition: ModelMemberConditionInput
 ) {
-  deleteInstitutionAdmin(input: $input, condition: $condition) {
+  updateMember(input: $input, condition: $condition) {
     id
     name
+    title
+    bio
     institution {
       id
       name
@@ -971,31 +605,55 @@ mutation DeleteInstitutionAdmin(
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
     }
-    title
-    bio
+    instructor {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    assistant {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learner {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    owner
   }
 }
-mutation CreateClassAdmin(
-  $input: CreateClassAdminInput!
-  $condition: ModelClassAdminConditionInput
+mutation DeleteMember(
+  $input: DeleteMemberInput!
+  $condition: ModelMemberConditionInput
 ) {
-  createClassAdmin(input: $input, condition: $condition) {
+  deleteMember(input: $input, condition: $condition) {
     id
     name
+    title
+    bio
     institution {
       id
       name
@@ -1012,194 +670,44 @@ mutation CreateClassAdmin(
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
+      members {
         id
         name
         title
         bio
         createdAt
         updatedAt
-        owner
-      }
-      learners {
-        nextToken
       }
       createdAt
       updatedAt
     }
-    title
-    bio
+    instructor {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    assistant {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learner {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    owner
-  }
-}
-mutation UpdateClassAdmin(
-  $input: UpdateClassAdminInput!
-  $condition: ModelClassAdminConditionInput
-) {
-  updateClassAdmin(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    title
-    bio
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation DeleteClassAdmin(
-  $input: DeleteClassAdminInput!
-  $condition: ModelClassAdminConditionInput
-) {
-  deleteClassAdmin(input: $input, condition: $condition) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    title
-    bio
-    createdAt
-    updatedAt
-    owner
   }
 }
 mutation CreateCourse(
@@ -1208,18 +716,23 @@ mutation CreateCourse(
 ) {
   createCourse(input: $input, condition: $condition) {
     id
-    instructor {
-      id
-      name
-      title
-      courses {
-        nextToken
+    instructors {
+      items {
+        id
+        createdAt
+        updatedAt
       }
-      createdAt
-      updatedAt
-      owner
+      nextToken
     }
-    assistant {
+    assistants {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
       items {
         id
         createdAt
@@ -1240,6 +753,7 @@ mutation CreateCourse(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -1272,12 +786,14 @@ mutation CreateCourse(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
+    instructor
   }
 }
 mutation UpdateCourse(
@@ -1286,18 +802,23 @@ mutation UpdateCourse(
 ) {
   updateCourse(input: $input, condition: $condition) {
     id
-    instructor {
-      id
-      name
-      title
-      courses {
-        nextToken
+    instructors {
+      items {
+        id
+        createdAt
+        updatedAt
       }
-      createdAt
-      updatedAt
-      owner
+      nextToken
     }
-    assistant {
+    assistants {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
       items {
         id
         createdAt
@@ -1318,6 +839,7 @@ mutation UpdateCourse(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -1350,12 +872,14 @@ mutation UpdateCourse(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
+    instructor
   }
 }
 mutation DeleteCourse(
@@ -1364,18 +888,23 @@ mutation DeleteCourse(
 ) {
   deleteCourse(input: $input, condition: $condition) {
     id
-    instructor {
-      id
-      name
-      title
-      courses {
-        nextToken
+    instructors {
+      items {
+        id
+        createdAt
+        updatedAt
       }
-      createdAt
-      updatedAt
-      owner
+      nextToken
     }
-    assistant {
+    assistants {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
       items {
         id
         createdAt
@@ -1396,6 +925,7 @@ mutation DeleteCourse(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -1428,12 +958,14 @@ mutation DeleteCourse(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
+    instructor
   }
 }
 mutation CreateCourseSection(
@@ -1446,15 +978,13 @@ mutation CreateCourseSection(
     index
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1478,6 +1008,7 @@ mutation CreateCourseSection(
       }
       createdAt
       updatedAt
+      instructor
     }
     createdAt
     updatedAt
@@ -1493,15 +1024,13 @@ mutation UpdateCourseSection(
     index
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1525,6 +1054,7 @@ mutation UpdateCourseSection(
       }
       createdAt
       updatedAt
+      instructor
     }
     createdAt
     updatedAt
@@ -1540,15 +1070,13 @@ mutation DeleteCourseSection(
     index
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1572,6 +1100,7 @@ mutation DeleteCourseSection(
       }
       createdAt
       updatedAt
+      instructor
     }
     createdAt
     updatedAt
@@ -1586,15 +1115,13 @@ mutation CreateAssignment(
     title
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1618,6 +1145,7 @@ mutation CreateAssignment(
       }
       createdAt
       updatedAt
+      instructor
     }
     section {
       id
@@ -1630,6 +1158,7 @@ mutation CreateAssignment(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -1657,15 +1186,13 @@ mutation UpdateAssignment(
     title
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1689,6 +1216,7 @@ mutation UpdateAssignment(
       }
       createdAt
       updatedAt
+      instructor
     }
     section {
       id
@@ -1701,6 +1229,7 @@ mutation UpdateAssignment(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -1728,15 +1257,13 @@ mutation DeleteAssignment(
     title
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1760,6 +1287,7 @@ mutation DeleteAssignment(
       }
       createdAt
       updatedAt
+      instructor
     }
     section {
       id
@@ -1772,6 +1300,7 @@ mutation DeleteAssignment(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -1826,155 +1355,21 @@ mutation DeleteTask(
     updatedAt
   }
 }
-mutation CreateInstructor(
-  $input: CreateInstructorInput!
-  $condition: ModelInstructorConditionInput
+mutation CreateCourseInstructor(
+  $input: CreateCourseInstructorInput!
+  $condition: ModelCourseInstructorConditionInput
 ) {
-  createInstructor(input: $input, condition: $condition) {
-    id
-    name
-    title
-    courses {
-      items {
-        id
-        start
-        end
-        creditHours
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation UpdateInstructor(
-  $input: UpdateInstructorInput!
-  $condition: ModelInstructorConditionInput
-) {
-  updateInstructor(input: $input, condition: $condition) {
-    id
-    name
-    title
-    courses {
-      items {
-        id
-        start
-        end
-        creditHours
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation DeleteInstructor(
-  $input: DeleteInstructorInput!
-  $condition: ModelInstructorConditionInput
-) {
-  deleteInstructor(input: $input, condition: $condition) {
-    id
-    name
-    title
-    courses {
-      items {
-        id
-        start
-        end
-        creditHours
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation CreateAssistant(
-  $input: CreateAssistantInput!
-  $condition: ModelAssistantConditionInput
-) {
-  createAssistant(input: $input, condition: $condition) {
-    id
-    name
-    course {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation UpdateAssistant(
-  $input: UpdateAssistantInput!
-  $condition: ModelAssistantConditionInput
-) {
-  updateAssistant(input: $input, condition: $condition) {
-    id
-    name
-    course {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation DeleteAssistant(
-  $input: DeleteAssistantInput!
-  $condition: ModelAssistantConditionInput
-) {
-  deleteAssistant(input: $input, condition: $condition) {
-    id
-    name
-    course {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation CreateCourseAssistant(
-  $input: CreateCourseAssistantInput!
-  $condition: ModelCourseAssistantConditionInput
-) {
-  createCourseAssistant(input: $input, condition: $condition) {
+  createCourseInstructor(input: $input, condition: $condition) {
     id
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1998,16 +1393,255 @@ mutation CreateCourseAssistant(
       }
       createdAt
       updatedAt
+      instructor
     }
-    assistant {
+    instructor {
       id
       name
-      course {
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-      owner
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateCourseInstructor(
+  $input: UpdateCourseInstructorInput!
+  $condition: ModelCourseInstructorConditionInput
+) {
+  updateCourseInstructor(input: $input, condition: $condition) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    instructor {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteCourseInstructor(
+  $input: DeleteCourseInstructorInput!
+  $condition: ModelCourseInstructorConditionInput
+) {
+  deleteCourseInstructor(input: $input, condition: $condition) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    instructor {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateCourseAssistant(
+  $input: CreateCourseAssistantInput!
+  $condition: ModelCourseAssistantConditionInput
+) {
+  createCourseAssistant(input: $input, condition: $condition) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    assistant {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -2021,15 +1655,13 @@ mutation UpdateCourseAssistant(
     id
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -2053,16 +1685,36 @@ mutation UpdateCourseAssistant(
       }
       createdAt
       updatedAt
+      instructor
     }
     assistant {
       id
       name
-      course {
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     createdAt
     updatedAt
@@ -2076,15 +1728,13 @@ mutation DeleteCourseAssistant(
     id
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -2108,16 +1758,255 @@ mutation DeleteCourseAssistant(
       }
       createdAt
       updatedAt
+      instructor
     }
     assistant {
       id
       name
-      course {
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-      owner
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateCourseLearner(
+  $input: CreateCourseLearnerInput!
+  $condition: ModelCourseLearnerConditionInput
+) {
+  createCourseLearner(input: $input, condition: $condition) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    learner {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateCourseLearner(
+  $input: UpdateCourseLearnerInput!
+  $condition: ModelCourseLearnerConditionInput
+) {
+  updateCourseLearner(input: $input, condition: $condition) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    learner {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteCourseLearner(
+  $input: DeleteCourseLearnerInput!
+  $condition: ModelCourseLearnerConditionInput
+) {
+  deleteCourseLearner(input: $input, condition: $condition) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    learner {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt

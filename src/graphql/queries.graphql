@@ -12,6 +12,8 @@ query GetInstitution($id: ID!) {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -24,30 +26,46 @@ query GetInstitution($id: ID!) {
         createdAt
         updatedAt
       }
-      title
-      bio
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
-    classes {
-      items {
+    members {
+      id
+      name
+      title
+      bio
+      institution {
         id
         name
+        location
+        city
+        website
+        phone
+        logo
+        bio
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
+      instructor {
+        nextToken
       }
-      nextToken
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -75,124 +93,14 @@ query ListInstitutions(
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query GetClass($id: ID!) {
-  getClass(id: $id) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
+      members {
         id
         name
         title
         bio
         createdAt
         updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    admins {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    learners {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-query ListClasss(
-  $filter: ModelClassFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listClasss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
       }
       createdAt
       updatedAt
@@ -220,13 +128,14 @@ query GetGroup($id: ID!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
+      members {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -234,6 +143,8 @@ query GetGroup($id: ID!) {
     admins {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -246,19 +157,23 @@ query GetGroup($id: ID!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     learners {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -271,15 +186,17 @@ query GetGroup($id: ID!) {
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
     createdAt
     updatedAt
@@ -309,16 +226,18 @@ query ListGroups(
       admins {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
-        owner
       }
       learners {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
-        owner
       }
       createdAt
       updatedAt
@@ -326,178 +245,12 @@ query ListGroups(
     nextToken
   }
 }
-query GetLearner($id: ID!) {
-  getLearner(id: $id) {
+query GetMember($id: ID!) {
+  getMember(id: $id) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-query ListLearners(
-  $filter: ModelLearnerFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listLearners(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-    nextToken
-  }
-}
-query GetInstitutionAdmin($id: ID!) {
-  getInstitutionAdmin(id: $id) {
-    id
-    name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        title
-        bio
-        createdAt
-        updatedAt
-        owner
-      }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
     title
     bio
-    createdAt
-    updatedAt
-    owner
-  }
-}
-query ListInstitutionAdmins(
-  $filter: ModelInstitutionAdminFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listInstitutionAdmins(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      title
-      bio
-      createdAt
-      updatedAt
-      owner
-    }
-    nextToken
-  }
-}
-query GetClassAdmin($id: ID!) {
-  getClassAdmin(id: $id) {
-    id
-    name
     institution {
       id
       name
@@ -514,63 +267,57 @@ query GetClassAdmin($id: ID!) {
         bio
         createdAt
         updatedAt
-        owner
       }
-      classes {
-        nextToken
-      }
-      learners {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    class {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        createdAt
-        updatedAt
-      }
-      admins {
+      members {
         id
         name
         title
         bio
         createdAt
         updatedAt
-        owner
-      }
-      learners {
-        nextToken
       }
       createdAt
       updatedAt
     }
-    title
-    bio
+    instructor {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    assistant {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learner {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
-    owner
   }
 }
-query ListClassAdmins(
-  $filter: ModelClassAdminFilterInput
+query ListMembers(
+  $filter: ModelMemberFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listClassAdmins(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
+      title
+      bio
       institution {
         id
         name
@@ -583,17 +330,17 @@ query ListClassAdmins(
         createdAt
         updatedAt
       }
-      class {
-        id
-        name
-        createdAt
-        updatedAt
+      instructor {
+        nextToken
       }
-      title
-      bio
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
     nextToken
   }
@@ -601,18 +348,23 @@ query ListClassAdmins(
 query GetCourse($id: ID!) {
   getCourse(id: $id) {
     id
-    instructor {
-      id
-      name
-      title
-      courses {
-        nextToken
+    instructors {
+      items {
+        id
+        createdAt
+        updatedAt
       }
-      createdAt
-      updatedAt
-      owner
+      nextToken
     }
-    assistant {
+    assistants {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    learners {
       items {
         id
         createdAt
@@ -633,6 +385,7 @@ query GetCourse($id: ID!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -665,12 +418,14 @@ query GetCourse($id: ID!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
+    instructor
   }
 }
 query ListCourses(
@@ -681,15 +436,13 @@ query ListCourses(
   listCourses(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -713,6 +466,7 @@ query ListCourses(
       }
       createdAt
       updatedAt
+      instructor
     }
     nextToken
   }
@@ -724,15 +478,13 @@ query GetCourseSection($id: ID!) {
     index
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -756,6 +508,7 @@ query GetCourseSection($id: ID!) {
       }
       createdAt
       updatedAt
+      instructor
     }
     createdAt
     updatedAt
@@ -778,6 +531,7 @@ query ListCourseSections(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -791,15 +545,13 @@ query GetAssignment($id: ID!) {
     title
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -823,6 +575,7 @@ query GetAssignment($id: ID!) {
       }
       createdAt
       updatedAt
+      instructor
     }
     section {
       id
@@ -835,6 +588,7 @@ query GetAssignment($id: ID!) {
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       createdAt
       updatedAt
@@ -869,6 +623,7 @@ query ListAssignments(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       section {
         id
@@ -918,97 +673,18 @@ query ListTasks(
     nextToken
   }
 }
-query GetInstructor($id: ID!) {
-  getInstructor(id: $id) {
-    id
-    name
-    title
-    courses {
-      items {
-        id
-        start
-        end
-        creditHours
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-query ListInstructors(
-  $filter: ModelInstructorFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listInstructors(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      title
-      courses {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-    nextToken
-  }
-}
-query GetAssistant($id: ID!) {
-  getAssistant(id: $id) {
-    id
-    name
-    course {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-query ListAssistants(
-  $filter: ModelAssistantFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listAssistants(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      course {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-    nextToken
-  }
-}
-query GetCourseAssistant($id: ID!) {
-  getCourseAssistant(id: $id) {
+query GetCourseInstructor($id: ID!) {
+  getCourseInstructor(id: $id) {
     id
     course {
       id
-      instructor {
-        id
-        name
-        title
-        createdAt
-        updatedAt
-        owner
+      instructors {
+        nextToken
       }
-      assistant {
+      assistants {
+        nextToken
+      }
+      learners {
         nextToken
       }
       start
@@ -1032,16 +708,137 @@ query GetCourseAssistant($id: ID!) {
       }
       createdAt
       updatedAt
+      instructor
     }
-    assistant {
+    instructor {
       id
       name
-      course {
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
         nextToken
       }
       createdAt
       updatedAt
-      owner
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListCourseInstructors(
+  $filter: ModelCourseInstructorFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCourseInstructors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      course {
+        id
+        start
+        end
+        creditHours
+        createdAt
+        updatedAt
+        instructor
+      }
+      instructor {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetCourseAssistant($id: ID!) {
+  getCourseAssistant(id: $id) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    assistant {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -1062,13 +859,116 @@ query ListCourseAssistants(
         creditHours
         createdAt
         updatedAt
+        instructor
       }
       assistant {
         id
         name
+        title
+        bio
         createdAt
         updatedAt
-        owner
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetCourseLearner($id: ID!) {
+  getCourseLearner(id: $id) {
+    id
+    course {
+      id
+      instructors {
+        nextToken
+      }
+      assistants {
+        nextToken
+      }
+      learners {
+        nextToken
+      }
+      start
+      end
+      creditHours
+      assignments {
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
+      }
+      sections {
+        id
+        name
+        index
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      instructor
+    }
+    learner {
+      id
+      name
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListCourseLearners(
+  $filter: ModelCourseLearnerFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCourseLearners(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      course {
+        id
+        start
+        end
+        creditHours
+        createdAt
+        updatedAt
+        instructor
+      }
+      learner {
+        id
+        name
+        title
+        bio
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt

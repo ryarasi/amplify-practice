@@ -12,10 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 import {
   CreateInstitution,
   GetInstitution,
-} from 'src/app/shared/ngxs/institutions/institution.actions';
-import { InstitutionState } from 'src/app/shared/ngxs/institutions/institution.state';
+} from 'src/app/shared/state/institutions/institution.actions';
+import { InstitutionState } from 'src/app/shared/state/institutions/institution.state';
 import { Observable } from 'rxjs';
-import { emptyInstitutionFormRecord } from 'src/app/shared/ngxs/institutions/institution.model';
+import { emptyInstitutionFormRecord } from 'src/app/shared/state/institutions/institution.model';
 import { Institution } from 'src/app/API.service';
 
 @Component({

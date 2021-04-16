@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AuthenticationCheckAction } from './shared/ngxs/auth/auth.actions';
-import { AuthState } from './shared/ngxs/auth/auth.state';
+import { AuthenticationCheckAction } from './shared/state/auth/auth.actions';
+import { AuthState } from './shared/state/auth/auth.state';
 
 @Component({
   selector: 'app-root',

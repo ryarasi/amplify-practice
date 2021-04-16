@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ICellRendererParams } from 'ag-grid-community';
-import { ClassProfileComponent } from 'src/app/pages/modals/class-profile/class-profile.component';
+import { MemberProfileComponent } from 'src/app/pages/modals/member-profile/member-profile.component';
 
 @Component({
-  selector: 'app-class-profile',
-  templateUrl: './class-profile-renderer.component.html',
-  styleUrls: ['./class-profile-renderer.component.scss'],
+  selector: 'app-member-profile',
+  templateUrl: './member-profile-renderer.component.html',
+  styleUrls: ['./member-profile-renderer.component.scss'],
 })
-export class ClassProfileRendererComponent {
+export class MemberProfileRendererComponent {
   cellValue: string;
   rowData: any;
   params: any;
@@ -33,10 +33,10 @@ export class ClassProfileRendererComponent {
 
   public invokeParentMethod() {
     console.log('params from invokeparentmethod ', this.params);
-    this.params.context.componentParent.openClassProfile(this.rowData);
+    this.params.context.componentParent.openMemberProfile(this.rowData);
   }
   openDialog() {
-    const dialogRef = this.dialog.open(ClassProfileComponent, {
+    const dialogRef = this.dialog.open(MemberProfileComponent, {
       data: this.rowData,
     });
 

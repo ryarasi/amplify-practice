@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Institution } from 'src/app/API.service';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
-import { DeleteInstitution } from 'src/app/shared/ngxs/institutions/institution.actions';
+import { DeleteInstitution } from 'src/app/shared/state/institutions/institution.actions';
 @Component({
   selector: 'app-institution-profile',
   templateUrl: './institution-profile.component.html',

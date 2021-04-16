@@ -1,113 +1,113 @@
 import { State, Action, Selector, Store, StateContext } from '@ngxs/store';
 import {
-  defaultClassState,
-  emptyClassFormRecord,
-  ClassStateModel,
-} from './class.model';
+  defaultMemberState,
+  emptyMemberFormRecord,
+  MemberStateModel,
+} from './member.model';
 import {
-  CreateClass,
-  DeleteClass,
-  FetchClasses,
-  ForceRefetchClasses,
-  GetClass,
-} from './class.actions';
+  CreateMember,
+  DeleteMember,
+  FetchMembers,
+  ForceRefetchMembers,
+  GetMember,
+} from './member.actions';
 import { Injectable } from '@angular/core';
 import { client } from '../../api/appsync.service';
 import * as queries from './../../../../graphql/queries.graphql';
 import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
-@State<ClassStateModel>({
-  name: 'classState',
-  defaults: defaultClassState,
+@State<MemberStateModel>({
+  name: 'memberState',
+  defaults: defaultMemberState,
 })
 @Injectable()
-export class ClassState {
+export class MemberState {
   constructor(private store: Store) {}
 
   @Selector()
-  static listClasses(state: ClassStateModel) {
-    return state.classes;
+  static listMembers(state: MemberStateModel) {
+    return state.members;
   }
 
   @Selector()
-  static isFetching(state: ClassStateModel) {
+  static isFetching(state: MemberStateModel) {
     return state.isFetching;
   }
 
   @Selector()
-  static errorFetching(state: ClassStateModel) {
+  static errorFetching(state: MemberStateModel) {
     return state.errorFetching;
   }
 
   @Selector()
-  static formSubmitting(state: ClassStateModel) {
+  static formSubmitting(state: MemberStateModel) {
     return state.formSubmitting;
   }
 
   @Selector()
-  static errorSubmitting(state: ClassStateModel) {
+  static errorSubmitting(state: MemberStateModel) {
     return state.errorSubmitting;
   }
 
   @Selector()
-  static getClassFormRecord(state: ClassStateModel) {
-    return state.classFormRecord;
+  static getMemberFormRecord(state: MemberStateModel) {
+    return state.memberFormRecord;
   }
 
-  @Action(ForceRefetchClasses)
-  fetchClassesFromNetwork({ patchState }: StateContext<ClassStateModel>) {
+  @Action(ForceRefetchMembers)
+  fetchMembersFromNetwork({ patchState }: StateContext<MemberStateModel>) {
     patchState({ fetchPolicy: 'network-only' });
   }
 
-  @Action(FetchClasses)
-  fetchClasss({ getState, patchState }: StateContext<ClassStateModel>) {
-    console.log('Fetching classes...');
+  @Action(FetchMembers)
+  fetchMembers({ getState, patchState }: StateContext<MemberStateModel>) {
+    console.log('Fetching members...');
     const state = getState();
-    let { classes, isFetching, errorFetching, fetchPolicy } = state;
+    let { members, isFetching, errorFetching, fetchPolicy } = state;
     isFetching = true;
     errorFetching = false;
-    patchState({ isFetching, errorFetching, classes });
+    patchState({ isFetching, errorFetching, members });
     client
       .query({
-        query: queries.ListClasss,
+        query: queries.ListMembers,
         fetchPolicy: fetchPolicy,
       })
       .then((res: any) => {
         isFetching = false;
-        const classes = res.data.listClasss.items;
-        console.log('Fetched classes ', classes);
+        const members = res.data.listMembers.items;
+        console.log('Fetched members ', members);
         fetchPolicy = null;
-        patchState({ classes, isFetching, fetchPolicy });
+        patchState({ members, isFetching, fetchPolicy });
       })
       .catch((err) => {
         isFetching = false;
         errorFetching = true;
-        classes = [];
-        patchState({ classes, isFetching, errorFetching });
+        members = [];
+        patchState({ members, isFetching, errorFetching });
       });
   }
 
-  @Action(GetClass)
-  getClass(
-    { getState, patchState }: StateContext<ClassStateModel>,
-    { payload }: GetClass
+  @Action(GetMember)
+  getMember(
+    { getState, patchState }: StateContext<MemberStateModel>,
+    { payload }: GetMember
   ) {
     const { id } = payload;
     const state = getState();
-    const classFound = state.classes.find((i) => i.id == id);
-    if (classFound) {
-      patchState({ classFormRecord: classFound });
+    const memberFound = state.members.find((i) => i.id == id);
+    if (memberFound) {
+      patchState({ memberFormRecord: memberFound });
     } else {
       this.store.dispatch(
         new ToggleLoadingScreen({
           showLoadingScreen: true,
-          message: 'Fetching the class...',
+          message: 'Fetching the member...',
         })
       );
       client
         .query({
-          query: queries.GetClass,
+          query: queries.GetMember,
           variables: {
             id,
           },
@@ -116,9 +116,9 @@ export class ClassState {
           this.store.dispatch(
             new ToggleLoadingScreen({ showLoadingScreen: false })
           );
-          console.log('res from class fetch', res);
-          const classFormRecord = res.data.getClass;
-          patchState({ classFormRecord });
+          console.log('res from member fetch', res);
+          const memberFormRecord = res.data.getMember;
+          patchState({ memberFormRecord });
         })
         .catch((res: any) => {
           console.error(res);
@@ -128,17 +128,17 @@ export class ClassState {
           this.store.dispatch(
             new ShowNotificationAction({
               message:
-                'There was an error in fetching the class! Try again later.',
+                'There was an error in fetching the member! Try again later.',
             })
           );
         });
     }
   }
 
-  @Action(CreateClass)
-  createUpdateClass(
-    { getState, patchState }: StateContext<ClassStateModel>,
-    { payload }: CreateClass
+  @Action(CreateMember)
+  createUpdateMember(
+    { getState, patchState }: StateContext<MemberStateModel>,
+    { payload }: CreateMember
   ) {
     const state = getState();
     const { form, formDirective } = payload;
@@ -150,7 +150,9 @@ export class ClassState {
       patchState({ formSubmitting });
       client
         .mutate({
-          mutation: updateForm ? mutations.UpdateClass : mutations.CreateClass,
+          mutation: updateForm
+            ? mutations.UpdateMember
+            : mutations.CreateMember,
           variables: {
             input: values,
           },
@@ -160,10 +162,10 @@ export class ClassState {
           form.reset();
           formDirective.resetForm();
           patchState({
-            classFormRecord: emptyClassFormRecord,
+            memberFormRecord: emptyMemberFormRecord,
             formSubmitting,
           });
-          this.store.dispatch(new ForceRefetchClasses());
+          this.store.dispatch(new ForceRefetchMembers());
           this.store.dispatch(
             new ShowNotificationAction({
               message: 'Form submitted successfully!',
@@ -190,19 +192,19 @@ export class ClassState {
     }
   }
 
-  @Action(DeleteClass)
-  deleteClass({ payload }: GetClass) {
+  @Action(DeleteMember)
+  deleteMember({ payload }: GetMember) {
     const { id } = payload;
 
     this.store.dispatch(
       new ToggleLoadingScreen({
         showLoadingScreen: true,
-        message: 'Deleting the class...',
+        message: 'Deleting the member...',
       })
     );
     client
       .mutate({
-        mutation: mutations.DeleteClass,
+        mutation: mutations.DeleteMember,
         variables: {
           input: {
             id,
@@ -211,7 +213,7 @@ export class ClassState {
       })
       .then((res: any) => {
         console.log(res);
-        this.store.dispatch(new ForceRefetchClasses());
+        this.store.dispatch(new ForceRefetchMembers());
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,
@@ -219,7 +221,7 @@ export class ClassState {
         );
         this.store.dispatch(
           new ShowNotificationAction({
-            message: `The class with name ${res?.data?.deleteClass?.name} was successfully deleted`,
+            message: `The member with name ${res?.data?.deleteMember?.name} was successfully deleted`,
           })
         );
       })
@@ -232,7 +234,7 @@ export class ClassState {
         );
         this.store.dispatch(
           new ShowNotificationAction({
-            message: `Something went wrong while attempting to delete the class. It may not have been deleted.`,
+            message: `Something went wrong while attempting to delete the member. It may not have been deleted.`,
           })
         );
       });

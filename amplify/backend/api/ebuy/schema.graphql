@@ -16,16 +16,14 @@ type Institution @model {
   website: String
   "Phone number"
   phone: String
-  "Logo url"
+  "Logo URL"
   logo: String
   "Short bio, could be their school motto"
   bio: String
-  "admins of the institution manage the institution's properties"
+  "Admins of the institution manage the institution's properties"
   admins: [Member]
-  "Fundamental units of Members belonging to the institution"
-  classes: [Class] @connection(name: "InstitutionClassesConnection")
-  "All learners belonging to the institution"
-  learners: [Member]
+  "All Members belonging to the institution"
+  members: [Member]
 }
 
 """
@@ -38,10 +36,10 @@ type Group
     rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
   ) {
   id: ID!
-  "name of the group"
+  "Name of the group"
   name: String!
   "The id of the insitition that this group belongs to"
-  institution: Institution! @connection(name: "InstitutionClassesConnection")
+  institution: Institution!
   "The admins of the group who can manage members of the class etc"
   admins: [Member]
   "List of members in this group"
@@ -52,14 +50,18 @@ type Member @model {
   id: ID!
   "Name of the person"
   name: String!
+  "Title of the person"
+  title: String
+  "Bio of the person"
+  bio: String
   "Every member will be tied to an institution, instructors, course assistants will be tied to Shuddhi Vidhya"
   institution: Institution!
   "Courses they are instructors in"
-  instructor: [CourseMember] @connection(name: "CourseInstructorConnection")
+  instructor: [CourseInstructor] @connection(name: "InstructorCourseConnection")
   "Courses that they are assistants in"
-  assistant: [CourseMember] @connection(name: "CourseAssistantConnection")
+  assistant: [CourseAssistant] @connection(name: "AssistantCourseConnection")
   "Courses that they are learners in"
-  learner: [CourseMember] @connection(name: "CourseLearnerConnection")
+  learner: [CourseLearner] @connection(name: "LearnerCourseConnection")
 }
 
 """
@@ -74,11 +76,12 @@ type Course
   ) {
   id: ID!
   "Instructor(s) of the course"
-  instructors: [CourseMember] @connection(name: "CourseInstructorConnection")
+  instructors: [CourseInstructor]
+    @connection(name: "CourseInstructorConnection")
   "Those who will be assisting with the course"
-  assistants: [CourseMember] @connection(name: "CourseAssistantConnection")
+  assistants: [CourseAssistant] @connection(name: "CourseAssistantConnection")
   "Those who are participating as learners in the course"
-  learners: [CourseMember] @connection(name: "CourseLearnerConnection")
+  learners: [CourseLearner] @connection(name: "CourseLearnerConnection")
   "When the course starts"
   start: AWSDate
   "When the course is expected to end"
@@ -138,17 +141,37 @@ type Task @model {
 }
 
 """
+This is a join table that ties courses with Instructors
+This is the way to establish many-to-many relationships
+"""
+type CourseInstructor @model {
+  id: ID!
+  "The course that this instructor belongs to"
+  course: Course @connection(name: "CourseInstructorConnection")
+  "The instructor(s) in the course"
+  instructor: Member @connection(name: "InstructorCourseConnection")
+}
+
+"""
 This is a join table that ties courses with Assistants
 This is the way to establish many-to-many relationships
 """
-type CourseMember @model {
+type CourseAssistant @model {
   id: ID!
-  "The course that this assistant belongs to"
+  "The course that this instructor belongs to"
   course: Course @connection(name: "CourseAssistantConnection")
   "The instructor(s) in the course"
-  instructor: Member @connection(name: "InstructorCourseConnection")
-  "The assistant(s)  in the course"
   assistant: Member @connection(name: "AssistantCourseConnection")
-  "The learner(s) in the course"
+}
+
+"""
+This is a join table that ties courses with Learners
+This is the way to establish many-to-many relationships
+"""
+type CourseLearner @model {
+  id: ID!
+  "The course that this instructor belongs to"
+  course: Course @connection(name: "CourseLearnerConnection")
+  "The instructor(s) in the course"
   learner: Member @connection(name: "LearnerCourseConnection")
 }
