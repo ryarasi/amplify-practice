@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 
 const INSTITUTIONS = 'Institutions';
 const MEMBERS = 'Members';
-const CLASSES = 'Classes';
 const INSTITUTION_ADMINS = 'Institution Admins';
 const CLASS_ADMINS = 'Class Admins';
 const LEARNERS = 'Learners';
@@ -11,7 +10,6 @@ const LEARNERS = 'Learners';
 const entities = [
   INSTITUTIONS,
   MEMBERS,
-  CLASSES,
   INSTITUTION_ADMINS,
   CLASS_ADMINS,
   LEARNERS,
@@ -27,7 +25,6 @@ export class AdminDashboardComponent implements OnInit {
   entities: string[] = entities;
   institutions: string = INSTITUTIONS;
   members: string = MEMBERS;
-  classes: string = CLASSES;
   institutionAdmins: string = INSTITUTION_ADMINS;
   classAdmins: string = CLASS_ADMINS;
   learners: string = LEARNERS;
