@@ -1,0 +1,53 @@
+<button mat-icon-button (click)="goBack()" class="floating-back-button">
+  <mat-icon>keyboard_backspace</mat-icon>
+</button>
+<h2 class="form-title">Member Form</h2>
+<div class="col-lg-8 col-sm-12 form-container">
+  <form
+    [formGroup]="memberForm"
+    novalidate
+    (submit)="submitForm(memberForm, formDirective)"
+    #formDirective="ngForm"
+  >
+    <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Name of the member" />
+      <small
+        class="validation-error"
+        *ngIf="
+          memberForm.get('name').hasError('required') && formDirective.submitted
+        "
+      >
+        Name is required
+      </small>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
+      <mat-label>Title</mat-label>
+      <textarea
+        matInput
+        formControlName="title"
+        placeholder="Your title, if any"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
+      <mat-label>Bio</mat-label>
+      <textarea
+        matInput
+        formControlName="bio"
+        placeholder="Brief bio about the member"
+      ></textarea>
+    </mat-form-field>
+
+    <button
+      type="submit"
+      class="floating-submit-button"
+      mat-raised-button
+      color="primary"
+      [disabled]="(formSubmitting$ | async) === true"
+    >
+      {{ (formSubmitting$ | async) === true ? "Submitting..." : "Submit" }}
+    </button>
+  </form>
+</div>

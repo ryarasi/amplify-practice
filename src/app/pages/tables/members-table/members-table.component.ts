@@ -65,7 +65,7 @@ export class MembersTableComponent implements OnInit {
   }
 
   createMember() {
-    this.router.navigateByUrl(uiroutes.INSTITUTION_FORM_ROUTE);
+    this.router.navigateByUrl(uiroutes.MEMBER_FORM_ROUTE);
   }
 
   openMemberProfile(rowData) {

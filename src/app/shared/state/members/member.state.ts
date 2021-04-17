@@ -17,6 +17,8 @@ import * as queries from './../../../../graphql/queries.graphql';
 import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
+import awsmobile from 'src/aws-exports.js';
+
 @State<MemberStateModel>({
   name: 'memberState',
   defaults: defaultMemberState,
@@ -142,46 +144,67 @@ export class MemberState {
   ) {
     const state = getState();
     const { form, formDirective } = payload;
-    let { formSubmitting, fetchPolicy } = state;
+    let { formSubmitting } = state;
     if (form.valid) {
       formSubmitting = true;
       const values = form.value;
       const updateForm = values.id ? true : false;
       patchState({ formSubmitting });
-      client
-        .mutate({
-          mutation: updateForm
-            ? mutations.UpdateMember
-            : mutations.CreateMember,
-          variables: {
-            input: values,
-          },
-        })
-        .then((res: any) => {
-          formSubmitting = false;
-          form.reset();
-          formDirective.resetForm();
-          patchState({
-            memberFormRecord: emptyMemberFormRecord,
-            formSubmitting,
-          });
-          this.store.dispatch(new ForceRefetchMembers());
-          this.store.dispatch(
-            new ShowNotificationAction({
-              message: 'Form submitted successfully!',
-            })
-          );
-        })
-        .catch((err) => {
-          console.error(err);
-          formSubmitting = false;
-          patchState({ formSubmitting });
-          this.store.dispatch(
-            new ShowNotificationAction({
-              message: 'There was an error in submitting your form!',
-            })
-          );
-        });
+      createUser((data) => {
+        console.log('user created', data);
+      });
+
+      // async function listEditors(limit){
+      //   let myInit = {
+      //       queryStringParameters: {
+      //         "groupname": "Editors",
+      //         "limit": limit,
+      //         "token": nextToken
+      //       },
+      //       headers: {
+      //         'Content-Type' : 'application/json',
+      //         Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+      //       }
+      //   }
+      //   const { NextToken, ...rest } =  await API.get(apiName, path, myInit);
+      //   nextToken = NextToken;
+      //   return rest;
+      // }
+
+      // client
+      //   .mutate({
+      //     mutation: updateForm
+      //       ? mutations.UpdateMember
+      //       : mutations.CreateMember,
+      //     variables: {
+      //       input: values,
+      //     },
+      //   })
+      //   .then((res: any) => {
+      //     formSubmitting = false;
+      //     form.reset();
+      //     formDirective.resetForm();
+      //     patchState({
+      //       memberFormRecord: emptyMemberFormRecord,
+      //       formSubmitting,
+      //     });
+      //     this.store.dispatch(new ForceRefetchMembers());
+      //     this.store.dispatch(
+      //       new ShowNotificationAction({
+      //         message: 'Form submitted successfully!',
+      //       })
+      //     );
+      //   })
+      //   .catch((err) => {
+      //     console.error(err);
+      //     formSubmitting = false;
+      //     patchState({ formSubmitting });
+      //     this.store.dispatch(
+      //       new ShowNotificationAction({
+      //         message: 'There was an error in submitting your form!',
+      //       })
+      //     );
+      //   });
     } else {
       this.store.dispatch(
         new ShowNotificationAction({
@@ -240,3 +263,57 @@ export class MemberState {
       });
   }
 }
+
+('use strict');
+
+const createUser = (callback) => {
+  var AWS = require('aws-sdk');
+  var myCredentials = new AWS.config({
+    IdentityPoolId: awsmobile.region + ':' + awsmobile.aws_user_pools_id,
+  });
+  const myconfig = new AWS.config({
+    credentials: myCredentials,
+    region: awsmobile.region,
+  });
+  AWS.config = myconfig;
+
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
+    apiVersion: '2021-04-17',
+    credentials: myCredentials,
+    region: awsmobile.region,
+  });
+
+  var params = {
+    UserPoolId: awsmobile.aws_user_pools_id /* required */,
+    Username: 'admin' /* required */,
+    Region: awsmobile.region,
+    DesiredDeliveryMediums: ['EMAIL'],
+    ForceAliasCreation: false,
+    MessageAction: 'SUPPRESS',
+    TemporaryPassword: 'tempPassword1',
+    UserAttributes: [
+      {
+        Name: 'email' /* required */,
+        Value: 'ragav.code@gmail.com',
+      },
+      {
+        Name: 'name' /* required */,
+        Value: 'Ragav Yarasi',
+      },
+
+      /* more items */
+    ],
+  };
+
+  cognitoidentityserviceprovider.adminCreateUser(params, function (err, data) {
+    if (err)
+      console.log(
+        'Error from the cognitoidentityserviceprovider method => ',
+        err,
+        err.stack
+      );
+    // an error occurred
+    else console.log(data); // successful response
+    callback(null, data);
+  });
+};

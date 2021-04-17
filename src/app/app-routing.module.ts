@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/static/profile/profile.component';
 import { SupportComponent } from './pages/static/support/support.component';
 import { uiroutes } from './shared/common/ui-routes';
 import { AddEditInstitutionComponent } from './pages/forms/add-edit-institution/add-edit-institution.component';
+import { AddEditMemberComponent } from './pages/forms/add-edit-member/add-edit-member.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,12 @@ const routes: Routes = [
   {
     path: uiroutes.INSTITUTION_FORM_ROUTE,
     component: AddEditInstitutionComponent,
+    canActivate: [AuthenticationGuard],
+    pathMatch: 'full',
+  },
+  {
+    path: uiroutes.MEMBER_FORM_ROUTE,
+    component: AddEditMemberComponent,
     canActivate: [AuthenticationGuard],
     pathMatch: 'full',
   },

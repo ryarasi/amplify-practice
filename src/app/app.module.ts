@@ -46,6 +46,7 @@ import { CoursesTableComponent } from './pages/tables/courses-table/courses-tabl
 import { MemberState } from './shared/state/members/member.state';
 import { MemberProfileRendererComponent } from './shared/cell-renderers/member-profile/member-profile-renderer.component';
 import { MemberProfileComponent } from './pages/modals/member-profile/member-profile.component';
+import { AddEditMemberComponent } from './pages/forms/add-edit-member/add-edit-member.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -74,6 +75,7 @@ Amplify.configure(awsconfig);
     CoursesTableComponent,
     MemberProfileRendererComponent,
     MemberProfileComponent,
+    AddEditMemberComponent,
     InstitutionDeleteConfirmationDialog,
   ],
   entryComponents: [InstitutionProfileComponent],
