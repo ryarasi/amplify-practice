@@ -1,58 +1,54 @@
-("use strict");
-const awsmobile = {
-  aws_user_pools_id: "us-east-1_qQZdfQbIl",
-  region: "us-east-1",
-};
 var AWS = require("aws-sdk");
-exports.handler = (event, callback) => {
-  console.log("event => ", event);
 
-  var myCredentials = new AWS.config({
-    IdentityPoolId: awsmobile.region + ":" + awsmobile.aws_user_pools_id,
-  });
-  const myconfig = new AWS.config({
-    credentials: myCredentials,
-    region: awsmobile.region,
-  });
-  AWS.config = myconfig;
+var resp200ok = {
+  statusCode: 200,
+  headers: { "Content-Type": "application/json" },
+  body: {},
+};
 
-  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
-    apiVersion: "2021-04-17",
-    credentials: myCredentials,
-    region: awsmobile.region,
-  });
+var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
+  apiVersion: "2016-04-18",
+});
+
+exports.handler = async (event, context, callback) => {
+  console.log("Event input => ", event);
+  const attributes = event.request.userAttributes; // read user attributes from event
 
   var params = {
-    UserPoolId: awsmobile.aws_user_pools_id /* required */,
-    Username: "admin" /* required */,
-    Region: awsmobile.region,
+    UserPoolId: "us-east-1_qQZdfQbIl",
+    Username: attributes.username,
+    //TemporaryPassword: 'Password!1',
     DesiredDeliveryMediums: ["EMAIL"],
-    ForceAliasCreation: false,
-    MessageAction: "SUPPRESS",
-    TemporaryPassword: "tempPassword1",
     UserAttributes: [
       {
-        Name: "email" /* required */,
-        Value: "ragav.code@gmail.com",
+        Name: "email",
+        Value: attributes.email,
+      },
+      {
+        Name: "email_verified" /* required */,
+        Value: "true",
       },
       {
         Name: "name" /* required */,
-        Value: "Ragav Yarasi",
+        Value: attributes["name"],
       },
-
-      /* more items */
     ],
   };
 
-  cognitoidentityserviceprovider.adminCreateUser(params, function (err, data) {
-    if (err)
-      console.log(
-        "Error from the cognitoidentityserviceprovider method => ",
-        err,
-        err.stack
-      );
-    // an error occurred
-    else console.log(data); // successful response
-    callback(null, data);
-  });
+  try {
+    const data = await cognitoidentityserviceprovider
+      .adminCreateUser(params, function (err, data) {
+        if (err) {
+          console.log(err, err.stack);
+        }
+        // an error occurred
+        else {
+          console.log("SUCCESS", JSON.stringify(data)); // successful response
+          return data;
+        }
+      })
+      .promise();
+  } catch (error) {
+    console.log(error);
+  }
 };
