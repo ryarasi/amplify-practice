@@ -23,6 +23,56 @@
     </mat-form-field>
 
     <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
+      <mat-label>Email ID</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        placeholder="Name of the member"
+      />
+      <small
+        class="validation-error"
+        *ngIf="
+          memberForm.get('email').hasError('required') &&
+          formDirective.submitted
+        "
+      >
+        Email is required
+      </small>
+      <small
+        class="validation-error"
+        *ngIf="
+          memberForm.get('email').hasError('email') && formDirective.submitted
+        "
+      >
+        Please enter a valid email
+      </small>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
+      <mat-label>Institution</mat-label>
+      <mat-select
+        formControlName="institution"
+        placeholder="The institution you belong to"
+      >
+        <mat-option
+          *ngFor="let institution of institutionOptions$ | async"
+          [value]="institution.value"
+        >
+          {{ institution.label }}
+        </mat-option>
+      </mat-select>
+      <small
+        class="validation-error"
+        *ngIf="
+          memberForm.get('institution').hasError('required') &&
+          formDirective.submitted
+        "
+      >
+        Institution is required
+      </small>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
       <mat-label>Title</mat-label>
       <textarea
         matInput
@@ -36,7 +86,7 @@
       <textarea
         matInput
         formControlName="bio"
-        placeholder="Brief bio about the member"
+        placeholder="Brief bio about yourself"
       ></textarea>
     </mat-form-field>
 

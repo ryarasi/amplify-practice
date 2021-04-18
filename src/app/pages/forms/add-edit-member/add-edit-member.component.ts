@@ -16,7 +16,10 @@ import {
 import { MemberState } from 'src/app/shared/state/members/member.state';
 import { Observable } from 'rxjs';
 import { emptyMemberFormRecord } from 'src/app/shared/state/members/member.model';
-import { Member } from 'src/app/API.service';
+import { Institution, Member } from 'src/app/API.service';
+import { InstitutionState } from 'src/app/shared/state/institutions/institution.state';
+import { FetchInstitutions } from 'src/app/shared/state/institutions/institution.actions';
+import { MatSelectOption } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-add-edit-member',
@@ -29,6 +32,8 @@ import { Member } from 'src/app/API.service';
 export class AddEditMemberComponent implements OnInit {
   formSubmitting: boolean = false;
   params: object = {};
+  @Select(InstitutionState.listInstitutionOptions)
+  institutionOptions$: Observable<MatSelectOption[]>;
   @Select(MemberState.getMemberFormRecord)
   memberFormRecord$: Observable<Member>;
   @Select(MemberState.formSubmitting)
@@ -42,6 +47,7 @@ export class AddEditMemberComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder
   ) {
+    this.store.dispatch(new FetchInstitutions());
     this.memberForm = this.setupMemberFormGroup();
     this.memberFormRecord$.subscribe((val) => {
       this.memberFormRecord = val;
@@ -57,6 +63,8 @@ export class AddEditMemberComponent implements OnInit {
     return this.fb.group({
       id: [memberFormRecord.id],
       name: [memberFormRecord.name, Validators.required],
+      email: [memberFormRecord.email, [Validators.required, Validators.email]],
+      institution: [memberFormRecord.institution, Validators.required],
       title: [memberFormRecord.title],
       bio: [memberFormRecord.bio],
     });

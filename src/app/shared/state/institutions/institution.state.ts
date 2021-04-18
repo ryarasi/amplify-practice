@@ -17,6 +17,7 @@ import * as queries from './../../../../graphql/queries.graphql';
 import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
+import { MatSelectOption } from '../../models';
 @State<InstitutionStateModel>({
   name: 'institutionState',
   defaults: defaultInstitutionState,
@@ -28,6 +29,18 @@ export class InstitutionState {
   @Selector()
   static listInstitutions(state: InstitutionStateModel) {
     return state.institutions;
+  }
+
+  @Selector()
+  static listInstitutionOptions(
+    state: InstitutionStateModel
+  ): MatSelectOption[] {
+    console.log('state.institutions', state.institutions);
+    const options = state.institutions.map((i) => {
+      return { value: i.id, label: `${i.name} (${i.location})` };
+    });
+    console.log('options', options);
+    return options;
   }
 
   @Selector()
@@ -56,7 +69,9 @@ export class InstitutionState {
   }
 
   @Action(ForceRefetchInstitutions)
-  fetchClassesFromNetwork({ patchState }: StateContext<InstitutionStateModel>) {
+  forceRefetchInstitutions({
+    patchState,
+  }: StateContext<InstitutionStateModel>) {
     patchState({ fetchPolicy: 'network-only' });
     this.store.dispatch(new FetchInstitutions());
   }

@@ -3,24 +3,24 @@ import { Member } from 'src/app/API.service';
 import { idPayload } from '../../models';
 
 export class FetchMembers {
-  static readonly type = '[CLASSES] Fetch';
+  static readonly type = '[MEMBERS] Fetch';
 
   constructor() {}
 }
 
 export class ForceRefetchMembers {
-  static readonly type = '[CLASSES] Refetch from network';
+  static readonly type = '[MEMBERS] Refetch from network';
 
   constructor() {}
 }
 export class GetMember {
-  static readonly type = '[CLASS] Get';
+  static readonly type = '[MEMBER] Get';
 
   constructor(public payload: idPayload) {}
 }
 
 export class CreateMember {
-  static readonly type = '[CLASS] Create';
+  static readonly type = '[MEMBER] Create';
 
   constructor(
     public payload: { form: FormGroup; formDirective: FormGroupDirective }
@@ -28,13 +28,13 @@ export class CreateMember {
 }
 
 export class UpdateMember {
-  static readonly type = '[CLASS] Update';
+  static readonly type = '[MEMBER] Update';
 
   constructor(public payload: Member) {}
 }
 
 export class DeleteMember {
-  static readonly type = '[CLASS] Delete';
+  static readonly type = '[MEMBER] Delete';
 
   constructor(public payload: idPayload) {}
 }

@@ -92,6 +92,7 @@ export type Member = {
   __typename: "Member";
   id?: string;
   name?: string;
+  email?: string;
   title?: string | null;
   bio?: string | null;
   institution?: Institution;
@@ -246,12 +247,14 @@ export type DeleteGroupInput = {
 export type CreateMemberInput = {
   id?: string | null;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
 };
 
 export type ModelMemberConditionInput = {
   name?: ModelStringInput | null;
+  email?: ModelStringInput | null;
   title?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   and?: Array<ModelMemberConditionInput | null> | null;
@@ -262,6 +265,7 @@ export type ModelMemberConditionInput = {
 export type UpdateMemberInput = {
   id: string;
   name?: string | null;
+  email?: string | null;
   title?: string | null;
   bio?: string | null;
 };
@@ -518,6 +522,7 @@ export type ModelGroupConnection = {
 export type ModelMemberFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
+  email?: ModelStringInput | null;
   title?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   and?: Array<ModelMemberFilterInput | null> | null;
@@ -629,6 +634,7 @@ export type CreateInstitutionMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -663,6 +669,7 @@ export type CreateInstitutionMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -711,6 +718,7 @@ export type UpdateInstitutionMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -745,6 +753,7 @@ export type UpdateInstitutionMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -793,6 +802,7 @@ export type DeleteInstitutionMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -827,6 +837,7 @@ export type DeleteInstitutionMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -879,6 +890,7 @@ export type CreateGroupMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -888,6 +900,7 @@ export type CreateGroupMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -900,6 +913,7 @@ export type CreateGroupMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -934,6 +948,7 @@ export type CreateGroupMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -986,6 +1001,7 @@ export type UpdateGroupMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -995,6 +1011,7 @@ export type UpdateGroupMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1007,6 +1024,7 @@ export type UpdateGroupMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1041,6 +1059,7 @@ export type UpdateGroupMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1093,6 +1112,7 @@ export type DeleteGroupMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1102,6 +1122,7 @@ export type DeleteGroupMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1114,6 +1135,7 @@ export type DeleteGroupMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1148,6 +1170,7 @@ export type DeleteGroupMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1186,6 +1209,7 @@ export type CreateMemberMutation = {
   __typename: "Member";
   id: string;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -1202,6 +1226,7 @@ export type CreateMemberMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1211,6 +1236,7 @@ export type CreateMemberMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1257,6 +1283,7 @@ export type UpdateMemberMutation = {
   __typename: "Member";
   id: string;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -1273,6 +1300,7 @@ export type UpdateMemberMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1282,6 +1310,7 @@ export type UpdateMemberMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1328,6 +1357,7 @@ export type DeleteMemberMutation = {
   __typename: "Member";
   id: string;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -1344,6 +1374,7 @@ export type DeleteMemberMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1353,6 +1384,7 @@ export type DeleteMemberMutation = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -2132,6 +2164,7 @@ export type CreateCourseInstructorMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2213,6 +2246,7 @@ export type UpdateCourseInstructorMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2294,6 +2328,7 @@ export type DeleteCourseInstructorMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2375,6 +2410,7 @@ export type CreateCourseAssistantMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2456,6 +2492,7 @@ export type UpdateCourseAssistantMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2537,6 +2574,7 @@ export type DeleteCourseAssistantMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2618,6 +2656,7 @@ export type CreateCourseLearnerMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2699,6 +2738,7 @@ export type UpdateCourseLearnerMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2780,6 +2820,7 @@ export type DeleteCourseLearnerMutation = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2828,6 +2869,7 @@ export type GetInstitutionQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2862,6 +2904,7 @@ export type GetInstitutionQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2912,6 +2955,7 @@ export type ListInstitutionsQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -2921,6 +2965,7 @@ export type ListInstitutionsQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -2950,6 +2995,7 @@ export type GetGroupQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -2959,6 +3005,7 @@ export type GetGroupQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -2971,6 +3018,7 @@ export type GetGroupQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3005,6 +3053,7 @@ export type GetGroupQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3062,6 +3111,7 @@ export type ListGroupsQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3071,6 +3121,7 @@ export type ListGroupsQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3086,6 +3137,7 @@ export type GetMemberQuery = {
   __typename: "Member";
   id: string;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -3102,6 +3154,7 @@ export type GetMemberQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3111,6 +3164,7 @@ export type GetMemberQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3159,6 +3213,7 @@ export type ListMembersQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3591,6 +3646,7 @@ export type GetCourseInstructorQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3644,6 +3700,7 @@ export type ListCourseInstructorsQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3702,6 +3759,7 @@ export type GetCourseAssistantQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3755,6 +3813,7 @@ export type ListCourseAssistantsQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3813,6 +3872,7 @@ export type GetCourseLearnerQuery = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3866,6 +3926,7 @@ export type ListCourseLearnersQuery = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3891,6 +3952,7 @@ export type OnCreateInstitutionSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3925,6 +3987,7 @@ export type OnCreateInstitutionSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3973,6 +4036,7 @@ export type OnUpdateInstitutionSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4007,6 +4071,7 @@ export type OnUpdateInstitutionSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4055,6 +4120,7 @@ export type OnDeleteInstitutionSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4089,6 +4155,7 @@ export type OnDeleteInstitutionSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4141,6 +4208,7 @@ export type OnCreateGroupSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4150,6 +4218,7 @@ export type OnCreateGroupSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4162,6 +4231,7 @@ export type OnCreateGroupSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4196,6 +4266,7 @@ export type OnCreateGroupSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4248,6 +4319,7 @@ export type OnUpdateGroupSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4257,6 +4329,7 @@ export type OnUpdateGroupSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4269,6 +4342,7 @@ export type OnUpdateGroupSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4303,6 +4377,7 @@ export type OnUpdateGroupSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4355,6 +4430,7 @@ export type OnDeleteGroupSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4364,6 +4440,7 @@ export type OnDeleteGroupSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4376,6 +4453,7 @@ export type OnDeleteGroupSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4410,6 +4488,7 @@ export type OnDeleteGroupSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4448,6 +4527,7 @@ export type OnCreateMemberSubscription = {
   __typename: "Member";
   id: string;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -4464,6 +4544,7 @@ export type OnCreateMemberSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4473,6 +4554,7 @@ export type OnCreateMemberSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4519,6 +4601,7 @@ export type OnUpdateMemberSubscription = {
   __typename: "Member";
   id: string;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -4535,6 +4618,7 @@ export type OnUpdateMemberSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4544,6 +4628,7 @@ export type OnUpdateMemberSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4590,6 +4675,7 @@ export type OnDeleteMemberSubscription = {
   __typename: "Member";
   id: string;
   name: string;
+  email: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -4606,6 +4692,7 @@ export type OnDeleteMemberSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4615,6 +4702,7 @@ export type OnDeleteMemberSubscription = {
       __typename: "Member";
       id: string;
       name: string;
+      email: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -5394,6 +5482,7 @@ export type OnCreateCourseInstructorSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5475,6 +5564,7 @@ export type OnUpdateCourseInstructorSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5556,6 +5646,7 @@ export type OnDeleteCourseInstructorSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5637,6 +5728,7 @@ export type OnCreateCourseAssistantSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5718,6 +5810,7 @@ export type OnUpdateCourseAssistantSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5799,6 +5892,7 @@ export type OnDeleteCourseAssistantSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5880,6 +5974,7 @@ export type OnCreateCourseLearnerSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5961,6 +6056,7 @@ export type OnUpdateCourseLearnerSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -6042,6 +6138,7 @@ export type OnDeleteCourseLearnerSubscription = {
     __typename: "Member";
     id: string;
     name: string;
+    email: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -6080,6 +6177,33 @@ export type OnDeleteCourseLearnerSubscription = {
   providedIn: "root"
 })
 export class APIService {
+  async AddMember(
+    name?: string,
+    username?: string,
+    email?: string,
+    institution?: string
+  ): Promise<string | null> {
+    const statement = `mutation AddMember($name: String, $username: String, $email: String, $institution: String) {
+        addMember(name: $name, username: $username, email: $email, institution: $institution)
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (name) {
+      gqlAPIServiceArguments.name = name;
+    }
+    if (username) {
+      gqlAPIServiceArguments.username = username;
+    }
+    if (email) {
+      gqlAPIServiceArguments.email = email;
+    }
+    if (institution) {
+      gqlAPIServiceArguments.institution = institution;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <string | null>response.data.addMember;
+  }
   async CreateInstitution(
     input: CreateInstitutionInput,
     condition?: ModelInstitutionConditionInput
@@ -6099,6 +6223,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6133,6 +6258,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6197,6 +6323,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6231,6 +6358,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6295,6 +6423,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6329,6 +6458,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6397,6 +6527,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6406,6 +6537,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6418,6 +6550,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6452,6 +6585,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6520,6 +6654,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6529,6 +6664,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6541,6 +6677,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6575,6 +6712,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6643,6 +6781,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6652,6 +6791,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6664,6 +6804,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6698,6 +6839,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -6752,6 +6894,7 @@ export class APIService {
           __typename
           id
           name
+          email
           title
           bio
           institution {
@@ -6768,6 +6911,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6777,6 +6921,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6839,6 +6984,7 @@ export class APIService {
           __typename
           id
           name
+          email
           title
           bio
           institution {
@@ -6855,6 +7001,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6864,6 +7011,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6926,6 +7074,7 @@ export class APIService {
           __typename
           id
           name
+          email
           title
           bio
           institution {
@@ -6942,6 +7091,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -6951,6 +7101,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -7938,6 +8089,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8035,6 +8187,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8132,6 +8285,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8229,6 +8383,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8326,6 +8481,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8423,6 +8579,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8520,6 +8677,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8617,6 +8775,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8714,6 +8873,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8775,6 +8935,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8809,6 +8970,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8873,6 +9035,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -8882,6 +9045,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -8928,6 +9092,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -8937,6 +9102,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -8949,6 +9115,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -8983,6 +9150,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -9054,6 +9222,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -9063,6 +9232,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -9095,6 +9265,7 @@ export class APIService {
           __typename
           id
           name
+          email
           title
           bio
           institution {
@@ -9111,6 +9282,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -9120,6 +9292,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -9182,6 +9355,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -9755,6 +9929,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -9822,6 +9997,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -9897,6 +10073,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -9964,6 +10141,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10039,6 +10217,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10106,6 +10285,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10151,6 +10331,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10185,6 +10366,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10241,6 +10423,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10275,6 +10458,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10331,6 +10515,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10365,6 +10550,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10424,6 +10610,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10433,6 +10620,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10445,6 +10633,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10479,6 +10668,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10543,6 +10733,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10552,6 +10743,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10564,6 +10756,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10598,6 +10791,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10662,6 +10856,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10671,6 +10866,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10683,6 +10879,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10717,6 +10914,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -10768,6 +10966,7 @@ export class APIService {
           __typename
           id
           name
+          email
           title
           bio
           institution {
@@ -10784,6 +10983,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10793,6 +10993,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10847,6 +11048,7 @@ export class APIService {
           __typename
           id
           name
+          email
           title
           bio
           institution {
@@ -10863,6 +11065,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10872,6 +11075,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10926,6 +11130,7 @@ export class APIService {
           __typename
           id
           name
+          email
           title
           bio
           institution {
@@ -10942,6 +11147,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -10951,6 +11157,7 @@ export class APIService {
               __typename
               id
               name
+              email
               title
               bio
               createdAt
@@ -11846,6 +12053,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -11935,6 +12143,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -12024,6 +12233,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -12113,6 +12323,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -12202,6 +12413,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -12291,6 +12503,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -12380,6 +12593,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -12469,6 +12683,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {
@@ -12558,6 +12773,7 @@ export class APIService {
             __typename
             id
             name
+            email
             title
             bio
             institution {

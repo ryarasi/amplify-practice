@@ -12,6 +12,7 @@ subscription OnCreateInstitution {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -41,6 +42,7 @@ subscription OnCreateInstitution {
     members {
       id
       name
+      email
       title
       bio
       institution {
@@ -84,6 +86,7 @@ subscription OnUpdateInstitution {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -113,6 +116,7 @@ subscription OnUpdateInstitution {
     members {
       id
       name
+      email
       title
       bio
       institution {
@@ -156,6 +160,7 @@ subscription OnDeleteInstitution {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -185,6 +190,7 @@ subscription OnDeleteInstitution {
     members {
       id
       name
+      email
       title
       bio
       institution {
@@ -231,6 +237,7 @@ subscription OnCreateGroup($admins: String!) {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -239,6 +246,7 @@ subscription OnCreateGroup($admins: String!) {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -250,6 +258,7 @@ subscription OnCreateGroup($admins: String!) {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -279,6 +288,7 @@ subscription OnCreateGroup($admins: String!) {
     learners {
       id
       name
+      email
       title
       bio
       institution {
@@ -325,6 +335,7 @@ subscription OnUpdateGroup($admins: String!) {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -333,6 +344,7 @@ subscription OnUpdateGroup($admins: String!) {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -344,6 +356,7 @@ subscription OnUpdateGroup($admins: String!) {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -373,6 +386,7 @@ subscription OnUpdateGroup($admins: String!) {
     learners {
       id
       name
+      email
       title
       bio
       institution {
@@ -419,6 +433,7 @@ subscription OnDeleteGroup($admins: String!) {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -427,6 +442,7 @@ subscription OnDeleteGroup($admins: String!) {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -438,6 +454,7 @@ subscription OnDeleteGroup($admins: String!) {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -467,6 +484,7 @@ subscription OnDeleteGroup($admins: String!) {
     learners {
       id
       name
+      email
       title
       bio
       institution {
@@ -501,6 +519,7 @@ subscription OnCreateMember {
   onCreateMember {
     id
     name
+    email
     title
     bio
     institution {
@@ -515,6 +534,7 @@ subscription OnCreateMember {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -523,6 +543,7 @@ subscription OnCreateMember {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -563,6 +584,7 @@ subscription OnUpdateMember {
   onUpdateMember {
     id
     name
+    email
     title
     bio
     institution {
@@ -577,6 +599,7 @@ subscription OnUpdateMember {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -585,6 +608,7 @@ subscription OnUpdateMember {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -625,6 +649,7 @@ subscription OnDeleteMember {
   onDeleteMember {
     id
     name
+    email
     title
     bio
     institution {
@@ -639,6 +664,7 @@ subscription OnDeleteMember {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -647,6 +673,7 @@ subscription OnDeleteMember {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -1332,6 +1359,7 @@ subscription OnCreateCourseInstructor {
     instructor {
       id
       name
+      email
       title
       bio
       institution {
@@ -1402,6 +1430,7 @@ subscription OnUpdateCourseInstructor {
     instructor {
       id
       name
+      email
       title
       bio
       institution {
@@ -1472,6 +1501,7 @@ subscription OnDeleteCourseInstructor {
     instructor {
       id
       name
+      email
       title
       bio
       institution {
@@ -1542,6 +1572,7 @@ subscription OnCreateCourseAssistant {
     assistant {
       id
       name
+      email
       title
       bio
       institution {
@@ -1612,6 +1643,7 @@ subscription OnUpdateCourseAssistant {
     assistant {
       id
       name
+      email
       title
       bio
       institution {
@@ -1682,6 +1714,7 @@ subscription OnDeleteCourseAssistant {
     assistant {
       id
       name
+      email
       title
       bio
       institution {
@@ -1752,6 +1785,7 @@ subscription OnCreateCourseLearner {
     learner {
       id
       name
+      email
       title
       bio
       institution {
@@ -1822,6 +1856,7 @@ subscription OnUpdateCourseLearner {
     learner {
       id
       name
+      email
       title
       bio
       institution {
@@ -1892,6 +1927,7 @@ subscription OnDeleteCourseLearner {
     learner {
       id
       name
+      email
       title
       bio
       institution {

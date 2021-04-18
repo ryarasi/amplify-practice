@@ -150,41 +150,86 @@ export class MemberState {
       const values = form.value;
       const updateForm = values.id ? true : false;
       patchState({ formSubmitting });
-
-      client
-        .mutate({
-          mutation: updateForm
-            ? mutations.UpdateMember
-            : mutations.CreateMember,
-          variables: {
-            input: values,
-          },
-        })
-        .then((res: any) => {
-          formSubmitting = false;
-          form.reset();
-          formDirective.resetForm();
-          patchState({
-            memberFormRecord: emptyMemberFormRecord,
-            formSubmitting,
+      if (updateForm) {
+        client
+          .mutate({
+            mutation: updateForm
+              ? mutations.UpdateMember
+              : mutations.CreateMember,
+            variables: {
+              input: values,
+            },
+          })
+          .then((res: any) => {
+            formSubmitting = false;
+            form.reset();
+            formDirective.resetForm();
+            patchState({
+              memberFormRecord: emptyMemberFormRecord,
+              formSubmitting,
+            });
+            this.store.dispatch(new ForceRefetchMembers());
+            this.store.dispatch(
+              new ShowNotificationAction({
+                message: 'Form submitted successfully!',
+              })
+            );
+          })
+          .catch((err) => {
+            console.error(err);
+            formSubmitting = false;
+            patchState({ formSubmitting });
+            this.store.dispatch(
+              new ShowNotificationAction({
+                message: 'There was an error in submitting your form!',
+              })
+            );
           });
-          this.store.dispatch(new ForceRefetchMembers());
-          this.store.dispatch(
-            new ShowNotificationAction({
-              message: 'Form submitted successfully!',
-            })
-          );
-        })
-        .catch((err) => {
-          console.error(err);
-          formSubmitting = false;
-          patchState({ formSubmitting });
-          this.store.dispatch(
-            new ShowNotificationAction({
-              message: 'There was an error in submitting your form!',
-            })
-          );
+      } else {
+        const date = new Date().toString();
+        console.log('createMember mutation inputs => ', {
+          name: values.name,
+          username: 'zebraface',
+          email: values.email,
+          institution: values.institution,
         });
+        client
+          .mutate({
+            mutation: mutations.AddMember,
+            variables: {
+              name: values.name,
+              username: 'zebraface',
+              email: values.email,
+              institution: values.institution,
+            },
+          })
+          .then((res: any) => {
+            console.log('response for member add ', res);
+            formSubmitting = false;
+            form.reset();
+            formDirective.resetForm();
+            patchState({
+              memberFormRecord: emptyMemberFormRecord,
+              formSubmitting,
+            });
+            this.store.dispatch(new ForceRefetchMembers());
+            this.store.dispatch(
+              new ShowNotificationAction({
+                message: 'Form submitted successfully!',
+              })
+            );
+          })
+          .catch((err) => {
+            console.error('Error while creating member', err);
+            formSubmitting = false;
+            patchState({ formSubmitting });
+            this.store.dispatch(
+              new ShowNotificationAction({
+                message: 'There was an error in submitting your form!',
+              })
+            );
+          });
+      }
     } else {
       this.store.dispatch(
         new ShowNotificationAction({

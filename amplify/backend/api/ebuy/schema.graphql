@@ -1,3 +1,12 @@
+type Mutation {
+  addMember(
+    name: String
+    username: String
+    email: String
+    institution: String
+  ): String @function(name: "createMember-${env}")
+}
+
 """
 These are institutions that are partnered with Shuddhi Vidhya
 These could be schools, colleges, corporates, organisations etc.
@@ -50,6 +59,8 @@ type Member @model {
   id: ID!
   "Name of the person"
   name: String!
+  "Email ID of the person"
+  email: String!
   "Title of the person"
   title: String
   "Bio of the person"

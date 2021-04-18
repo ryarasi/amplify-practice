@@ -16,3 +16,5 @@ export type FetchPolicy =
   | 'cache-only'
   | 'no-cache'
   | 'standby';
+
+export type MatSelectOption = { label: string; value: string };

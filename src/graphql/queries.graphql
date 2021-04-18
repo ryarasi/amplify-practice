@@ -12,6 +12,7 @@ query GetInstitution($id: ID!) {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -41,6 +42,7 @@ query GetInstitution($id: ID!) {
     members {
       id
       name
+      email
       title
       bio
       institution {
@@ -89,6 +91,7 @@ query ListInstitutions(
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -97,6 +100,7 @@ query ListInstitutions(
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -124,6 +128,7 @@ query GetGroup($id: ID!) {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -132,6 +137,7 @@ query GetGroup($id: ID!) {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -143,6 +149,7 @@ query GetGroup($id: ID!) {
     admins {
       id
       name
+      email
       title
       bio
       institution {
@@ -172,6 +179,7 @@ query GetGroup($id: ID!) {
     learners {
       id
       name
+      email
       title
       bio
       institution {
@@ -226,6 +234,7 @@ query ListGroups(
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -234,6 +243,7 @@ query ListGroups(
       learners {
         id
         name
+        email
         title
         bio
         createdAt
@@ -249,6 +259,7 @@ query GetMember($id: ID!) {
   getMember(id: $id) {
     id
     name
+    email
     title
     bio
     institution {
@@ -263,6 +274,7 @@ query GetMember($id: ID!) {
       admins {
         id
         name
+        email
         title
         bio
         createdAt
@@ -271,6 +283,7 @@ query GetMember($id: ID!) {
       members {
         id
         name
+        email
         title
         bio
         createdAt
@@ -316,6 +329,7 @@ query ListMembers(
     items {
       id
       name
+      email
       title
       bio
       institution {
@@ -713,6 +727,7 @@ query GetCourseInstructor($id: ID!) {
     instructor {
       id
       name
+      email
       title
       bio
       institution {
@@ -763,6 +778,7 @@ query ListCourseInstructors(
       instructor {
         id
         name
+        email
         title
         bio
         createdAt
@@ -814,6 +830,7 @@ query GetCourseAssistant($id: ID!) {
     assistant {
       id
       name
+      email
       title
       bio
       institution {
@@ -864,6 +881,7 @@ query ListCourseAssistants(
       assistant {
         id
         name
+        email
         title
         bio
         createdAt
@@ -915,6 +933,7 @@ query GetCourseLearner($id: ID!) {
     learner {
       id
       name
+      email
       title
       bio
       institution {
@@ -965,6 +984,7 @@ query ListCourseLearners(
       learner {
         id
         name
+        email
         title
         bio
         createdAt
