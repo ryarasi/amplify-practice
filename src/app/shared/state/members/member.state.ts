@@ -189,7 +189,7 @@ export class MemberState {
         const date = new Date().toString();
         console.log('createMember mutation inputs => ', {
           name: values.name,
-          username: 'zebraface',
+          username: 'zeebface',
           email: values.email,
           institution: values.institution,
         });
@@ -198,7 +198,7 @@ export class MemberState {
             mutation: mutations.AddMember,
             variables: {
               name: values.name,
-              username: 'zebraface',
+              username: 'zeebface',
               email: values.email,
               institution: values.institution,
             },
