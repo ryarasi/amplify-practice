@@ -4,12 +4,18 @@ mutation AddMember(
   $username: String
   $email: String
   $institution: String
+  $type: String
+  $title: String
+  $bio: String
 ) {
   addMember(
     name: $name
     username: $username
     email: $email
     institution: $institution
+    type: $type
+    title: $title
+    bio: $bio
   )
 }
 mutation CreateInstitution(
@@ -29,6 +35,7 @@ mutation CreateInstitution(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -59,6 +66,7 @@ mutation CreateInstitution(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -106,6 +114,7 @@ mutation UpdateInstitution(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -136,6 +145,7 @@ mutation UpdateInstitution(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -183,6 +193,7 @@ mutation DeleteInstitution(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -213,6 +224,7 @@ mutation DeleteInstitution(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -263,6 +275,7 @@ mutation CreateGroup(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -272,6 +285,7 @@ mutation CreateGroup(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -280,10 +294,12 @@ mutation CreateGroup(
       createdAt
       updatedAt
     }
+    type
     admins {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -314,6 +330,7 @@ mutation CreateGroup(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -364,6 +381,7 @@ mutation UpdateGroup(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -373,6 +391,7 @@ mutation UpdateGroup(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -381,10 +400,12 @@ mutation UpdateGroup(
       createdAt
       updatedAt
     }
+    type
     admins {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -415,6 +436,7 @@ mutation UpdateGroup(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -465,6 +487,7 @@ mutation DeleteGroup(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -474,6 +497,7 @@ mutation DeleteGroup(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -482,10 +506,12 @@ mutation DeleteGroup(
       createdAt
       updatedAt
     }
+    type
     admins {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -516,6 +542,7 @@ mutation DeleteGroup(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -554,6 +581,7 @@ mutation CreateMember(
     id
     name
     email
+    type
     title
     bio
     institution {
@@ -569,6 +597,7 @@ mutation CreateMember(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -578,6 +607,7 @@ mutation CreateMember(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -622,6 +652,7 @@ mutation UpdateMember(
     id
     name
     email
+    type
     title
     bio
     institution {
@@ -637,6 +668,7 @@ mutation UpdateMember(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -646,6 +678,7 @@ mutation UpdateMember(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -690,6 +723,7 @@ mutation DeleteMember(
     id
     name
     email
+    type
     title
     bio
     institution {
@@ -705,6 +739,7 @@ mutation DeleteMember(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -714,6 +749,7 @@ mutation DeleteMember(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -793,7 +829,6 @@ mutation CreateCourse(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -826,14 +861,12 @@ mutation CreateCourse(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
-    instructor
   }
 }
 mutation UpdateCourse(
@@ -879,7 +912,6 @@ mutation UpdateCourse(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -912,14 +944,12 @@ mutation UpdateCourse(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
-    instructor
   }
 }
 mutation DeleteCourse(
@@ -965,7 +995,6 @@ mutation DeleteCourse(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -998,14 +1027,12 @@ mutation DeleteCourse(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
-    instructor
   }
 }
 mutation CreateCourseSection(
@@ -1048,7 +1075,6 @@ mutation CreateCourseSection(
       }
       createdAt
       updatedAt
-      instructor
     }
     createdAt
     updatedAt
@@ -1094,7 +1120,6 @@ mutation UpdateCourseSection(
       }
       createdAt
       updatedAt
-      instructor
     }
     createdAt
     updatedAt
@@ -1140,7 +1165,6 @@ mutation DeleteCourseSection(
       }
       createdAt
       updatedAt
-      instructor
     }
     createdAt
     updatedAt
@@ -1185,7 +1209,6 @@ mutation CreateAssignment(
       }
       createdAt
       updatedAt
-      instructor
     }
     section {
       id
@@ -1198,7 +1221,6 @@ mutation CreateAssignment(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -1256,7 +1278,6 @@ mutation UpdateAssignment(
       }
       createdAt
       updatedAt
-      instructor
     }
     section {
       id
@@ -1269,7 +1290,6 @@ mutation UpdateAssignment(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -1327,7 +1347,6 @@ mutation DeleteAssignment(
       }
       createdAt
       updatedAt
-      instructor
     }
     section {
       id
@@ -1340,7 +1359,6 @@ mutation DeleteAssignment(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -1433,12 +1451,12 @@ mutation CreateCourseInstructor(
       }
       createdAt
       updatedAt
-      instructor
     }
     instructor {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1507,12 +1525,12 @@ mutation UpdateCourseInstructor(
       }
       createdAt
       updatedAt
-      instructor
     }
     instructor {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1581,12 +1599,12 @@ mutation DeleteCourseInstructor(
       }
       createdAt
       updatedAt
-      instructor
     }
     instructor {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1655,12 +1673,12 @@ mutation CreateCourseAssistant(
       }
       createdAt
       updatedAt
-      instructor
     }
     assistant {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1729,12 +1747,12 @@ mutation UpdateCourseAssistant(
       }
       createdAt
       updatedAt
-      instructor
     }
     assistant {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1803,12 +1821,12 @@ mutation DeleteCourseAssistant(
       }
       createdAt
       updatedAt
-      instructor
     }
     assistant {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1877,12 +1895,12 @@ mutation CreateCourseLearner(
       }
       createdAt
       updatedAt
-      instructor
     }
     learner {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1951,12 +1969,12 @@ mutation UpdateCourseLearner(
       }
       createdAt
       updatedAt
-      instructor
     }
     learner {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -2025,12 +2043,12 @@ mutation DeleteCourseLearner(
       }
       createdAt
       updatedAt
-      instructor
     }
     learner {
       id
       name
       email
+      type
       title
       bio
       institution {

@@ -55,8 +55,16 @@ export class AuthState {
         const groups =
           currentUser.signInUserSession.idToken.payload['cognito:groups'];
         const isLoggedIn = true;
-        const username = attributes.username;
+        const username =
+          currentUser.signInUserSession.idToken.payload['cognito:username'];
         const name = attributes.name;
+        console.log('User authenticated => ', {
+          isLoggedIn,
+          username,
+          name,
+          groups,
+          currentUser,
+        });
         patchState({ isLoggedIn, username, name, groups });
         // Using authTime to check if the user logged in just now...
         const auth_time =

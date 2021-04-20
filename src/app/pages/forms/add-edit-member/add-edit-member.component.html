@@ -49,6 +49,23 @@
     </mat-form-field>
 
     <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
+      <mat-label>User Group</mat-label>
+      <mat-select formControlName="type" placeholder="The type of user">
+        <mat-option *ngFor="let type of userTypeOptions" [value]="type.value">
+          {{ type.label }}
+        </mat-option>
+      </mat-select>
+      <small
+        class="validation-error"
+        *ngIf="
+          memberForm.get('type').hasError('required') && formDirective.submitted
+        "
+      >
+        User type is required
+      </small>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
       <mat-label>Institution</mat-label>
       <mat-select
         formControlName="institution"
@@ -79,6 +96,15 @@
         formControlName="title"
         placeholder="Your title, if any"
       ></textarea>
+      <small
+        class="validation-error"
+        *ngIf="
+          memberForm.get('title').hasError('maxlength') &&
+          formDirective.submitted
+        "
+      >
+        Title should be less than {{ titleMaxLength }} characters
+      </small>
     </mat-form-field>
 
     <mat-form-field class="col-lg-12 col-md-12 col-sm-12" appearance="outline">
@@ -88,6 +114,14 @@
         formControlName="bio"
         placeholder="Brief bio about yourself"
       ></textarea>
+      <small
+        class="validation-error"
+        *ngIf="
+          memberForm.get('bio').hasError('maxlength') && formDirective.submitted
+        "
+      >
+        Bio should be less than {{ bioMaxLength }} characters
+      </small>
     </mat-form-field>
 
     <button

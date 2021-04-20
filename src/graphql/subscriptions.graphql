@@ -13,6 +13,7 @@ subscription OnCreateInstitution {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -43,6 +44,7 @@ subscription OnCreateInstitution {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -87,6 +89,7 @@ subscription OnUpdateInstitution {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -117,6 +120,7 @@ subscription OnUpdateInstitution {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -161,6 +165,7 @@ subscription OnDeleteInstitution {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -191,6 +196,7 @@ subscription OnDeleteInstitution {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -221,7 +227,7 @@ subscription OnDeleteInstitution {
     updatedAt
   }
 }
-subscription OnCreateGroup($admins: String!) {
+subscription OnCreateGroup($admins: String) {
   onCreateGroup(admins: $admins) {
     id
     name
@@ -238,6 +244,7 @@ subscription OnCreateGroup($admins: String!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -247,6 +254,7 @@ subscription OnCreateGroup($admins: String!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -255,10 +263,12 @@ subscription OnCreateGroup($admins: String!) {
       createdAt
       updatedAt
     }
+    type
     admins {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -289,6 +299,7 @@ subscription OnCreateGroup($admins: String!) {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -319,7 +330,7 @@ subscription OnCreateGroup($admins: String!) {
     updatedAt
   }
 }
-subscription OnUpdateGroup($admins: String!) {
+subscription OnUpdateGroup($admins: String) {
   onUpdateGroup(admins: $admins) {
     id
     name
@@ -336,6 +347,7 @@ subscription OnUpdateGroup($admins: String!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -345,6 +357,7 @@ subscription OnUpdateGroup($admins: String!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -353,10 +366,12 @@ subscription OnUpdateGroup($admins: String!) {
       createdAt
       updatedAt
     }
+    type
     admins {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -387,6 +402,7 @@ subscription OnUpdateGroup($admins: String!) {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -417,7 +433,7 @@ subscription OnUpdateGroup($admins: String!) {
     updatedAt
   }
 }
-subscription OnDeleteGroup($admins: String!) {
+subscription OnDeleteGroup($admins: String) {
   onDeleteGroup(admins: $admins) {
     id
     name
@@ -434,6 +450,7 @@ subscription OnDeleteGroup($admins: String!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -443,6 +460,7 @@ subscription OnDeleteGroup($admins: String!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -451,10 +469,12 @@ subscription OnDeleteGroup($admins: String!) {
       createdAt
       updatedAt
     }
+    type
     admins {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -485,6 +505,7 @@ subscription OnDeleteGroup($admins: String!) {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -515,203 +536,8 @@ subscription OnDeleteGroup($admins: String!) {
     updatedAt
   }
 }
-subscription OnCreateMember {
-  onCreateMember {
-    id
-    name
-    email
-    title
-    bio
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        email
-        title
-        bio
-        createdAt
-        updatedAt
-      }
-      members {
-        id
-        name
-        email
-        title
-        bio
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    instructor {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    assistant {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    learner {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-subscription OnUpdateMember {
-  onUpdateMember {
-    id
-    name
-    email
-    title
-    bio
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        email
-        title
-        bio
-        createdAt
-        updatedAt
-      }
-      members {
-        id
-        name
-        email
-        title
-        bio
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    instructor {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    assistant {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    learner {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-subscription OnDeleteMember {
-  onDeleteMember {
-    id
-    name
-    email
-    title
-    bio
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      admins {
-        id
-        name
-        email
-        title
-        bio
-        createdAt
-        updatedAt
-      }
-      members {
-        id
-        name
-        email
-        title
-        bio
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    instructor {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    assistant {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    learner {
-      items {
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-subscription OnCreateCourse($instructor: String!) {
-  onCreateCourse(instructor: $instructor) {
+subscription OnCreateCourse($instructors: String) {
+  onCreateCourse(instructors: $instructors) {
     id
     instructors {
       items {
@@ -750,7 +576,6 @@ subscription OnCreateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -783,18 +608,16 @@ subscription OnCreateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
-    instructor
   }
 }
-subscription OnUpdateCourse($instructor: String!) {
-  onUpdateCourse(instructor: $instructor) {
+subscription OnUpdateCourse($instructors: String) {
+  onUpdateCourse(instructors: $instructors) {
     id
     instructors {
       items {
@@ -833,7 +656,6 @@ subscription OnUpdateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -866,18 +688,16 @@ subscription OnUpdateCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
-    instructor
   }
 }
-subscription OnDeleteCourse($instructor: String!) {
-  onDeleteCourse(instructor: $instructor) {
+subscription OnDeleteCourse($instructors: String) {
+  onDeleteCourse(instructors: $instructors) {
     id
     instructors {
       items {
@@ -916,7 +736,6 @@ subscription OnDeleteCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -949,14 +768,12 @@ subscription OnDeleteCourse($instructor: String!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
-    instructor
   }
 }
 subscription OnCreateCourseSection {
@@ -996,7 +813,6 @@ subscription OnCreateCourseSection {
       }
       createdAt
       updatedAt
-      instructor
     }
     createdAt
     updatedAt
@@ -1039,7 +855,6 @@ subscription OnUpdateCourseSection {
       }
       createdAt
       updatedAt
-      instructor
     }
     createdAt
     updatedAt
@@ -1082,7 +897,6 @@ subscription OnDeleteCourseSection {
       }
       createdAt
       updatedAt
-      instructor
     }
     createdAt
     updatedAt
@@ -1124,7 +938,6 @@ subscription OnCreateAssignment {
       }
       createdAt
       updatedAt
-      instructor
     }
     section {
       id
@@ -1137,7 +950,6 @@ subscription OnCreateAssignment {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -1192,7 +1004,6 @@ subscription OnUpdateAssignment {
       }
       createdAt
       updatedAt
-      instructor
     }
     section {
       id
@@ -1205,7 +1016,6 @@ subscription OnUpdateAssignment {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -1260,7 +1070,6 @@ subscription OnDeleteAssignment {
       }
       createdAt
       updatedAt
-      instructor
     }
     section {
       id
@@ -1273,7 +1082,6 @@ subscription OnDeleteAssignment {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -1354,12 +1162,12 @@ subscription OnCreateCourseInstructor {
       }
       createdAt
       updatedAt
-      instructor
     }
     instructor {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1425,12 +1233,12 @@ subscription OnUpdateCourseInstructor {
       }
       createdAt
       updatedAt
-      instructor
     }
     instructor {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1496,12 +1304,12 @@ subscription OnDeleteCourseInstructor {
       }
       createdAt
       updatedAt
-      instructor
     }
     instructor {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1567,12 +1375,12 @@ subscription OnCreateCourseAssistant {
       }
       createdAt
       updatedAt
-      instructor
     }
     assistant {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1638,12 +1446,12 @@ subscription OnUpdateCourseAssistant {
       }
       createdAt
       updatedAt
-      instructor
     }
     assistant {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1709,12 +1517,12 @@ subscription OnDeleteCourseAssistant {
       }
       createdAt
       updatedAt
-      instructor
     }
     assistant {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1780,12 +1588,12 @@ subscription OnCreateCourseLearner {
       }
       createdAt
       updatedAt
-      instructor
     }
     learner {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1851,12 +1659,12 @@ subscription OnUpdateCourseLearner {
       }
       createdAt
       updatedAt
-      instructor
     }
     learner {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -1922,12 +1730,12 @@ subscription OnDeleteCourseLearner {
       }
       createdAt
       updatedAt
-      instructor
     }
     learner {
       id
       name
       email
+      type
       title
       bio
       institution {

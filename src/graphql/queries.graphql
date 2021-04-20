@@ -13,6 +13,7 @@ query GetInstitution($id: ID!) {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -43,6 +44,7 @@ query GetInstitution($id: ID!) {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -92,6 +94,7 @@ query ListInstitutions(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -101,6 +104,7 @@ query ListInstitutions(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -129,6 +133,7 @@ query GetGroup($id: ID!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -138,6 +143,7 @@ query GetGroup($id: ID!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -146,10 +152,12 @@ query GetGroup($id: ID!) {
       createdAt
       updatedAt
     }
+    type
     admins {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -180,6 +188,7 @@ query GetGroup($id: ID!) {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -231,10 +240,12 @@ query ListGroups(
         createdAt
         updatedAt
       }
+      type
       admins {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -244,6 +255,7 @@ query ListGroups(
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -260,6 +272,7 @@ query GetMember($id: ID!) {
     id
     name
     email
+    type
     title
     bio
     institution {
@@ -275,6 +288,7 @@ query GetMember($id: ID!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -284,6 +298,7 @@ query GetMember($id: ID!) {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -330,6 +345,7 @@ query ListMembers(
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -399,7 +415,6 @@ query GetCourse($id: ID!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -432,14 +447,12 @@ query GetCourse($id: ID!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
     }
     createdAt
     updatedAt
-    instructor
   }
 }
 query ListCourses(
@@ -480,7 +493,6 @@ query ListCourses(
       }
       createdAt
       updatedAt
-      instructor
     }
     nextToken
   }
@@ -522,7 +534,6 @@ query GetCourseSection($id: ID!) {
       }
       createdAt
       updatedAt
-      instructor
     }
     createdAt
     updatedAt
@@ -545,7 +556,6 @@ query ListCourseSections(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -589,7 +599,6 @@ query GetAssignment($id: ID!) {
       }
       createdAt
       updatedAt
-      instructor
     }
     section {
       id
@@ -602,7 +611,6 @@ query GetAssignment($id: ID!) {
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       createdAt
       updatedAt
@@ -637,7 +645,6 @@ query ListAssignments(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       section {
         id
@@ -722,12 +729,12 @@ query GetCourseInstructor($id: ID!) {
       }
       createdAt
       updatedAt
-      instructor
     }
     instructor {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -773,12 +780,12 @@ query ListCourseInstructors(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       instructor {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -825,12 +832,12 @@ query GetCourseAssistant($id: ID!) {
       }
       createdAt
       updatedAt
-      instructor
     }
     assistant {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -876,12 +883,12 @@ query ListCourseAssistants(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       assistant {
         id
         name
         email
+        type
         title
         bio
         createdAt
@@ -928,12 +935,12 @@ query GetCourseLearner($id: ID!) {
       }
       createdAt
       updatedAt
-      instructor
     }
     learner {
       id
       name
       email
+      type
       title
       bio
       institution {
@@ -979,12 +986,12 @@ query ListCourseLearners(
         creditHours
         createdAt
         updatedAt
-        instructor
       }
       learner {
         id
         name
         email
+        type
         title
         bio
         createdAt

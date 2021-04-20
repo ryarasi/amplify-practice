@@ -9,7 +9,7 @@ export class FetchInstitutions {
 }
 
 export class ForceRefetchInstitutions {
-  static readonly type = '[CLASSES] Fetch from network';
+  static readonly type = '[INSTITUTIONS] Fetch from network';
 
   constructor() {}
 }

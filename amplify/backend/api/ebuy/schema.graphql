@@ -4,6 +4,9 @@ type Mutation {
     username: String
     email: String
     institution: String
+    type: String
+    title: String
+    bio: String
   ): String @function(name: "createMember-${env}")
 }
 
@@ -13,7 +16,17 @@ These could be schools, colleges, corporates, organisations etc.
 They contain information like name, website, who the admins are,
 what classes/departments they contain
 """
-type Institution @model {
+type Institution
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["SUPER_ADMIN"]
+        operations: [create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   "Name of the institution"
   name: String!
@@ -30,43 +43,62 @@ type Institution @model {
   "Short bio, could be their school motto"
   bio: String
   "Admins of the institution manage the institution's properties"
-  admins: [Member]
+  admins: [Member] @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
   "All Members belonging to the institution"
-  members: [Member]
+  members: [Member] @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
 }
 
 """
-Groups of students other than classes.
-These are more volatile grouping than classes are.
+Groups of students. Groups can be of these types - class, team or coordinators.
 """
 type Group
   @model
   @auth(
-    rules: [{ allow: owner, ownerField: "admins", operations: [update, read] }]
+    rules: [
+      { allow: groups, groups: ["SUPER_ADMIN"] }
+      { allow: owner, ownerField: "admins", operations: [update, read] }
+    ]
   ) {
   id: ID!
   "Name of the group"
   name: String!
   "The id of the insitition that this group belongs to"
   institution: Institution!
+  "Type of group this is. It can be Class, Team or Coordinators."
+  type: String!
   "The admins of the group who can manage members of the class etc"
   admins: [Member]
   "List of members in this group"
   learners: [Member]
 }
 
-type Member @model {
+type Member
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      { allow: groups, groups: ["SUPER_ADMIN"], operations: [create, delete] }
+      { allow: owner, ownerField: "id", operations: [update] }
+    ]
+  ) {
   id: ID!
   "Name of the person"
   name: String!
   "Email ID of the person"
   email: String!
+    @auth(
+      rules: [{ allow: owner, ownerField: "id", operations: [read, update] }]
+    )
+  "Type of the user, i.e. the Cognito User pool group"
+  type: String!
   "Title of the person"
   title: String
   "Bio of the person"
   bio: String
   "Every member will be tied to an institution, instructors, course assistants will be tied to Shuddhi Vidhya"
   institution: Institution!
+    @auth(
+      rules: [{ allow: groups, groups: ["SUPER_ADMIN"], operations: [update] }]
+    )
   "Courses they are instructors in"
   instructor: [CourseInstructor] @connection(name: "InstructorCourseConnection")
   "Courses that they are assistants in"
@@ -82,12 +114,17 @@ type Course
   @model
   @auth(
     rules: [
-      { allow: owner, ownerField: "instructor", operations: [update, read] }
+      { allow: groups, groups: ["SUPER_ADMIN"] }
+      {
+        allow: owner
+        ownerField: "instructors"
+        operations: [create, update, read]
+      }
     ]
   ) {
   id: ID!
   "Instructor(s) of the course"
-  instructors: [CourseInstructor]
+  instructors: [CourseInstructor!]!
     @connection(name: "CourseInstructorConnection")
   "Those who will be assisting with the course"
   assistants: [CourseAssistant] @connection(name: "CourseAssistantConnection")
@@ -108,7 +145,9 @@ type Course
 """
 CourseSections belong to courses and contain assignments
 """
-type CourseSection @model {
+type CourseSection
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "Name of the section"
   name: String!
@@ -121,7 +160,9 @@ type CourseSection @model {
 """
 Assignments are part of courses and need to be completed as part of the course
 """
-type Assignment @model {
+type Assignment
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "Title of the assignment"
   title: String!
@@ -143,7 +184,7 @@ type Assignment @model {
 Tasks to be completed as part of an assignment
 INCOMPLETE
 """
-type Task @model {
+type Task @model @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "Description of the task"
   task: String!
@@ -152,10 +193,13 @@ type Task @model {
 }
 
 """
+Connection Table
 This is a join table that ties courses with Instructors
 This is the way to establish many-to-many relationships
 """
-type CourseInstructor @model {
+type CourseInstructor
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "The course that this instructor belongs to"
   course: Course @connection(name: "CourseInstructorConnection")
@@ -164,10 +208,13 @@ type CourseInstructor @model {
 }
 
 """
+Connection Table
 This is a join table that ties courses with Assistants
 This is the way to establish many-to-many relationships
 """
-type CourseAssistant @model {
+type CourseAssistant
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "The course that this instructor belongs to"
   course: Course @connection(name: "CourseAssistantConnection")
@@ -176,10 +223,13 @@ type CourseAssistant @model {
 }
 
 """
+Connection Table
 This is a join table that ties courses with Learners
 This is the way to establish many-to-many relationships
 """
-type CourseLearner @model {
+type CourseLearner
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "The course that this instructor belongs to"
   course: Course @connection(name: "CourseLearnerConnection")

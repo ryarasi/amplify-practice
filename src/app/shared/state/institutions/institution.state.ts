@@ -100,6 +100,7 @@ export class InstitutionState {
         patchState({ institutions, isFetching, fetchPolicy });
       })
       .catch((err) => {
+        console.log('Error while fetching institutions => ', err);
         isFetching = false;
         errorFetching = true;
         institutions = [];

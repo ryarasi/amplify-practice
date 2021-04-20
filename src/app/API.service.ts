@@ -93,6 +93,7 @@ export type Member = {
   id?: string;
   name?: string;
   email?: string;
+  type?: string;
   title?: string | null;
   bio?: string | null;
   institution?: Institution;
@@ -131,7 +132,6 @@ export type Course = {
   sections?: Array<CourseSection | null> | null;
   createdAt?: string;
   updatedAt?: string;
-  instructor?: string | null;
 };
 
 export type ModelCourseAssistantConnection = {
@@ -215,10 +215,12 @@ export type DeleteInstitutionInput = {
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
+  type: string;
 };
 
 export type ModelGroupConditionInput = {
   name?: ModelStringInput | null;
+  type?: ModelStringInput | null;
   and?: Array<ModelGroupConditionInput | null> | null;
   or?: Array<ModelGroupConditionInput | null> | null;
   not?: ModelGroupConditionInput | null;
@@ -229,6 +231,7 @@ export type Group = {
   id?: string;
   name?: string;
   institution?: Institution;
+  type?: string;
   admins?: Array<Member | null> | null;
   learners?: Array<Member | null> | null;
   createdAt?: string;
@@ -238,6 +241,7 @@ export type Group = {
 export type UpdateGroupInput = {
   id: string;
   name?: string | null;
+  type?: string | null;
 };
 
 export type DeleteGroupInput = {
@@ -248,6 +252,7 @@ export type CreateMemberInput = {
   id?: string | null;
   name: string;
   email: string;
+  type: string;
   title?: string | null;
   bio?: string | null;
 };
@@ -255,6 +260,7 @@ export type CreateMemberInput = {
 export type ModelMemberConditionInput = {
   name?: ModelStringInput | null;
   email?: ModelStringInput | null;
+  type?: ModelStringInput | null;
   title?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   and?: Array<ModelMemberConditionInput | null> | null;
@@ -266,6 +272,7 @@ export type UpdateMemberInput = {
   id: string;
   name?: string | null;
   email?: string | null;
+  type?: string | null;
   title?: string | null;
   bio?: string | null;
 };
@@ -508,6 +515,7 @@ export type ModelInstitutionConnection = {
 export type ModelGroupFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
+  type?: ModelStringInput | null;
   and?: Array<ModelGroupFilterInput | null> | null;
   or?: Array<ModelGroupFilterInput | null> | null;
   not?: ModelGroupFilterInput | null;
@@ -523,6 +531,7 @@ export type ModelMemberFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   email?: ModelStringInput | null;
+  type?: ModelStringInput | null;
   title?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   and?: Array<ModelMemberFilterInput | null> | null;
@@ -635,6 +644,7 @@ export type CreateInstitutionMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -670,6 +680,7 @@ export type CreateInstitutionMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -719,6 +730,7 @@ export type UpdateInstitutionMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -754,6 +766,7 @@ export type UpdateInstitutionMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -803,6 +816,7 @@ export type DeleteInstitutionMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -838,6 +852,7 @@ export type DeleteInstitutionMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -891,6 +906,7 @@ export type CreateGroupMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -901,6 +917,7 @@ export type CreateGroupMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -909,11 +926,13 @@ export type CreateGroupMutation = {
     createdAt: string;
     updatedAt: string;
   };
+  type: string;
   admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -949,6 +968,7 @@ export type CreateGroupMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1002,6 +1022,7 @@ export type UpdateGroupMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1012,6 +1033,7 @@ export type UpdateGroupMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1020,11 +1042,13 @@ export type UpdateGroupMutation = {
     createdAt: string;
     updatedAt: string;
   };
+  type: string;
   admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1060,6 +1084,7 @@ export type UpdateGroupMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1113,6 +1138,7 @@ export type DeleteGroupMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1123,6 +1149,7 @@ export type DeleteGroupMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1131,11 +1158,13 @@ export type DeleteGroupMutation = {
     createdAt: string;
     updatedAt: string;
   };
+  type: string;
   admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1171,6 +1200,7 @@ export type DeleteGroupMutation = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -1210,6 +1240,7 @@ export type CreateMemberMutation = {
   id: string;
   name: string;
   email: string;
+  type: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -1227,6 +1258,7 @@ export type CreateMemberMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1237,6 +1269,7 @@ export type CreateMemberMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1284,6 +1317,7 @@ export type UpdateMemberMutation = {
   id: string;
   name: string;
   email: string;
+  type: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -1301,6 +1335,7 @@ export type UpdateMemberMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1311,6 +1346,7 @@ export type UpdateMemberMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1358,6 +1394,7 @@ export type DeleteMemberMutation = {
   id: string;
   name: string;
   email: string;
+  type: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -1375,6 +1412,7 @@ export type DeleteMemberMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1385,6 +1423,7 @@ export type DeleteMemberMutation = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -1475,7 +1514,6 @@ export type CreateCourseMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -1512,14 +1550,12 @@ export type CreateCourseMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   createdAt: string;
   updatedAt: string;
-  instructor?: string | null;
 };
 
 export type UpdateCourseMutation = {
@@ -1570,7 +1606,6 @@ export type UpdateCourseMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -1607,14 +1642,12 @@ export type UpdateCourseMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   createdAt: string;
   updatedAt: string;
-  instructor?: string | null;
 };
 
 export type DeleteCourseMutation = {
@@ -1665,7 +1698,6 @@ export type DeleteCourseMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -1702,14 +1734,12 @@ export type DeleteCourseMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   createdAt: string;
   updatedAt: string;
-  instructor?: string | null;
 };
 
 export type CreateCourseSectionMutation = {
@@ -1755,7 +1785,6 @@ export type CreateCourseSectionMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -1804,7 +1833,6 @@ export type UpdateCourseSectionMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -1853,7 +1881,6 @@ export type DeleteCourseSectionMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -1901,7 +1928,6 @@ export type CreateAssignmentMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   section: {
     __typename: "CourseSection";
@@ -1916,7 +1942,6 @@ export type CreateAssignmentMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -1978,7 +2003,6 @@ export type UpdateAssignmentMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   section: {
     __typename: "CourseSection";
@@ -1993,7 +2017,6 @@ export type UpdateAssignmentMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -2055,7 +2078,6 @@ export type DeleteAssignmentMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   section: {
     __typename: "CourseSection";
@@ -2070,7 +2092,6 @@ export type DeleteAssignmentMutation = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -2158,13 +2179,13 @@ export type CreateCourseInstructorMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   instructor?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2240,13 +2261,13 @@ export type UpdateCourseInstructorMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   instructor?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2322,13 +2343,13 @@ export type DeleteCourseInstructorMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   instructor?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2404,13 +2425,13 @@ export type CreateCourseAssistantMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   assistant?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2486,13 +2507,13 @@ export type UpdateCourseAssistantMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   assistant?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2568,13 +2589,13 @@ export type DeleteCourseAssistantMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   assistant?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2650,13 +2671,13 @@ export type CreateCourseLearnerMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   learner?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2732,13 +2753,13 @@ export type UpdateCourseLearnerMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   learner?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2814,13 +2835,13 @@ export type DeleteCourseLearnerMutation = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   learner?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2870,6 +2891,7 @@ export type GetInstitutionQuery = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2905,6 +2927,7 @@ export type GetInstitutionQuery = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -2956,6 +2979,7 @@ export type ListInstitutionsQuery = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -2966,6 +2990,7 @@ export type ListInstitutionsQuery = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -2996,6 +3021,7 @@ export type GetGroupQuery = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3006,6 +3032,7 @@ export type GetGroupQuery = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3014,11 +3041,13 @@ export type GetGroupQuery = {
     createdAt: string;
     updatedAt: string;
   };
+  type: string;
   admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3054,6 +3083,7 @@ export type GetGroupQuery = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3107,11 +3137,13 @@ export type ListGroupsQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    type: string;
     admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3122,6 +3154,7 @@ export type ListGroupsQuery = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3138,6 +3171,7 @@ export type GetMemberQuery = {
   id: string;
   name: string;
   email: string;
+  type: string;
   title?: string | null;
   bio?: string | null;
   institution: {
@@ -3155,6 +3189,7 @@ export type GetMemberQuery = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3165,6 +3200,7 @@ export type GetMemberQuery = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3214,6 +3250,7 @@ export type ListMembersQuery = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3295,7 +3332,6 @@ export type GetCourseQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -3332,14 +3368,12 @@ export type GetCourseQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   createdAt: string;
   updatedAt: string;
-  instructor?: string | null;
 };
 
 export type ListCoursesQuery = {
@@ -3382,7 +3416,6 @@ export type ListCoursesQuery = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null> | null;
   nextToken?: string | null;
 };
@@ -3430,7 +3463,6 @@ export type GetCourseSectionQuery = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -3451,7 +3483,6 @@ export type ListCourseSectionsQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -3501,7 +3532,6 @@ export type GetAssignmentQuery = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   section: {
     __typename: "CourseSection";
@@ -3516,7 +3546,6 @@ export type GetAssignmentQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -3550,7 +3579,6 @@ export type ListAssignmentsQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -3640,13 +3668,13 @@ export type GetCourseInstructorQuery = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   instructor?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3694,13 +3722,13 @@ export type ListCourseInstructorsQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     } | null;
     instructor?: {
       __typename: "Member";
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3753,13 +3781,13 @@ export type GetCourseAssistantQuery = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   assistant?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3807,13 +3835,13 @@ export type ListCourseAssistantsQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     } | null;
     assistant?: {
       __typename: "Member";
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3866,13 +3894,13 @@ export type GetCourseLearnerQuery = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   learner?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3920,13 +3948,13 @@ export type ListCourseLearnersQuery = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     } | null;
     learner?: {
       __typename: "Member";
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -3953,6 +3981,7 @@ export type OnCreateInstitutionSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -3988,6 +4017,7 @@ export type OnCreateInstitutionSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4037,6 +4067,7 @@ export type OnUpdateInstitutionSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4072,6 +4103,7 @@ export type OnUpdateInstitutionSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4121,6 +4153,7 @@ export type OnDeleteInstitutionSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4156,6 +4189,7 @@ export type OnDeleteInstitutionSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4209,6 +4243,7 @@ export type OnCreateGroupSubscription = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4219,6 +4254,7 @@ export type OnCreateGroupSubscription = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4227,11 +4263,13 @@ export type OnCreateGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   };
+  type: string;
   admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4267,6 +4305,7 @@ export type OnCreateGroupSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4320,6 +4359,7 @@ export type OnUpdateGroupSubscription = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4330,6 +4370,7 @@ export type OnUpdateGroupSubscription = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4338,11 +4379,13 @@ export type OnUpdateGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   };
+  type: string;
   admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4378,6 +4421,7 @@ export type OnUpdateGroupSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4431,6 +4475,7 @@ export type OnDeleteGroupSubscription = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4441,6 +4486,7 @@ export type OnDeleteGroupSubscription = {
       id: string;
       name: string;
       email: string;
+      type: string;
       title?: string | null;
       bio?: string | null;
       createdAt: string;
@@ -4449,11 +4495,13 @@ export type OnDeleteGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   };
+  type: string;
   admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4489,6 +4537,7 @@ export type OnDeleteGroupSubscription = {
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -4519,228 +4568,6 @@ export type OnDeleteGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnCreateMemberSubscription = {
-  __typename: "Member";
-  id: string;
-  name: string;
-  email: string;
-  title?: string | null;
-  bio?: string | null;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    admins?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    members?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  instructor?: {
-    __typename: "ModelCourseInstructorConnection";
-    items?: Array<{
-      __typename: "CourseInstructor";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  assistant?: {
-    __typename: "ModelCourseAssistantConnection";
-    items?: Array<{
-      __typename: "CourseAssistant";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  learner?: {
-    __typename: "ModelCourseLearnerConnection";
-    items?: Array<{
-      __typename: "CourseLearner";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnUpdateMemberSubscription = {
-  __typename: "Member";
-  id: string;
-  name: string;
-  email: string;
-  title?: string | null;
-  bio?: string | null;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    admins?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    members?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  instructor?: {
-    __typename: "ModelCourseInstructorConnection";
-    items?: Array<{
-      __typename: "CourseInstructor";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  assistant?: {
-    __typename: "ModelCourseAssistantConnection";
-    items?: Array<{
-      __typename: "CourseAssistant";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  learner?: {
-    __typename: "ModelCourseLearnerConnection";
-    items?: Array<{
-      __typename: "CourseLearner";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnDeleteMemberSubscription = {
-  __typename: "Member";
-  id: string;
-  name: string;
-  email: string;
-  title?: string | null;
-  bio?: string | null;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    admins?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    members?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  instructor?: {
-    __typename: "ModelCourseInstructorConnection";
-    items?: Array<{
-      __typename: "CourseInstructor";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  assistant?: {
-    __typename: "ModelCourseAssistantConnection";
-    items?: Array<{
-      __typename: "CourseAssistant";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  learner?: {
-    __typename: "ModelCourseLearnerConnection";
-    items?: Array<{
-      __typename: "CourseLearner";
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4793,7 +4620,6 @@ export type OnCreateCourseSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -4830,14 +4656,12 @@ export type OnCreateCourseSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   createdAt: string;
   updatedAt: string;
-  instructor?: string | null;
 };
 
 export type OnUpdateCourseSubscription = {
@@ -4888,7 +4712,6 @@ export type OnUpdateCourseSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -4925,14 +4748,12 @@ export type OnUpdateCourseSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   createdAt: string;
   updatedAt: string;
-  instructor?: string | null;
 };
 
 export type OnDeleteCourseSubscription = {
@@ -4983,7 +4804,6 @@ export type OnDeleteCourseSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     section: {
       __typename: "CourseSection";
@@ -5020,14 +4840,12 @@ export type OnDeleteCourseSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   createdAt: string;
   updatedAt: string;
-  instructor?: string | null;
 };
 
 export type OnCreateCourseSectionSubscription = {
@@ -5073,7 +4891,6 @@ export type OnCreateCourseSectionSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -5122,7 +4939,6 @@ export type OnUpdateCourseSectionSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -5171,7 +4987,6 @@ export type OnDeleteCourseSectionSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -5219,7 +5034,6 @@ export type OnCreateAssignmentSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   section: {
     __typename: "CourseSection";
@@ -5234,7 +5048,6 @@ export type OnCreateAssignmentSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -5296,7 +5109,6 @@ export type OnUpdateAssignmentSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   section: {
     __typename: "CourseSection";
@@ -5311,7 +5123,6 @@ export type OnUpdateAssignmentSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -5373,7 +5184,6 @@ export type OnDeleteAssignmentSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   };
   section: {
     __typename: "CourseSection";
@@ -5388,7 +5198,6 @@ export type OnDeleteAssignmentSubscription = {
       creditHours?: number | null;
       createdAt: string;
       updatedAt: string;
-      instructor?: string | null;
     };
     createdAt: string;
     updatedAt: string;
@@ -5476,13 +5285,13 @@ export type OnCreateCourseInstructorSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   instructor?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5558,13 +5367,13 @@ export type OnUpdateCourseInstructorSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   instructor?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5640,13 +5449,13 @@ export type OnDeleteCourseInstructorSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   instructor?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5722,13 +5531,13 @@ export type OnCreateCourseAssistantSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   assistant?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5804,13 +5613,13 @@ export type OnUpdateCourseAssistantSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   assistant?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5886,13 +5695,13 @@ export type OnDeleteCourseAssistantSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   assistant?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -5968,13 +5777,13 @@ export type OnCreateCourseLearnerSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   learner?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -6050,13 +5859,13 @@ export type OnUpdateCourseLearnerSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   learner?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -6132,13 +5941,13 @@ export type OnDeleteCourseLearnerSubscription = {
     } | null> | null;
     createdAt: string;
     updatedAt: string;
-    instructor?: string | null;
   } | null;
   learner?: {
     __typename: "Member";
     id: string;
     name: string;
     email: string;
+    type: string;
     title?: string | null;
     bio?: string | null;
     institution: {
@@ -6181,10 +5990,13 @@ export class APIService {
     name?: string,
     username?: string,
     email?: string,
-    institution?: string
+    institution?: string,
+    type?: string,
+    title?: string,
+    bio?: string
   ): Promise<string | null> {
-    const statement = `mutation AddMember($name: String, $username: String, $email: String, $institution: String) {
-        addMember(name: $name, username: $username, email: $email, institution: $institution)
+    const statement = `mutation AddMember($name: String, $username: String, $email: String, $institution: String, $type: String, $title: String, $bio: String) {
+        addMember(name: $name, username: $username, email: $email, institution: $institution, type: $type, title: $title, bio: $bio)
       }`;
     const gqlAPIServiceArguments: any = {};
     if (name) {
@@ -6198,6 +6010,15 @@ export class APIService {
     }
     if (institution) {
       gqlAPIServiceArguments.institution = institution;
+    }
+    if (type) {
+      gqlAPIServiceArguments.type = type;
+    }
+    if (title) {
+      gqlAPIServiceArguments.title = title;
+    }
+    if (bio) {
+      gqlAPIServiceArguments.bio = bio;
     }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -6224,6 +6045,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6259,6 +6081,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6324,6 +6147,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6359,6 +6183,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6424,6 +6249,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6459,6 +6285,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6528,6 +6355,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6538,6 +6366,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6546,11 +6375,13 @@ export class APIService {
             createdAt
             updatedAt
           }
+          type
           admins {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6586,6 +6417,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6655,6 +6487,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6665,6 +6498,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6673,11 +6507,13 @@ export class APIService {
             createdAt
             updatedAt
           }
+          type
           admins {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6713,6 +6549,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6782,6 +6619,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6792,6 +6630,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6800,11 +6639,13 @@ export class APIService {
             createdAt
             updatedAt
           }
+          type
           admins {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6840,6 +6681,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -6895,6 +6737,7 @@ export class APIService {
           id
           name
           email
+          type
           title
           bio
           institution {
@@ -6912,6 +6755,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6922,6 +6766,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -6985,6 +6830,7 @@ export class APIService {
           id
           name
           email
+          type
           title
           bio
           institution {
@@ -7002,6 +6848,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -7012,6 +6859,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -7075,6 +6923,7 @@ export class APIService {
           id
           name
           email
+          type
           title
           bio
           institution {
@@ -7092,6 +6941,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -7102,6 +6952,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -7208,7 +7059,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -7245,14 +7095,12 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
-          instructor
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -7319,7 +7167,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -7356,14 +7203,12 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
-          instructor
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -7430,7 +7275,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -7467,14 +7311,12 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
-          instructor
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -7536,7 +7378,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           createdAt
           updatedAt
@@ -7601,7 +7442,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           createdAt
           updatedAt
@@ -7666,7 +7506,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           createdAt
           updatedAt
@@ -7730,7 +7569,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           section {
             __typename
@@ -7745,7 +7583,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -7823,7 +7660,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           section {
             __typename
@@ -7838,7 +7674,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -7916,7 +7751,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           section {
             __typename
@@ -7931,7 +7765,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -8083,13 +7916,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           instructor {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8181,13 +8014,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           instructor {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8279,13 +8112,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           instructor {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8377,13 +8210,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           assistant {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8475,13 +8308,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           assistant {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8573,13 +8406,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           assistant {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8671,13 +8504,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           learner {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8769,13 +8602,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           learner {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8867,13 +8700,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           learner {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8936,6 +8769,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -8971,6 +8805,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -9036,6 +8871,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9046,6 +8882,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9093,6 +8930,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9103,6 +8941,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9111,11 +8950,13 @@ export class APIService {
             createdAt
             updatedAt
           }
+          type
           admins {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -9151,6 +8992,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -9218,11 +9060,13 @@ export class APIService {
               createdAt
               updatedAt
             }
+            type
             admins {
               __typename
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9233,6 +9077,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9266,6 +9111,7 @@ export class APIService {
           id
           name
           email
+          type
           title
           bio
           institution {
@@ -9283,6 +9129,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9293,6 +9140,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -9356,6 +9204,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -9454,7 +9303,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -9491,14 +9339,12 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
-          instructor
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -9555,7 +9401,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           nextToken
         }
@@ -9620,7 +9465,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           createdAt
           updatedAt
@@ -9655,7 +9499,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -9722,7 +9565,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           section {
             __typename
@@ -9737,7 +9579,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -9785,7 +9626,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -9923,13 +9763,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           instructor {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -9991,13 +9831,13 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             instructor {
               __typename
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10067,13 +9907,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           assistant {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10135,13 +9975,13 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             assistant {
               __typename
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10211,13 +10051,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           learner {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10279,13 +10119,13 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             learner {
               __typename
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10332,6 +10172,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10367,6 +10208,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10424,6 +10266,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10459,6 +10302,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10516,6 +10360,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10551,6 +10396,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10589,9 +10435,9 @@ export class APIService {
   ) as Observable<SubscriptionResponse<OnDeleteInstitutionSubscription>>;
 
   OnCreateGroupListener(
-    admins: string
+    admins?: string
   ): Observable<SubscriptionResponse<OnCreateGroupSubscription>> {
-    const statement = `subscription OnCreateGroup($admins: String!) {
+    const statement = `subscription OnCreateGroup($admins: String) {
         onCreateGroup(admins: $admins) {
           __typename
           id
@@ -10611,6 +10457,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10621,6 +10468,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10629,11 +10477,13 @@ export class APIService {
             createdAt
             updatedAt
           }
+          type
           admins {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10669,6 +10519,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10703,18 +10554,19 @@ export class APIService {
           updatedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {
-      admins
-    };
+    const gqlAPIServiceArguments: any = {};
+    if (admins) {
+      gqlAPIServiceArguments.admins = admins;
+    }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     ) as Observable<SubscriptionResponse<OnCreateGroupSubscription>>;
   }
 
   OnUpdateGroupListener(
-    admins: string
+    admins?: string
   ): Observable<SubscriptionResponse<OnUpdateGroupSubscription>> {
-    const statement = `subscription OnUpdateGroup($admins: String!) {
+    const statement = `subscription OnUpdateGroup($admins: String) {
         onUpdateGroup(admins: $admins) {
           __typename
           id
@@ -10734,6 +10586,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10744,6 +10597,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10752,11 +10606,13 @@ export class APIService {
             createdAt
             updatedAt
           }
+          type
           admins {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10792,6 +10648,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10826,18 +10683,19 @@ export class APIService {
           updatedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {
-      admins
-    };
+    const gqlAPIServiceArguments: any = {};
+    if (admins) {
+      gqlAPIServiceArguments.admins = admins;
+    }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     ) as Observable<SubscriptionResponse<OnUpdateGroupSubscription>>;
   }
 
   OnDeleteGroupListener(
-    admins: string
+    admins?: string
   ): Observable<SubscriptionResponse<OnDeleteGroupSubscription>> {
-    const statement = `subscription OnDeleteGroup($admins: String!) {
+    const statement = `subscription OnDeleteGroup($admins: String) {
         onDeleteGroup(admins: $admins) {
           __typename
           id
@@ -10857,6 +10715,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10867,6 +10726,7 @@ export class APIService {
               id
               name
               email
+              type
               title
               bio
               createdAt
@@ -10875,11 +10735,13 @@ export class APIService {
             createdAt
             updatedAt
           }
+          type
           admins {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10915,6 +10777,7 @@ export class APIService {
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -10949,265 +10812,20 @@ export class APIService {
           updatedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {
-      admins
-    };
+    const gqlAPIServiceArguments: any = {};
+    if (admins) {
+      gqlAPIServiceArguments.admins = admins;
+    }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     ) as Observable<SubscriptionResponse<OnDeleteGroupSubscription>>;
   }
 
-  OnCreateMemberListener: Observable<
-    SubscriptionResponse<OnCreateMemberSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnCreateMember {
-        onCreateMember {
-          __typename
-          id
-          name
-          email
-          title
-          bio
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            admins {
-              __typename
-              id
-              name
-              email
-              title
-              bio
-              createdAt
-              updatedAt
-            }
-            members {
-              __typename
-              id
-              name
-              email
-              title
-              bio
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          instructor {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          assistant {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          learner {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnCreateMemberSubscription>>;
-
-  OnUpdateMemberListener: Observable<
-    SubscriptionResponse<OnUpdateMemberSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnUpdateMember {
-        onUpdateMember {
-          __typename
-          id
-          name
-          email
-          title
-          bio
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            admins {
-              __typename
-              id
-              name
-              email
-              title
-              bio
-              createdAt
-              updatedAt
-            }
-            members {
-              __typename
-              id
-              name
-              email
-              title
-              bio
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          instructor {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          assistant {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          learner {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnUpdateMemberSubscription>>;
-
-  OnDeleteMemberListener: Observable<
-    SubscriptionResponse<OnDeleteMemberSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnDeleteMember {
-        onDeleteMember {
-          __typename
-          id
-          name
-          email
-          title
-          bio
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            admins {
-              __typename
-              id
-              name
-              email
-              title
-              bio
-              createdAt
-              updatedAt
-            }
-            members {
-              __typename
-              id
-              name
-              email
-              title
-              bio
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          instructor {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          assistant {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          learner {
-            __typename
-            items {
-              __typename
-              id
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnDeleteMemberSubscription>>;
-
   OnCreateCourseListener(
-    instructor: string
+    instructors?: string
   ): Observable<SubscriptionResponse<OnCreateCourseSubscription>> {
-    const statement = `subscription OnCreateCourse($instructor: String!) {
-        onCreateCourse(instructor: $instructor) {
+    const statement = `subscription OnCreateCourse($instructors: String) {
+        onCreateCourse(instructors: $instructors) {
           __typename
           id
           instructors {
@@ -11255,7 +10873,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -11292,29 +10909,28 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
-          instructor
         }
       }`;
-    const gqlAPIServiceArguments: any = {
-      instructor
-    };
+    const gqlAPIServiceArguments: any = {};
+    if (instructors) {
+      gqlAPIServiceArguments.instructors = instructors;
+    }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     ) as Observable<SubscriptionResponse<OnCreateCourseSubscription>>;
   }
 
   OnUpdateCourseListener(
-    instructor: string
+    instructors?: string
   ): Observable<SubscriptionResponse<OnUpdateCourseSubscription>> {
-    const statement = `subscription OnUpdateCourse($instructor: String!) {
-        onUpdateCourse(instructor: $instructor) {
+    const statement = `subscription OnUpdateCourse($instructors: String) {
+        onUpdateCourse(instructors: $instructors) {
           __typename
           id
           instructors {
@@ -11362,7 +10978,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -11399,29 +11014,28 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
-          instructor
         }
       }`;
-    const gqlAPIServiceArguments: any = {
-      instructor
-    };
+    const gqlAPIServiceArguments: any = {};
+    if (instructors) {
+      gqlAPIServiceArguments.instructors = instructors;
+    }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     ) as Observable<SubscriptionResponse<OnUpdateCourseSubscription>>;
   }
 
   OnDeleteCourseListener(
-    instructor: string
+    instructors?: string
   ): Observable<SubscriptionResponse<OnDeleteCourseSubscription>> {
-    const statement = `subscription OnDeleteCourse($instructor: String!) {
-        onDeleteCourse(instructor: $instructor) {
+    const statement = `subscription OnDeleteCourse($instructors: String) {
+        onDeleteCourse(instructors: $instructors) {
           __typename
           id
           instructors {
@@ -11469,7 +11083,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             section {
               __typename
@@ -11506,19 +11119,18 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
-          instructor
         }
       }`;
-    const gqlAPIServiceArguments: any = {
-      instructor
-    };
+    const gqlAPIServiceArguments: any = {};
+    if (instructors) {
+      gqlAPIServiceArguments.instructors = instructors;
+    }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     ) as Observable<SubscriptionResponse<OnDeleteCourseSubscription>>;
@@ -11572,7 +11184,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           createdAt
           updatedAt
@@ -11629,7 +11240,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           createdAt
           updatedAt
@@ -11686,7 +11296,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           createdAt
           updatedAt
@@ -11742,7 +11351,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           section {
             __typename
@@ -11757,7 +11365,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -11827,7 +11434,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           section {
             __typename
@@ -11842,7 +11448,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -11912,7 +11517,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           section {
             __typename
@@ -11927,7 +11531,6 @@ export class APIService {
               creditHours
               createdAt
               updatedAt
-              instructor
             }
             createdAt
             updatedAt
@@ -12047,13 +11650,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           instructor {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12137,13 +11740,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           instructor {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12227,13 +11830,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           instructor {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12317,13 +11920,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           assistant {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12407,13 +12010,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           assistant {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12497,13 +12100,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           assistant {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12587,13 +12190,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           learner {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12677,13 +12280,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           learner {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {
@@ -12767,13 +12370,13 @@ export class APIService {
             }
             createdAt
             updatedAt
-            instructor
           }
           learner {
             __typename
             id
             name
             email
+            type
             title
             bio
             institution {

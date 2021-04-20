@@ -1,6 +1,6 @@
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import { Member } from 'src/app/API.service';
-import { idPayload } from '../../models';
+import { idPayload, MatSelectOption } from '../../models';
 
 export class FetchMembers {
   static readonly type = '[MEMBERS] Fetch';
@@ -23,7 +23,11 @@ export class CreateMember {
   static readonly type = '[MEMBER] Create';
 
   constructor(
-    public payload: { form: FormGroup; formDirective: FormGroupDirective }
+    public payload: {
+      form: FormGroup;
+      formDirective: FormGroupDirective;
+      institutionOptions: MatSelectOption[];
+    }
   ) {}
 }
 

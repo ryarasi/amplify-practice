@@ -15,8 +15,11 @@ import {
 } from 'src/app/shared/state/members/member.actions';
 import { MemberState } from 'src/app/shared/state/members/member.state';
 import { Observable } from 'rxjs';
-import { emptyMemberFormRecord } from 'src/app/shared/state/members/member.model';
-import { Institution, Member } from 'src/app/API.service';
+import {
+  emptyMemberFormRecord,
+  userTypeOptions,
+} from 'src/app/shared/state/members/member.model';
+import { Member } from 'src/app/API.service';
 import { InstitutionState } from 'src/app/shared/state/institutions/institution.state';
 import { FetchInstitutions } from 'src/app/shared/state/institutions/institution.actions';
 import { MatSelectOption } from 'src/app/shared/models';
@@ -40,6 +43,10 @@ export class AddEditMemberComponent implements OnInit {
   formSubmitting$: Observable<boolean>;
   memberFormRecord: Member = emptyMemberFormRecord;
   memberForm: FormGroup;
+  userTypeOptions: MatSelectOption[] = userTypeOptions;
+  institutionOptions;
+  titleMaxLength = 60;
+  bioMaxLength = 150;
 
   constructor(
     private location: Location,
@@ -47,6 +54,9 @@ export class AddEditMemberComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder
   ) {
+    this.institutionOptions$.subscribe((options) => {
+      this.institutionOptions = options;
+    });
     this.store.dispatch(new FetchInstitutions());
     this.memberForm = this.setupMemberFormGroup();
     this.memberFormRecord$.subscribe((val) => {
@@ -64,9 +74,13 @@ export class AddEditMemberComponent implements OnInit {
       id: [memberFormRecord.id],
       name: [memberFormRecord.name, Validators.required],
       email: [memberFormRecord.email, [Validators.required, Validators.email]],
+      type: [memberFormRecord.type, Validators.required],
       institution: [memberFormRecord.institution, Validators.required],
-      title: [memberFormRecord.title],
-      bio: [memberFormRecord.bio],
+      title: [
+        memberFormRecord.title,
+        Validators.maxLength(this.titleMaxLength),
+      ],
+      bio: [memberFormRecord.bio, Validators.maxLength(this.bioMaxLength)],
     });
   };
   ngOnInit(): void {
@@ -84,6 +98,12 @@ export class AddEditMemberComponent implements OnInit {
   }
 
   submitForm(form: FormGroup, formDirective: FormGroupDirective) {
-    this.store.dispatch(new CreateMember({ form, formDirective }));
+    this.store.dispatch(
+      new CreateMember({
+        form,
+        formDirective,
+        institutionOptions: this.institutionOptions,
+      })
+    );
   }
 }
