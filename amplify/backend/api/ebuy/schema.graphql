@@ -69,7 +69,7 @@ type Group
   "The admins of the group who can manage members of the class etc"
   admins: [Member]
   "List of members in this group"
-  learners: [Member]
+  members: [GroupMember] @connection(name: "GroupMemberConnection")
 }
 
 type Member
@@ -99,6 +99,8 @@ type Member
     @auth(
       rules: [{ allow: groups, groups: ["SUPER_ADMIN"], operations: [update] }]
     )
+  "Groups that this member belongs in"
+  groups: [GroupMember] @connection(name: "MemberGroupConnection")
   "Courses they are instructors in"
   instructor: [CourseInstructor] @connection(name: "InstructorCourseConnection")
   "Courses that they are assistants in"
@@ -235,4 +237,19 @@ type CourseLearner
   course: Course @connection(name: "CourseLearnerConnection")
   "The instructor(s) in the course"
   learner: Member @connection(name: "LearnerCourseConnection")
+}
+
+"""
+Connection Table
+This is a join table that ties groups with Members
+This is the way to establish many-to-many relationships
+"""
+type GroupMember
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
+  id: ID!
+  "The group that the member belongs to"
+  group: Group @connection(name: "GroupMemberConnection")
+  "The members in the group"
+  member: Member @connection(name: "MemberGroupConnection")
 }

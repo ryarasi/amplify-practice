@@ -50,6 +50,9 @@ mutation CreateInstitution(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -80,6 +83,9 @@ mutation CreateInstitution(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -129,6 +135,9 @@ mutation UpdateInstitution(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -159,6 +168,9 @@ mutation UpdateInstitution(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -208,6 +220,9 @@ mutation DeleteInstitution(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -238,6 +253,9 @@ mutation DeleteInstitution(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -314,6 +332,9 @@ mutation CreateGroup(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -326,36 +347,13 @@ mutation CreateGroup(
       createdAt
       updatedAt
     }
-    learners {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+    members {
+      items {
         id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
         createdAt
         updatedAt
       }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      createdAt
-      updatedAt
+      nextToken
     }
     createdAt
     updatedAt
@@ -420,6 +418,9 @@ mutation UpdateGroup(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -432,36 +433,13 @@ mutation UpdateGroup(
       createdAt
       updatedAt
     }
-    learners {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+    members {
+      items {
         id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
         createdAt
         updatedAt
       }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      createdAt
-      updatedAt
+      nextToken
     }
     createdAt
     updatedAt
@@ -526,6 +504,9 @@ mutation DeleteGroup(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -538,36 +519,13 @@ mutation DeleteGroup(
       createdAt
       updatedAt
     }
-    learners {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+    members {
+      items {
         id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
         createdAt
         updatedAt
       }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      createdAt
-      updatedAt
+      nextToken
     }
     createdAt
     updatedAt
@@ -615,6 +573,14 @@ mutation CreateMember(
       }
       createdAt
       updatedAt
+    }
+    groups {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     instructor {
       items {
@@ -687,6 +653,14 @@ mutation UpdateMember(
       createdAt
       updatedAt
     }
+    groups {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     instructor {
       items {
         id
@@ -757,6 +731,14 @@ mutation DeleteMember(
       }
       createdAt
       updatedAt
+    }
+    groups {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     instructor {
       items {
@@ -1471,6 +1453,9 @@ mutation CreateCourseInstructor(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -1544,6 +1529,9 @@ mutation UpdateCourseInstructor(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -1619,6 +1607,9 @@ mutation DeleteCourseInstructor(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -1692,6 +1683,9 @@ mutation CreateCourseAssistant(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -1767,6 +1761,9 @@ mutation UpdateCourseAssistant(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -1840,6 +1837,9 @@ mutation DeleteCourseAssistant(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -1915,6 +1915,9 @@ mutation CreateCourseLearner(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -1989,6 +1992,9 @@ mutation UpdateCourseLearner(
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -2062,6 +2068,237 @@ mutation DeleteCourseLearner(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateGroupMember(
+  $input: CreateGroupMemberInput!
+  $condition: ModelGroupMemberConditionInput
+) {
+  createGroupMember(input: $input, condition: $condition) {
+    id
+    group {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    member {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateGroupMember(
+  $input: UpdateGroupMemberInput!
+  $condition: ModelGroupMemberConditionInput
+) {
+  updateGroupMember(input: $input, condition: $condition) {
+    id
+    group {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    member {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteGroupMember(
+  $input: DeleteGroupMemberInput!
+  $condition: ModelGroupMemberConditionInput
+) {
+  deleteGroupMember(input: $input, condition: $condition) {
+    id
+    group {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    member {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken

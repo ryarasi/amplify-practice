@@ -97,9 +97,37 @@ export type Member = {
   title?: string | null;
   bio?: string | null;
   institution?: Institution;
+  groups?: ModelGroupMemberConnection;
   instructor?: ModelCourseInstructorConnection;
   assistant?: ModelCourseAssistantConnection;
   learner?: ModelCourseLearnerConnection;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type ModelGroupMemberConnection = {
+  __typename: "ModelGroupMemberConnection";
+  items?: Array<GroupMember | null> | null;
+  nextToken?: string | null;
+};
+
+export type GroupMember = {
+  __typename: "GroupMember";
+  id?: string;
+  group?: Group;
+  member?: Member;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type Group = {
+  __typename: "Group";
+  id?: string;
+  name?: string;
+  institution?: Institution;
+  type?: string;
+  admins?: Array<Member | null> | null;
+  members?: ModelGroupMemberConnection;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -224,18 +252,6 @@ export type ModelGroupConditionInput = {
   and?: Array<ModelGroupConditionInput | null> | null;
   or?: Array<ModelGroupConditionInput | null> | null;
   not?: ModelGroupConditionInput | null;
-};
-
-export type Group = {
-  __typename: "Group";
-  id?: string;
-  name?: string;
-  institution?: Institution;
-  type?: string;
-  admins?: Array<Member | null> | null;
-  learners?: Array<Member | null> | null;
-  createdAt?: string;
-  updatedAt?: string;
 };
 
 export type UpdateGroupInput = {
@@ -476,6 +492,28 @@ export type DeleteCourseLearnerInput = {
   id?: string | null;
 };
 
+export type CreateGroupMemberInput = {
+  id?: string | null;
+  groupMemberGroupId?: string | null;
+  groupMemberMemberId?: string | null;
+};
+
+export type ModelGroupMemberConditionInput = {
+  and?: Array<ModelGroupMemberConditionInput | null> | null;
+  or?: Array<ModelGroupMemberConditionInput | null> | null;
+  not?: ModelGroupMemberConditionInput | null;
+};
+
+export type UpdateGroupMemberInput = {
+  id: string;
+  groupMemberGroupId?: string | null;
+  groupMemberMemberId?: string | null;
+};
+
+export type DeleteGroupMemberInput = {
+  id?: string | null;
+};
+
 export type ModelInstitutionFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
@@ -629,6 +667,13 @@ export type ModelCourseLearnerFilterInput = {
   not?: ModelCourseLearnerFilterInput | null;
 };
 
+export type ModelGroupMemberFilterInput = {
+  id?: ModelIDInput | null;
+  and?: Array<ModelGroupMemberFilterInput | null> | null;
+  or?: Array<ModelGroupMemberFilterInput | null> | null;
+  not?: ModelGroupMemberFilterInput | null;
+};
+
 export type CreateInstitutionMutation = {
   __typename: "Institution";
   id: string;
@@ -660,6 +705,10 @@ export type CreateInstitutionMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -696,6 +745,10 @@ export type CreateInstitutionMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -746,6 +799,10 @@ export type UpdateInstitutionMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -782,6 +839,10 @@ export type UpdateInstitutionMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -832,6 +893,10 @@ export type DeleteInstitutionMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -868,6 +933,10 @@ export type DeleteInstitutionMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -948,6 +1017,10 @@ export type CreateGroupMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -963,42 +1036,16 @@ export type CreateGroupMutation = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  learners?: Array<{
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institution: {
-      __typename: "Institution";
+  members?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1064,6 +1111,10 @@ export type UpdateGroupMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -1079,42 +1130,16 @@ export type UpdateGroupMutation = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  learners?: Array<{
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institution: {
-      __typename: "Institution";
+  members?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1180,6 +1205,10 @@ export type DeleteGroupMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -1195,42 +1224,16 @@ export type DeleteGroupMutation = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  learners?: Array<{
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institution: {
-      __typename: "Institution";
+  members?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1278,6 +1281,16 @@ export type CreateMemberMutation = {
     createdAt: string;
     updatedAt: string;
   };
+  groups?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   instructor?: {
     __typename: "ModelCourseInstructorConnection";
     items?: Array<{
@@ -1355,6 +1368,16 @@ export type UpdateMemberMutation = {
     createdAt: string;
     updatedAt: string;
   };
+  groups?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   instructor?: {
     __typename: "ModelCourseInstructorConnection";
     items?: Array<{
@@ -1432,6 +1455,16 @@ export type DeleteMemberMutation = {
     createdAt: string;
     updatedAt: string;
   };
+  groups?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   instructor?: {
     __typename: "ModelCourseInstructorConnection";
     items?: Array<{
@@ -2201,6 +2234,10 @@ export type CreateCourseInstructorMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2283,6 +2320,10 @@ export type UpdateCourseInstructorMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2365,6 +2406,10 @@ export type DeleteCourseInstructorMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2447,6 +2492,10 @@ export type CreateCourseAssistantMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2529,6 +2578,10 @@ export type UpdateCourseAssistantMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2611,6 +2664,10 @@ export type DeleteCourseAssistantMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2693,6 +2750,10 @@ export type CreateCourseLearnerMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2775,6 +2836,10 @@ export type UpdateCourseLearnerMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2857,6 +2922,259 @@ export type DeleteCourseLearnerMutation = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateGroupMemberMutation = {
+  __typename: "GroupMember";
+  id: string;
+  group?: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: string;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  member?: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateGroupMemberMutation = {
+  __typename: "GroupMember";
+  id: string;
+  group?: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: string;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  member?: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteGroupMemberMutation = {
+  __typename: "GroupMember";
+  id: string;
+  group?: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: string;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  member?: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2907,6 +3225,10 @@ export type GetInstitutionQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -2943,6 +3265,10 @@ export type GetInstitutionQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -3063,6 +3389,10 @@ export type GetGroupQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -3078,42 +3408,16 @@ export type GetGroupQuery = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  learners?: Array<{
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institution: {
-      __typename: "Institution";
+  members?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3149,17 +3453,10 @@ export type ListGroupsQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    learners?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3209,6 +3506,16 @@ export type GetMemberQuery = {
     createdAt: string;
     updatedAt: string;
   };
+  groups?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   instructor?: {
     __typename: "ModelCourseInstructorConnection";
     items?: Array<{
@@ -3266,6 +3573,10 @@ export type ListMembersQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -3690,6 +4001,10 @@ export type GetCourseInstructorQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -3803,6 +4118,10 @@ export type GetCourseAssistantQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -3916,6 +4235,10 @@ export type GetCourseLearnerQuery = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -3966,6 +4289,119 @@ export type ListCourseLearnersQuery = {
   nextToken?: string | null;
 };
 
+export type GetGroupMemberQuery = {
+  __typename: "GroupMember";
+  id: string;
+  group?: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: string;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  member?: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListGroupMembersQuery = {
+  __typename: "ModelGroupMemberConnection";
+  items?: Array<{
+    __typename: "GroupMember";
+    id: string;
+    group?: {
+      __typename: "Group";
+      id: string;
+      name: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    member?: {
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  nextToken?: string | null;
+};
+
 export type OnCreateInstitutionSubscription = {
   __typename: "Institution";
   id: string;
@@ -3997,6 +4433,10 @@ export type OnCreateInstitutionSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4033,6 +4473,10 @@ export type OnCreateInstitutionSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4083,6 +4527,10 @@ export type OnUpdateInstitutionSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4119,6 +4567,10 @@ export type OnUpdateInstitutionSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4169,6 +4621,10 @@ export type OnDeleteInstitutionSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4205,6 +4661,10 @@ export type OnDeleteInstitutionSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4285,6 +4745,10 @@ export type OnCreateGroupSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4300,42 +4764,16 @@ export type OnCreateGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  learners?: Array<{
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institution: {
-      __typename: "Institution";
+  members?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4401,6 +4839,10 @@ export type OnUpdateGroupSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4416,42 +4858,16 @@ export type OnUpdateGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  learners?: Array<{
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institution: {
-      __typename: "Institution";
+  members?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4517,6 +4933,10 @@ export type OnDeleteGroupSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -4532,42 +4952,16 @@ export type OnDeleteGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  learners?: Array<{
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institution: {
-      __typename: "Institution";
+  members?: {
+    __typename: "ModelGroupMemberConnection";
+    items?: Array<{
+      __typename: "GroupMember";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
+    } | null> | null;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5307,6 +5701,10 @@ export type OnCreateCourseInstructorSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5389,6 +5787,10 @@ export type OnUpdateCourseInstructorSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5471,6 +5873,10 @@ export type OnDeleteCourseInstructorSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5553,6 +5959,10 @@ export type OnCreateCourseAssistantSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5635,6 +6045,10 @@ export type OnUpdateCourseAssistantSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5717,6 +6131,10 @@ export type OnDeleteCourseAssistantSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5799,6 +6217,10 @@ export type OnCreateCourseLearnerSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5881,6 +6303,10 @@ export type OnUpdateCourseLearnerSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -5963,6 +6389,259 @@ export type OnDeleteCourseLearnerSubscription = {
       createdAt: string;
       updatedAt: string;
     };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnCreateGroupMemberSubscription = {
+  __typename: "GroupMember";
+  id: string;
+  group?: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: string;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  member?: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateGroupMemberSubscription = {
+  __typename: "GroupMember";
+  id: string;
+  group?: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: string;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  member?: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteGroupMemberSubscription = {
+  __typename: "GroupMember";
+  id: string;
+  group?: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: string;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  member?: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
     instructor?: {
       __typename: "ModelCourseInstructorConnection";
       nextToken?: string | null;
@@ -6061,6 +6740,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -6096,6 +6779,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -6163,6 +6850,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -6198,6 +6889,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -6265,6 +6960,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -6300,6 +6999,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -6397,6 +7100,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -6412,41 +7119,15 @@ export class APIService {
             createdAt
             updatedAt
           }
-          learners {
+          members {
             __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institution {
+            items {
               __typename
               id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
               createdAt
               updatedAt
             }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
+            nextToken
           }
           createdAt
           updatedAt
@@ -6529,6 +7210,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -6544,41 +7229,15 @@ export class APIService {
             createdAt
             updatedAt
           }
-          learners {
+          members {
             __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institution {
+            items {
               __typename
               id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
               createdAt
               updatedAt
             }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
+            nextToken
           }
           createdAt
           updatedAt
@@ -6661,6 +7320,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -6676,41 +7339,15 @@ export class APIService {
             createdAt
             updatedAt
           }
-          learners {
+          members {
             __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institution {
+            items {
               __typename
               id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
               createdAt
               updatedAt
             }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
+            nextToken
           }
           createdAt
           updatedAt
@@ -6774,6 +7411,16 @@ export class APIService {
             }
             createdAt
             updatedAt
+          }
+          groups {
+            __typename
+            items {
+              __typename
+              id
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           instructor {
             __typename
@@ -6868,6 +7515,16 @@ export class APIService {
             createdAt
             updatedAt
           }
+          groups {
+            __typename
+            items {
+              __typename
+              id
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           instructor {
             __typename
             items {
@@ -6960,6 +7617,16 @@ export class APIService {
             }
             createdAt
             updatedAt
+          }
+          groups {
+            __typename
+            items {
+              __typename
+              id
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           instructor {
             __typename
@@ -7938,6 +8605,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -8035,6 +8706,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -8134,6 +8809,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -8231,6 +8910,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -8330,6 +9013,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -8427,6 +9114,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -8526,6 +9217,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -8623,6 +9318,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -8722,6 +9421,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -8751,6 +9454,303 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteCourseLearnerMutation>response.data.deleteCourseLearner;
+  }
+  async CreateGroupMember(
+    input: CreateGroupMemberInput,
+    condition?: ModelGroupMemberConditionInput
+  ): Promise<CreateGroupMemberMutation> {
+    const statement = `mutation CreateGroupMember($input: CreateGroupMemberInput!, $condition: ModelGroupMemberConditionInput) {
+        createGroupMember(input: $input, condition: $condition) {
+          __typename
+          id
+          group {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          member {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateGroupMemberMutation>response.data.createGroupMember;
+  }
+  async UpdateGroupMember(
+    input: UpdateGroupMemberInput,
+    condition?: ModelGroupMemberConditionInput
+  ): Promise<UpdateGroupMemberMutation> {
+    const statement = `mutation UpdateGroupMember($input: UpdateGroupMemberInput!, $condition: ModelGroupMemberConditionInput) {
+        updateGroupMember(input: $input, condition: $condition) {
+          __typename
+          id
+          group {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          member {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateGroupMemberMutation>response.data.updateGroupMember;
+  }
+  async DeleteGroupMember(
+    input: DeleteGroupMemberInput,
+    condition?: ModelGroupMemberConditionInput
+  ): Promise<DeleteGroupMemberMutation> {
+    const statement = `mutation DeleteGroupMember($input: DeleteGroupMemberInput!, $condition: ModelGroupMemberConditionInput) {
+        deleteGroupMember(input: $input, condition: $condition) {
+          __typename
+          id
+          group {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          member {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteGroupMemberMutation>response.data.deleteGroupMember;
   }
   async GetInstitution(id: string): Promise<GetInstitutionQuery> {
     const statement = `query GetInstitution($id: ID!) {
@@ -8784,6 +9784,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -8820,6 +9824,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -8972,6 +9980,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -8987,41 +9999,15 @@ export class APIService {
             createdAt
             updatedAt
           }
-          learners {
+          members {
             __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institution {
+            items {
               __typename
               id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
               createdAt
               updatedAt
             }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
+            nextToken
           }
           createdAt
           updatedAt
@@ -9072,16 +10058,9 @@ export class APIService {
               createdAt
               updatedAt
             }
-            learners {
+            members {
               __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              createdAt
-              updatedAt
+              nextToken
             }
             createdAt
             updatedAt
@@ -9148,6 +10127,16 @@ export class APIService {
             }
             createdAt
             updatedAt
+          }
+          groups {
+            __typename
+            items {
+              __typename
+              id
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           instructor {
             __typename
@@ -9219,6 +10208,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -9785,6 +10778,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -9928,6 +10925,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -10073,6 +11074,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -10152,6 +11157,150 @@ export class APIService {
     )) as any;
     return <ListCourseLearnersQuery>response.data.listCourseLearners;
   }
+  async GetGroupMember(id: string): Promise<GetGroupMemberQuery> {
+    const statement = `query GetGroupMember($id: ID!) {
+        getGroupMember(id: $id) {
+          __typename
+          id
+          group {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          member {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetGroupMemberQuery>response.data.getGroupMember;
+  }
+  async ListGroupMembers(
+    filter?: ModelGroupMemberFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListGroupMembersQuery> {
+    const statement = `query ListGroupMembers($filter: ModelGroupMemberFilterInput, $limit: Int, $nextToken: String) {
+        listGroupMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            group {
+              __typename
+              id
+              name
+              type
+              createdAt
+              updatedAt
+            }
+            member {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListGroupMembersQuery>response.data.listGroupMembers;
+  }
   OnCreateInstitutionListener: Observable<
     SubscriptionResponse<OnCreateInstitutionSubscription>
   > = API.graphql(
@@ -10188,6 +11337,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -10223,6 +11376,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -10282,6 +11439,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -10317,6 +11478,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -10376,6 +11541,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -10411,6 +11580,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -10499,6 +11672,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -10514,41 +11691,15 @@ export class APIService {
             createdAt
             updatedAt
           }
-          learners {
+          members {
             __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institution {
+            items {
               __typename
               id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
               createdAt
               updatedAt
             }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
+            nextToken
           }
           createdAt
           updatedAt
@@ -10628,6 +11779,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -10643,41 +11798,15 @@ export class APIService {
             createdAt
             updatedAt
           }
-          learners {
+          members {
             __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institution {
+            items {
               __typename
               id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
               createdAt
               updatedAt
             }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
+            nextToken
           }
           createdAt
           updatedAt
@@ -10757,6 +11886,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -10772,41 +11905,15 @@ export class APIService {
             createdAt
             updatedAt
           }
-          learners {
+          members {
             __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institution {
+            items {
               __typename
               id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
               createdAt
               updatedAt
             }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
+            nextToken
           }
           createdAt
           updatedAt
@@ -11672,6 +12779,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -11761,6 +12872,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -11852,6 +12967,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -11941,6 +13060,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -12032,6 +13155,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -12121,6 +13248,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -12212,6 +13343,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -12301,6 +13436,10 @@ export class APIService {
               bio
               createdAt
               updatedAt
+            }
+            groups {
+              __typename
+              nextToken
             }
             instructor {
               __typename
@@ -12392,6 +13531,10 @@ export class APIService {
               createdAt
               updatedAt
             }
+            groups {
+              __typename
+              nextToken
+            }
             instructor {
               __typename
               nextToken
@@ -12413,4 +13556,277 @@ export class APIService {
       }`
     )
   ) as Observable<SubscriptionResponse<OnDeleteCourseLearnerSubscription>>;
+
+  OnCreateGroupMemberListener: Observable<
+    SubscriptionResponse<OnCreateGroupMemberSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateGroupMember {
+        onCreateGroupMember {
+          __typename
+          id
+          group {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          member {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateGroupMemberSubscription>>;
+
+  OnUpdateGroupMemberListener: Observable<
+    SubscriptionResponse<OnUpdateGroupMemberSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateGroupMember {
+        onUpdateGroupMember {
+          __typename
+          id
+          group {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          member {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateGroupMemberSubscription>>;
+
+  OnDeleteGroupMemberListener: Observable<
+    SubscriptionResponse<OnDeleteGroupMemberSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteGroupMember {
+        onDeleteGroupMember {
+          __typename
+          id
+          group {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          member {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteGroupMemberSubscription>>;
 }

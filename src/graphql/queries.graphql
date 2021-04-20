@@ -28,6 +28,9 @@ query GetInstitution($id: ID!) {
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -58,6 +61,9 @@ query GetInstitution($id: ID!) {
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -172,6 +178,9 @@ query GetGroup($id: ID!) {
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -184,36 +193,13 @@ query GetGroup($id: ID!) {
       createdAt
       updatedAt
     }
-    learners {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+    members {
+      items {
         id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
         createdAt
         updatedAt
       }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      createdAt
-      updatedAt
+      nextToken
     }
     createdAt
     updatedAt
@@ -251,15 +237,8 @@ query ListGroups(
         createdAt
         updatedAt
       }
-      learners {
-        id
-        name
-        email
-        type
-        title
-        bio
-        createdAt
-        updatedAt
+      members {
+        nextToken
       }
       createdAt
       updatedAt
@@ -306,6 +285,14 @@ query GetMember($id: ID!) {
       }
       createdAt
       updatedAt
+    }
+    groups {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     instructor {
       items {
@@ -359,6 +346,9 @@ query ListMembers(
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -749,6 +739,9 @@ query GetCourseInstructor($id: ID!) {
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -851,6 +844,9 @@ query GetCourseAssistant($id: ID!) {
         bio
         createdAt
         updatedAt
+      }
+      groups {
+        nextToken
       }
       instructor {
         nextToken
@@ -955,6 +951,9 @@ query GetCourseLearner($id: ID!) {
         createdAt
         updatedAt
       }
+      groups {
+        nextToken
+      }
       instructor {
         nextToken
       }
@@ -988,6 +987,110 @@ query ListCourseLearners(
         updatedAt
       }
       learner {
+        id
+        name
+        email
+        type
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetGroupMember($id: ID!) {
+  getGroupMember(id: $id) {
+    id
+    group {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    member {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListGroupMembers(
+  $filter: ModelGroupMemberFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listGroupMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      group {
+        id
+        name
+        type
+        createdAt
+        updatedAt
+      }
+      member {
         id
         name
         email
