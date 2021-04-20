@@ -5,4 +5,5 @@ export const uiroutes = {
   SUPPORT_ROUTE: 'support',
   INSTITUTION_FORM_ROUTE: 'institution-form',
   MEMBER_FORM_ROUTE: 'member-form',
+  GROUP_FORM_ROUTE: 'group-form',
 };

@@ -1,1 +1,21 @@
-<p>group-dashboard works!</p>
+<h2 class="center-title">Groups</h2>
+<span *ngIf="(groups$ | async).length > 0; else noGroupsToShow">
+  <div *ngFor="let group of groups$ | async">
+    <span class="group-card">
+      {{ group.name }}
+    </span>
+  </div>
+</span>
+
+<ng-template #noGroupsToShow>
+  <p class="center-title">There are no groups you are part of!</p>
+</ng-template>
+
+<button
+  (click)="createGroup()"
+  class="floating-button-bottom"
+  mat-raised-button
+  color="primary"
+>
+  Create Group
+</button>

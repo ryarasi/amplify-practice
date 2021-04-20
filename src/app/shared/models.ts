@@ -15,12 +15,26 @@ const CLASS_ADMIN_GROUP = 'CLASS_ADMIN';
 const LEARNER_GROUP = 'LEARNER';
 const INSTRUCTOR_GROUP = 'INSTRUCTOR';
 
-export const Groups = {
+export const CognitoGroups = {
   ADMIN_GROUP,
   INSTITUTION_ADMIN_GROUP,
   CLASS_ADMIN_GROUP,
   LEARNER_GROUP,
   INSTRUCTOR_GROUP,
+};
+
+/**
+ * This is a list of group types that is part of the enum in the GraphQL schema
+ */
+
+const CLASS = 'CLASS';
+const TEAM = 'TEAM';
+const COORDINATION = 'COORDINATION';
+
+export const GroupTypes = {
+  CLASS,
+  TEAM,
+  COORDINATION,
 };
 
 /*

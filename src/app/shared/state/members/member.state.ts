@@ -18,7 +18,7 @@ import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
 import awsmobile from 'src/aws-exports.js';
-import { Groups, MatSelectOption } from '../../models';
+import { CognitoGroups, MatSelectOption } from '../../models';
 import { getOptionLabel } from '../../functions/functions';
 
 @State<MemberStateModel>({
@@ -32,6 +32,13 @@ export class MemberState {
   @Selector()
   static listMembers(state: MemberStateModel) {
     return state.members;
+  }
+
+  @Selector()
+  static listMemberOptions(state: MemberStateModel): MatSelectOption[] {
+    return state.members.map((m) => {
+      return { value: m.id, label: m.name };
+    });
   }
 
   @Selector()
@@ -320,13 +327,13 @@ const constructMemberTitle = (
       institutionOptions
     );
     switch (values.type) {
-      case Groups.ADMIN_GROUP || Groups.INSTITUTION_ADMIN_GROUP:
+      case CognitoGroups.ADMIN_GROUP || CognitoGroups.INSTITUTION_ADMIN_GROUP:
         return `Administrator at ${institutionLabel}`;
-      case Groups.CLASS_ADMIN_GROUP:
+      case CognitoGroups.CLASS_ADMIN_GROUP:
         return `Class admin at ${institutionLabel}`;
-      case Groups.LEARNER_GROUP:
+      case CognitoGroups.LEARNER_GROUP:
         return `Learner from ${institutionLabel}`;
-      case Groups.INSTRUCTOR_GROUP:
+      case CognitoGroups.INSTRUCTOR_GROUP:
         return `Instructor at ${institutionLabel}`;
       default:
         return `Member of ${institutionLabel}`;

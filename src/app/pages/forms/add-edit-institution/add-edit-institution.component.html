@@ -1,7 +1,7 @@
 <button mat-icon-button (click)="goBack()" class="floating-back-button">
   <mat-icon>keyboard_backspace</mat-icon>
 </button>
-<h2 class="form-title">Institution Form</h2>
+<h2 class="center-title">Institution Form</h2>
 <div class="col-lg-8 col-sm-12 form-container">
   <form
     [formGroup]="institutionForm"
@@ -92,7 +92,7 @@
     </mat-form-field>
     <button
       type="submit"
-      class="floating-submit-button"
+      class="floating-button-bottom"
       mat-raised-button
       color="primary"
       [disabled]="(formSubmitting$ | async) === true"

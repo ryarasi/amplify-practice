@@ -125,12 +125,18 @@ export type Group = {
   id?: string;
   name?: string;
   institution?: Institution;
-  type?: string;
+  type?: GroupType;
   admins?: Array<Member | null> | null;
   members?: ModelGroupMemberConnection;
   createdAt?: string;
   updatedAt?: string;
 };
+
+export enum GroupType {
+  CLASS = "CLASS",
+  TEAM = "TEAM",
+  COORDINATION = "COORDINATION"
+}
 
 export type ModelCourseInstructorConnection = {
   __typename: "ModelCourseInstructorConnection";
@@ -243,21 +249,26 @@ export type DeleteInstitutionInput = {
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
-  type: string;
+  type: GroupType;
 };
 
 export type ModelGroupConditionInput = {
   name?: ModelStringInput | null;
-  type?: ModelStringInput | null;
+  type?: ModelGroupTypeInput | null;
   and?: Array<ModelGroupConditionInput | null> | null;
   or?: Array<ModelGroupConditionInput | null> | null;
   not?: ModelGroupConditionInput | null;
 };
 
+export type ModelGroupTypeInput = {
+  eq?: GroupType | null;
+  ne?: GroupType | null;
+};
+
 export type UpdateGroupInput = {
   id: string;
   name?: string | null;
-  type?: string | null;
+  type?: GroupType | null;
 };
 
 export type DeleteGroupInput = {
@@ -553,7 +564,7 @@ export type ModelInstitutionConnection = {
 export type ModelGroupFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
-  type?: ModelStringInput | null;
+  type?: ModelGroupTypeInput | null;
   and?: Array<ModelGroupFilterInput | null> | null;
   or?: Array<ModelGroupFilterInput | null> | null;
   not?: ModelGroupFilterInput | null;
@@ -995,7 +1006,7 @@ export type CreateGroupMutation = {
     createdAt: string;
     updatedAt: string;
   };
-  type: string;
+  type: GroupType;
   admins?: Array<{
     __typename: "Member";
     id: string;
@@ -1089,7 +1100,7 @@ export type UpdateGroupMutation = {
     createdAt: string;
     updatedAt: string;
   };
-  type: string;
+  type: GroupType;
   admins?: Array<{
     __typename: "Member";
     id: string;
@@ -1183,7 +1194,7 @@ export type DeleteGroupMutation = {
     createdAt: string;
     updatedAt: string;
   };
-  type: string;
+  type: GroupType;
   admins?: Array<{
     __typename: "Member";
     id: string;
@@ -2965,7 +2976,7 @@ export type CreateGroupMemberMutation = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;
@@ -3048,7 +3059,7 @@ export type UpdateGroupMemberMutation = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;
@@ -3131,7 +3142,7 @@ export type DeleteGroupMemberMutation = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;
@@ -3367,7 +3378,7 @@ export type GetGroupQuery = {
     createdAt: string;
     updatedAt: string;
   };
-  type: string;
+  type: GroupType;
   admins?: Array<{
     __typename: "Member";
     id: string;
@@ -3441,7 +3452,7 @@ export type ListGroupsQuery = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;
@@ -4309,7 +4320,7 @@ export type GetGroupMemberQuery = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;
@@ -4381,7 +4392,7 @@ export type ListGroupMembersQuery = {
       __typename: "Group";
       id: string;
       name: string;
-      type: string;
+      type: GroupType;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4723,7 +4734,7 @@ export type OnCreateGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   };
-  type: string;
+  type: GroupType;
   admins?: Array<{
     __typename: "Member";
     id: string;
@@ -4817,7 +4828,7 @@ export type OnUpdateGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   };
-  type: string;
+  type: GroupType;
   admins?: Array<{
     __typename: "Member";
     id: string;
@@ -4911,7 +4922,7 @@ export type OnDeleteGroupSubscription = {
     createdAt: string;
     updatedAt: string;
   };
-  type: string;
+  type: GroupType;
   admins?: Array<{
     __typename: "Member";
     id: string;
@@ -6432,7 +6443,7 @@ export type OnCreateGroupMemberSubscription = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;
@@ -6515,7 +6526,7 @@ export type OnUpdateGroupMemberSubscription = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;
@@ -6598,7 +6609,7 @@ export type OnDeleteGroupMemberSubscription = {
       createdAt: string;
       updatedAt: string;
     };
-    type: string;
+    type: GroupType;
     admins?: Array<{
       __typename: "Member";
       id: string;

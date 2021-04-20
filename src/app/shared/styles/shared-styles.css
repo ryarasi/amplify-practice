@@ -15,17 +15,17 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
-.floating-submit-button {
+.floating-button-bottom {
   position: fixed;
   right: 50px;
   bottom: 50px;
 }
 
-.floating-submit-button .mat-icon {
+.floating-button-bottom .mat-icon {
   height: 50px;
 }
 
-.form-title {
+.center-title {
   text-align: center;
 }
 
@@ -36,7 +36,7 @@
     background: rgba(0, 0, 0, 0.05);
   }
 
-  .floating-submit-button {
+  .floating-button-bottom {
     position: static;
     display: block;
     margin: 20px auto;

@@ -47,6 +47,8 @@ import { MemberState } from './shared/state/members/member.state';
 import { MemberProfileRendererComponent } from './shared/cell-renderers/member-profile/member-profile-renderer.component';
 import { MemberProfileComponent } from './pages/modals/member-profile/member-profile.component';
 import { AddEditMemberComponent } from './pages/forms/add-edit-member/add-edit-member.component';
+import { GroupState } from './shared/state/groups/group.state';
+import { AddEditGroupComponent } from './pages/forms/add-edit-group/add-edit-group.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -76,6 +78,7 @@ Amplify.configure(awsconfig);
     MemberProfileRendererComponent,
     MemberProfileComponent,
     AddEditMemberComponent,
+    AddEditGroupComponent,
     InstitutionDeleteConfirmationDialog,
   ],
   entryComponents: [InstitutionProfileComponent],
@@ -96,6 +99,7 @@ Amplify.configure(awsconfig);
           LoadingState,
           InstitutionState,
           MemberState,
+          GroupState,
         ],
         {
           developmentMode: !environment.production,

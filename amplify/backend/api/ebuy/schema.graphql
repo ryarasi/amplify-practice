@@ -1,3 +1,9 @@
+enum GroupType {
+  CLASS
+  TEAM
+  COORDINATION
+}
+
 type Mutation {
   addMember(
     name: String
@@ -65,7 +71,7 @@ type Group
   "The id of the insitition that this group belongs to"
   institution: Institution!
   "Type of group this is. It can be Class, Team or Coordinators."
-  type: String!
+  type: GroupType!
   "The admins of the group who can manage members of the class etc"
   admins: [Member]
   "List of members in this group"
