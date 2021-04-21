@@ -10,4 +10,6 @@
   (fetchMethod)="fetchInstitutions($event[0])"
   (refreshData)="forceRefetchInstitutions($event[0])"
   (createMethod)="createInstitution()"
+  [previousPageDisabled]="previousPageDisabled$ | async"
+  [nextPageDisabled]="nextPageDisabled$ | async"
 ></app-master-grid>

@@ -15,6 +15,7 @@ import {
   updateColumnWidth,
   customWidthsExist,
 } from './../../table.functions';
+import { NEXT_PAGE, PREVIOUS_PAGE } from 'src/app/shared/common/constants';
 @Component({
   selector: 'app-master-grid',
   templateUrl: './master-grid.component.html',
@@ -74,6 +75,8 @@ export class MasterGridComponent implements OnInit, OnChanges {
   @Input() csvColumnHeaders: string[] = [];
   @Input() rowSelection: string = '';
   @Input() rowDeselection: boolean = true;
+  @Input() previousPageDisabled: boolean = true;
+  @Input() nextPageDisabled: boolean = true;
   selectedRows = [];
   @Output() selectionChangeCallback: EventEmitter<any> = new EventEmitter();
   private tableHeight = `100vh - var(--topnav-height) - var(--paginator-height) - var(--search-input-height) - var(--generic-padding)`;
@@ -154,6 +157,14 @@ export class MasterGridComponent implements OnInit, OnChanges {
       this.selectionChangeCallback.emit([this.selectedRows]);
     }
   };
+  previousPage() {
+    this.searchParams.prevOrNext = PREVIOUS_PAGE;
+    this.fetchRecords();
+  }
+  nextPage() {
+    this.searchParams.prevOrNext = NEXT_PAGE;
+    this.fetchRecords();
+  }
   onSortChanged = (event) => {
     const originalSortObject = this.originalSearchParams;
     const sortedColumn = event.columnApi
@@ -174,7 +185,6 @@ export class MasterGridComponent implements OnInit, OnChanges {
     }
     this.searchParams.sortField = newSortField;
     this.searchParams.sortOrder = newSortOrder;
-    this.searchParams.pageNumber = 1;
     this.fetchRecords();
   };
   onFilterChanged = (event) => {
@@ -220,12 +230,6 @@ export class MasterGridComponent implements OnInit, OnChanges {
   hideOverlays() {
     if (this.gridApi) {
       this.gridApi.hideOverlay();
-    }
-  }
-  returnNewPageNumber(page) {
-    if (page !== undefined) {
-      this.searchParams.pageNumber = page;
-      this.fetchRecords();
     }
   }
   onPageSizeChange(newPageSize) {

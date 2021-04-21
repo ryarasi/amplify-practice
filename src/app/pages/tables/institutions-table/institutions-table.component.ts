@@ -29,10 +29,15 @@ export class InstitutionsTableComponent implements OnInit {
   isFetching$: Observable<boolean>;
   @Select(InstitutionState.errorFetching)
   errorFetching$: Observable<boolean>;
+  @Select(InstitutionState.previousPageDisabled)
+  previousPageDisabled$: Observable<boolean>;
+  @Select(InstitutionState.nextPageDisabled)
+  nextPageDisabled$: Observable<boolean>;
 
   defaultColDef = {
     resizable: true,
     sortable: true,
+    comparator: () => null,
   };
   columns = [
     {

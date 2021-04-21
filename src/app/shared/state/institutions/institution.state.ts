@@ -20,6 +20,10 @@ import { ToggleLoadingScreen } from '../loading/loading.actions';
 import { MatSelectOption } from '../../models';
 import * as modifiedQueries from './institution.queries.graphql';
 import { defaultPageSize } from '../../abstract/master-grid/table.model';
+import {
+  disablePaginationButtons,
+  setNextToken,
+} from '../../functions/functions';
 @State<InstitutionStateModel>({
   name: 'institutionState',
   defaults: defaultInstitutionState,
@@ -31,6 +35,16 @@ export class InstitutionState {
   @Selector()
   static listInstitutions(state: InstitutionStateModel) {
     return state.institutions;
+  }
+
+  @Selector()
+  static previousPageDisabled(state: InstitutionStateModel) {
+    return state.previousPageDisabled;
+  }
+
+  @Selector()
+  static nextPageDisabled(state: InstitutionStateModel) {
+    return state.nextPageDisabled;
   }
 
   @Selector()
@@ -93,18 +107,36 @@ export class InstitutionState {
       searchParams
     );
     const state = getState();
-    let { institutions, isFetching, errorFetching, fetchPolicy } = state;
+    let {
+      institutions,
+      isFetching,
+      errorFetching,
+      fetchPolicy,
+      nextToken,
+      nextNextToken,
+      previousToken,
+      nextPageDisabled,
+      previousPageDisabled,
+    } = state;
     isFetching = true;
     errorFetching = false;
     patchState({ isFetching, errorFetching, institutions });
-    const filter = searchParams.searchQuery?.length
+    const filter = searchParams?.searchQuery
       ? {
-          searchField: { contains: searchParams.searchQuery },
+          searchField: { contains: searchParams.searchQuery.toLowerCase() },
+          // sortBy: searchParams.sortField,
         }
       : null;
     const variables = {
       filter,
-      limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
+      // limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
+      limit: 1,
+      nextToken: setNextToken(
+        searchParams.prevOrNext,
+        previousToken,
+        nextToken,
+        nextNextToken
+      ),
     };
     console.log('variables in the query => ', variables);
     client
@@ -116,9 +148,33 @@ export class InstitutionState {
       .then((res: any) => {
         isFetching = false;
         const institutions = res.data.listInstitutions.items;
+        const returnedNextToken = res.data.listInstitutions.nextToken;
+        previousToken = returnedNextToken ? nextToken : previousToken;
+        nextToken = nextNextToken;
+        nextNextToken = returnedNextToken;
         console.log('Fetched institutions ', institutions);
         fetchPolicy = null;
-        patchState({ institutions, isFetching, fetchPolicy });
+        console.log('responses => ', res);
+        const disabledPaginationButtons = disablePaginationButtons(
+          nextToken,
+          nextNextToken
+        );
+        previousPageDisabled = disabledPaginationButtons.previousPageDisabled;
+        nextPageDisabled = disabledPaginationButtons.nextPageDisabled;
+        console.log('Updating state after patch => ', {
+          previousPageDisabled,
+          nextPageDisabled,
+        });
+        patchState({
+          institutions,
+          isFetching,
+          fetchPolicy,
+          previousToken,
+          nextToken,
+          nextNextToken,
+          previousPageDisabled,
+          nextPageDisabled,
+        });
       })
       .catch((err) => {
         console.log('Error while fetching institutions => ', err);

@@ -1,13 +1,15 @@
 <div id="title-tab">
   <div class="title-block">
-    <mat-form-field appearance="outline">
+    <mat-form-field id="search-query-field" appearance="outline">
       <input
         [(ngModel)]="searchParams.searchQuery"
         (keyup.enter)="fetchRecords()"
         matInput
         placeholder="Search..."
       />
-      <!-- <mat-icon matSuffix>search</mat-icon> -->
+      <mat-icon matSuffix id="search-input-icon" (click)="fetchRecords()"
+        >search</mat-icon
+      >
     </mat-form-field>
   </div>
   <div class="title-block" id="title">
@@ -28,22 +30,10 @@
     </button>
   </div>
 </div>
-<!-- <ag-grid-angular
-  class="ag-theme-alpine table-style"
-  [gridOptions]="gridOptions"
-  [rowData]="rows"
-  [defaultColDef]="defaultColDef"
-  [columnDefs]="columns"
-  [overlayLoadingTemplate]="overlayLoadingTemplate"
-  [overlayNoRowsTemplate]="overlayNoRowsTemplate"
-  [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)"
-  (onSortChanged)="onSortChanged($event)"
->
-</ag-grid-angular> -->
 
 <ag-grid-angular
   class="ag-theme-alpine table-style"
+  [gridOptions]="gridOptions"
   [rowData]="rows"
   [columnDefs]="columns"
   [defaultColDef]="defaultColDef"
@@ -66,13 +56,23 @@
   [fullWidthCellRendererParams]="fullWidthCellRendererParams"
 >
 </ag-grid-angular>
-<app-paginator
-  [staticTable]="staticTable"
-  [totalRecords]="totalRecords"
-  [pageSize]="searchParams.pageSize"
-  [currentPage]="searchParams.pageNumber"
-  [searchQuery]="currentSearchQuery"
-  (onPageChange)="returnNewPageNumber($event[0])"
-  (onPageSizeChange)="onPageSizeChange($event[0])"
->
-</app-paginator>
+<div>
+  <button
+    [disabled]="previousPageDisabled"
+    mat-icon-button
+    class="pagination-button"
+    style="float: left"
+    (click)="previousPage()"
+  >
+    <mat-icon>arrow_left</mat-icon>
+  </button>
+  <button
+    [disabled]="nextPageDisabled"
+    mat-icon-button
+    class="pagination-button"
+    style="float: right"
+    (click)="nextPage()"
+  >
+    <mat-icon>arrow_right</mat-icon>
+  </button>
+</div>

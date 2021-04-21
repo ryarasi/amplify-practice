@@ -49,7 +49,6 @@ import { AddEditMemberComponent } from './pages/forms/add-edit-member/add-edit-m
 import { GroupState } from './shared/state/groups/group.state';
 import { AddEditGroupComponent } from './pages/forms/add-edit-group/add-edit-group.component';
 import { MasterGridComponent } from './shared/abstract/master-grid/components/master-grid/master-grid.component';
-import { MasterGridPaginatorComponent } from './shared/abstract/master-grid/components/paginator/paginator.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -72,7 +71,6 @@ Amplify.configure(awsconfig);
     InstitutionProfileRendererComponent,
     InstitutionProfileComponent,
     MasterGridComponent,
-    MasterGridPaginatorComponent,
     InstitutionsTableComponent,
     MembersTableComponent,
     GroupsTableComponent,

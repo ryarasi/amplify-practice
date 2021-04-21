@@ -15,6 +15,11 @@ export const emptyInstitutionFormRecord: Institution = {
 export interface InstitutionStateModel {
   institutions: Institution[];
   fetchPolicy: FetchPolicy;
+  previousToken: string;
+  nextToken: string;
+  nextNextToken: string;
+  nextPageDisabled: boolean;
+  previousPageDisabled: boolean;
   institutionFormId: string;
   institutionFormRecord: Institution;
   isFetching: boolean;
@@ -26,6 +31,11 @@ export interface InstitutionStateModel {
 export const defaultInstitutionState: InstitutionStateModel = {
   institutions: [],
   fetchPolicy: null,
+  previousToken: null,
+  nextToken: null,
+  nextNextToken: null,
+  nextPageDisabled: true,
+  previousPageDisabled: true,
   institutionFormId: null,
   institutionFormRecord: emptyInstitutionFormRecord,
   isFetching: false,
