@@ -57,7 +57,7 @@ export class AddEditMemberComponent implements OnInit {
     this.institutionOptions$.subscribe((options) => {
       this.institutionOptions = options;
     });
-    this.store.dispatch(new FetchInstitutions());
+    this.store.dispatch(new FetchInstitutions({}));
     this.memberForm = this.setupMemberFormGroup();
     this.memberFormRecord$.subscribe((val) => {
       this.memberFormRecord = val;

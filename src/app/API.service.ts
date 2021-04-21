@@ -18,6 +18,7 @@ export type CreateInstitutionInput = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  searchField?: string | null;
 };
 
 export type ModelInstitutionConditionInput = {
@@ -28,6 +29,7 @@ export type ModelInstitutionConditionInput = {
   phone?: ModelStringInput | null;
   logo?: ModelStringInput | null;
   bio?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelInstitutionConditionInput | null> | null;
   or?: Array<ModelInstitutionConditionInput | null> | null;
   not?: ModelInstitutionConditionInput | null;
@@ -84,6 +86,7 @@ export type Institution = {
   bio?: string | null;
   admins?: Array<Member | null> | null;
   members?: Array<Member | null> | null;
+  searchField?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -240,6 +243,7 @@ export type UpdateInstitutionInput = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
+  searchField?: string | null;
 };
 
 export type DeleteInstitutionInput = {
@@ -534,6 +538,7 @@ export type ModelInstitutionFilterInput = {
   phone?: ModelStringInput | null;
   logo?: ModelStringInput | null;
   bio?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelInstitutionFilterInput | null> | null;
   or?: Array<ModelInstitutionFilterInput | null> | null;
   not?: ModelInstitutionFilterInput | null;
@@ -685,6 +690,84 @@ export type ModelGroupMemberFilterInput = {
   not?: ModelGroupMemberFilterInput | null;
 };
 
+export type SearchableInstitutionFilterInput = {
+  id?: SearchableIDFilterInput | null;
+  name?: SearchableStringFilterInput | null;
+  location?: SearchableStringFilterInput | null;
+  city?: SearchableStringFilterInput | null;
+  website?: SearchableStringFilterInput | null;
+  phone?: SearchableStringFilterInput | null;
+  logo?: SearchableStringFilterInput | null;
+  bio?: SearchableStringFilterInput | null;
+  searchField?: SearchableStringFilterInput | null;
+  and?: Array<SearchableInstitutionFilterInput | null> | null;
+  or?: Array<SearchableInstitutionFilterInput | null> | null;
+  not?: SearchableInstitutionFilterInput | null;
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+  range?: Array<string | null> | null;
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+  range?: Array<string | null> | null;
+};
+
+export type SearchableInstitutionSortInput = {
+  field?: SearchableInstitutionSortableFields | null;
+  direction?: SearchableSortDirection | null;
+};
+
+export enum SearchableInstitutionSortableFields {
+  id = "id",
+  name = "name",
+  location = "location",
+  city = "city",
+  website = "website",
+  phone = "phone",
+  logo = "logo",
+  bio = "bio",
+  searchField = "searchField"
+}
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc"
+}
+
+export type SearchableInstitutionConnection = {
+  __typename: "SearchableInstitutionConnection";
+  items?: Array<Institution | null> | null;
+  nextToken?: string | null;
+  total?: number | null;
+};
+
 export type CreateInstitutionMutation = {
   __typename: "Institution";
   id: string;
@@ -713,6 +796,7 @@ export type CreateInstitutionMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -753,6 +837,7 @@ export type CreateInstitutionMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -775,6 +860,7 @@ export type CreateInstitutionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -807,6 +893,7 @@ export type UpdateInstitutionMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -847,6 +934,7 @@ export type UpdateInstitutionMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -869,6 +957,7 @@ export type UpdateInstitutionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -901,6 +990,7 @@ export type DeleteInstitutionMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -941,6 +1031,7 @@ export type DeleteInstitutionMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -963,6 +1054,7 @@ export type DeleteInstitutionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1003,6 +1095,7 @@ export type CreateGroupMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1025,6 +1118,7 @@ export type CreateGroupMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -1097,6 +1191,7 @@ export type UpdateGroupMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1119,6 +1214,7 @@ export type UpdateGroupMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -1191,6 +1287,7 @@ export type DeleteGroupMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1213,6 +1310,7 @@ export type DeleteGroupMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -1289,6 +1387,7 @@ export type CreateMemberMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1376,6 +1475,7 @@ export type UpdateMemberMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1463,6 +1563,7 @@ export type DeleteMemberMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -2242,6 +2343,7 @@ export type CreateCourseInstructorMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2328,6 +2430,7 @@ export type UpdateCourseInstructorMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2414,6 +2517,7 @@ export type DeleteCourseInstructorMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2500,6 +2604,7 @@ export type CreateCourseAssistantMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2586,6 +2691,7 @@ export type UpdateCourseAssistantMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2672,6 +2778,7 @@ export type DeleteCourseAssistantMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2758,6 +2865,7 @@ export type CreateCourseLearnerMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2844,6 +2952,7 @@ export type UpdateCourseLearnerMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2930,6 +3039,7 @@ export type DeleteCourseLearnerMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2973,6 +3083,7 @@ export type CreateGroupMemberMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3013,6 +3124,7 @@ export type CreateGroupMemberMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3056,6 +3168,7 @@ export type UpdateGroupMemberMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3096,6 +3209,7 @@ export type UpdateGroupMemberMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3139,6 +3253,7 @@ export type DeleteGroupMemberMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3179,6 +3294,7 @@ export type DeleteGroupMemberMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3233,6 +3349,7 @@ export type GetInstitutionQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3273,6 +3390,7 @@ export type GetInstitutionQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3295,6 +3413,7 @@ export type GetInstitutionQuery = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3333,6 +3452,7 @@ export type ListInstitutionsQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3375,6 +3495,7 @@ export type GetGroupQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -3397,6 +3518,7 @@ export type GetGroupQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3449,6 +3571,7 @@ export type ListGroupsQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3514,6 +3637,7 @@ export type GetMemberQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -3581,6 +3705,7 @@ export type ListMembersQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4009,6 +4134,7 @@ export type GetCourseInstructorQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4126,6 +4252,7 @@ export type GetCourseAssistantQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4243,6 +4370,7 @@ export type GetCourseLearnerQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4317,6 +4445,7 @@ export type GetGroupMemberQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4357,6 +4486,7 @@ export type GetGroupMemberQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4413,6 +4543,48 @@ export type ListGroupMembersQuery = {
   nextToken?: string | null;
 };
 
+export type SearchInstitutionsQuery = {
+  __typename: "SearchableInstitutionConnection";
+  items?: Array<{
+    __typename: "Institution";
+    id: string;
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  nextToken?: string | null;
+  total?: number | null;
+};
+
 export type OnCreateInstitutionSubscription = {
   __typename: "Institution";
   id: string;
@@ -4441,6 +4613,7 @@ export type OnCreateInstitutionSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4481,6 +4654,7 @@ export type OnCreateInstitutionSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4503,6 +4677,7 @@ export type OnCreateInstitutionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4535,6 +4710,7 @@ export type OnUpdateInstitutionSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4575,6 +4751,7 @@ export type OnUpdateInstitutionSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4597,6 +4774,7 @@ export type OnUpdateInstitutionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4629,6 +4807,7 @@ export type OnDeleteInstitutionSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4669,6 +4848,7 @@ export type OnDeleteInstitutionSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4691,6 +4871,7 @@ export type OnDeleteInstitutionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4731,6 +4912,7 @@ export type OnCreateGroupSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -4753,6 +4935,7 @@ export type OnCreateGroupSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4825,6 +5008,7 @@ export type OnUpdateGroupSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -4847,6 +5031,7 @@ export type OnUpdateGroupSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4919,6 +5104,7 @@ export type OnDeleteGroupSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -4941,6 +5127,7 @@ export type OnDeleteGroupSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5709,6 +5896,7 @@ export type OnCreateCourseInstructorSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5795,6 +5983,7 @@ export type OnUpdateCourseInstructorSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5881,6 +6070,7 @@ export type OnDeleteCourseInstructorSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5967,6 +6157,7 @@ export type OnCreateCourseAssistantSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6053,6 +6244,7 @@ export type OnUpdateCourseAssistantSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6139,6 +6331,7 @@ export type OnDeleteCourseAssistantSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6225,6 +6418,7 @@ export type OnCreateCourseLearnerSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6311,6 +6505,7 @@ export type OnUpdateCourseLearnerSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6397,6 +6592,7 @@ export type OnDeleteCourseLearnerSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6440,6 +6636,7 @@ export type OnCreateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6480,6 +6677,7 @@ export type OnCreateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6523,6 +6721,7 @@ export type OnUpdateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6563,6 +6762,7 @@ export type OnUpdateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6606,6 +6806,7 @@ export type OnDeleteGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6646,6 +6847,7 @@ export type OnDeleteGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -6748,6 +6950,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -6788,6 +6991,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -6810,6 +7014,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -6858,6 +7063,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -6898,6 +7104,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -6920,6 +7127,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -6968,6 +7176,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7008,6 +7217,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7030,6 +7240,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -7086,6 +7297,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7108,6 +7320,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7196,6 +7409,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7218,6 +7432,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7306,6 +7521,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7328,6 +7544,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7420,6 +7637,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7523,6 +7741,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7626,6 +7845,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8613,6 +8833,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -8715,6 +8936,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -8817,6 +9039,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -8919,6 +9142,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9021,6 +9245,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9123,6 +9348,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9225,6 +9451,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9327,6 +9554,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9429,6 +9657,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9488,6 +9717,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9528,6 +9758,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9587,6 +9818,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9627,6 +9859,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9686,6 +9919,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9726,6 +9960,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9793,6 +10028,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9833,6 +10069,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9855,6 +10092,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -9907,6 +10145,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9966,6 +10205,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9988,6 +10228,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10054,6 +10295,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10136,6 +10378,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10217,6 +10460,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10786,6 +11030,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10934,6 +11179,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11082,6 +11328,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11187,6 +11434,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11227,6 +11475,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11312,6 +11561,77 @@ export class APIService {
     )) as any;
     return <ListGroupMembersQuery>response.data.listGroupMembers;
   }
+  async SearchInstitutions(
+    filter?: SearchableInstitutionFilterInput,
+    sort?: SearchableInstitutionSortInput,
+    limit?: number,
+    nextToken?: string,
+    from?: number
+  ): Promise<SearchInstitutionsQuery> {
+    const statement = `query SearchInstitutions($filter: SearchableInstitutionFilterInput, $sort: SearchableInstitutionSortInput, $limit: Int, $nextToken: String, $from: Int) {
+        searchInstitutions(filter: $filter, sort: $sort, limit: $limit, nextToken: $nextToken, from: $from) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          nextToken
+          total
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (sort) {
+      gqlAPIServiceArguments.sort = sort;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (from) {
+      gqlAPIServiceArguments.from = from;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SearchInstitutionsQuery>response.data.searchInstitutions;
+  }
   OnCreateInstitutionListener: Observable<
     SubscriptionResponse<OnCreateInstitutionSubscription>
   > = API.graphql(
@@ -11345,6 +11665,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11385,6 +11706,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11407,6 +11729,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -11447,6 +11770,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11487,6 +11811,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11509,6 +11834,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -11549,6 +11875,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11589,6 +11916,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11611,6 +11939,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -11658,6 +11987,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11680,6 +12010,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11765,6 +12096,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11787,6 +12119,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11872,6 +12205,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11894,6 +12228,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12787,6 +13122,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12881,6 +13217,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12975,6 +13312,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13069,6 +13407,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13163,6 +13502,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13257,6 +13597,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13351,6 +13692,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13445,6 +13787,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13539,6 +13882,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13590,6 +13934,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13630,6 +13975,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13681,6 +14027,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13721,6 +14068,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13772,6 +14120,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13812,6 +14161,7 @@ export class APIService {
               phone
               logo
               bio
+              searchField
               createdAt
               updatedAt
             }

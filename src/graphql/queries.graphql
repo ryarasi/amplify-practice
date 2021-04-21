@@ -25,6 +25,7 @@ query GetInstitution($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -59,6 +60,7 @@ query GetInstitution($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -77,6 +79,7 @@ query GetInstitution($id: ID!) {
       createdAt
       updatedAt
     }
+    searchField
     createdAt
     updatedAt
   }
@@ -116,6 +119,7 @@ query ListInstitutions(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -155,6 +159,7 @@ query GetGroup($id: ID!) {
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -175,6 +180,7 @@ query GetGroup($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -223,6 +229,7 @@ query ListGroups(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -283,6 +290,7 @@ query GetMember($id: ID!) {
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -344,6 +352,7 @@ query ListMembers(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -736,6 +745,7 @@ query GetCourseInstructor($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -842,6 +852,7 @@ query GetCourseAssistant($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -948,6 +959,7 @@ query GetCourseLearner($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1017,6 +1029,7 @@ query GetGroupMember($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1053,6 +1066,7 @@ query GetGroupMember($id: ID!) {
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1104,5 +1118,56 @@ query ListGroupMembers(
       updatedAt
     }
     nextToken
+  }
+}
+query SearchInstitutions(
+  $filter: SearchableInstitutionFilterInput
+  $sort: SearchableInstitutionSortInput
+  $limit: Int
+  $nextToken: String
+  $from: Int
+) {
+  searchInstitutions(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+  ) {
+    items {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      members {
+        id
+        name
+        email
+        type
+        title
+        bio
+        createdAt
+        updatedAt
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    nextToken
+    total
   }
 }

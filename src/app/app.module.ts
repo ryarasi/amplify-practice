@@ -37,7 +37,6 @@ import {
   InstitutionDeleteConfirmationDialog,
   InstitutionProfileComponent,
 } from './pages/modals/institution-profile/institution-profile.component';
-import { MasterGridComponent } from './shared/abstract/master-grid/master-grid.component';
 import { InstitutionState } from './shared/state/institutions/institution.state';
 import { InstitutionsTableComponent } from './pages/tables/institutions-table/institutions-table.component';
 import { MembersTableComponent } from './pages/tables/members-table/members-table.component';
@@ -49,6 +48,8 @@ import { MemberProfileComponent } from './pages/modals/member-profile/member-pro
 import { AddEditMemberComponent } from './pages/forms/add-edit-member/add-edit-member.component';
 import { GroupState } from './shared/state/groups/group.state';
 import { AddEditGroupComponent } from './pages/forms/add-edit-group/add-edit-group.component';
+import { MasterGridComponent } from './shared/abstract/master-grid/components/master-grid/master-grid.component';
+import { MasterGridPaginatorComponent } from './shared/abstract/master-grid/components/paginator/paginator.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -71,6 +72,7 @@ Amplify.configure(awsconfig);
     InstitutionProfileRendererComponent,
     InstitutionProfileComponent,
     MasterGridComponent,
+    MasterGridPaginatorComponent,
     InstitutionsTableComponent,
     MembersTableComponent,
     GroupsTableComponent,

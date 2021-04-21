@@ -1,0 +1,21 @@
+query ListInstitutions(
+  $filter: ModelInstitutionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listInstitutions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      location
+      city
+      website
+      phone
+      logo
+      bio
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

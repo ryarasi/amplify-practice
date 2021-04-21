@@ -47,6 +47,7 @@ mutation CreateInstitution(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -81,6 +82,7 @@ mutation CreateInstitution(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -99,6 +101,7 @@ mutation CreateInstitution(
       createdAt
       updatedAt
     }
+    searchField
     createdAt
     updatedAt
   }
@@ -132,6 +135,7 @@ mutation UpdateInstitution(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -166,6 +170,7 @@ mutation UpdateInstitution(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -184,6 +189,7 @@ mutation UpdateInstitution(
       createdAt
       updatedAt
     }
+    searchField
     createdAt
     updatedAt
   }
@@ -217,6 +223,7 @@ mutation DeleteInstitution(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -251,6 +258,7 @@ mutation DeleteInstitution(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -269,6 +277,7 @@ mutation DeleteInstitution(
       createdAt
       updatedAt
     }
+    searchField
     createdAt
     updatedAt
   }
@@ -309,6 +318,7 @@ mutation CreateGroup(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -329,6 +339,7 @@ mutation CreateGroup(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -395,6 +406,7 @@ mutation UpdateGroup(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -415,6 +427,7 @@ mutation UpdateGroup(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -481,6 +494,7 @@ mutation DeleteGroup(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -501,6 +515,7 @@ mutation DeleteGroup(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -571,6 +586,7 @@ mutation CreateMember(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -650,6 +666,7 @@ mutation UpdateMember(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -729,6 +746,7 @@ mutation DeleteMember(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -1450,6 +1468,7 @@ mutation CreateCourseInstructor(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1527,6 +1546,7 @@ mutation UpdateCourseInstructor(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1604,6 +1624,7 @@ mutation DeleteCourseInstructor(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1681,6 +1702,7 @@ mutation CreateCourseAssistant(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1758,6 +1780,7 @@ mutation UpdateCourseAssistant(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1835,6 +1858,7 @@ mutation DeleteCourseAssistant(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1912,6 +1936,7 @@ mutation CreateCourseLearner(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1989,6 +2014,7 @@ mutation UpdateCourseLearner(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -2066,6 +2092,7 @@ mutation DeleteCourseLearner(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -2106,6 +2133,7 @@ mutation CreateGroupMember(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -2142,6 +2170,7 @@ mutation CreateGroupMember(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -2182,6 +2211,7 @@ mutation UpdateGroupMember(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -2218,6 +2248,7 @@ mutation UpdateGroupMember(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -2258,6 +2289,7 @@ mutation DeleteGroupMember(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -2294,6 +2326,7 @@ mutation DeleteGroupMember(
         phone
         logo
         bio
+        searchField
         createdAt
         updatedAt
       }

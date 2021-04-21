@@ -5,6 +5,7 @@ import { Select, Store } from '@ngxs/store';
 import { GridOptions } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { Institution } from 'src/app/API.service';
+import { SearchParams } from 'src/app/shared/abstract/master-grid/table.model';
 import { InstitutionProfileRendererComponent } from 'src/app/shared/cell-renderers/institution-profile/institution-profile-renderer.component';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
 import {
@@ -31,6 +32,7 @@ export class InstitutionsTableComponent implements OnInit {
 
   defaultColDef = {
     resizable: true,
+    sortable: true,
   };
   columns = [
     {
@@ -58,16 +60,17 @@ export class InstitutionsTableComponent implements OnInit {
     };
   }
 
-  fetchInstitutions() {
-    this.store.dispatch(new FetchInstitutions());
+  fetchInstitutions(searchParams: SearchParams) {
+    console.log('searchParams from institution table => ', searchParams);
+    this.store.dispatch(new FetchInstitutions({ searchParams }));
   }
 
   createInstitution() {
     this.router.navigateByUrl(uiroutes.INSTITUTION_FORM_ROUTE);
   }
 
-  forceRefetchInstitutions() {
-    this.store.dispatch(new ForceRefetchInstitutions());
+  forceRefetchInstitutions(searchParams: SearchParams) {
+    this.store.dispatch(new ForceRefetchInstitutions({ searchParams }));
   }
 
   openInstitutionProfile(rowData) {

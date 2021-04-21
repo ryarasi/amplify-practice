@@ -18,6 +18,8 @@ import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
 import { MatSelectOption } from '../../models';
+import * as modifiedQueries from './institution.queries.graphql';
+import { defaultPageSize } from '../../abstract/master-grid/table.model';
 @State<InstitutionStateModel>({
   name: 'institutionState',
   defaults: defaultInstitutionState,
@@ -69,28 +71,47 @@ export class InstitutionState {
   }
 
   @Action(ForceRefetchInstitutions)
-  forceRefetchInstitutions({
-    patchState,
-  }: StateContext<InstitutionStateModel>) {
+  forceRefetchInstitutions(
+    { patchState }: StateContext<InstitutionStateModel>,
+    { payload }: ForceRefetchInstitutions
+  ) {
+    const { searchParams } = payload;
     patchState({ fetchPolicy: 'network-only' });
-    this.store.dispatch(new FetchInstitutions());
+    this.store.dispatch(new FetchInstitutions({ searchParams }));
   }
 
   @Action(FetchInstitutions)
-  fetchInstitutions({
-    getState,
-    patchState,
-  }: StateContext<InstitutionStateModel>) {
+  fetchInstitutions(
+    { getState, patchState }: StateContext<InstitutionStateModel>,
+    { payload }: FetchInstitutions
+  ) {
     console.log('Fetching institutions...');
+    const { searchParams } = payload;
+
+    console.log(
+      "Search Params from institution state's fetch method => ",
+      searchParams
+    );
     const state = getState();
     let { institutions, isFetching, errorFetching, fetchPolicy } = state;
     isFetching = true;
     errorFetching = false;
     patchState({ isFetching, errorFetching, institutions });
+    const filter = searchParams.searchQuery?.length
+      ? {
+          searchField: { contains: searchParams.searchQuery },
+        }
+      : null;
+    const variables = {
+      filter,
+      limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
+    };
+    console.log('variables in the query => ', variables);
     client
       .query({
-        query: queries.ListInstitutions,
+        query: modifiedQueries.ListInstitutions,
         fetchPolicy,
+        variables,
       })
       .then((res: any) => {
         isFetching = false;
@@ -178,7 +199,7 @@ export class InstitutionState {
           },
         })
         .then((res: any) => {
-          this.store.dispatch(new ForceRefetchInstitutions());
+          this.store.dispatch(new ForceRefetchInstitutions({}));
           formSubmitting = false;
           patchState({ institutionFormRecord: emptyInstitutionFormRecord });
           form.reset();
@@ -232,7 +253,7 @@ export class InstitutionState {
         },
       })
       .then((res: any) => {
-        this.store.dispatch(new ForceRefetchInstitutions());
+        this.store.dispatch(new ForceRefetchInstitutions({}));
         console.log(res);
         this.store.dispatch(
           new ToggleLoadingScreen({

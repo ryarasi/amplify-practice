@@ -24,6 +24,7 @@ what classes/departments they contain
 """
 type Institution
   @model
+  @searchable
   @auth(
     rules: [
       {
@@ -52,6 +53,8 @@ type Institution
   admins: [Member] @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
   "All Members belonging to the institution"
   members: [Member] @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
+  "Search Field"
+  searchField: String
 }
 
 """

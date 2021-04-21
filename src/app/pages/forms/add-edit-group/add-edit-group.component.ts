@@ -59,7 +59,7 @@ export class AddEditGroupComponent implements OnInit {
     this.institutionOptions$.subscribe((options) => {
       this.institutionOptions = options;
     });
-    this.store.dispatch(new FetchInstitutions());
+    this.store.dispatch(new FetchInstitutions({}));
     this.groupForm = this.setupGroupFormGroup();
     this.groupFormRecord$.subscribe((val) => {
       this.groupFormRecord = val;

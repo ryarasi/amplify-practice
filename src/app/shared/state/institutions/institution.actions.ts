@@ -1,17 +1,18 @@
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import { Institution } from 'src/app/API.service';
+import { SearchParams } from '../../abstract/master-grid/table.model';
 import { idPayload } from '../../models';
 
 export class FetchInstitutions {
   static readonly type = '[INSTITUTIONS] Fetch';
 
-  constructor() {}
+  constructor(public payload: { searchParams?: SearchParams }) {}
 }
 
 export class ForceRefetchInstitutions {
   static readonly type = '[INSTITUTIONS] Fetch from network';
 
-  constructor() {}
+  constructor(public payload: { searchParams?: SearchParams }) {}
 }
 
 export class GetInstitution {
