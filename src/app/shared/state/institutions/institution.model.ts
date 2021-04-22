@@ -1,5 +1,9 @@
 import { Institution } from 'src/app/API.service';
-import { FetchPolicy } from '../../common/models';
+import {
+  FetchPolicy,
+  PaginationObject,
+  startingPaginationObject,
+} from '../../common/models';
 
 export const emptyInstitutionFormRecord: Institution = {
   __typename: 'Institution',
@@ -15,10 +19,7 @@ export const emptyInstitutionFormRecord: Institution = {
 export interface InstitutionStateModel {
   institutions: Institution[];
   fetchPolicy: FetchPolicy;
-  paginationTokens: object;
-  pageIndex: number;
-  previousPageDisabled: boolean;
-  nextPageDisabled: boolean;
+  paginationObject: PaginationObject;
   institutionFormId: string;
   institutionFormRecord: Institution;
   isFetching: boolean;
@@ -30,10 +31,7 @@ export interface InstitutionStateModel {
 export const defaultInstitutionState: InstitutionStateModel = {
   institutions: [],
   fetchPolicy: null,
-  paginationTokens: { 1: null },
-  pageIndex: 1,
-  nextPageDisabled: true,
-  previousPageDisabled: true,
+  paginationObject: startingPaginationObject,
   institutionFormId: null,
   institutionFormRecord: emptyInstitutionFormRecord,
   isFetching: false,

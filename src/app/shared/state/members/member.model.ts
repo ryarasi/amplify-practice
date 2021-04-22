@@ -3,6 +3,8 @@ import {
   CognitoGroups,
   FetchPolicy,
   MatSelectOption,
+  PaginationObject,
+  startingPaginationObject,
 } from '../../common/models';
 
 export const emptyMemberFormRecord: Member = {
@@ -25,6 +27,7 @@ export const emptyMemberFormRecord: Member = {
 export interface MemberStateModel {
   members: Member[];
   fetchPolicy: FetchPolicy;
+  paginationObject: PaginationObject;
   memberFormId: string;
   memberFormRecord: Member;
   isFetching: boolean;
@@ -36,6 +39,7 @@ export interface MemberStateModel {
 export const defaultMemberState: MemberStateModel = {
   members: [],
   fetchPolicy: null,
+  paginationObject: startingPaginationObject,
   memberFormId: null,
   memberFormRecord: emptyMemberFormRecord,
   isFetching: false,

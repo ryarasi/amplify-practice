@@ -1,4 +1,4 @@
-import { MatSelectOption } from './models';
+import { MatSelectOption, PaginationObject } from './models';
 
 export const getOptionLabel = (
   value: string,
@@ -10,32 +10,41 @@ export const getOptionLabel = (
   } else return undefined;
 };
 
-export const setNextToken = (paginationTokens: object, pageIndex: number) => {
+export const setNextToken = (paginationObject: PaginationObject): string => {
+  const { paginationTokens, pageIndex } = paginationObject;
   return paginationTokens[pageIndex];
 };
 
-export const setPaginationTokens = (
-  paginationTokens: object,
+export const updatePaginationObject = (
+  paginationObject: PaginationObject,
   nextToken: string
-): object => {
+) => {
+  // Update paginationTokens
+  let {
+    paginationTokens,
+    pageIndex,
+    previousPageDisabled,
+    nextPageDisabled,
+  } = paginationObject;
   const tokensArray = Object.values(paginationTokens);
   const nextTokenExists = tokensArray.includes(nextToken);
+  let newPaginationTokens;
   if (nextTokenExists) {
-    return paginationTokens;
+    newPaginationTokens = paginationTokens;
   } else {
     paginationTokens = Object.assign({}, paginationTokens);
     paginationTokens[tokensArray.length + 1] = nextToken;
-    return paginationTokens;
+    newPaginationTokens = paginationTokens;
   }
-};
+  // Update show/hide of pagination buttons
 
-export const disablePaginationButtons = (
-  paginationTokens: object,
-  nextToken: string,
-  pageIndex: number
-): any => {
-  return {
-    previousPageDisabled: pageIndex == 1 ? true : false,
-    nextPageDisabled: nextToken == null ? true : false,
-  };
+  (previousPageDisabled = pageIndex == 1 ? true : false),
+    (nextPageDisabled = nextToken == null ? true : false),
+    (paginationObject = {
+      ...paginationObject,
+      paginationTokens: newPaginationTokens,
+      previousPageDisabled,
+      nextPageDisabled,
+    });
+  return paginationObject;
 };

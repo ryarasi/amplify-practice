@@ -8,6 +8,7 @@ export class SearchParams {
   sortField: string = null;
   sortOrder: string = null;
   searchQuery: string = null;
+  columnFilters: object = {};
 }
 
 export interface ColWidth {

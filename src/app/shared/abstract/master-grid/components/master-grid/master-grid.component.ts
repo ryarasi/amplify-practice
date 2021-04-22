@@ -15,6 +15,10 @@ import {
   updateColumnWidth,
   customWidthsExist,
 } from './../../table.functions';
+import {
+  PaginationObject,
+  startingPaginationObject,
+} from 'src/app/shared/common/models';
 @Component({
   selector: 'app-master-grid',
   templateUrl: './master-grid.component.html',
@@ -37,6 +41,8 @@ export class MasterGridComponent implements OnInit, OnChanges {
   columns;
   @Input()
   frameworkComponents;
+  @Input()
+  columnFilters: object = {};
   @Input()
   gridOptions: GridOptions;
   @Input()
@@ -74,9 +80,7 @@ export class MasterGridComponent implements OnInit, OnChanges {
   @Input() csvColumnHeaders: string[] = [];
   @Input() rowSelection: string = '';
   @Input() rowDeselection: boolean = true;
-  @Input() previousPageDisabled: boolean = true;
-  @Input() nextPageDisabled: boolean = true;
-  @Input() pageNumber: number = 1;
+  @Input() paginationObject: PaginationObject = startingPaginationObject;
   selectedRows = [];
   @Output() selectionChangeCallback: EventEmitter<any> = new EventEmitter();
   private tableHeight = `100vh - var(--topnav-height) - var(--paginator-height) - var(--search-input-height) - var(--generic-padding)`;
@@ -116,6 +120,14 @@ export class MasterGridComponent implements OnInit, OnChanges {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.searchParams = {
+      ...this.searchParams,
+      columnFilters: this.columnFilters,
+    };
+    console.log(
+      'new searchParams after adding columnFilters => ',
+      this.searchParams
+    );
     this.fetchRecords();
     this.sizeToFit();
   }
@@ -155,11 +167,11 @@ export class MasterGridComponent implements OnInit, OnChanges {
     }
   };
   previousPage() {
-    this.searchParams.pageNumber = this.pageNumber - 1;
+    this.searchParams.pageNumber = this.paginationObject.pageIndex - 1;
     this.fetchRecords();
   }
   nextPage() {
-    this.searchParams.pageNumber = this.pageNumber + 1;
+    this.searchParams.pageNumber = this.paginationObject.pageIndex + 1;
     this.fetchRecords();
   }
   onSortChanged = (event) => {

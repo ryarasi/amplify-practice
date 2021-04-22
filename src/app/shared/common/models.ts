@@ -49,3 +49,17 @@ export type FetchPolicy =
   | 'standby';
 
 export type MatSelectOption = { label: string; value: string };
+
+export type PaginationObject = {
+  paginationTokens: object;
+  pageIndex: number;
+  previousPageDisabled: boolean;
+  nextPageDisabled: boolean;
+};
+
+export const startingPaginationObject = {
+  paginationTokens: { 1: null },
+  pageIndex: 1,
+  nextPageDisabled: true,
+  previousPageDisabled: true,
+};

@@ -20,11 +20,8 @@ import { ToggleLoadingScreen } from '../loading/loading.actions';
 import { MatSelectOption } from '../../common/models';
 import * as modifiedQueries from './institution.queries.graphql';
 import { defaultPageSize } from '../../abstract/master-grid/table.model';
-import {
-  disablePaginationButtons,
-  setNextToken,
-  setPaginationTokens,
-} from '../../common/functions';
+import { setNextToken, updatePaginationObject } from '../../common/functions';
+import { Institution } from 'src/app/API.service';
 @State<InstitutionStateModel>({
   name: 'institutionState',
   defaults: defaultInstitutionState,
@@ -34,23 +31,13 @@ export class InstitutionState {
   constructor(private store: Store) {}
 
   @Selector()
-  static listInstitutions(state: InstitutionStateModel) {
+  static listInstitutions(state: InstitutionStateModel): Institution[] {
     return state.institutions;
   }
 
   @Selector()
-  static previousPageDisabled(state: InstitutionStateModel) {
-    return state.previousPageDisabled;
-  }
-
-  @Selector()
-  static nextPageDisabled(state: InstitutionStateModel) {
-    return state.nextPageDisabled;
-  }
-
-  @Selector()
-  static pageNumber(state: InstitutionStateModel) {
-    return state.pageIndex;
+  static paginationObject(state: InstitutionStateModel): object {
+    return state.paginationObject;
   }
 
   @Selector()
@@ -65,27 +52,27 @@ export class InstitutionState {
   }
 
   @Selector()
-  static isFetching(state: InstitutionStateModel) {
+  static isFetching(state: InstitutionStateModel): boolean {
     return state.isFetching;
   }
 
   @Selector()
-  static errorFetching(state: InstitutionStateModel) {
+  static errorFetching(state: InstitutionStateModel): boolean {
     return state.errorFetching;
   }
 
   @Selector()
-  static formSubmitting(state: InstitutionStateModel) {
+  static formSubmitting(state: InstitutionStateModel): boolean {
     return state.formSubmitting;
   }
 
   @Selector()
-  static errorSubmitting(state: InstitutionStateModel) {
+  static errorSubmitting(state: InstitutionStateModel): boolean {
     return state.errorSubmitting;
   }
 
   @Selector()
-  static getInstitutionFormRecord(state: InstitutionStateModel) {
+  static getInstitutionFormRecord(state: InstitutionStateModel): Institution {
     return state.institutionFormRecord;
   }
 
@@ -111,14 +98,16 @@ export class InstitutionState {
       isFetching,
       errorFetching,
       fetchPolicy,
-      paginationTokens,
-      pageIndex,
-      nextPageDisabled,
-      previousPageDisabled,
+      paginationObject,
     } = state;
     isFetching = true;
     errorFetching = false;
-    pageIndex = searchParams.pageNumber;
+    paginationObject = {
+      ...paginationObject,
+      pageIndex: searchParams?.pageNumber
+        ? searchParams?.pageNumber
+        : paginationObject.pageIndex,
+    };
     patchState({ isFetching, errorFetching, institutions });
     const filter = searchParams?.searchQuery
       ? {
@@ -129,7 +118,8 @@ export class InstitutionState {
     const variables = {
       filter,
       limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
-      nextToken: setNextToken(paginationTokens, pageIndex),
+      // limit: 1,
+      nextToken: setNextToken(paginationObject),
     };
     client
       .query({
@@ -142,25 +132,16 @@ export class InstitutionState {
         const institutions = res.data.listInstitutions.items;
         const returnedNextToken = res.data.listInstitutions.nextToken;
         fetchPolicy = null;
-        paginationTokens = setPaginationTokens(
-          paginationTokens,
+        paginationObject = updatePaginationObject(
+          paginationObject,
           returnedNextToken
         );
-        const disabledPaginationButtons = disablePaginationButtons(
-          paginationTokens,
-          returnedNextToken,
-          pageIndex
-        );
-        previousPageDisabled = disabledPaginationButtons.previousPageDisabled;
-        nextPageDisabled = disabledPaginationButtons.nextPageDisabled;
+
         patchState({
           institutions,
           isFetching,
           fetchPolicy,
-          paginationTokens,
-          pageIndex,
-          previousPageDisabled,
-          nextPageDisabled,
+          paginationObject,
         });
       })
       .catch((err) => {

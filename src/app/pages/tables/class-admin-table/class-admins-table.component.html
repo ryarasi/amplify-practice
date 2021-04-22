@@ -8,6 +8,7 @@
   [frameworkComponents]="frameworkComponents"
   [gridOptions]="gridOptions"
   [paginationObject]="paginationObject$ | async"
+  [columnFilters]="columnFilters"
   (fetchMethod)="fetchMembers($event[0])"
   (refreshData)="forceRefetchMembers($event[0])"
   (createMethod)="createMember()"

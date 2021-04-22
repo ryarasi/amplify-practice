@@ -19,7 +19,13 @@ import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
 import awsmobile from 'src/aws-exports.js';
 import { CognitoGroups, MatSelectOption } from '../../common/models';
-import { getOptionLabel } from './../../common/functions';
+import {
+  getOptionLabel,
+  setNextToken,
+  updatePaginationObject,
+} from './../../common/functions';
+import { defaultPageSize } from '../../abstract/master-grid/table.model';
+import { Member } from 'src/app/API.service';
 
 @State<MemberStateModel>({
   name: 'memberState',
@@ -30,8 +36,13 @@ export class MemberState {
   constructor(private store: Store) {}
 
   @Selector()
-  static listMembers(state: MemberStateModel) {
+  static listMembers(state: MemberStateModel): Member[] {
     return state.members;
+  }
+
+  @Selector()
+  static paginationObject(state: MemberStateModel): Object {
+    return state.paginationObject;
   }
 
   @Selector()
@@ -42,27 +53,27 @@ export class MemberState {
   }
 
   @Selector()
-  static isFetching(state: MemberStateModel) {
+  static isFetching(state: MemberStateModel): boolean {
     return state.isFetching;
   }
 
   @Selector()
-  static errorFetching(state: MemberStateModel) {
+  static errorFetching(state: MemberStateModel): boolean {
     return state.errorFetching;
   }
 
   @Selector()
-  static formSubmitting(state: MemberStateModel) {
+  static formSubmitting(state: MemberStateModel): boolean {
     return state.formSubmitting;
   }
 
   @Selector()
-  static errorSubmitting(state: MemberStateModel) {
+  static errorSubmitting(state: MemberStateModel): boolean {
     return state.errorSubmitting;
   }
 
   @Selector()
-  static getMemberFormRecord(state: MemberStateModel) {
+  static getMemberFormRecord(state: MemberStateModel): Member {
     return state.memberFormRecord;
   }
 
@@ -72,12 +83,50 @@ export class MemberState {
   }
 
   @Action(FetchMembers)
-  fetchMembers({ getState, patchState }: StateContext<MemberStateModel>) {
+  fetchMembers(
+    { getState, patchState }: StateContext<MemberStateModel>,
+    { payload }: FetchMembers
+  ) {
+    const { searchParams } = payload;
+    console.log('search params from members state ', searchParams);
     const state = getState();
-    let { members, isFetching, errorFetching, fetchPolicy } = state;
+    let {
+      members,
+      isFetching,
+      errorFetching,
+      fetchPolicy,
+      paginationObject,
+    } = state;
     isFetching = true;
     errorFetching = false;
     patchState({ isFetching, errorFetching, members });
+
+    // Constructing the filter object
+    let filter = {
+      ...searchParams.columnFilters,
+      searchField: searchParams?.searchQuery
+        ? { contains: searchParams.searchQuery.toLowerCase() }
+        : null,
+    };
+
+    filter = Object.keys(filter).length ? filter : null;
+    /* updating the paginationObject with the incoming new page number
+    This is necessary for setting the right token
+    */
+    paginationObject = {
+      ...paginationObject,
+      pageIndex: searchParams?.pageNumber
+        ? searchParams?.pageNumber
+        : paginationObject.pageIndex,
+    };
+    // Constructing the variables to be used in the Graphql Query
+    const variables = {
+      filter,
+      limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
+      // limit: 1,
+      nextToken: setNextToken(paginationObject),
+    };
+    console.log('variables for the query => ', variables);
     client
       .query({
         query: queries.ListMembers,
@@ -86,8 +135,13 @@ export class MemberState {
       .then((res: any) => {
         isFetching = false;
         const members = res.data.listMembers.items;
+        const returnedNextToken = res.data.listInstitutions.nextToken;
         fetchPolicy = null;
-        patchState({ members, isFetching, fetchPolicy });
+        paginationObject = updatePaginationObject(
+          paginationObject,
+          returnedNextToken
+        );
+        patchState({ members, isFetching, fetchPolicy, paginationObject });
       })
       .catch((err) => {
         isFetching = false;
@@ -220,7 +274,7 @@ export class MemberState {
                 memberFormRecord: emptyMemberFormRecord,
                 formSubmitting,
               });
-              this.store.dispatch(new ForceRefetchMembers());
+              this.store.dispatch(new ForceRefetchMembers({}));
               this.store.dispatch(
                 new ShowNotificationAction({
                   message: 'Form submitted successfully!',
@@ -272,7 +326,7 @@ export class MemberState {
       })
       .then((res: any) => {
         console.log(res);
-        this.store.dispatch(new ForceRefetchMembers());
+        this.store.dispatch(new ForceRefetchMembers({}));
         this.store.dispatch(
           new ToggleLoadingScreen({
             showLoadingScreen: false,

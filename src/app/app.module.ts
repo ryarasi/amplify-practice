@@ -40,8 +40,6 @@ import {
 import { InstitutionState } from './shared/state/institutions/institution.state';
 import { InstitutionsTableComponent } from './pages/tables/institutions-table/institutions-table.component';
 import { MembersTableComponent } from './pages/tables/members-table/members-table.component';
-import { GroupsTableComponent } from './pages/tables/groups-table/groups-table.component';
-import { CoursesTableComponent } from './pages/tables/courses-table/courses-table.component';
 import { MemberState } from './shared/state/members/member.state';
 import { MemberProfileRendererComponent } from './shared/cell-renderers/member-profile/member-profile-renderer.component';
 import { MemberProfileComponent } from './pages/modals/member-profile/member-profile.component';
@@ -49,6 +47,9 @@ import { AddEditMemberComponent } from './pages/forms/add-edit-member/add-edit-m
 import { GroupState } from './shared/state/groups/group.state';
 import { AddEditGroupComponent } from './pages/forms/add-edit-group/add-edit-group.component';
 import { MasterGridComponent } from './shared/abstract/master-grid/components/master-grid/master-grid.component';
+import { InstitutionAdminsTableComponent } from './pages/tables/institution-admins-table/institution-admins-table.component';
+import { ClassAdminsTableComponent } from './pages/tables/class-admin-table/class-admins-table.component';
+import { LearnersTableComponent } from './pages/tables/learners-table/learners-table.component';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -73,8 +74,9 @@ Amplify.configure(awsconfig);
     MasterGridComponent,
     InstitutionsTableComponent,
     MembersTableComponent,
-    GroupsTableComponent,
-    CoursesTableComponent,
+    InstitutionAdminsTableComponent,
+    ClassAdminsTableComponent,
+    LearnersTableComponent,
     MemberProfileRendererComponent,
     MemberProfileComponent,
     AddEditMemberComponent,

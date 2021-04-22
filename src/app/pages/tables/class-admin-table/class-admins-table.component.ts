@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Member } from 'src/app/API.service';
 import { SearchParams } from 'src/app/shared/abstract/master-grid/table.model';
 import { MemberProfileRendererComponent } from 'src/app/shared/cell-renderers/member-profile/member-profile-renderer.component';
+import { CognitoGroups } from 'src/app/shared/common/models';
 import { uiroutes } from 'src/app/shared/common/ui-routes';
 import {
   FetchMembers,
@@ -16,12 +17,12 @@ import { MemberState } from 'src/app/shared/state/members/member.state';
 import { MemberProfileComponent } from '../../modals/member-profile/member-profile.component';
 
 @Component({
-  selector: 'app-members-table',
-  templateUrl: './members-table.component.html',
-  styleUrls: ['./members-table.component.scss'],
+  selector: 'app-class-admins-table',
+  templateUrl: './class-admins-table.component.html',
+  styleUrls: ['./class-admins-table.component.scss'],
 })
-export class MembersTableComponent implements OnInit {
-  tableTitle: string = 'Members';
+export class ClassAdminsTableComponent implements OnInit {
+  tableTitle: string = 'Class Admins';
   members: object[];
   @Select(MemberState.listMembers)
   rows$: Observable<Member[]>;
@@ -32,6 +33,9 @@ export class MembersTableComponent implements OnInit {
   @Select(MemberState.paginationObject)
   paginationObject$: Observable<object>;
 
+  columnFilters = {
+    type: { eq: CognitoGroups.CLASS_ADMIN_GROUP },
+  };
   defaultColDef = {
     resizable: true,
   };
