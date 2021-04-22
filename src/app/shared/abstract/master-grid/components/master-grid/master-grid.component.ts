@@ -89,13 +89,13 @@ export class MasterGridComponent implements OnInit, OnChanges {
   previewPageStyles: object[] = [];
   isFetchingCSVDownload = false;
   csvDownloadReady = false;
-  calculateTableHeight = () => {
-    if (this.tableHeightStatic) {
-      return this.tableHeightStatic;
-    } else {
-      return `calc(${this.tableHeight} - ${this.tableHeightClearanceInPx}px)`;
-    }
-  };
+  // calculateTableHeight = () => {
+  //   if (this.tableHeightStatic) {
+  //     return this.tableHeightStatic;
+  //   } else {
+  //     return `calc(${this.tableHeight} - ${this.tableHeightClearanceInPx}px)`;
+  //   }
+  // };
   constructor(private store: Store) {}
 
   ngOnChanges(changes) {

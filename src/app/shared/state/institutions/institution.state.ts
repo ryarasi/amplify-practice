@@ -128,8 +128,7 @@ export class InstitutionState {
       : null;
     const variables = {
       filter,
-      // limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
-      limit: 1,
+      limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
       nextToken: setNextToken(paginationTokens, pageIndex),
     };
     client
