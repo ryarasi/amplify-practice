@@ -13,12 +13,18 @@
 #drawer-puller {
   float: left;
   position: absolute;
-  left: -15px;
-  bottom: 10px;
+  left: -10px;
   z-index: 1000;
+  visibility: hidden;
+}
+
+#drawer-puller:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
+#drawer-puller mat-icon {
+  color: var(--shuddhi-color);
+}
 .selectedSection {
   border-right: 2px solid var(--shuddhi-color);
 }

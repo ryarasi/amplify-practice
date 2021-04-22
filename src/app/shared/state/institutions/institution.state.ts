@@ -130,11 +130,7 @@ export class InstitutionState {
       filter,
       // limit: searchParams?.pageSize ? searchParams?.pageSize : defaultPageSize,
       limit: 1,
-      nextToken: setNextToken(
-        searchParams.prevOrNext,
-        paginationTokens,
-        pageIndex
-      ),
+      nextToken: setNextToken(paginationTokens, pageIndex),
     };
     client
       .query({

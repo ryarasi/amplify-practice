@@ -1,3 +1,8 @@
+<button mat-icon-button (click)="drawer.toggle()" id="drawer-puller">
+  <mat-icon>{{
+    opened === true ? "navigate_before" : "navigate_next"
+  }}</mat-icon>
+</button>
 <mat-drawer-container class="drawer-container">
   <mat-drawer #drawer mode="side" [(opened)]="opened" class="drawer-content">
     <mat-selection-list [multiple]="false">
@@ -13,9 +18,7 @@
       </mat-list-option>
     </mat-selection-list>
   </mat-drawer>
-  <button mat-icon-button (click)="drawer.toggle()" id="drawer-puller">
-    <mat-icon>{{ opened === true ? "arrow_left" : "arrow_right" }}</mat-icon>
-  </button>
+
   <app-institutions-table
     *ngIf="selectedEntity == institutions"
   ></app-institutions-table>

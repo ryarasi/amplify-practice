@@ -15,7 +15,6 @@ import {
   updateColumnWidth,
   customWidthsExist,
 } from './../../table.functions';
-import { NEXT_PAGE, PREVIOUS_PAGE } from 'src/app/shared/common/constants';
 @Component({
   selector: 'app-master-grid',
   templateUrl: './master-grid.component.html',
@@ -156,12 +155,10 @@ export class MasterGridComponent implements OnInit, OnChanges {
     }
   };
   previousPage() {
-    this.searchParams.prevOrNext = PREVIOUS_PAGE;
     this.searchParams.pageNumber = this.pageNumber - 1;
     this.fetchRecords();
   }
   nextPage() {
-    this.searchParams.prevOrNext = NEXT_PAGE;
     this.searchParams.pageNumber = this.pageNumber + 1;
     this.fetchRecords();
   }

@@ -1,4 +1,3 @@
-import { NEXT_PAGE, PREVIOUS_PAGE } from '../common/constants';
 import { MatSelectOption } from '../models';
 
 export const getOptionLabel = (
@@ -11,11 +10,7 @@ export const getOptionLabel = (
   } else return undefined;
 };
 
-export const setNextToken = (
-  prevOrNext: string,
-  paginationTokens: object,
-  pageIndex: number
-) => {
+export const setNextToken = (paginationTokens: object, pageIndex: number) => {
   return paginationTokens[pageIndex];
 };
 

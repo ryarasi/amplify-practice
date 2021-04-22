@@ -38,6 +38,7 @@ export class MembersTableComponent implements OnInit {
       cellRenderer: 'memberRenderer',
     },
     { field: 'institution' },
+    { field: 'type' },
   ];
   frameworkComponents = {
     memberRenderer: MemberProfileRendererComponent,

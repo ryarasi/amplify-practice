@@ -1,10 +1,8 @@
-import { NEXT_PAGE, PREVIOUS_PAGE } from '../../common/constants';
 import { pageSizeOptions } from './table.config';
 
 export const defaultPageSize = pageSizeOptions[0].value;
 
 export class SearchParams {
-  prevOrNext: string = PREVIOUS_PAGE || NEXT_PAGE;
   pageNumber: number = 1;
   pageSize: number = defaultPageSize;
   sortField: string = null;

@@ -5,6 +5,3 @@ export const day = hour * 24;
 export const week = day * 7;
 export const month = week * 4;
 export const year = month * 12;
-
-export const NEXT_PAGE = 'NEXT';
-export const PREVIOUS_PAGE = 'PREVIOUS';
