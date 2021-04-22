@@ -23,6 +23,7 @@ import { defaultPageSize } from '../../abstract/master-grid/table.model';
 import {
   disablePaginationButtons,
   setNextToken,
+  setPaginationTokens,
 } from '../../functions/functions';
 @State<InstitutionStateModel>({
   name: 'institutionState',
@@ -45,6 +46,11 @@ export class InstitutionState {
   @Selector()
   static nextPageDisabled(state: InstitutionStateModel) {
     return state.nextPageDisabled;
+  }
+
+  @Selector()
+  static pageNumber(state: InstitutionStateModel) {
+    return state.pageIndex;
   }
 
   @Selector()
@@ -112,14 +118,14 @@ export class InstitutionState {
       isFetching,
       errorFetching,
       fetchPolicy,
-      nextToken,
-      nextNextToken,
-      previousToken,
+      paginationTokens,
+      pageIndex,
       nextPageDisabled,
       previousPageDisabled,
     } = state;
     isFetching = true;
     errorFetching = false;
+    pageIndex = searchParams.pageNumber;
     patchState({ isFetching, errorFetching, institutions });
     const filter = searchParams?.searchQuery
       ? {
@@ -133,9 +139,8 @@ export class InstitutionState {
       limit: 1,
       nextToken: setNextToken(
         searchParams.prevOrNext,
-        previousToken,
-        nextToken,
-        nextNextToken
+        paginationTokens,
+        pageIndex
       ),
     };
     console.log('variables in the query => ', variables);
@@ -149,15 +154,18 @@ export class InstitutionState {
         isFetching = false;
         const institutions = res.data.listInstitutions.items;
         const returnedNextToken = res.data.listInstitutions.nextToken;
-        previousToken = returnedNextToken ? nextToken : previousToken;
-        nextToken = nextNextToken;
-        nextNextToken = returnedNextToken;
+
         console.log('Fetched institutions ', institutions);
         fetchPolicy = null;
         console.log('responses => ', res);
+        paginationTokens = setPaginationTokens(
+          paginationTokens,
+          returnedNextToken
+        );
         const disabledPaginationButtons = disablePaginationButtons(
-          nextToken,
-          nextNextToken
+          paginationTokens,
+          returnedNextToken,
+          pageIndex
         );
         previousPageDisabled = disabledPaginationButtons.previousPageDisabled;
         nextPageDisabled = disabledPaginationButtons.nextPageDisabled;
@@ -169,9 +177,8 @@ export class InstitutionState {
           institutions,
           isFetching,
           fetchPolicy,
-          previousToken,
-          nextToken,
-          nextNextToken,
+          paginationTokens,
+          pageIndex,
           previousPageDisabled,
           nextPageDisabled,
         });

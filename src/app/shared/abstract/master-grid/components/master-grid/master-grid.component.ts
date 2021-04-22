@@ -77,6 +77,7 @@ export class MasterGridComponent implements OnInit, OnChanges {
   @Input() rowDeselection: boolean = true;
   @Input() previousPageDisabled: boolean = true;
   @Input() nextPageDisabled: boolean = true;
+  @Input() pageNumber: number = 1;
   selectedRows = [];
   @Output() selectionChangeCallback: EventEmitter<any> = new EventEmitter();
   private tableHeight = `100vh - var(--topnav-height) - var(--paginator-height) - var(--search-input-height) - var(--generic-padding)`;
@@ -159,10 +160,12 @@ export class MasterGridComponent implements OnInit, OnChanges {
   };
   previousPage() {
     this.searchParams.prevOrNext = PREVIOUS_PAGE;
+    this.searchParams.pageNumber = this.pageNumber - 1;
     this.fetchRecords();
   }
   nextPage() {
     this.searchParams.prevOrNext = NEXT_PAGE;
+    this.searchParams.pageNumber = this.pageNumber + 1;
     this.fetchRecords();
   }
   onSortChanged = (event) => {

@@ -33,6 +33,8 @@ export class InstitutionsTableComponent implements OnInit {
   previousPageDisabled$: Observable<boolean>;
   @Select(InstitutionState.nextPageDisabled)
   nextPageDisabled$: Observable<boolean>;
+  @Select(InstitutionState.pageNumber)
+  pageNumber$: Observable<number>;
 
   defaultColDef = {
     resizable: true,

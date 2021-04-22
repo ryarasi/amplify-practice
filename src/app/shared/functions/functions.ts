@@ -13,31 +13,53 @@ export const getOptionLabel = (
 
 export const setNextToken = (
   prevOrNext: string,
-  previousToken: string,
-  nextToken: string,
-  nextNextToken: string
+  paginationTokens: object,
+  pageIndex: number
 ) => {
-  console.log('from setNextToken => ', {
+  console.log('From setNextToken => ', {
     prevOrNext,
-    previousToken,
-    nextToken,
-    nextNextToken,
+    paginationTokens,
+    pageIndex,
   });
-  if (prevOrNext == NEXT_PAGE) {
-    return nextNextToken;
-  } else if (prevOrNext == PREVIOUS_PAGE) {
-    return previousToken;
+  return paginationTokens[pageIndex];
+};
+
+export const setPaginationTokens = (
+  paginationTokens: object,
+  nextToken: string
+): object => {
+  const tokensArray = Object.values(paginationTokens);
+  const nextTokenExists = tokensArray.includes(nextToken);
+  console.log('from setPaginationTokens => ', {
+    paginationTokens,
+    nextToken,
+    nextTokenExists,
+  });
+  if (nextTokenExists) {
+    return paginationTokens;
   } else {
-    return nextToken;
+    console.log('BEFORE OBJECT ASSIGN => ', paginationTokens);
+    paginationTokens = Object.assign({}, paginationTokens);
+    console.log('AFTER OBJECT ASSIGN => ', paginationTokens);
+
+    paginationTokens[tokensArray.length + 1] = nextToken;
+    console.log('new pagination tokens => ', paginationTokens);
+    return paginationTokens;
   }
 };
 
 export const disablePaginationButtons = (
-  previousToken: string,
-  nextToken: string
-) => {
+  paginationTokens: object,
+  nextToken: string,
+  pageIndex: number
+): any => {
+  console.log('from disablePaginationButtons => ', {
+    paginationTokens,
+    nextToken,
+    pageIndex,
+  });
   return {
-    previousPageDisabled: previousToken == null ? true : false,
+    previousPageDisabled: pageIndex == 1 ? true : false,
     nextPageDisabled: nextToken == null ? true : false,
   };
 };

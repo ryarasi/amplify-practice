@@ -58,7 +58,7 @@
 </ag-grid-angular>
 <div>
   <button
-    [disabled]="previousPageDisabled"
+    [ngStyle]="{ visibility: previousPageDisabled ? 'hidden' : 'visible' }"
     mat-icon-button
     class="pagination-button"
     style="float: left"
@@ -67,7 +67,7 @@
     <mat-icon>arrow_left</mat-icon>
   </button>
   <button
-    [disabled]="nextPageDisabled"
+    [ngStyle]="{ visibility: nextPageDisabled ? 'hidden' : 'visible' }"
     mat-icon-button
     class="pagination-button"
     style="float: right"
