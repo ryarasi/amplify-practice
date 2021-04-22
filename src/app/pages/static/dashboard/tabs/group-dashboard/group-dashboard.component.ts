@@ -12,7 +12,7 @@ import { GroupState } from 'src/app/shared/state/groups/group.state';
   templateUrl: './group-dashboard.component.html',
   styleUrls: [
     './group-dashboard.component.scss',
-    './../../../../../../app/shared/styles/shared-styles.css',
+    './../../../../../../app/shared/common/shared-styles.css',
   ],
 })
 export class GroupDashboardComponent implements OnInit {

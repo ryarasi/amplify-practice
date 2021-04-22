@@ -18,8 +18,8 @@ import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
 import awsmobile from 'src/aws-exports.js';
-import { CognitoGroups, MatSelectOption } from '../../models';
-import { getOptionLabel } from '../../functions/functions';
+import { CognitoGroups, MatSelectOption } from '../../common/models';
+import { getOptionLabel } from './../../common/functions';
 
 @State<MemberStateModel>({
   name: 'memberState',

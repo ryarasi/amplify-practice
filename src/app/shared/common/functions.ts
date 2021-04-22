@@ -1,4 +1,4 @@
-import { MatSelectOption } from '../models';
+import { MatSelectOption } from './models';
 
 export const getOptionLabel = (
   value: string,

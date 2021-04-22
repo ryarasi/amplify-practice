@@ -23,7 +23,7 @@ import { Institution } from 'src/app/API.service';
   templateUrl: './add-edit-institution.component.html',
   styleUrls: [
     './add-edit-institution.component.scss',
-    './../../../shared/styles/shared-styles.css',
+    './../../../shared/common/shared-styles.css',
   ],
 })
 export class AddEditInstitutionComponent implements OnInit {

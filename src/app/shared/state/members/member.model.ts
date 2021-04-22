@@ -1,5 +1,9 @@
 import { Member } from 'src/app/API.service';
-import { CognitoGroups, FetchPolicy, MatSelectOption } from '../../models';
+import {
+  CognitoGroups,
+  FetchPolicy,
+  MatSelectOption,
+} from '../../common/models';
 
 export const emptyMemberFormRecord: Member = {
   __typename: 'Member',

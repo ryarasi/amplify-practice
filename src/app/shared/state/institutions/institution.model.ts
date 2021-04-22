@@ -1,5 +1,5 @@
 import { Institution } from 'src/app/API.service';
-import { FetchPolicy } from '../../models';
+import { FetchPolicy } from '../../common/models';
 
 export const emptyInstitutionFormRecord: Institution = {
   __typename: 'Institution',

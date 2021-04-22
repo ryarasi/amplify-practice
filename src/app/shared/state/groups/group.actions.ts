@@ -1,6 +1,6 @@
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import { Group } from 'src/app/API.service';
-import { idPayload, MatSelectOption } from '../../models';
+import { idPayload, MatSelectOption } from '../../common/models';
 
 export class FetchGroups {
   static readonly type = '[GROUPS] Fetch';

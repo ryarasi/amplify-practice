@@ -1,5 +1,5 @@
 import { Group } from 'src/app/API.service';
-import { FetchPolicy, MatSelectOption, GroupTypes } from '../../models';
+import { FetchPolicy, MatSelectOption, GroupTypes } from '../../common/models';
 
 export const emptyGroupFormRecord: Group = {
   __typename: 'Group',

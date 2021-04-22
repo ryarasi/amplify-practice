@@ -17,14 +17,14 @@ import * as queries from './../../../../graphql/queries.graphql';
 import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
-import { MatSelectOption } from '../../models';
+import { MatSelectOption } from '../../common/models';
 import * as modifiedQueries from './institution.queries.graphql';
 import { defaultPageSize } from '../../abstract/master-grid/table.model';
 import {
   disablePaginationButtons,
   setNextToken,
   setPaginationTokens,
-} from '../../functions/functions';
+} from '../../common/functions';
 @State<InstitutionStateModel>({
   name: 'institutionState',
   defaults: defaultInstitutionState,

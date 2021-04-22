@@ -17,7 +17,7 @@ import * as queries from './../../../../graphql/queries.graphql';
 import * as mutations from './../../../../graphql/mutations.graphql';
 import { ShowNotificationAction } from '../notifications/notification.actions';
 import { ToggleLoadingScreen } from '../loading/loading.actions';
-import { MatSelectOption } from '../../models';
+import { MatSelectOption } from '../../common/models';
 
 @State<GroupStateModel>({
   name: 'groupState',

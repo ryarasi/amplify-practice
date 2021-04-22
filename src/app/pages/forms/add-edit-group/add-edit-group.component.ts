@@ -21,7 +21,7 @@ import {
 } from 'src/app/shared/state/groups/group.model';
 import { Group } from 'src/app/API.service';
 import { InstitutionState } from 'src/app/shared/state/institutions/institution.state';
-import { MatSelectOption } from 'src/app/shared/models';
+import { MatSelectOption } from 'src/app/shared/common/models';
 import { FetchInstitutions } from 'src/app/shared/state/institutions/institution.actions';
 import { MemberState } from 'src/app/shared/state/members/member.state';
 
@@ -30,7 +30,7 @@ import { MemberState } from 'src/app/shared/state/members/member.state';
   templateUrl: './add-edit-group.component.html',
   styleUrls: [
     './add-edit-group.component.scss',
-    './../../../shared/styles/shared-styles.css',
+    './../../../shared/common/shared-styles.css',
   ],
 })
 export class AddEditGroupComponent implements OnInit {

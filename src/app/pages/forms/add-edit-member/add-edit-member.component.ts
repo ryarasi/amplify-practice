@@ -22,14 +22,14 @@ import {
 import { Member } from 'src/app/API.service';
 import { InstitutionState } from 'src/app/shared/state/institutions/institution.state';
 import { FetchInstitutions } from 'src/app/shared/state/institutions/institution.actions';
-import { MatSelectOption } from 'src/app/shared/models';
+import { MatSelectOption } from 'src/app/shared/common/models';
 
 @Component({
   selector: 'app-add-edit-member',
   templateUrl: './add-edit-member.component.html',
   styleUrls: [
     './add-edit-member.component.scss',
-    './../../../shared/styles/shared-styles.css',
+    './../../../shared/common/shared-styles.css',
   ],
 })
 export class AddEditMemberComponent implements OnInit {
