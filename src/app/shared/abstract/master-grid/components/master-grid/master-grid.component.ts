@@ -127,20 +127,17 @@ export class MasterGridComponent implements OnInit, OnChanges {
 
   showLoading() {
     if (this.gridApi) {
-      console.log('showing loading...');
       this.gridApi.showLoadingOverlay();
     }
   }
 
   hideLoading() {
     if (this.gridApi) {
-      console.log('hiding loading...');
       this.gridApi.hideOverlay();
     }
   }
 
   fetchRecords() {
-    console.log('from fetchRecords => ', { searchparams: this.searchParams });
     this.fetchMethod.emit([this.searchParams]);
   }
 
@@ -173,7 +170,6 @@ export class MasterGridComponent implements OnInit, OnChanges {
     const sortedColumn = event.columnApi
       .getColumnState()
       .find((c) => c.sort != null);
-    console.log('tableSortObject => ', sortedColumn);
     let newSortField = '';
     let newSortOrder = '';
     if (sortedColumn) {
@@ -192,7 +188,6 @@ export class MasterGridComponent implements OnInit, OnChanges {
   };
   onFilterChanged = (event) => {
     const filterSortModel = event.api.getFilterModel();
-    console.log('filter changed', { event, filterSortModel });
   };
 
   onFirstDataRendered(event) {

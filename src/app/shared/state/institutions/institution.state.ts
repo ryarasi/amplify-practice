@@ -57,7 +57,6 @@ export class InstitutionState {
   static listInstitutionOptions(
     state: InstitutionStateModel
   ): MatSelectOption[] {
-    console.log('state.institutions', state.institutions);
     const options = state.institutions.map((i) => {
       return { value: i.id, label: `${i.name} (${i.location})` };
     });
@@ -105,13 +104,7 @@ export class InstitutionState {
     { getState, patchState }: StateContext<InstitutionStateModel>,
     { payload }: FetchInstitutions
   ) {
-    console.log('Fetching institutions...');
     const { searchParams } = payload;
-
-    console.log(
-      "Search Params from institution state's fetch method => ",
-      searchParams
-    );
     const state = getState();
     let {
       institutions,
@@ -143,7 +136,6 @@ export class InstitutionState {
         pageIndex
       ),
     };
-    console.log('variables in the query => ', variables);
     client
       .query({
         query: modifiedQueries.ListInstitutions,
@@ -154,10 +146,7 @@ export class InstitutionState {
         isFetching = false;
         const institutions = res.data.listInstitutions.items;
         const returnedNextToken = res.data.listInstitutions.nextToken;
-
-        console.log('Fetched institutions ', institutions);
         fetchPolicy = null;
-        console.log('responses => ', res);
         paginationTokens = setPaginationTokens(
           paginationTokens,
           returnedNextToken
@@ -169,10 +158,6 @@ export class InstitutionState {
         );
         previousPageDisabled = disabledPaginationButtons.previousPageDisabled;
         nextPageDisabled = disabledPaginationButtons.nextPageDisabled;
-        console.log('Updating state after patch => ', {
-          previousPageDisabled,
-          nextPageDisabled,
-        });
         patchState({
           institutions,
           isFetching,
@@ -184,7 +169,6 @@ export class InstitutionState {
         });
       })
       .catch((err) => {
-        console.log('Error while fetching institutions => ', err);
         isFetching = false;
         errorFetching = true;
         institutions = [];
@@ -220,7 +204,6 @@ export class InstitutionState {
           this.store.dispatch(
             new ToggleLoadingScreen({ showLoadingScreen: false })
           );
-          console.log('res from institution fetch', res);
           const institutionFormRecord = res.data.getInstitution;
           patchState({ institutionFormRecord });
         })

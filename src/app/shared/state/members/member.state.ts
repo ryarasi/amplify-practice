@@ -73,7 +73,6 @@ export class MemberState {
 
   @Action(FetchMembers)
   fetchMembers({ getState, patchState }: StateContext<MemberStateModel>) {
-    console.log('Fetching members...');
     const state = getState();
     let { members, isFetching, errorFetching, fetchPolicy } = state;
     isFetching = true;
@@ -87,7 +86,6 @@ export class MemberState {
       .then((res: any) => {
         isFetching = false;
         const members = res.data.listMembers.items;
-        console.log('Fetched members ', members);
         fetchPolicy = null;
         patchState({ members, isFetching, fetchPolicy });
       })
@@ -127,7 +125,6 @@ export class MemberState {
           this.store.dispatch(
             new ToggleLoadingScreen({ showLoadingScreen: false })
           );
-          console.log('res from member fetch', res);
           const memberFormRecord = res.data.getMember;
           patchState({ memberFormRecord });
         })
@@ -160,7 +157,6 @@ export class MemberState {
       const updateForm = values.id ? true : false;
       patchState({ formSubmitting });
       if (updateForm) {
-        console.log('Member update needs to be fixed properly');
         // client
         //   .mutate({
         //     mutation: updateForm
@@ -201,15 +197,6 @@ export class MemberState {
         const type = values.type;
         const title = constructMemberTitle(values, institutionOptions);
         const bio = values.bio ? values.bio : "I'm new at Shuddhi Vidhya!";
-        console.log('createMember mutation inputs => ', {
-          name: values.name,
-          username: 'zeebface',
-          email: values.email,
-          institution: values.institution,
-          type,
-          title,
-          bio,
-        });
         client
           .mutate({
             mutation: mutations.AddMember,
@@ -226,7 +213,6 @@ export class MemberState {
           .then((res: any) => {
             if (res?.User?.Attributes[0]?.sub) {
               // executing the following only when we receive the created user's ID in the response
-              console.log('response for member add ', res);
               formSubmitting = false;
               form.reset();
               formDirective.resetForm();
@@ -256,7 +242,6 @@ export class MemberState {
           });
       }
     } else {
-      console.log('Form => ', form);
       this.store.dispatch(
         new ShowNotificationAction({
           message:

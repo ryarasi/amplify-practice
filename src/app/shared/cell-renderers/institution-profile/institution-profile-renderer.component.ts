@@ -15,7 +15,6 @@ export class InstitutionProfileRendererComponent {
 
   // gets called once before the renderer is used
   agInit(params: ICellRendererParams): void {
-    console.log('params', params);
     this.params = params;
     this.rowData = params.data;
     this.cellValue = this.getValueToDisplay(params);
@@ -32,7 +31,6 @@ export class InstitutionProfileRendererComponent {
   constructor(public dialog: MatDialog) {}
 
   public invokeParentMethod() {
-    console.log('params from invokeparentmethod ', this.params);
     this.params.context.componentParent.openInstitutionProfile(this.rowData);
   }
   openDialog() {

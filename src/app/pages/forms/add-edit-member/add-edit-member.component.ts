@@ -62,8 +62,6 @@ export class AddEditMemberComponent implements OnInit {
     this.memberFormRecord$.subscribe((val) => {
       this.memberFormRecord = val;
       this.memberForm = this.setupMemberFormGroup(this.memberFormRecord);
-      console.log('val => ', val);
-      console.log('this.memberForm', this.memberForm);
     });
   }
 

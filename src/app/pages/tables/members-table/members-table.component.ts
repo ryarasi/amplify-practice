@@ -69,14 +69,11 @@ export class MembersTableComponent implements OnInit {
   }
 
   openMemberProfile(rowData) {
-    console.log('row data from the open dialog', rowData);
     const dialogRef = this.dialog.open(MemberProfileComponent, {
       data: rowData,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   ngOnInit(): void {}

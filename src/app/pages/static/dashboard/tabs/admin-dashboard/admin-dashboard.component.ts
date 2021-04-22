@@ -33,9 +33,7 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    console.log('params from admin dashboard', this.params);
-  }
+  ngOnInit(): void {}
 
   onSelectEntity(entity) {
     this.selectedEntity = entity;

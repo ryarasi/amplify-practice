@@ -71,7 +71,6 @@ export class GroupState {
 
   @Action(FetchGroups)
   fetchGroups({ getState, patchState }: StateContext<GroupStateModel>) {
-    console.log('Fetching groups...');
     const state = getState();
     let { groups, isFetching, errorFetching, fetchPolicy } = state;
     isFetching = true;
@@ -85,7 +84,6 @@ export class GroupState {
       .then((res: any) => {
         isFetching = false;
         const groups = res.data.listGroups.items;
-        console.log('Fetched groups ', groups);
         fetchPolicy = null;
         patchState({ groups, isFetching, fetchPolicy });
       })
@@ -125,7 +123,6 @@ export class GroupState {
           this.store.dispatch(
             new ToggleLoadingScreen({ showLoadingScreen: false })
           );
-          console.log('res from group fetch', res);
           const groupFormRecord = res.data.getGroup;
           patchState({ groupFormRecord });
         })
@@ -158,7 +155,6 @@ export class GroupState {
       const updateForm = values.id ? true : false;
       patchState({ formSubmitting });
       if (updateForm) {
-        console.log('Group update needs to be fixed properly');
         client
           .mutate({
             mutation: updateForm
@@ -199,7 +195,6 @@ export class GroupState {
           type: values.type,
           institution: { id: values.institution },
         };
-        console.log('sending in values => ', newValues);
         client
           .mutate({
             mutation: mutations.CreateGroup,
@@ -235,7 +230,6 @@ export class GroupState {
           });
       }
     } else {
-      console.log('Form => ', form);
       this.store.dispatch(
         new ShowNotificationAction({
           message:

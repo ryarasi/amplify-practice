@@ -68,7 +68,6 @@ export class InstitutionsTableComponent implements OnInit {
   }
 
   fetchInstitutions(searchParams: SearchParams) {
-    console.log('searchParams from institution table => ', searchParams);
     this.store.dispatch(new FetchInstitutions({ searchParams }));
   }
 
@@ -81,14 +80,11 @@ export class InstitutionsTableComponent implements OnInit {
   }
 
   openInstitutionProfile(rowData) {
-    console.log('row data from the open dialog', rowData);
     const dialogRef = this.dialog.open(InstitutionProfileComponent, {
       data: rowData,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   ngOnInit(): void {}

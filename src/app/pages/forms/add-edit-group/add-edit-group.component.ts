@@ -64,8 +64,6 @@ export class AddEditGroupComponent implements OnInit {
     this.groupFormRecord$.subscribe((val) => {
       this.groupFormRecord = val;
       this.groupForm = this.setupGroupFormGroup(this.groupFormRecord);
-      console.log('val => ', val);
-      console.log('this.groupForm', this.groupForm);
     });
   }
 

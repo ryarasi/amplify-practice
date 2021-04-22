@@ -26,7 +26,6 @@ export class InstitutionProfileComponent {
     private store: Store
   ) {
     this.profileData = data;
-    console.log('profile data ', this.profileData);
   }
 
   closeDialog(): void {
@@ -50,7 +49,6 @@ export class InstitutionProfileComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
       if (result == true) {
         this.deleteInstitution();
       }

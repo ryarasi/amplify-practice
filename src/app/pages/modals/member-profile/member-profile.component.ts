@@ -21,7 +21,6 @@ export class MemberProfileComponent {
     private store: Store
   ) {
     this.profileData = data;
-    console.log('profile data ', this.profileData);
   }
 
   onNoClick(): void {

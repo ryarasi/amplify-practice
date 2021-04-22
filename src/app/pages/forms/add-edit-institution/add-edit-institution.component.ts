@@ -48,8 +48,6 @@ export class AddEditInstitutionComponent implements OnInit {
       this.institutionForm = this.setupInstitutionFormGroup(
         this.institutionFormRecord
       );
-      console.log('val => ', val);
-      console.log('this.institutionForm', this.institutionForm);
     });
   }
 
