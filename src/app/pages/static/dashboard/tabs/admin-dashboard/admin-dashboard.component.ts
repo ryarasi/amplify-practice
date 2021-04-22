@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const INSTITUTIONS = 'Institutions';
 const MEMBERS = 'Members';
@@ -31,11 +32,36 @@ export class AdminDashboardComponent implements OnInit {
 
   selectedEntity = this.entities[0];
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.params = params;
+      const paramSection = params['section'];
+      if (paramSection) {
+        this.selectedEntity = paramSection;
+      } else {
+        // If there are no tabname params, inject the available ones here.
+        // Do this after authorization is implemented
+      }
+    });
+  }
 
   onSelectEntity(entity) {
     this.selectedEntity = entity;
+    this.onSelectionChange();
+  }
+
+  onSelectionChange() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { section: this.selectedEntity },
+      queryParamsHandling: 'merge',
+      skipLocationChange: false,
+    });
   }
 }
