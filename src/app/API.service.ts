@@ -104,6 +104,7 @@ export type Member = {
   instructor?: ModelCourseInstructorConnection;
   assistant?: ModelCourseAssistantConnection;
   learner?: ModelCourseLearnerConnection;
+  searchField?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -131,6 +132,7 @@ export type Group = {
   type?: GroupType;
   admins?: Array<Member | null> | null;
   members?: ModelGroupMemberConnection;
+  searchField?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -167,6 +169,7 @@ export type Course = {
   creditHours?: number | null;
   assignments?: Array<Assignment | null> | null;
   sections?: Array<CourseSection | null> | null;
+  searchField?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -254,11 +257,13 @@ export type CreateGroupInput = {
   id?: string | null;
   name: string;
   type: GroupType;
+  searchField?: string | null;
 };
 
 export type ModelGroupConditionInput = {
   name?: ModelStringInput | null;
   type?: ModelGroupTypeInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelGroupConditionInput | null> | null;
   or?: Array<ModelGroupConditionInput | null> | null;
   not?: ModelGroupConditionInput | null;
@@ -273,6 +278,7 @@ export type UpdateGroupInput = {
   id: string;
   name?: string | null;
   type?: GroupType | null;
+  searchField?: string | null;
 };
 
 export type DeleteGroupInput = {
@@ -286,6 +292,7 @@ export type CreateMemberInput = {
   type: string;
   title?: string | null;
   bio?: string | null;
+  searchField?: string | null;
 };
 
 export type ModelMemberConditionInput = {
@@ -294,6 +301,7 @@ export type ModelMemberConditionInput = {
   type?: ModelStringInput | null;
   title?: ModelStringInput | null;
   bio?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelMemberConditionInput | null> | null;
   or?: Array<ModelMemberConditionInput | null> | null;
   not?: ModelMemberConditionInput | null;
@@ -306,6 +314,7 @@ export type UpdateMemberInput = {
   type?: string | null;
   title?: string | null;
   bio?: string | null;
+  searchField?: string | null;
 };
 
 export type DeleteMemberInput = {
@@ -317,12 +326,14 @@ export type CreateCourseInput = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
+  searchField?: string | null;
 };
 
 export type ModelCourseConditionInput = {
   start?: ModelStringInput | null;
   end?: ModelStringInput | null;
   creditHours?: ModelIntInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelCourseConditionInput | null> | null;
   or?: Array<ModelCourseConditionInput | null> | null;
   not?: ModelCourseConditionInput | null;
@@ -345,6 +356,7 @@ export type UpdateCourseInput = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
+  searchField?: string | null;
 };
 
 export type DeleteCourseInput = {
@@ -570,6 +582,7 @@ export type ModelGroupFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   type?: ModelGroupTypeInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelGroupFilterInput | null> | null;
   or?: Array<ModelGroupFilterInput | null> | null;
   not?: ModelGroupFilterInput | null;
@@ -588,6 +601,7 @@ export type ModelMemberFilterInput = {
   type?: ModelStringInput | null;
   title?: ModelStringInput | null;
   bio?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelMemberFilterInput | null> | null;
   or?: Array<ModelMemberFilterInput | null> | null;
   not?: ModelMemberFilterInput | null;
@@ -604,6 +618,7 @@ export type ModelCourseFilterInput = {
   start?: ModelStringInput | null;
   end?: ModelStringInput | null;
   creditHours?: ModelIntInput | null;
+  searchField?: ModelStringInput | null;
   and?: Array<ModelCourseFilterInput | null> | null;
   or?: Array<ModelCourseFilterInput | null> | null;
   not?: ModelCourseFilterInput | null;
@@ -816,6 +831,7 @@ export type CreateInstitutionMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -857,6 +873,7 @@ export type CreateInstitutionMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -913,6 +930,7 @@ export type UpdateInstitutionMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -954,6 +972,7 @@ export type UpdateInstitutionMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -1010,6 +1029,7 @@ export type DeleteInstitutionMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -1051,6 +1071,7 @@ export type DeleteInstitutionMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -1081,6 +1102,7 @@ export type CreateGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1092,6 +1114,7 @@ export type CreateGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1138,6 +1161,7 @@ export type CreateGroupMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -1151,6 +1175,7 @@ export type CreateGroupMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1177,6 +1202,7 @@ export type UpdateGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1188,6 +1214,7 @@ export type UpdateGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1234,6 +1261,7 @@ export type UpdateGroupMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -1247,6 +1275,7 @@ export type UpdateGroupMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1273,6 +1302,7 @@ export type DeleteGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1284,6 +1314,7 @@ export type DeleteGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1330,6 +1361,7 @@ export type DeleteGroupMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -1343,6 +1375,7 @@ export type DeleteGroupMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1373,6 +1406,7 @@ export type CreateMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1384,6 +1418,7 @@ export type CreateMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1431,6 +1466,7 @@ export type CreateMemberMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1461,6 +1497,7 @@ export type UpdateMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1472,6 +1509,7 @@ export type UpdateMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1519,6 +1557,7 @@ export type UpdateMemberMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1549,6 +1588,7 @@ export type DeleteMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1560,6 +1600,7 @@ export type DeleteMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1607,6 +1648,7 @@ export type DeleteMemberMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1657,6 +1699,7 @@ export type CreateCourseMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -1693,12 +1736,14 @@ export type CreateCourseMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1749,6 +1794,7 @@ export type UpdateCourseMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -1785,12 +1831,14 @@ export type UpdateCourseMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1841,6 +1889,7 @@ export type DeleteCourseMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -1877,12 +1926,14 @@ export type DeleteCourseMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1928,6 +1979,7 @@ export type CreateCourseSectionMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1976,6 +2028,7 @@ export type UpdateCourseSectionMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -2024,6 +2077,7 @@ export type DeleteCourseSectionMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -2071,6 +2125,7 @@ export type CreateAssignmentMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -2085,6 +2140,7 @@ export type CreateAssignmentMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2146,6 +2202,7 @@ export type UpdateAssignmentMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -2160,6 +2217,7 @@ export type UpdateAssignmentMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2221,6 +2279,7 @@ export type DeleteAssignmentMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -2235,6 +2294,7 @@ export type DeleteAssignmentMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -2322,6 +2382,7 @@ export type CreateCourseInstructorMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2363,6 +2424,7 @@ export type CreateCourseInstructorMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2409,6 +2471,7 @@ export type UpdateCourseInstructorMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2450,6 +2513,7 @@ export type UpdateCourseInstructorMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2496,6 +2560,7 @@ export type DeleteCourseInstructorMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2537,6 +2602,7 @@ export type DeleteCourseInstructorMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2583,6 +2649,7 @@ export type CreateCourseAssistantMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2624,6 +2691,7 @@ export type CreateCourseAssistantMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2670,6 +2738,7 @@ export type UpdateCourseAssistantMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2711,6 +2780,7 @@ export type UpdateCourseAssistantMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2757,6 +2827,7 @@ export type DeleteCourseAssistantMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2798,6 +2869,7 @@ export type DeleteCourseAssistantMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2844,6 +2916,7 @@ export type CreateCourseLearnerMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2885,6 +2958,7 @@ export type CreateCourseLearnerMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2931,6 +3005,7 @@ export type UpdateCourseLearnerMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2972,6 +3047,7 @@ export type UpdateCourseLearnerMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3018,6 +3094,7 @@ export type DeleteCourseLearnerMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3059,6 +3136,7 @@ export type DeleteCourseLearnerMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3096,6 +3174,7 @@ export type CreateGroupMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3103,6 +3182,7 @@ export type CreateGroupMemberMutation = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3144,6 +3224,7 @@ export type CreateGroupMemberMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3181,6 +3262,7 @@ export type UpdateGroupMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3188,6 +3270,7 @@ export type UpdateGroupMemberMutation = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3229,6 +3312,7 @@ export type UpdateGroupMemberMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3266,6 +3350,7 @@ export type DeleteGroupMemberMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3273,6 +3358,7 @@ export type DeleteGroupMemberMutation = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3314,6 +3400,7 @@ export type DeleteGroupMemberMutation = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3369,6 +3456,7 @@ export type GetInstitutionQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3410,6 +3498,7 @@ export type GetInstitutionQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3438,6 +3527,7 @@ export type ListInstitutionsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3449,6 +3539,7 @@ export type ListInstitutionsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3481,6 +3572,7 @@ export type GetGroupQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3492,6 +3584,7 @@ export type GetGroupQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3538,6 +3631,7 @@ export type GetGroupQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3551,6 +3645,7 @@ export type GetGroupQuery = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3584,6 +3679,7 @@ export type ListGroupsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3591,6 +3687,7 @@ export type ListGroupsQuery = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3623,6 +3720,7 @@ export type GetMemberQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3634,6 +3732,7 @@ export type GetMemberQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3681,6 +3780,7 @@ export type GetMemberQuery = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3725,6 +3825,7 @@ export type ListMembersQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3777,6 +3878,7 @@ export type GetCourseQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3813,12 +3915,14 @@ export type GetCourseQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3861,6 +3965,7 @@ export type ListCoursesQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -3908,6 +4013,7 @@ export type GetCourseSectionQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -3928,6 +4034,7 @@ export type ListCourseSectionsQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -3977,6 +4084,7 @@ export type GetAssignmentQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -3991,6 +4099,7 @@ export type GetAssignmentQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4024,6 +4133,7 @@ export type ListAssignmentsQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -4113,6 +4223,7 @@ export type GetCourseInstructorQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4154,6 +4265,7 @@ export type GetCourseInstructorQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4172,6 +4284,7 @@ export type ListCourseInstructorsQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4183,6 +4296,7 @@ export type ListCourseInstructorsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4231,6 +4345,7 @@ export type GetCourseAssistantQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4272,6 +4387,7 @@ export type GetCourseAssistantQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4290,6 +4406,7 @@ export type ListCourseAssistantsQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4301,6 +4418,7 @@ export type ListCourseAssistantsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4349,6 +4467,7 @@ export type GetCourseLearnerQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4390,6 +4509,7 @@ export type GetCourseLearnerQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4408,6 +4528,7 @@ export type ListCourseLearnersQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4419,6 +4540,7 @@ export type ListCourseLearnersQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4458,6 +4580,7 @@ export type GetGroupMemberQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4465,6 +4588,7 @@ export type GetGroupMemberQuery = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4506,6 +4630,7 @@ export type GetGroupMemberQuery = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -4523,6 +4648,7 @@ export type ListGroupMembersQuery = {
       id: string;
       name: string;
       type: GroupType;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4534,6 +4660,7 @@ export type ListGroupMembersQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -4563,6 +4690,7 @@ export type SearchInstitutionsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4574,6 +4702,7 @@ export type SearchInstitutionsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4633,6 +4762,7 @@ export type OnCreateInstitutionSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4674,6 +4804,7 @@ export type OnCreateInstitutionSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4730,6 +4861,7 @@ export type OnUpdateInstitutionSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4771,6 +4903,7 @@ export type OnUpdateInstitutionSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4827,6 +4960,7 @@ export type OnDeleteInstitutionSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4868,6 +5002,7 @@ export type OnDeleteInstitutionSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4898,6 +5033,7 @@ export type OnCreateGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4909,6 +5045,7 @@ export type OnCreateGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4955,6 +5092,7 @@ export type OnCreateGroupSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4968,6 +5106,7 @@ export type OnCreateGroupSubscription = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4994,6 +5133,7 @@ export type OnUpdateGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5005,6 +5145,7 @@ export type OnUpdateGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5051,6 +5192,7 @@ export type OnUpdateGroupSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -5064,6 +5206,7 @@ export type OnUpdateGroupSubscription = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5090,6 +5233,7 @@ export type OnDeleteGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5101,6 +5245,7 @@ export type OnDeleteGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5147,6 +5292,7 @@ export type OnDeleteGroupSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -5160,6 +5306,7 @@ export type OnDeleteGroupSubscription = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5210,6 +5357,7 @@ export type OnCreateCourseSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5246,12 +5394,14 @@ export type OnCreateCourseSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5302,6 +5452,7 @@ export type OnUpdateCourseSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5338,12 +5489,14 @@ export type OnUpdateCourseSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5394,6 +5547,7 @@ export type OnDeleteCourseSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5430,12 +5584,14 @@ export type OnDeleteCourseSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
+  searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5481,6 +5637,7 @@ export type OnCreateCourseSectionSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -5529,6 +5686,7 @@ export type OnUpdateCourseSectionSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -5577,6 +5735,7 @@ export type OnDeleteCourseSectionSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -5624,6 +5783,7 @@ export type OnCreateAssignmentSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -5638,6 +5798,7 @@ export type OnCreateAssignmentSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5699,6 +5860,7 @@ export type OnUpdateAssignmentSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -5713,6 +5875,7 @@ export type OnUpdateAssignmentSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5774,6 +5937,7 @@ export type OnDeleteAssignmentSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -5788,6 +5952,7 @@ export type OnDeleteAssignmentSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
@@ -5875,6 +6040,7 @@ export type OnCreateCourseInstructorSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -5916,6 +6082,7 @@ export type OnCreateCourseInstructorSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -5962,6 +6129,7 @@ export type OnUpdateCourseInstructorSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6003,6 +6171,7 @@ export type OnUpdateCourseInstructorSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6049,6 +6218,7 @@ export type OnDeleteCourseInstructorSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6090,6 +6260,7 @@ export type OnDeleteCourseInstructorSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6136,6 +6307,7 @@ export type OnCreateCourseAssistantSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6177,6 +6349,7 @@ export type OnCreateCourseAssistantSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6223,6 +6396,7 @@ export type OnUpdateCourseAssistantSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6264,6 +6438,7 @@ export type OnUpdateCourseAssistantSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6310,6 +6485,7 @@ export type OnDeleteCourseAssistantSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6351,6 +6527,7 @@ export type OnDeleteCourseAssistantSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6397,6 +6574,7 @@ export type OnCreateCourseLearnerSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6438,6 +6616,7 @@ export type OnCreateCourseLearnerSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6484,6 +6663,7 @@ export type OnUpdateCourseLearnerSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6525,6 +6705,7 @@ export type OnUpdateCourseLearnerSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6571,6 +6752,7 @@ export type OnDeleteCourseLearnerSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6612,6 +6794,7 @@ export type OnDeleteCourseLearnerSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6649,6 +6832,7 @@ export type OnCreateGroupMemberSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -6656,6 +6840,7 @@ export type OnCreateGroupMemberSubscription = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6697,6 +6882,7 @@ export type OnCreateGroupMemberSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6734,6 +6920,7 @@ export type OnUpdateGroupMemberSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -6741,6 +6928,7 @@ export type OnUpdateGroupMemberSubscription = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6782,6 +6970,7 @@ export type OnUpdateGroupMemberSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6819,6 +7008,7 @@ export type OnDeleteGroupMemberSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -6826,6 +7016,7 @@ export type OnDeleteGroupMemberSubscription = {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6867,6 +7058,7 @@ export type OnDeleteGroupMemberSubscription = {
       __typename: "ModelCourseLearnerConnection";
       nextToken?: string | null;
     } | null;
+    searchField?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -6970,6 +7162,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7011,6 +7204,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7083,6 +7277,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7124,6 +7319,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7196,6 +7392,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7237,6 +7434,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7283,6 +7481,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7294,6 +7493,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7340,6 +7540,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7353,6 +7554,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -7395,6 +7597,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7406,6 +7609,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7452,6 +7656,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7465,6 +7670,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -7507,6 +7713,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7518,6 +7725,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7564,6 +7772,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -7577,6 +7786,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -7623,6 +7833,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7634,6 +7845,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7681,6 +7893,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -7727,6 +7940,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7738,6 +7952,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7785,6 +8000,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -7831,6 +8047,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7842,6 +8059,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -7889,6 +8107,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -7955,6 +8174,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -7991,12 +8211,14 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -8063,6 +8285,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -8099,12 +8322,14 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -8171,6 +8396,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -8207,12 +8433,14 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -8274,6 +8502,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8338,6 +8567,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8402,6 +8632,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8465,6 +8696,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8479,6 +8711,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -8556,6 +8789,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8570,6 +8804,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -8647,6 +8882,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8661,6 +8897,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -8812,6 +9049,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8853,6 +9091,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8915,6 +9154,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -8956,6 +9196,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9018,6 +9259,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9059,6 +9301,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9121,6 +9364,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9162,6 +9406,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9224,6 +9469,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9265,6 +9511,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9327,6 +9574,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9368,6 +9616,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9430,6 +9679,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9471,6 +9721,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9533,6 +9784,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9574,6 +9826,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9636,6 +9889,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9677,6 +9931,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9730,6 +9985,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9737,6 +9993,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9778,6 +10035,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9831,6 +10089,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9838,6 +10097,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9879,6 +10139,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9932,6 +10193,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -9939,6 +10201,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -9980,6 +10243,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10048,6 +10312,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10089,6 +10354,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10131,6 +10397,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10142,6 +10409,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10191,6 +10459,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10202,6 +10471,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10248,6 +10518,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10261,6 +10532,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -10308,6 +10580,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10315,6 +10588,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10364,6 +10638,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10375,6 +10650,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -10422,6 +10698,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -10480,6 +10757,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10549,6 +10827,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -10585,12 +10864,14 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -10647,6 +10928,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10711,6 +10993,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10745,6 +11028,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -10811,6 +11095,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -10825,6 +11110,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -10872,6 +11158,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -11009,6 +11296,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11050,6 +11338,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11082,6 +11371,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -11093,6 +11383,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11158,6 +11449,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11199,6 +11491,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11231,6 +11524,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -11242,6 +11536,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11307,6 +11602,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11348,6 +11644,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11380,6 +11677,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -11391,6 +11689,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11447,6 +11746,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11454,6 +11754,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11495,6 +11796,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11526,6 +11828,7 @@ export class APIService {
               id
               name
               type
+              searchField
               createdAt
               updatedAt
             }
@@ -11537,6 +11840,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11589,6 +11893,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11600,6 +11905,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11685,6 +11991,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11726,6 +12033,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11790,6 +12098,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11831,6 +12140,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11895,6 +12205,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11936,6 +12247,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -11973,6 +12285,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -11984,6 +12297,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12030,6 +12344,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12043,6 +12358,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -12082,6 +12398,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12093,6 +12410,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12139,6 +12457,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12152,6 +12471,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -12191,6 +12511,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12202,6 +12523,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -12248,6 +12570,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12261,6 +12584,7 @@ export class APIService {
             }
             nextToken
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -12324,6 +12648,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -12360,12 +12685,14 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -12429,6 +12756,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -12465,12 +12793,14 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -12534,6 +12864,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -12570,12 +12901,14 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
           }
+          searchField
           createdAt
           updatedAt
         }
@@ -12635,6 +12968,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12691,6 +13025,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12747,6 +13082,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12802,6 +13138,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12816,6 +13153,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -12885,6 +13223,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12899,6 +13238,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -12968,6 +13308,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -12982,6 +13323,7 @@ export class APIService {
               start
               end
               creditHours
+              searchField
               createdAt
               updatedAt
             }
@@ -13101,6 +13443,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13142,6 +13485,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13196,6 +13540,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13237,6 +13582,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13291,6 +13637,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13332,6 +13679,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13386,6 +13734,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13427,6 +13776,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13481,6 +13831,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13522,6 +13873,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13576,6 +13928,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13617,6 +13970,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13671,6 +14025,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13712,6 +14067,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13766,6 +14122,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13807,6 +14164,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13861,6 +14219,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13902,6 +14261,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13947,6 +14307,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -13954,6 +14315,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -13995,6 +14357,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -14040,6 +14403,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -14047,6 +14411,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -14088,6 +14453,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -14133,6 +14499,7 @@ export class APIService {
               type
               title
               bio
+              searchField
               createdAt
               updatedAt
             }
@@ -14140,6 +14507,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }
@@ -14181,6 +14549,7 @@ export class APIService {
               __typename
               nextToken
             }
+            searchField
             createdAt
             updatedAt
           }

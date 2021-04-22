@@ -41,6 +41,7 @@ query GetInstitution($id: ID!) {
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -76,6 +77,7 @@ query GetInstitution($id: ID!) {
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -106,6 +108,7 @@ query ListInstitutions(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -116,6 +119,7 @@ query ListInstitutions(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -146,6 +150,7 @@ query GetGroup($id: ID!) {
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -156,6 +161,7 @@ query GetGroup($id: ID!) {
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -196,6 +202,7 @@ query GetGroup($id: ID!) {
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -207,6 +214,7 @@ query GetGroup($id: ID!) {
       }
       nextToken
     }
+    searchField
     createdAt
     updatedAt
   }
@@ -241,12 +249,14 @@ query ListGroups(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
       members {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -277,6 +287,7 @@ query GetMember($id: ID!) {
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -287,6 +298,7 @@ query GetMember($id: ID!) {
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -326,6 +338,7 @@ query GetMember($id: ID!) {
       }
       nextToken
     }
+    searchField
     createdAt
     updatedAt
   }
@@ -368,6 +381,7 @@ query ListMembers(
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -412,6 +426,7 @@ query GetCourse($id: ID!) {
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
@@ -444,12 +459,14 @@ query GetCourse($id: ID!) {
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
     }
+    searchField
     createdAt
     updatedAt
   }
@@ -490,6 +507,7 @@ query ListCourses(
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -531,6 +549,7 @@ query GetCourseSection($id: ID!) {
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -553,6 +572,7 @@ query ListCourseSections(
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
@@ -596,6 +616,7 @@ query GetAssignment($id: ID!) {
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -608,6 +629,7 @@ query GetAssignment($id: ID!) {
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
@@ -642,6 +664,7 @@ query ListAssignments(
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
@@ -726,6 +749,7 @@ query GetCourseInstructor($id: ID!) {
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -761,6 +785,7 @@ query GetCourseInstructor($id: ID!) {
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -781,6 +806,7 @@ query ListCourseInstructors(
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
@@ -791,6 +817,7 @@ query ListCourseInstructors(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -833,6 +860,7 @@ query GetCourseAssistant($id: ID!) {
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -868,6 +896,7 @@ query GetCourseAssistant($id: ID!) {
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -888,6 +917,7 @@ query ListCourseAssistants(
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
@@ -898,6 +928,7 @@ query ListCourseAssistants(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -940,6 +971,7 @@ query GetCourseLearner($id: ID!) {
         createdAt
         updatedAt
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -975,6 +1007,7 @@ query GetCourseLearner($id: ID!) {
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -995,6 +1028,7 @@ query ListCourseLearners(
         start
         end
         creditHours
+        searchField
         createdAt
         updatedAt
       }
@@ -1005,6 +1039,7 @@ query ListCourseLearners(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1041,12 +1076,14 @@ query GetGroupMember($id: ID!) {
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
       members {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -1082,6 +1119,7 @@ query GetGroupMember($id: ID!) {
       learner {
         nextToken
       }
+      searchField
       createdAt
       updatedAt
     }
@@ -1101,6 +1139,7 @@ query ListGroupMembers(
         id
         name
         type
+        searchField
         createdAt
         updatedAt
       }
@@ -1111,6 +1150,7 @@ query ListGroupMembers(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1150,6 +1190,7 @@ query SearchInstitutions(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
@@ -1160,6 +1201,7 @@ query SearchInstitutions(
         type
         title
         bio
+        searchField
         createdAt
         updatedAt
       }
