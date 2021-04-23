@@ -119,6 +119,12 @@ type Announcement
   "List of groups that this announcement should be delivered to"
   groups: [Group] @connection(fields: ["groupIds"])
 
+  "Ids of the members who've seen this announcement"
+  seenByIds: [String]
+
+  "List of members that this announcement has been seen by"
+  seenBy: [Member] @connection(fields: ["seenByIds"])
+
   "Search Field for searching the entire table for a string"
   searchField: String
 }
