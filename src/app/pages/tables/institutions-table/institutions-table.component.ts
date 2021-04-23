@@ -34,8 +34,8 @@ export class InstitutionsTableComponent implements OnInit {
 
   defaultColDef = {
     resizable: true,
-    sortable: true,
-    comparator: () => null,
+    // sortable: true,
+    // comparator: () => null,
   };
   columns = [
     {
