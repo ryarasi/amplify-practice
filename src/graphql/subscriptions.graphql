@@ -260,6 +260,357 @@ subscription OnDeleteInstitution {
     updatedAt
   }
 }
+subscription OnCreateAnnouncement {
+  onCreateAnnouncement {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateAnnouncement {
+  onUpdateAnnouncement {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteAnnouncement {
+  onDeleteAnnouncement {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateGroup($admins: String) {
   onCreateGroup(admins: $admins) {
     id

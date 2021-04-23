@@ -130,6 +130,170 @@ query ListInstitutions(
     nextToken
   }
 }
+query GetAnnouncement($id: ID!) {
+  getAnnouncement(id: $id) {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+query ListAnnouncements(
+  $filter: ModelAnnouncementFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAnnouncements(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+      author {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      message
+      recipients {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        id
+        name
+        type
+        searchField
+        createdAt
+        updatedAt
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetGroup($id: ID!) {
   getGroup(id: $id) {
     id

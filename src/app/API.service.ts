@@ -253,6 +253,46 @@ export type DeleteInstitutionInput = {
   id?: string | null;
 };
 
+export type CreateAnnouncementInput = {
+  id?: string | null;
+  title: string;
+  message: string;
+  searchField?: string | null;
+};
+
+export type ModelAnnouncementConditionInput = {
+  title?: ModelStringInput | null;
+  message?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
+  and?: Array<ModelAnnouncementConditionInput | null> | null;
+  or?: Array<ModelAnnouncementConditionInput | null> | null;
+  not?: ModelAnnouncementConditionInput | null;
+};
+
+export type Announcement = {
+  __typename: "Announcement";
+  id?: string;
+  title?: string;
+  author?: Member;
+  message?: string;
+  recipients?: Array<Member | null> | null;
+  groups?: Array<Group | null> | null;
+  searchField?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type UpdateAnnouncementInput = {
+  id: string;
+  title?: string | null;
+  message?: string | null;
+  searchField?: string | null;
+};
+
+export type DeleteAnnouncementInput = {
+  id?: string | null;
+};
+
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
@@ -575,6 +615,22 @@ export type ModelIDInput = {
 export type ModelInstitutionConnection = {
   __typename: "ModelInstitutionConnection";
   items?: Array<Institution | null> | null;
+  nextToken?: string | null;
+};
+
+export type ModelAnnouncementFilterInput = {
+  id?: ModelIDInput | null;
+  title?: ModelStringInput | null;
+  message?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
+  and?: Array<ModelAnnouncementFilterInput | null> | null;
+  or?: Array<ModelAnnouncementFilterInput | null> | null;
+  not?: ModelAnnouncementFilterInput | null;
+};
+
+export type ModelAnnouncementConnection = {
+  __typename: "ModelAnnouncementConnection";
+  items?: Array<Announcement | null> | null;
   nextToken?: string | null;
 };
 
@@ -1069,6 +1125,405 @@ export type DeleteInstitutionMutation = {
     } | null;
     learner?: {
       __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateAnnouncementMutation = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateAnnouncementMutation = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteAnnouncementMutation = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
     searchField?: string | null;
@@ -3550,6 +4005,186 @@ export type ListInstitutionsQuery = {
   nextToken?: string | null;
 };
 
+export type GetAnnouncementQuery = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListAnnouncementsQuery = {
+  __typename: "ModelAnnouncementConnection";
+  items?: Array<{
+    __typename: "Announcement";
+    id: string;
+    title: string;
+    author: {
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    message: string;
+    recipients?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    groups?: Array<{
+      __typename: "Group";
+      id: string;
+      name: string;
+      type: GroupType;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  nextToken?: string | null;
+};
+
 export type GetGroupQuery = {
   __typename: "Group";
   id: string;
@@ -5000,6 +5635,405 @@ export type OnDeleteInstitutionSubscription = {
     } | null;
     learner?: {
       __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnCreateAnnouncementSubscription = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateAnnouncementSubscription = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteAnnouncementSubscription = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
     } | null;
     searchField?: string | null;
@@ -7453,6 +8487,453 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteInstitutionMutation>response.data.deleteInstitution;
+  }
+  async CreateAnnouncement(
+    input: CreateAnnouncementInput,
+    condition?: ModelAnnouncementConditionInput
+  ): Promise<CreateAnnouncementMutation> {
+    const statement = `mutation CreateAnnouncement($input: CreateAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
+        createAnnouncement(input: $input, condition: $condition) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateAnnouncementMutation>response.data.createAnnouncement;
+  }
+  async UpdateAnnouncement(
+    input: UpdateAnnouncementInput,
+    condition?: ModelAnnouncementConditionInput
+  ): Promise<UpdateAnnouncementMutation> {
+    const statement = `mutation UpdateAnnouncement($input: UpdateAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
+        updateAnnouncement(input: $input, condition: $condition) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateAnnouncementMutation>response.data.updateAnnouncement;
+  }
+  async DeleteAnnouncement(
+    input: DeleteAnnouncementInput,
+    condition?: ModelAnnouncementConditionInput
+  ): Promise<DeleteAnnouncementMutation> {
+    const statement = `mutation DeleteAnnouncement($input: DeleteAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
+        deleteAnnouncement(input: $input, condition: $condition) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteAnnouncementMutation>response.data.deleteAnnouncement;
   }
   async CreateGroup(
     input: CreateGroupInput,
@@ -10435,6 +11916,217 @@ export class APIService {
     )) as any;
     return <ListInstitutionsQuery>response.data.listInstitutions;
   }
+  async GetAnnouncement(id: string): Promise<GetAnnouncementQuery> {
+    const statement = `query GetAnnouncement($id: ID!) {
+        getAnnouncement(id: $id) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetAnnouncementQuery>response.data.getAnnouncement;
+  }
+  async ListAnnouncements(
+    filter?: ModelAnnouncementFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListAnnouncementsQuery> {
+    const statement = `query ListAnnouncements($filter: ModelAnnouncementFilterInput, $limit: Int, $nextToken: String) {
+        listAnnouncements(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            title
+            author {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            message
+            recipients {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              id
+              name
+              type
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListAnnouncementsQuery>response.data.listAnnouncements;
+  }
   async GetGroup(id: string): Promise<GetGroupQuery> {
     const statement = `query GetGroup($id: ID!) {
         getGroup(id: $id) {
@@ -12258,6 +13950,429 @@ export class APIService {
       }`
     )
   ) as Observable<SubscriptionResponse<OnDeleteInstitutionSubscription>>;
+
+  OnCreateAnnouncementListener: Observable<
+    SubscriptionResponse<OnCreateAnnouncementSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateAnnouncement {
+        onCreateAnnouncement {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateAnnouncementSubscription>>;
+
+  OnUpdateAnnouncementListener: Observable<
+    SubscriptionResponse<OnUpdateAnnouncementSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateAnnouncement {
+        onUpdateAnnouncement {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateAnnouncementSubscription>>;
+
+  OnDeleteAnnouncementListener: Observable<
+    SubscriptionResponse<OnDeleteAnnouncementSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteAnnouncement {
+        onDeleteAnnouncement {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteAnnouncementSubscription>>;
 
   OnCreateGroupListener(
     admins?: string

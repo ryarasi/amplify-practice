@@ -288,6 +288,366 @@ mutation DeleteInstitution(
     updatedAt
   }
 }
+mutation CreateAnnouncement(
+  $input: CreateAnnouncementInput!
+  $condition: ModelAnnouncementConditionInput
+) {
+  createAnnouncement(input: $input, condition: $condition) {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateAnnouncement(
+  $input: UpdateAnnouncementInput!
+  $condition: ModelAnnouncementConditionInput
+) {
+  updateAnnouncement(input: $input, condition: $condition) {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteAnnouncement(
+  $input: DeleteAnnouncementInput!
+  $condition: ModelAnnouncementConditionInput
+) {
+  deleteAnnouncement(input: $input, condition: $condition) {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
 mutation CreateGroup(
   $input: CreateGroupInput!
   $condition: ModelGroupConditionInput
