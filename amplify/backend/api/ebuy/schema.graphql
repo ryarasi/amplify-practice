@@ -35,96 +35,24 @@ type Institution
     ]
   ) {
   id: ID!
-
   "Name of the institution"
   name: String!
-
   "Location of the institution"
   location: String!
-
   "City or district that the institution belongs to"
   city: String!
-
   "Website URL"
   website: String
-
   "Phone number"
   phone: String
-
   "Logo URL"
   logo: String
-
   "Short bio, could be their school motto"
   bio: String
-
-  "Ids of the admins of this institution"
-  adminId: ID
-
   "Admins of the institution manage the institution's properties"
-  admins: [Member]
-    @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
-    @connection(fields: ["adminId"])
-
-  "Ids of the members of the institution"
-  memberId: ID
+  admins: [Member] @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
   "All Members belonging to the institution"
-  members: [Member]
-    @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
-    @connection(fields: ["memberId"])
-
-  "Search Field for searching the entire table for a string"
-  searchField: String
-}
-
-"""
-Announcements to members and groups.
-This can be created by certain user groups and
-audience can be specified for each announcement.
-"""
-type Announcement
-  @model
-  @auth(
-    rules: [
-      { allow: groups, groups: ["SUPER_ADMIN"] }
-      {
-        allow: owner
-        ownerField: "author"
-        operations: [create, update, delete]
-      }
-    ]
-  ) {
-  id: ID!
-
-  "Title of the announcement"
-  title: String!
-
-  "The user id of the author"
-  authorId: ID!
-
-  "The person who is making the announcement"
-  author: Member! @connection(fields: ["authorId"])
-
-  "Message of the announcement"
-  message: String!
-
-  "The person who is making the announcement"
-  recipientId: ID
-
-  "List of members that the announcement should be delivered to"
-  recipients: [Member] @connection(fields: ["recipientId"])
-
-  "The Ids of the groups that this announcement is for"
-  groupId: ID
-
-  "List of groups that this announcement should be delivered to"
-  groups: [Group] @connection(fields: ["groupId"])
-
-  "Ids of the members who've seen this announcement"
-  seenById: ID
-
-  "List of members that this announcement has been seen by"
-  seenBy: [Member] @connection(fields: ["seenById"])
-
+  members: [Member] @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
   "Search Field for searching the entire table for a string"
   searchField: String
 }
@@ -141,28 +69,16 @@ type Group
     ]
   ) {
   id: ID!
-
   "Name of the group"
   name: String!
-
   "The id of the insitition that this group belongs to"
   institution: Institution!
-
   "Type of group this is. It can be Class, Team or Coordinators."
   type: GroupType!
-
-  "Ids of the admins of this group"
-  adminId: ID
-
   "The admins of the group who can manage members of the class etc"
   admins: [Member]
-    @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
-    @connection(fields: ["adminId"])
-
   "List of members in this group"
-  members: [GroupMember]
-    @connection(keyName: "GroupMemberConnection", fields: ["id"])
-
+  members: [GroupMember] @connection(name: "GroupMemberConnection")
   "Search Field for searching the entire table for a string"
   searchField: String
 }
@@ -176,51 +92,32 @@ type Member
     ]
   ) {
   id: ID!
-
   "Name of the person"
   name: String!
-
   "Email ID of the person"
   email: String!
     @auth(
       rules: [{ allow: owner, ownerField: "id", operations: [read, update] }]
     )
-
   "Type of the user, i.e. the Cognito User pool group"
   type: String!
-
   "Title of the person"
   title: String
-
   "Bio of the person"
   bio: String
-
-  "Ids of the institution that this member belongs to"
-  institutionId: ID
-
   "Every member will be tied to an institution, instructors, course assistants will be tied to Shuddhi Vidhya"
   institution: Institution!
     @auth(
       rules: [{ allow: groups, groups: ["SUPER_ADMIN"], operations: [update] }]
     )
-    @connection(fields: ["institutionId"])
-
   "Groups that this member belongs in"
-  groups: [GroupMember]
-    @connection(keyName: "MemberGroupConnection", fields: ["id"])
-
+  groups: [GroupMember] @connection(name: "MemberGroupConnection")
   "Courses they are instructors in"
-  instructor: [CourseInstructor]
-    @connection(keyName: "InstructorCourseConnection", fields: ["id"])
-
+  instructor: [CourseInstructor] @connection(name: "InstructorCourseConnection")
   "Courses that they are assistants in"
-  assistant: [CourseAssistant]
-    @connection(keyName: "AssistantCourseConnection", fields: ["id"])
-
+  assistant: [CourseAssistant] @connection(name: "AssistantCourseConnection")
   "Courses that they are learners in"
-  learner: [CourseLearner]
-    @connection(keyName: "LearnerCourseConnection", fields: ["id"])
-
+  learner: [CourseLearner] @connection(name: "LearnerCourseConnection")
   "Search Field for searching the entire table for a string"
   searchField: String
 }
@@ -282,40 +179,23 @@ type Course
     ]
   ) {
   id: ID!
-
   "Instructor(s) of the course"
   instructors: [CourseInstructor!]!
-    @connection(keyName: "CourseInstructorConnection", fields: ["id"])
-
+    @connection(name: "CourseInstructorConnection")
   "Those who will be assisting with the course"
-  assistants: [CourseAssistant]
-    @connection(keyName: "CourseAssistantConnection", fields: ["id"])
-
+  assistants: [CourseAssistant] @connection(name: "CourseAssistantConnection")
   "Those who are participating as learners in the course"
-  learners: [CourseLearner]
-    @connection(keyName: "CourseLearnerConnection", fields: ["id"])
-
+  learners: [CourseLearner] @connection(name: "CourseLearnerConnection")
   "When the course starts"
   start: AWSDate
-
   "When the course is expected to end"
   end: AWSDate
-
   "Number of hours the learners are expected to invest per week"
   creditHours: Int
-
-  "The assignments' ids"
-  assignmentId: ID
-
   "Assignments that are part of this course"
-  assignments: [Assignment] @connection(fields: ["assignmentId"])
-
-  "CourseSections' Ids"
-  courseSectionId: ID
-
+  assignments: [Assignment]
   "Sections in the course"
-  sections: [CourseSection] @connection(fields: ["courseSectionId"])
-
+  sections: [CourseSection]
   "Search Field for searching the entire table for a string"
   searchField: String
 }
@@ -327,13 +207,10 @@ type CourseSection
   @model
   @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
-
   "Name of the section"
   name: String!
-
-  "Section number, helpful in determining the order in which it is to be listed"
+  "Section number"
   index: Float!
-
   "Course that this section belongs to"
   course: Course!
 }
@@ -345,30 +222,20 @@ type Assignment
   @model
   @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
-
   "Title of the assignment"
   title: String!
-
   "Id of the course that this assignment belongs to"
   course: Course!
-
   "Id of the section that this assignment belongs to"
   section: CourseSection!
-
   "When this assignment is due"
   deadline: AWSDateTime
-
   "Total number of points available to score in this assignment"
   points: Int
-
   "A description of what needs to be done in the assignment"
   instructions: String
-
-  "Task Ids"
-  taskId: ID
-
   "A list of tasks to be completed as part of this assignment"
-  tasks: [Task] @connection(fields: ["taskId"])
+  tasks: [Task]
 }
 
 """
@@ -377,10 +244,8 @@ INCOMPLETE
 """
 type Task @model @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
-
   "Description of the task"
   task: String!
-
   "An enum of the fixed list of types of tasks"
   type: String!
 }
@@ -391,23 +256,13 @@ This is a join table that ties courses with Instructors
 This is the way to establish many-to-many relationships
 """
 type CourseInstructor
-  @model(queries: null)
-  @key(name: "CourseInstructorConnection", fields: ["courseId", "instructorId"])
-  @key(
-    name: "InstructorCourseConnection"
-    fields: ["instructorId", "courseId"]
-  ) {
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
-
-  courseId: ID!
-
-  instructorId: ID!
-
   "The course that this instructor belongs to"
-  course: Course! @connection(fields: ["courseId"])
-
+  course: Course @connection(name: "CourseInstructorConnection")
   "The instructor(s) in the course"
-  instructor: Member! @connection(fields: ["instructorId"])
+  instructor: Member @connection(name: "InstructorCourseConnection")
 }
 
 """
@@ -416,20 +271,13 @@ This is a join table that ties courses with Assistants
 This is the way to establish many-to-many relationships
 """
 type CourseAssistant
-  @model(queries: null)
-  @key(name: "CourseAssistantConnection", fields: ["courseId", "assistantId"])
-  @key(name: "AssistantCourseConnection", fields: ["assistantId", "courseId"]) {
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
-
-  courseId: ID
-
-  assistantId: ID
-
   "The course that this instructor belongs to"
-  course: Course @connection(fields: ["courseId"])
-
+  course: Course @connection(name: "CourseAssistantConnection")
   "The instructor(s) in the course"
-  assistant: Member @connection(fields: ["assistantId"])
+  assistant: Member @connection(name: "AssistantCourseConnection")
 }
 
 """
@@ -438,20 +286,13 @@ This is a join table that ties courses with Learners
 This is the way to establish many-to-many relationships
 """
 type CourseLearner
-  @model(queries: null)
-  @key(name: "CourseLearnerConnection", fields: ["courseId", "learnerId"])
-  @key(name: "LearnerCourseConnection", fields: ["learnerId", "courseId"]) {
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
-
-  courseId: ID
-
-  learnerId: ID
-
   "The course that this instructor belongs to"
-  course: Course @connection(fields: ["courseId"])
-
+  course: Course @connection(name: "CourseLearnerConnection")
   "The instructor(s) in the course"
-  learner: Member @connection(fields: ["learnerId"])
+  learner: Member @connection(name: "LearnerCourseConnection")
 }
 
 """
@@ -460,18 +301,11 @@ This is a join table that ties groups with Members
 This is the way to establish many-to-many relationships
 """
 type GroupMember
-  @model(queries: null)
-  @key(name: "GroupMemberConnection", fields: ["groupId", "memberId"])
-  @key(name: "MemberGroupConnection", fields: ["memberId", "groupId"]) {
+  @model
+  @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
-
-  groupId: ID
-
-  memberId: ID
-
   "The group that the member belongs to"
-  group: Group @connection(fields: ["groupId"])
-
+  group: Group @connection(name: "GroupMemberConnection")
   "The members in the group"
-  member: Member @connection(fields: ["memberId"])
+  member: Member @connection(name: "MemberGroupConnection")
 }
