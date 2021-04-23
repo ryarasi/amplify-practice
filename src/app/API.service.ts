@@ -18,8 +18,6 @@ export type CreateInstitutionInput = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  memberId?: string | null;
   searchField?: string | null;
 };
 
@@ -31,8 +29,6 @@ export type ModelInstitutionConditionInput = {
   phone?: ModelStringInput | null;
   logo?: ModelStringInput | null;
   bio?: ModelStringInput | null;
-  adminId?: ModelIDInput | null;
-  memberId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
   and?: Array<ModelInstitutionConditionInput | null> | null;
   or?: Array<ModelInstitutionConditionInput | null> | null;
@@ -78,22 +74,6 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
-export type ModelIDInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
-};
-
 export type Institution = {
   __typename: "Institution";
   id?: string;
@@ -104,19 +84,11 @@ export type Institution = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  admins?: ModelMemberConnection;
-  memberId?: string | null;
-  members?: ModelMemberConnection;
+  admins?: Array<Member | null> | null;
+  members?: Array<Member | null> | null;
   searchField?: string | null;
   createdAt?: string;
   updatedAt?: string;
-};
-
-export type ModelMemberConnection = {
-  __typename: "ModelMemberConnection";
-  items?: Array<Member | null> | null;
-  nextToken?: string | null;
 };
 
 export type Member = {
@@ -127,7 +99,6 @@ export type Member = {
   type?: string;
   title?: string | null;
   bio?: string | null;
-  institutionId?: string | null;
   institution?: Institution;
   groups?: ModelGroupMemberConnection;
   instructor?: ModelCourseInstructorConnection;
@@ -147,8 +118,6 @@ export type ModelGroupMemberConnection = {
 export type GroupMember = {
   __typename: "GroupMember";
   id?: string;
-  groupId?: string | null;
-  memberId?: string | null;
   group?: Group;
   member?: Member;
   createdAt?: string;
@@ -161,8 +130,7 @@ export type Group = {
   name?: string;
   institution?: Institution;
   type?: GroupType;
-  adminId?: string | null;
-  admins?: ModelMemberConnection;
+  admins?: Array<Member | null> | null;
   members?: ModelGroupMemberConnection;
   searchField?: string | null;
   createdAt?: string;
@@ -184,8 +152,6 @@ export type ModelCourseInstructorConnection = {
 export type CourseInstructor = {
   __typename: "CourseInstructor";
   id?: string;
-  courseId?: string;
-  instructorId?: string;
   course?: Course;
   instructor?: Member;
   createdAt?: string;
@@ -201,10 +167,8 @@ export type Course = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: ModelAssignmentConnection;
-  courseSectionId?: string | null;
-  sections?: ModelCourseSectionConnection;
+  assignments?: Array<Assignment | null> | null;
+  sections?: Array<CourseSection | null> | null;
   searchField?: string | null;
   createdAt?: string;
   updatedAt?: string;
@@ -219,8 +183,6 @@ export type ModelCourseAssistantConnection = {
 export type CourseAssistant = {
   __typename: "CourseAssistant";
   id?: string;
-  courseId?: string | null;
-  assistantId?: string | null;
   course?: Course;
   assistant?: Member;
   createdAt?: string;
@@ -236,18 +198,10 @@ export type ModelCourseLearnerConnection = {
 export type CourseLearner = {
   __typename: "CourseLearner";
   id?: string;
-  courseId?: string | null;
-  learnerId?: string | null;
   course?: Course;
   learner?: Member;
   createdAt?: string;
   updatedAt?: string;
-};
-
-export type ModelAssignmentConnection = {
-  __typename: "ModelAssignmentConnection";
-  items?: Array<Assignment | null> | null;
-  nextToken?: string | null;
 };
 
 export type Assignment = {
@@ -259,8 +213,7 @@ export type Assignment = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: ModelTaskConnection;
+  tasks?: Array<Task | null> | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -275,12 +228,6 @@ export type CourseSection = {
   updatedAt?: string;
 };
 
-export type ModelTaskConnection = {
-  __typename: "ModelTaskConnection";
-  items?: Array<Task | null> | null;
-  nextToken?: string | null;
-};
-
 export type Task = {
   __typename: "Task";
   id?: string;
@@ -288,12 +235,6 @@ export type Task = {
   type?: string;
   createdAt?: string;
   updatedAt?: string;
-};
-
-export type ModelCourseSectionConnection = {
-  __typename: "ModelCourseSectionConnection";
-  items?: Array<CourseSection | null> | null;
-  nextToken?: string | null;
 };
 
 export type UpdateInstitutionInput = {
@@ -305,8 +246,6 @@ export type UpdateInstitutionInput = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  memberId?: string | null;
   searchField?: string | null;
 };
 
@@ -314,81 +253,16 @@ export type DeleteInstitutionInput = {
   id?: string | null;
 };
 
-export type CreateAnnouncementInput = {
-  id?: string | null;
-  title: string;
-  authorId: string;
-  message: string;
-  recipientId?: string | null;
-  groupId?: string | null;
-  seenById?: string | null;
-  searchField?: string | null;
-};
-
-export type ModelAnnouncementConditionInput = {
-  title?: ModelStringInput | null;
-  authorId?: ModelIDInput | null;
-  message?: ModelStringInput | null;
-  recipientId?: ModelIDInput | null;
-  groupId?: ModelIDInput | null;
-  seenById?: ModelIDInput | null;
-  searchField?: ModelStringInput | null;
-  and?: Array<ModelAnnouncementConditionInput | null> | null;
-  or?: Array<ModelAnnouncementConditionInput | null> | null;
-  not?: ModelAnnouncementConditionInput | null;
-};
-
-export type Announcement = {
-  __typename: "Announcement";
-  id?: string;
-  title?: string;
-  authorId?: string;
-  author?: Member;
-  message?: string;
-  recipientId?: string | null;
-  recipients?: ModelMemberConnection;
-  groupId?: string | null;
-  groups?: ModelGroupConnection;
-  seenById?: string | null;
-  seenBy?: ModelMemberConnection;
-  searchField?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
-};
-
-export type ModelGroupConnection = {
-  __typename: "ModelGroupConnection";
-  items?: Array<Group | null> | null;
-  nextToken?: string | null;
-};
-
-export type UpdateAnnouncementInput = {
-  id: string;
-  title?: string | null;
-  authorId?: string | null;
-  message?: string | null;
-  recipientId?: string | null;
-  groupId?: string | null;
-  seenById?: string | null;
-  searchField?: string | null;
-};
-
-export type DeleteAnnouncementInput = {
-  id?: string | null;
-};
-
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
   type: GroupType;
-  adminId?: string | null;
   searchField?: string | null;
 };
 
 export type ModelGroupConditionInput = {
   name?: ModelStringInput | null;
   type?: ModelGroupTypeInput | null;
-  adminId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
   and?: Array<ModelGroupConditionInput | null> | null;
   or?: Array<ModelGroupConditionInput | null> | null;
@@ -404,7 +278,6 @@ export type UpdateGroupInput = {
   id: string;
   name?: string | null;
   type?: GroupType | null;
-  adminId?: string | null;
   searchField?: string | null;
 };
 
@@ -419,7 +292,6 @@ export type CreateMemberInput = {
   type: string;
   title?: string | null;
   bio?: string | null;
-  institutionId?: string | null;
   searchField?: string | null;
 };
 
@@ -429,7 +301,6 @@ export type ModelMemberConditionInput = {
   type?: ModelStringInput | null;
   title?: ModelStringInput | null;
   bio?: ModelStringInput | null;
-  institutionId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
   and?: Array<ModelMemberConditionInput | null> | null;
   or?: Array<ModelMemberConditionInput | null> | null;
@@ -443,11 +314,51 @@ export type UpdateMemberInput = {
   type?: string | null;
   title?: string | null;
   bio?: string | null;
-  institutionId?: string | null;
   searchField?: string | null;
 };
 
 export type DeleteMemberInput = {
+  id?: string | null;
+};
+
+export type CreateAnnouncementInput = {
+  id?: string | null;
+  title: string;
+  message: string;
+  searchField?: string | null;
+};
+
+export type ModelAnnouncementConditionInput = {
+  title?: ModelStringInput | null;
+  message?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
+  and?: Array<ModelAnnouncementConditionInput | null> | null;
+  or?: Array<ModelAnnouncementConditionInput | null> | null;
+  not?: ModelAnnouncementConditionInput | null;
+};
+
+export type Announcement = {
+  __typename: "Announcement";
+  id?: string;
+  title?: string;
+  author?: Member;
+  message?: string;
+  recipients?: Array<Member | null> | null;
+  groups?: Array<Group | null> | null;
+  seenBy?: Array<Member | null> | null;
+  searchField?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type UpdateAnnouncementInput = {
+  id: string;
+  title?: string | null;
+  message?: string | null;
+  searchField?: string | null;
+};
+
+export type DeleteAnnouncementInput = {
   id?: string | null;
 };
 
@@ -456,8 +367,6 @@ export type CreateCourseInput = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  courseSectionId?: string | null;
   searchField?: string | null;
 };
 
@@ -465,8 +374,6 @@ export type ModelCourseConditionInput = {
   start?: ModelStringInput | null;
   end?: ModelStringInput | null;
   creditHours?: ModelIntInput | null;
-  assignmentId?: ModelIDInput | null;
-  courseSectionId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
   and?: Array<ModelCourseConditionInput | null> | null;
   or?: Array<ModelCourseConditionInput | null> | null;
@@ -490,8 +397,6 @@ export type UpdateCourseInput = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  courseSectionId?: string | null;
   searchField?: string | null;
 };
 
@@ -541,7 +446,6 @@ export type CreateAssignmentInput = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
 };
 
 export type ModelAssignmentConditionInput = {
@@ -549,7 +453,6 @@ export type ModelAssignmentConditionInput = {
   deadline?: ModelStringInput | null;
   points?: ModelIntInput | null;
   instructions?: ModelStringInput | null;
-  taskId?: ModelIDInput | null;
   and?: Array<ModelAssignmentConditionInput | null> | null;
   or?: Array<ModelAssignmentConditionInput | null> | null;
   not?: ModelAssignmentConditionInput | null;
@@ -561,7 +464,6 @@ export type UpdateAssignmentInput = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
 };
 
 export type DeleteAssignmentInput = {
@@ -594,13 +496,11 @@ export type DeleteTaskInput = {
 
 export type CreateCourseInstructorInput = {
   id?: string | null;
-  courseId: string;
-  instructorId: string;
+  courseInstructorCourseId: string;
+  courseInstructorInstructorId: string;
 };
 
 export type ModelCourseInstructorConditionInput = {
-  courseId?: ModelIDInput | null;
-  instructorId?: ModelIDInput | null;
   and?: Array<ModelCourseInstructorConditionInput | null> | null;
   or?: Array<ModelCourseInstructorConditionInput | null> | null;
   not?: ModelCourseInstructorConditionInput | null;
@@ -608,8 +508,8 @@ export type ModelCourseInstructorConditionInput = {
 
 export type UpdateCourseInstructorInput = {
   id: string;
-  courseId?: string | null;
-  instructorId?: string | null;
+  courseInstructorCourseId?: string | null;
+  courseInstructorInstructorId?: string | null;
 };
 
 export type DeleteCourseInstructorInput = {
@@ -618,13 +518,11 @@ export type DeleteCourseInstructorInput = {
 
 export type CreateCourseAssistantInput = {
   id?: string | null;
-  courseId?: string | null;
-  assistantId?: string | null;
+  courseAssistantCourseId: string;
+  courseAssistantAssistantId: string;
 };
 
 export type ModelCourseAssistantConditionInput = {
-  courseId?: ModelIDInput | null;
-  assistantId?: ModelIDInput | null;
   and?: Array<ModelCourseAssistantConditionInput | null> | null;
   or?: Array<ModelCourseAssistantConditionInput | null> | null;
   not?: ModelCourseAssistantConditionInput | null;
@@ -632,8 +530,8 @@ export type ModelCourseAssistantConditionInput = {
 
 export type UpdateCourseAssistantInput = {
   id: string;
-  courseId?: string | null;
-  assistantId?: string | null;
+  courseAssistantCourseId?: string | null;
+  courseAssistantAssistantId?: string | null;
 };
 
 export type DeleteCourseAssistantInput = {
@@ -642,13 +540,11 @@ export type DeleteCourseAssistantInput = {
 
 export type CreateCourseLearnerInput = {
   id?: string | null;
-  courseId?: string | null;
-  learnerId?: string | null;
+  courseLearnerCourseId: string;
+  courseLearnerLearnerId: string;
 };
 
 export type ModelCourseLearnerConditionInput = {
-  courseId?: ModelIDInput | null;
-  learnerId?: ModelIDInput | null;
   and?: Array<ModelCourseLearnerConditionInput | null> | null;
   or?: Array<ModelCourseLearnerConditionInput | null> | null;
   not?: ModelCourseLearnerConditionInput | null;
@@ -656,8 +552,8 @@ export type ModelCourseLearnerConditionInput = {
 
 export type UpdateCourseLearnerInput = {
   id: string;
-  courseId?: string | null;
-  learnerId?: string | null;
+  courseLearnerCourseId?: string | null;
+  courseLearnerLearnerId?: string | null;
 };
 
 export type DeleteCourseLearnerInput = {
@@ -666,13 +562,11 @@ export type DeleteCourseLearnerInput = {
 
 export type CreateGroupMemberInput = {
   id?: string | null;
-  groupId?: string | null;
-  memberId?: string | null;
+  groupMemberGroupId: string;
+  groupMemberMemberId: string;
 };
 
 export type ModelGroupMemberConditionInput = {
-  groupId?: ModelIDInput | null;
-  memberId?: ModelIDInput | null;
   and?: Array<ModelGroupMemberConditionInput | null> | null;
   or?: Array<ModelGroupMemberConditionInput | null> | null;
   not?: ModelGroupMemberConditionInput | null;
@@ -680,8 +574,8 @@ export type ModelGroupMemberConditionInput = {
 
 export type UpdateGroupMemberInput = {
   id: string;
-  groupId?: string | null;
-  memberId?: string | null;
+  groupMemberGroupId?: string | null;
+  groupMemberMemberId?: string | null;
 };
 
 export type DeleteGroupMemberInput = {
@@ -697,12 +591,26 @@ export type ModelInstitutionFilterInput = {
   phone?: ModelStringInput | null;
   logo?: ModelStringInput | null;
   bio?: ModelStringInput | null;
-  adminId?: ModelIDInput | null;
-  memberId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
   and?: Array<ModelInstitutionFilterInput | null> | null;
   or?: Array<ModelInstitutionFilterInput | null> | null;
   not?: ModelInstitutionFilterInput | null;
+};
+
+export type ModelIDInput = {
+  ne?: string | null;
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  contains?: string | null;
+  notContains?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+  size?: ModelSizeInput | null;
 };
 
 export type ModelInstitutionConnection = {
@@ -711,14 +619,45 @@ export type ModelInstitutionConnection = {
   nextToken?: string | null;
 };
 
+export type ModelGroupFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  type?: ModelGroupTypeInput | null;
+  searchField?: ModelStringInput | null;
+  and?: Array<ModelGroupFilterInput | null> | null;
+  or?: Array<ModelGroupFilterInput | null> | null;
+  not?: ModelGroupFilterInput | null;
+};
+
+export type ModelGroupConnection = {
+  __typename: "ModelGroupConnection";
+  items?: Array<Group | null> | null;
+  nextToken?: string | null;
+};
+
+export type ModelMemberFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  email?: ModelStringInput | null;
+  type?: ModelStringInput | null;
+  title?: ModelStringInput | null;
+  bio?: ModelStringInput | null;
+  searchField?: ModelStringInput | null;
+  and?: Array<ModelMemberFilterInput | null> | null;
+  or?: Array<ModelMemberFilterInput | null> | null;
+  not?: ModelMemberFilterInput | null;
+};
+
+export type ModelMemberConnection = {
+  __typename: "ModelMemberConnection";
+  items?: Array<Member | null> | null;
+  nextToken?: string | null;
+};
+
 export type ModelAnnouncementFilterInput = {
   id?: ModelIDInput | null;
   title?: ModelStringInput | null;
-  authorId?: ModelIDInput | null;
   message?: ModelStringInput | null;
-  recipientId?: ModelIDInput | null;
-  groupId?: ModelIDInput | null;
-  seenById?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
   and?: Array<ModelAnnouncementFilterInput | null> | null;
   or?: Array<ModelAnnouncementFilterInput | null> | null;
@@ -731,38 +670,11 @@ export type ModelAnnouncementConnection = {
   nextToken?: string | null;
 };
 
-export type ModelGroupFilterInput = {
-  id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  type?: ModelGroupTypeInput | null;
-  adminId?: ModelIDInput | null;
-  searchField?: ModelStringInput | null;
-  and?: Array<ModelGroupFilterInput | null> | null;
-  or?: Array<ModelGroupFilterInput | null> | null;
-  not?: ModelGroupFilterInput | null;
-};
-
-export type ModelMemberFilterInput = {
-  id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  email?: ModelStringInput | null;
-  type?: ModelStringInput | null;
-  title?: ModelStringInput | null;
-  bio?: ModelStringInput | null;
-  institutionId?: ModelIDInput | null;
-  searchField?: ModelStringInput | null;
-  and?: Array<ModelMemberFilterInput | null> | null;
-  or?: Array<ModelMemberFilterInput | null> | null;
-  not?: ModelMemberFilterInput | null;
-};
-
 export type ModelCourseFilterInput = {
   id?: ModelIDInput | null;
   start?: ModelStringInput | null;
   end?: ModelStringInput | null;
   creditHours?: ModelIntInput | null;
-  assignmentId?: ModelIDInput | null;
-  courseSectionId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
   and?: Array<ModelCourseFilterInput | null> | null;
   or?: Array<ModelCourseFilterInput | null> | null;
@@ -784,16 +696,27 @@ export type ModelCourseSectionFilterInput = {
   not?: ModelCourseSectionFilterInput | null;
 };
 
+export type ModelCourseSectionConnection = {
+  __typename: "ModelCourseSectionConnection";
+  items?: Array<CourseSection | null> | null;
+  nextToken?: string | null;
+};
+
 export type ModelAssignmentFilterInput = {
   id?: ModelIDInput | null;
   title?: ModelStringInput | null;
   deadline?: ModelStringInput | null;
   points?: ModelIntInput | null;
   instructions?: ModelStringInput | null;
-  taskId?: ModelIDInput | null;
   and?: Array<ModelAssignmentFilterInput | null> | null;
   or?: Array<ModelAssignmentFilterInput | null> | null;
   not?: ModelAssignmentFilterInput | null;
+};
+
+export type ModelAssignmentConnection = {
+  __typename: "ModelAssignmentConnection";
+  items?: Array<Assignment | null> | null;
+  nextToken?: string | null;
 };
 
 export type ModelTaskFilterInput = {
@@ -805,6 +728,12 @@ export type ModelTaskFilterInput = {
   not?: ModelTaskFilterInput | null;
 };
 
+export type ModelTaskConnection = {
+  __typename: "ModelTaskConnection";
+  items?: Array<Task | null> | null;
+  nextToken?: string | null;
+};
+
 export type SearchableInstitutionFilterInput = {
   id?: SearchableIDFilterInput | null;
   name?: SearchableStringFilterInput | null;
@@ -814,8 +743,6 @@ export type SearchableInstitutionFilterInput = {
   phone?: SearchableStringFilterInput | null;
   logo?: SearchableStringFilterInput | null;
   bio?: SearchableStringFilterInput | null;
-  adminId?: SearchableIDFilterInput | null;
-  memberId?: SearchableIDFilterInput | null;
   searchField?: SearchableStringFilterInput | null;
   and?: Array<SearchableInstitutionFilterInput | null> | null;
   or?: Array<SearchableInstitutionFilterInput | null> | null;
@@ -870,8 +797,6 @@ export enum SearchableInstitutionSortableFields {
   phone = "phone",
   logo = "logo",
   bio = "bio",
-  adminId = "adminId",
-  memberId = "memberId",
   searchField = "searchField"
 }
 
@@ -897,42 +822,90 @@ export type CreateInstitutionMutation = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  memberId?: string | null;
-  members?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  members?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -948,42 +921,90 @@ export type UpdateInstitutionMutation = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  memberId?: string | null;
-  members?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  members?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -999,53 +1020,7 @@ export type DeleteInstitutionMutation = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  memberId?: string | null;
-  members?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  searchField?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type CreateAnnouncementMutation = {
-  __typename: "Announcement";
-  id: string;
-  title: string;
-  authorId: string;
-  author: {
+  admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
@@ -1053,7 +1028,6 @@ export type CreateAnnouncementMutation = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -1064,8 +1038,6 @@ export type CreateAnnouncementMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -1089,70 +1061,8 @@ export type CreateAnnouncementMutation = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  };
-  message: string;
-  recipientId?: string | null;
-  recipients?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  groupId?: string | null;
-  groups?: {
-    __typename: "ModelGroupConnection";
-    items?: Array<{
-      __typename: "Group";
-      id: string;
-      name: string;
-      type: GroupType;
-      adminId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  seenById?: string | null;
-  seenBy?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  searchField?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateAnnouncementMutation = {
-  __typename: "Announcement";
-  id: string;
-  title: string;
-  authorId: string;
-  author: {
+  } | null> | null;
+  members?: Array<{
     __typename: "Member";
     id: string;
     name: string;
@@ -1160,7 +1070,6 @@ export type UpdateAnnouncementMutation = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -1171,8 +1080,6 @@ export type UpdateAnnouncementMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -1196,166 +1103,7 @@ export type UpdateAnnouncementMutation = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  };
-  message: string;
-  recipientId?: string | null;
-  recipients?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  groupId?: string | null;
-  groups?: {
-    __typename: "ModelGroupConnection";
-    items?: Array<{
-      __typename: "Group";
-      id: string;
-      name: string;
-      type: GroupType;
-      adminId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  seenById?: string | null;
-  seenBy?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  searchField?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type DeleteAnnouncementMutation = {
-  __typename: "Announcement";
-  id: string;
-  title: string;
-  authorId: string;
-  author: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  message: string;
-  recipientId?: string | null;
-  recipients?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  groupId?: string | null;
-  groups?: {
-    __typename: "ModelGroupConnection";
-    items?: Array<{
-      __typename: "Group";
-      id: string;
-      name: string;
-      type: GroupType;
-      adminId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  seenById?: string | null;
-  seenBy?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -1375,25 +1123,7 @@ export type CreateGroupMutation = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  type: GroupType;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -1401,20 +1131,74 @@ export type CreateGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  type: GroupType;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   members?: {
     __typename: "ModelGroupMemberConnection";
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1439,25 +1223,7 @@ export type UpdateGroupMutation = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  type: GroupType;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -1465,20 +1231,74 @@ export type UpdateGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  type: GroupType;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   members?: {
     __typename: "ModelGroupMemberConnection";
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1503,25 +1323,7 @@ export type DeleteGroupMutation = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  type: GroupType;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -1529,20 +1331,74 @@ export type DeleteGroupMutation = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  type: GroupType;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   members?: {
     __typename: "ModelGroupMemberConnection";
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1561,7 +1417,6 @@ export type CreateMemberMutation = {
   type: string;
   title?: string | null;
   bio?: string | null;
-  institutionId?: string | null;
   institution: {
     __typename: "Institution";
     id: string;
@@ -1572,16 +1427,30 @@ export type CreateMemberMutation = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -1591,8 +1460,6 @@ export type CreateMemberMutation = {
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1603,8 +1470,6 @@ export type CreateMemberMutation = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1615,8 +1480,6 @@ export type CreateMemberMutation = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1627,8 +1490,6 @@ export type CreateMemberMutation = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1647,7 +1508,6 @@ export type UpdateMemberMutation = {
   type: string;
   title?: string | null;
   bio?: string | null;
-  institutionId?: string | null;
   institution: {
     __typename: "Institution";
     id: string;
@@ -1658,16 +1518,30 @@ export type UpdateMemberMutation = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -1677,8 +1551,6 @@ export type UpdateMemberMutation = {
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1689,8 +1561,6 @@ export type UpdateMemberMutation = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1701,8 +1571,6 @@ export type UpdateMemberMutation = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1713,8 +1581,6 @@ export type UpdateMemberMutation = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1733,7 +1599,6 @@ export type DeleteMemberMutation = {
   type: string;
   title?: string | null;
   bio?: string | null;
-  institutionId?: string | null;
   institution: {
     __typename: "Institution";
     id: string;
@@ -1744,16 +1609,30 @@ export type DeleteMemberMutation = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -1763,8 +1642,6 @@ export type DeleteMemberMutation = {
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1775,8 +1652,6 @@ export type DeleteMemberMutation = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1787,8 +1662,6 @@ export type DeleteMemberMutation = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1799,13 +1672,536 @@ export type DeleteMemberMutation = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateAnnouncementMutation = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  seenBy?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateAnnouncementMutation = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  seenBy?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteAnnouncementMutation = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  seenBy?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -1819,8 +2215,6 @@ export type CreateCourseMutation = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1831,8 +2225,6 @@ export type CreateCourseMutation = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1843,8 +2235,6 @@ export type CreateCourseMutation = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1853,35 +2243,60 @@ export type CreateCourseMutation = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: {
-    __typename: "ModelAssignmentConnection";
-    items?: Array<{
-      __typename: "Assignment";
+  assignments?: Array<{
+    __typename: "Assignment";
+    id: string;
+    title: string;
+    course: {
+      __typename: "Course";
       id: string;
-      title: string;
-      deadline?: string | null;
-      points?: number | null;
-      instructions?: string | null;
-      taskId?: string | null;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  courseSectionId?: string | null;
-  sections?: {
-    __typename: "ModelCourseSectionConnection";
-    items?: Array<{
+    };
+    section: {
       __typename: "CourseSection";
       id: string;
       name: string;
       index: number;
       createdAt: string;
       updatedAt: string;
+    };
+    deadline?: string | null;
+    points?: number | null;
+    instructions?: string | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  sections?: Array<{
+    __typename: "CourseSection";
+    id: string;
+    name: string;
+    index: number;
+    course: {
+      __typename: "Course";
+      id: string;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -1895,8 +2310,6 @@ export type UpdateCourseMutation = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1907,8 +2320,6 @@ export type UpdateCourseMutation = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1919,8 +2330,6 @@ export type UpdateCourseMutation = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1929,35 +2338,60 @@ export type UpdateCourseMutation = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: {
-    __typename: "ModelAssignmentConnection";
-    items?: Array<{
-      __typename: "Assignment";
+  assignments?: Array<{
+    __typename: "Assignment";
+    id: string;
+    title: string;
+    course: {
+      __typename: "Course";
       id: string;
-      title: string;
-      deadline?: string | null;
-      points?: number | null;
-      instructions?: string | null;
-      taskId?: string | null;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  courseSectionId?: string | null;
-  sections?: {
-    __typename: "ModelCourseSectionConnection";
-    items?: Array<{
+    };
+    section: {
       __typename: "CourseSection";
       id: string;
       name: string;
       index: number;
       createdAt: string;
       updatedAt: string;
+    };
+    deadline?: string | null;
+    points?: number | null;
+    instructions?: string | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  sections?: Array<{
+    __typename: "CourseSection";
+    id: string;
+    name: string;
+    index: number;
+    course: {
+      __typename: "Course";
+      id: string;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -1971,8 +2405,6 @@ export type DeleteCourseMutation = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1983,8 +2415,6 @@ export type DeleteCourseMutation = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -1995,8 +2425,6 @@ export type DeleteCourseMutation = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -2005,35 +2433,60 @@ export type DeleteCourseMutation = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: {
-    __typename: "ModelAssignmentConnection";
-    items?: Array<{
-      __typename: "Assignment";
+  assignments?: Array<{
+    __typename: "Assignment";
+    id: string;
+    title: string;
+    course: {
+      __typename: "Course";
       id: string;
-      title: string;
-      deadline?: string | null;
-      points?: number | null;
-      instructions?: string | null;
-      taskId?: string | null;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  courseSectionId?: string | null;
-  sections?: {
-    __typename: "ModelCourseSectionConnection";
-    items?: Array<{
+    };
+    section: {
       __typename: "CourseSection";
       id: string;
       name: string;
       index: number;
       createdAt: string;
       updatedAt: string;
+    };
+    deadline?: string | null;
+    points?: number | null;
+    instructions?: string | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  sections?: Array<{
+    __typename: "CourseSection";
+    id: string;
+    name: string;
+    index: number;
+    course: {
+      __typename: "Course";
+      id: string;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -2062,16 +2515,24 @@ export type CreateCourseSectionMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2103,16 +2564,24 @@ export type UpdateCourseSectionMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2144,16 +2613,24 @@ export type DeleteCourseSectionMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2184,16 +2661,24 @@ export type CreateAssignmentMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2209,8 +2694,6 @@ export type CreateAssignmentMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2221,19 +2704,14 @@ export type CreateAssignmentMutation = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: {
-    __typename: "ModelTaskConnection";
-    items?: Array<{
-      __typename: "Task";
-      id: string;
-      task: string;
-      type: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  tasks?: Array<{
+    __typename: "Task";
+    id: string;
+    task: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2260,16 +2738,24 @@ export type UpdateAssignmentMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2285,8 +2771,6 @@ export type UpdateAssignmentMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2297,19 +2781,14 @@ export type UpdateAssignmentMutation = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: {
-    __typename: "ModelTaskConnection";
-    items?: Array<{
-      __typename: "Task";
-      id: string;
-      task: string;
-      type: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  tasks?: Array<{
+    __typename: "Task";
+    id: string;
+    task: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2336,16 +2815,24 @@ export type DeleteAssignmentMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2361,8 +2848,6 @@ export type DeleteAssignmentMutation = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2373,19 +2858,14 @@ export type DeleteAssignmentMutation = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: {
-    __typename: "ModelTaskConnection";
-    items?: Array<{
-      __typename: "Task";
-      id: string;
-      task: string;
-      type: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  tasks?: Array<{
+    __typename: "Task";
+    id: string;
+    task: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2420,8 +2900,6 @@ export type DeleteTaskMutation = {
 export type CreateCourseInstructorMutation = {
   __typename: "CourseInstructor";
   id: string;
-  courseId: string;
-  instructorId: string;
   course: {
     __typename: "Course";
     id: string;
@@ -2440,16 +2918,24 @@ export type CreateCourseInstructorMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2462,7 +2948,6 @@ export type CreateCourseInstructorMutation = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -2473,8 +2958,6 @@ export type CreateCourseInstructorMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2506,8 +2989,6 @@ export type CreateCourseInstructorMutation = {
 export type UpdateCourseInstructorMutation = {
   __typename: "CourseInstructor";
   id: string;
-  courseId: string;
-  instructorId: string;
   course: {
     __typename: "Course";
     id: string;
@@ -2526,16 +3007,24 @@ export type UpdateCourseInstructorMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2548,7 +3037,6 @@ export type UpdateCourseInstructorMutation = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -2559,8 +3047,6 @@ export type UpdateCourseInstructorMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2592,8 +3078,6 @@ export type UpdateCourseInstructorMutation = {
 export type DeleteCourseInstructorMutation = {
   __typename: "CourseInstructor";
   id: string;
-  courseId: string;
-  instructorId: string;
   course: {
     __typename: "Course";
     id: string;
@@ -2612,16 +3096,24 @@ export type DeleteCourseInstructorMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -2634,7 +3126,6 @@ export type DeleteCourseInstructorMutation = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -2645,8 +3136,6 @@ export type DeleteCourseInstructorMutation = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2678,9 +3167,7 @@ export type DeleteCourseInstructorMutation = {
 export type CreateCourseAssistantMutation = {
   __typename: "CourseAssistant";
   id: string;
-  courseId?: string | null;
-  assistantId?: string | null;
-  course?: {
+  course: {
     __typename: "Course";
     id: string;
     instructors?: {
@@ -2698,849 +3185,29 @@ export type CreateCourseAssistantMutation = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  assistant?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
+    assignments?: Array<{
+      __typename: "Assignment";
       id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateCourseAssistantMutation = {
-  __typename: "CourseAssistant";
-  id: string;
-  courseId?: string | null;
-  assistantId?: string | null;
-  course?: {
-    __typename: "Course";
-    id: string;
-    instructors?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistants?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    start?: string | null;
-    end?: string | null;
-    creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  assistant?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type DeleteCourseAssistantMutation = {
-  __typename: "CourseAssistant";
-  id: string;
-  courseId?: string | null;
-  assistantId?: string | null;
-  course?: {
-    __typename: "Course";
-    id: string;
-    instructors?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistants?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    start?: string | null;
-    end?: string | null;
-    creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  assistant?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type CreateCourseLearnerMutation = {
-  __typename: "CourseLearner";
-  id: string;
-  courseId?: string | null;
-  learnerId?: string | null;
-  course?: {
-    __typename: "Course";
-    id: string;
-    instructors?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistants?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    start?: string | null;
-    end?: string | null;
-    creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  learner?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateCourseLearnerMutation = {
-  __typename: "CourseLearner";
-  id: string;
-  courseId?: string | null;
-  learnerId?: string | null;
-  course?: {
-    __typename: "Course";
-    id: string;
-    instructors?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistants?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    start?: string | null;
-    end?: string | null;
-    creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  learner?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type DeleteCourseLearnerMutation = {
-  __typename: "CourseLearner";
-  id: string;
-  courseId?: string | null;
-  learnerId?: string | null;
-  course?: {
-    __typename: "Course";
-    id: string;
-    instructors?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistants?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learners?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    start?: string | null;
-    end?: string | null;
-    creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  learner?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type CreateGroupMemberMutation = {
-  __typename: "GroupMember";
-  id: string;
-  groupId?: string | null;
-  memberId?: string | null;
-  group?: {
-    __typename: "Group";
-    id: string;
-    name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    type: GroupType;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    members?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  member?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateGroupMemberMutation = {
-  __typename: "GroupMember";
-  id: string;
-  groupId?: string | null;
-  memberId?: string | null;
-  group?: {
-    __typename: "Group";
-    id: string;
-    name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    type: GroupType;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    members?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  member?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type DeleteGroupMemberMutation = {
-  __typename: "GroupMember";
-  id: string;
-  groupId?: string | null;
-  memberId?: string | null;
-  group?: {
-    __typename: "Group";
-    id: string;
-    name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    type: GroupType;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    members?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  member?: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type GetInstitutionQuery = {
-  __typename: "Institution";
-  id: string;
-  name: string;
-  location: string;
-  city: string;
-  website?: string | null;
-  phone?: string | null;
-  logo?: string | null;
-  bio?: string | null;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  memberId?: string | null;
-  members?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+    sections?: Array<{
+      __typename: "CourseSection";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
+      index: number;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  searchField?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type ListInstitutionsQuery = {
-  __typename: "ModelInstitutionConnection";
-  items?: Array<{
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null> | null;
-  nextToken?: string | null;
-};
-
-export type GetAnnouncementQuery = {
-  __typename: "Announcement";
-  id: string;
-  title: string;
-  authorId: string;
-  author: {
+  };
+  assistant: {
     __typename: "Member";
     id: string;
     name: string;
@@ -3548,7 +3215,6 @@ export type GetAnnouncementQuery = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -3559,8 +3225,6 @@ export type GetAnnouncementQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -3585,11 +3249,478 @@ export type GetAnnouncementQuery = {
     createdAt: string;
     updatedAt: string;
   };
-  message: string;
-  recipientId?: string | null;
-  recipients?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateCourseAssistantMutation = {
+  __typename: "CourseAssistant";
+  id: string;
+  course: {
+    __typename: "Course";
+    id: string;
+    instructors?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistants?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    start?: string | null;
+    end?: string | null;
+    creditHours?: number | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  assistant: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteCourseAssistantMutation = {
+  __typename: "CourseAssistant";
+  id: string;
+  course: {
+    __typename: "Course";
+    id: string;
+    instructors?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistants?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    start?: string | null;
+    end?: string | null;
+    creditHours?: number | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  assistant: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateCourseLearnerMutation = {
+  __typename: "CourseLearner";
+  id: string;
+  course: {
+    __typename: "Course";
+    id: string;
+    instructors?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistants?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    start?: string | null;
+    end?: string | null;
+    creditHours?: number | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  learner: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateCourseLearnerMutation = {
+  __typename: "CourseLearner";
+  id: string;
+  course: {
+    __typename: "Course";
+    id: string;
+    instructors?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistants?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    start?: string | null;
+    end?: string | null;
+    creditHours?: number | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  learner: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteCourseLearnerMutation = {
+  __typename: "CourseLearner";
+  id: string;
+  course: {
+    __typename: "Course";
+    id: string;
+    instructors?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistants?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learners?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    start?: string | null;
+    end?: string | null;
+    creditHours?: number | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  learner: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateGroupMemberMutation = {
+  __typename: "GroupMember";
+  id: string;
+  group: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -3597,32 +3728,87 @@ export type GetAnnouncementQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  groupId?: string | null;
-  groups?: {
-    __typename: "ModelGroupConnection";
-    items?: Array<{
-      __typename: "Group";
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  member: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      type: GroupType;
-      adminId?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  seenById?: string | null;
-  seenBy?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateGroupMemberMutation = {
+  __typename: "GroupMember";
+  id: string;
+  group: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -3630,26 +3816,264 @@ export type GetAnnouncementQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  member: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteGroupMemberMutation = {
+  __typename: "GroupMember";
+  id: string;
+  group: {
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  member: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GetInstitutionQuery = {
+  __typename: "Institution";
+  id: string;
+  name: string;
+  location: string;
+  city: string;
+  website?: string | null;
+  phone?: string | null;
+  logo?: string | null;
+  bio?: string | null;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  members?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type ListAnnouncementsQuery = {
-  __typename: "ModelAnnouncementConnection";
+export type ListInstitutionsQuery = {
+  __typename: "ModelInstitutionConnection";
   items?: Array<{
-    __typename: "Announcement";
+    __typename: "Institution";
     id: string;
-    title: string;
-    authorId: string;
-    author: {
+    name: string;
+    location: string;
+    city: string;
+    website?: string | null;
+    phone?: string | null;
+    logo?: string | null;
+    bio?: string | null;
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -3657,27 +4081,22 @@ export type ListAnnouncementsQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    };
-    message: string;
-    recipientId?: string | null;
-    recipients?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    groupId?: string | null;
-    groups?: {
-      __typename: "ModelGroupConnection";
-      nextToken?: string | null;
-    } | null;
-    seenById?: string | null;
-    seenBy?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    } | null> | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -3699,25 +4118,7 @@ export type GetGroupQuery = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  type: GroupType;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -3725,20 +4126,74 @@ export type GetGroupQuery = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  type: GroupType;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   members?: {
     __typename: "ModelGroupMemberConnection";
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3765,18 +4220,23 @@ export type ListGroupsQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     type: GroupType;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     members?: {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
@@ -3796,7 +4256,6 @@ export type GetMemberQuery = {
   type: string;
   title?: string | null;
   bio?: string | null;
-  institutionId?: string | null;
   institution: {
     __typename: "Institution";
     id: string;
@@ -3807,16 +4266,30 @@ export type GetMemberQuery = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -3826,8 +4299,6 @@ export type GetMemberQuery = {
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3838,8 +4309,6 @@ export type GetMemberQuery = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3850,8 +4319,6 @@ export type GetMemberQuery = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3862,8 +4329,6 @@ export type GetMemberQuery = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3884,7 +4349,6 @@ export type ListMembersQuery = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -3895,8 +4359,6 @@ export type ListMembersQuery = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -3924,6 +4386,240 @@ export type ListMembersQuery = {
   nextToken?: string | null;
 };
 
+export type GetAnnouncementQuery = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  seenBy?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListAnnouncementsQuery = {
+  __typename: "ModelAnnouncementConnection";
+  items?: Array<{
+    __typename: "Announcement";
+    id: string;
+    title: string;
+    author: {
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    message: string;
+    recipients?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    groups?: Array<{
+      __typename: "Group";
+      id: string;
+      name: string;
+      type: GroupType;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    seenBy?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  nextToken?: string | null;
+};
+
 export type GetCourseQuery = {
   __typename: "Course";
   id: string;
@@ -3932,8 +4628,6 @@ export type GetCourseQuery = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3944,8 +4638,6 @@ export type GetCourseQuery = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3956,8 +4648,6 @@ export type GetCourseQuery = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -3966,35 +4656,60 @@ export type GetCourseQuery = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: {
-    __typename: "ModelAssignmentConnection";
-    items?: Array<{
-      __typename: "Assignment";
+  assignments?: Array<{
+    __typename: "Assignment";
+    id: string;
+    title: string;
+    course: {
+      __typename: "Course";
       id: string;
-      title: string;
-      deadline?: string | null;
-      points?: number | null;
-      instructions?: string | null;
-      taskId?: string | null;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  courseSectionId?: string | null;
-  sections?: {
-    __typename: "ModelCourseSectionConnection";
-    items?: Array<{
+    };
+    section: {
       __typename: "CourseSection";
       id: string;
       name: string;
       index: number;
       createdAt: string;
       updatedAt: string;
+    };
+    deadline?: string | null;
+    points?: number | null;
+    instructions?: string | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  sections?: Array<{
+    __typename: "CourseSection";
+    id: string;
+    name: string;
+    index: number;
+    course: {
+      __typename: "Course";
+      id: string;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -4020,16 +4735,24 @@ export type ListCoursesQuery = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -4060,16 +4783,24 @@ export type GetCourseSectionQuery = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -4091,8 +4822,6 @@ export type ListCourseSectionsQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -4125,16 +4854,24 @@ export type GetAssignmentQuery = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -4150,8 +4887,6 @@ export type GetAssignmentQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -4162,19 +4897,14 @@ export type GetAssignmentQuery = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: {
-    __typename: "ModelTaskConnection";
-    items?: Array<{
-      __typename: "Task";
-      id: string;
-      task: string;
-      type: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  tasks?: Array<{
+    __typename: "Task";
+    id: string;
+    task: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -4191,8 +4921,6 @@ export type ListAssignmentsQuery = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -4208,11 +4936,14 @@ export type ListAssignmentsQuery = {
     deadline?: string | null;
     points?: number | null;
     instructions?: string | null;
-    taskId?: string | null;
-    tasks?: {
-      __typename: "ModelTaskConnection";
-      nextToken?: string | null;
-    } | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4253,16 +4984,30 @@ export type SearchInstitutionsQuery = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -4281,42 +5026,90 @@ export type OnCreateInstitutionSubscription = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  memberId?: string | null;
-  members?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  members?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -4332,42 +5125,90 @@ export type OnUpdateInstitutionSubscription = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  memberId?: string | null;
-  members?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  members?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
       id: string;
       name: string;
-      email: string;
-      type: string;
-      title?: string | null;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -4383,53 +5224,7 @@ export type OnDeleteInstitutionSubscription = {
   phone?: string | null;
   logo?: string | null;
   bio?: string | null;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  memberId?: string | null;
-  members?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  searchField?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnCreateAnnouncementSubscription = {
-  __typename: "Announcement";
-  id: string;
-  title: string;
-  authorId: string;
-  author: {
+  admins?: Array<{
     __typename: "Member";
     id: string;
     name: string;
@@ -4437,7 +5232,6 @@ export type OnCreateAnnouncementSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -4448,8 +5242,6 @@ export type OnCreateAnnouncementSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -4473,70 +5265,8 @@ export type OnCreateAnnouncementSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  };
-  message: string;
-  recipientId?: string | null;
-  recipients?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  groupId?: string | null;
-  groups?: {
-    __typename: "ModelGroupConnection";
-    items?: Array<{
-      __typename: "Group";
-      id: string;
-      name: string;
-      type: GroupType;
-      adminId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  seenById?: string | null;
-  seenBy?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  searchField?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnUpdateAnnouncementSubscription = {
-  __typename: "Announcement";
-  id: string;
-  title: string;
-  authorId: string;
-  author: {
+  } | null> | null;
+  members?: Array<{
     __typename: "Member";
     id: string;
     name: string;
@@ -4544,7 +5274,6 @@ export type OnUpdateAnnouncementSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -4555,8 +5284,6 @@ export type OnUpdateAnnouncementSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -4580,166 +5307,7 @@ export type OnUpdateAnnouncementSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  };
-  message: string;
-  recipientId?: string | null;
-  recipients?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  groupId?: string | null;
-  groups?: {
-    __typename: "ModelGroupConnection";
-    items?: Array<{
-      __typename: "Group";
-      id: string;
-      name: string;
-      type: GroupType;
-      adminId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  seenById?: string | null;
-  seenBy?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  searchField?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnDeleteAnnouncementSubscription = {
-  __typename: "Announcement";
-  id: string;
-  title: string;
-  authorId: string;
-  author: {
-    __typename: "Member";
-    id: string;
-    name: string;
-    email: string;
-    type: string;
-    title?: string | null;
-    bio?: string | null;
-    institutionId?: string | null;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
-    groups?: {
-      __typename: "ModelGroupMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    instructor?: {
-      __typename: "ModelCourseInstructorConnection";
-      nextToken?: string | null;
-    } | null;
-    assistant?: {
-      __typename: "ModelCourseAssistantConnection";
-      nextToken?: string | null;
-    } | null;
-    learner?: {
-      __typename: "ModelCourseLearnerConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  message: string;
-  recipientId?: string | null;
-  recipients?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  groupId?: string | null;
-  groups?: {
-    __typename: "ModelGroupConnection";
-    items?: Array<{
-      __typename: "Group";
-      id: string;
-      name: string;
-      type: GroupType;
-      adminId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  seenById?: string | null;
-  seenBy?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
-      __typename: "Member";
-      id: string;
-      name: string;
-      email: string;
-      type: string;
-      title?: string | null;
-      bio?: string | null;
-      institutionId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -4759,25 +5327,7 @@ export type OnCreateGroupSubscription = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  type: GroupType;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -4785,20 +5335,74 @@ export type OnCreateGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  type: GroupType;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   members?: {
     __typename: "ModelGroupMemberConnection";
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4823,25 +5427,7 @@ export type OnUpdateGroupSubscription = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  type: GroupType;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -4849,20 +5435,74 @@ export type OnUpdateGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  type: GroupType;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   members?: {
     __typename: "ModelGroupMemberConnection";
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4887,25 +5527,7 @@ export type OnDeleteGroupSubscription = {
     phone?: string | null;
     logo?: string | null;
     bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-  type: GroupType;
-  adminId?: string | null;
-  admins?: {
-    __typename: "ModelMemberConnection";
-    items?: Array<{
+    admins?: Array<{
       __typename: "Member";
       id: string;
       name: string;
@@ -4913,25 +5535,604 @@ export type OnDeleteGroupSubscription = {
       type: string;
       title?: string | null;
       bio?: string | null;
-      institutionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    members?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  type: GroupType;
+  admins?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   members?: {
     __typename: "ModelGroupMemberConnection";
     items?: Array<{
       __typename: "GroupMember";
       id: string;
-      groupId?: string | null;
-      memberId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
     nextToken?: string | null;
   } | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnCreateAnnouncementSubscription = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  seenBy?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateAnnouncementSubscription = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  seenBy?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  searchField?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteAnnouncementSubscription = {
+  __typename: "Announcement";
+  id: string;
+  title: string;
+  author: {
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message: string;
+  recipients?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  groups?: Array<{
+    __typename: "Group";
+    id: string;
+    name: string;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    type: GroupType;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    members?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  seenBy?: Array<{
+    __typename: "Member";
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    title?: string | null;
+    bio?: string | null;
+    institution: {
+      __typename: "Institution";
+      id: string;
+      name: string;
+      location: string;
+      city: string;
+      website?: string | null;
+      phone?: string | null;
+      logo?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    groups?: {
+      __typename: "ModelGroupMemberConnection";
+      nextToken?: string | null;
+    } | null;
+    instructor?: {
+      __typename: "ModelCourseInstructorConnection";
+      nextToken?: string | null;
+    } | null;
+    assistant?: {
+      __typename: "ModelCourseAssistantConnection";
+      nextToken?: string | null;
+    } | null;
+    learner?: {
+      __typename: "ModelCourseLearnerConnection";
+      nextToken?: string | null;
+    } | null;
+    searchField?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -4945,8 +6146,6 @@ export type OnCreateCourseSubscription = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4957,8 +6156,6 @@ export type OnCreateCourseSubscription = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4969,8 +6166,6 @@ export type OnCreateCourseSubscription = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -4979,35 +6174,60 @@ export type OnCreateCourseSubscription = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: {
-    __typename: "ModelAssignmentConnection";
-    items?: Array<{
-      __typename: "Assignment";
+  assignments?: Array<{
+    __typename: "Assignment";
+    id: string;
+    title: string;
+    course: {
+      __typename: "Course";
       id: string;
-      title: string;
-      deadline?: string | null;
-      points?: number | null;
-      instructions?: string | null;
-      taskId?: string | null;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  courseSectionId?: string | null;
-  sections?: {
-    __typename: "ModelCourseSectionConnection";
-    items?: Array<{
+    };
+    section: {
       __typename: "CourseSection";
       id: string;
       name: string;
       index: number;
       createdAt: string;
       updatedAt: string;
+    };
+    deadline?: string | null;
+    points?: number | null;
+    instructions?: string | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  sections?: Array<{
+    __typename: "CourseSection";
+    id: string;
+    name: string;
+    index: number;
+    course: {
+      __typename: "Course";
+      id: string;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -5021,8 +6241,6 @@ export type OnUpdateCourseSubscription = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5033,8 +6251,6 @@ export type OnUpdateCourseSubscription = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5045,8 +6261,6 @@ export type OnUpdateCourseSubscription = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5055,35 +6269,60 @@ export type OnUpdateCourseSubscription = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: {
-    __typename: "ModelAssignmentConnection";
-    items?: Array<{
-      __typename: "Assignment";
+  assignments?: Array<{
+    __typename: "Assignment";
+    id: string;
+    title: string;
+    course: {
+      __typename: "Course";
       id: string;
-      title: string;
-      deadline?: string | null;
-      points?: number | null;
-      instructions?: string | null;
-      taskId?: string | null;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  courseSectionId?: string | null;
-  sections?: {
-    __typename: "ModelCourseSectionConnection";
-    items?: Array<{
+    };
+    section: {
       __typename: "CourseSection";
       id: string;
       name: string;
       index: number;
       createdAt: string;
       updatedAt: string;
+    };
+    deadline?: string | null;
+    points?: number | null;
+    instructions?: string | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  sections?: Array<{
+    __typename: "CourseSection";
+    id: string;
+    name: string;
+    index: number;
+    course: {
+      __typename: "Course";
+      id: string;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -5097,8 +6336,6 @@ export type OnDeleteCourseSubscription = {
     items?: Array<{
       __typename: "CourseInstructor";
       id: string;
-      courseId: string;
-      instructorId: string;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5109,8 +6346,6 @@ export type OnDeleteCourseSubscription = {
     items?: Array<{
       __typename: "CourseAssistant";
       id: string;
-      courseId?: string | null;
-      assistantId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5121,8 +6356,6 @@ export type OnDeleteCourseSubscription = {
     items?: Array<{
       __typename: "CourseLearner";
       id: string;
-      courseId?: string | null;
-      learnerId?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -5131,35 +6364,60 @@ export type OnDeleteCourseSubscription = {
   start?: string | null;
   end?: string | null;
   creditHours?: number | null;
-  assignmentId?: string | null;
-  assignments?: {
-    __typename: "ModelAssignmentConnection";
-    items?: Array<{
-      __typename: "Assignment";
+  assignments?: Array<{
+    __typename: "Assignment";
+    id: string;
+    title: string;
+    course: {
+      __typename: "Course";
       id: string;
-      title: string;
-      deadline?: string | null;
-      points?: number | null;
-      instructions?: string | null;
-      taskId?: string | null;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
       createdAt: string;
       updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
-  courseSectionId?: string | null;
-  sections?: {
-    __typename: "ModelCourseSectionConnection";
-    items?: Array<{
+    };
+    section: {
       __typename: "CourseSection";
       id: string;
       name: string;
       index: number;
       createdAt: string;
       updatedAt: string;
+    };
+    deadline?: string | null;
+    points?: number | null;
+    instructions?: string | null;
+    tasks?: Array<{
+      __typename: "Task";
+      id: string;
+      task: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
     } | null> | null;
-    nextToken?: string | null;
-  } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  sections?: Array<{
+    __typename: "CourseSection";
+    id: string;
+    name: string;
+    index: number;
+    course: {
+      __typename: "Course";
+      id: string;
+      start?: string | null;
+      end?: string | null;
+      creditHours?: number | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   searchField?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -5188,16 +6446,24 @@ export type OnCreateCourseSectionSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5229,16 +6495,24 @@ export type OnUpdateCourseSectionSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5270,16 +6544,24 @@ export type OnDeleteCourseSectionSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5310,16 +6592,24 @@ export type OnCreateAssignmentSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5335,8 +6625,6 @@ export type OnCreateAssignmentSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5347,19 +6635,14 @@ export type OnCreateAssignmentSubscription = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: {
-    __typename: "ModelTaskConnection";
-    items?: Array<{
-      __typename: "Task";
-      id: string;
-      task: string;
-      type: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  tasks?: Array<{
+    __typename: "Task";
+    id: string;
+    task: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5386,16 +6669,24 @@ export type OnUpdateAssignmentSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5411,8 +6702,6 @@ export type OnUpdateAssignmentSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5423,19 +6712,14 @@ export type OnUpdateAssignmentSubscription = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: {
-    __typename: "ModelTaskConnection";
-    items?: Array<{
-      __typename: "Task";
-      id: string;
-      task: string;
-      type: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  tasks?: Array<{
+    __typename: "Task";
+    id: string;
+    task: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5462,16 +6746,24 @@ export type OnDeleteAssignmentSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5487,8 +6779,6 @@ export type OnDeleteAssignmentSubscription = {
       start?: string | null;
       end?: string | null;
       creditHours?: number | null;
-      assignmentId?: string | null;
-      courseSectionId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5499,19 +6789,14 @@ export type OnDeleteAssignmentSubscription = {
   deadline?: string | null;
   points?: number | null;
   instructions?: string | null;
-  taskId?: string | null;
-  tasks?: {
-    __typename: "ModelTaskConnection";
-    items?: Array<{
-      __typename: "Task";
-      id: string;
-      task: string;
-      type: string;
-      createdAt: string;
-      updatedAt: string;
-    } | null> | null;
-    nextToken?: string | null;
-  } | null;
+  tasks?: Array<{
+    __typename: "Task";
+    id: string;
+    task: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -5546,8 +6831,6 @@ export type OnDeleteTaskSubscription = {
 export type OnCreateCourseInstructorSubscription = {
   __typename: "CourseInstructor";
   id: string;
-  courseId: string;
-  instructorId: string;
   course: {
     __typename: "Course";
     id: string;
@@ -5566,16 +6849,24 @@ export type OnCreateCourseInstructorSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5588,7 +6879,6 @@ export type OnCreateCourseInstructorSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -5599,8 +6889,6 @@ export type OnCreateCourseInstructorSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5632,8 +6920,6 @@ export type OnCreateCourseInstructorSubscription = {
 export type OnUpdateCourseInstructorSubscription = {
   __typename: "CourseInstructor";
   id: string;
-  courseId: string;
-  instructorId: string;
   course: {
     __typename: "Course";
     id: string;
@@ -5652,16 +6938,24 @@ export type OnUpdateCourseInstructorSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5674,7 +6968,6 @@ export type OnUpdateCourseInstructorSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -5685,8 +6978,6 @@ export type OnUpdateCourseInstructorSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5718,8 +7009,6 @@ export type OnUpdateCourseInstructorSubscription = {
 export type OnDeleteCourseInstructorSubscription = {
   __typename: "CourseInstructor";
   id: string;
-  courseId: string;
-  instructorId: string;
   course: {
     __typename: "Course";
     id: string;
@@ -5738,16 +7027,24 @@ export type OnDeleteCourseInstructorSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
@@ -5760,7 +7057,6 @@ export type OnDeleteCourseInstructorSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -5771,8 +7067,6 @@ export type OnDeleteCourseInstructorSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5804,9 +7098,7 @@ export type OnDeleteCourseInstructorSubscription = {
 export type OnCreateCourseAssistantSubscription = {
   __typename: "CourseAssistant";
   id: string;
-  courseId?: string | null;
-  assistantId?: string | null;
-  course?: {
+  course: {
     __typename: "Course";
     id: string;
     instructors?: {
@@ -5824,21 +7116,29 @@ export type OnCreateCourseAssistantSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  assistant?: {
+  };
+  assistant: {
     __typename: "Member";
     id: string;
     name: string;
@@ -5846,7 +7146,6 @@ export type OnCreateCourseAssistantSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -5857,8 +7156,6 @@ export type OnCreateCourseAssistantSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5882,7 +7179,7 @@ export type OnCreateCourseAssistantSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -5890,9 +7187,7 @@ export type OnCreateCourseAssistantSubscription = {
 export type OnUpdateCourseAssistantSubscription = {
   __typename: "CourseAssistant";
   id: string;
-  courseId?: string | null;
-  assistantId?: string | null;
-  course?: {
+  course: {
     __typename: "Course";
     id: string;
     instructors?: {
@@ -5910,21 +7205,29 @@ export type OnUpdateCourseAssistantSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  assistant?: {
+  };
+  assistant: {
     __typename: "Member";
     id: string;
     name: string;
@@ -5932,7 +7235,6 @@ export type OnUpdateCourseAssistantSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -5943,8 +7245,6 @@ export type OnUpdateCourseAssistantSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -5968,7 +7268,7 @@ export type OnUpdateCourseAssistantSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -5976,9 +7276,7 @@ export type OnUpdateCourseAssistantSubscription = {
 export type OnDeleteCourseAssistantSubscription = {
   __typename: "CourseAssistant";
   id: string;
-  courseId?: string | null;
-  assistantId?: string | null;
-  course?: {
+  course: {
     __typename: "Course";
     id: string;
     instructors?: {
@@ -5996,21 +7294,29 @@ export type OnDeleteCourseAssistantSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  assistant?: {
+  };
+  assistant: {
     __typename: "Member";
     id: string;
     name: string;
@@ -6018,7 +7324,6 @@ export type OnDeleteCourseAssistantSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -6029,8 +7334,6 @@ export type OnDeleteCourseAssistantSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -6054,7 +7357,7 @@ export type OnDeleteCourseAssistantSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -6062,9 +7365,7 @@ export type OnDeleteCourseAssistantSubscription = {
 export type OnCreateCourseLearnerSubscription = {
   __typename: "CourseLearner";
   id: string;
-  courseId?: string | null;
-  learnerId?: string | null;
-  course?: {
+  course: {
     __typename: "Course";
     id: string;
     instructors?: {
@@ -6082,21 +7383,29 @@ export type OnCreateCourseLearnerSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  learner?: {
+  };
+  learner: {
     __typename: "Member";
     id: string;
     name: string;
@@ -6104,7 +7413,6 @@ export type OnCreateCourseLearnerSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -6115,8 +7423,6 @@ export type OnCreateCourseLearnerSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -6140,7 +7446,7 @@ export type OnCreateCourseLearnerSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -6148,9 +7454,7 @@ export type OnCreateCourseLearnerSubscription = {
 export type OnUpdateCourseLearnerSubscription = {
   __typename: "CourseLearner";
   id: string;
-  courseId?: string | null;
-  learnerId?: string | null;
-  course?: {
+  course: {
     __typename: "Course";
     id: string;
     instructors?: {
@@ -6168,21 +7472,29 @@ export type OnUpdateCourseLearnerSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  learner?: {
+  };
+  learner: {
     __typename: "Member";
     id: string;
     name: string;
@@ -6190,7 +7502,6 @@ export type OnUpdateCourseLearnerSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -6201,8 +7512,6 @@ export type OnUpdateCourseLearnerSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -6226,7 +7535,7 @@ export type OnUpdateCourseLearnerSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -6234,9 +7543,7 @@ export type OnUpdateCourseLearnerSubscription = {
 export type OnDeleteCourseLearnerSubscription = {
   __typename: "CourseLearner";
   id: string;
-  courseId?: string | null;
-  learnerId?: string | null;
-  course?: {
+  course: {
     __typename: "Course";
     id: string;
     instructors?: {
@@ -6254,21 +7561,29 @@ export type OnDeleteCourseLearnerSubscription = {
     start?: string | null;
     end?: string | null;
     creditHours?: number | null;
-    assignmentId?: string | null;
-    assignments?: {
-      __typename: "ModelAssignmentConnection";
-      nextToken?: string | null;
-    } | null;
-    courseSectionId?: string | null;
-    sections?: {
-      __typename: "ModelCourseSectionConnection";
-      nextToken?: string | null;
-    } | null;
+    assignments?: Array<{
+      __typename: "Assignment";
+      id: string;
+      title: string;
+      deadline?: string | null;
+      points?: number | null;
+      instructions?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    sections?: Array<{
+      __typename: "CourseSection";
+      id: string;
+      name: string;
+      index: number;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  learner?: {
+  };
+  learner: {
     __typename: "Member";
     id: string;
     name: string;
@@ -6276,7 +7591,6 @@ export type OnDeleteCourseLearnerSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -6287,8 +7601,6 @@ export type OnDeleteCourseLearnerSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -6312,7 +7624,7 @@ export type OnDeleteCourseLearnerSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -6320,9 +7632,7 @@ export type OnDeleteCourseLearnerSubscription = {
 export type OnCreateGroupMemberSubscription = {
   __typename: "GroupMember";
   id: string;
-  groupId?: string | null;
-  memberId?: string | null;
-  group?: {
+  group: {
     __typename: "Group";
     id: string;
     name: string;
@@ -6336,18 +7646,23 @@ export type OnCreateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     type: GroupType;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     members?: {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
@@ -6355,8 +7670,8 @@ export type OnCreateGroupMemberSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  member?: {
+  };
+  member: {
     __typename: "Member";
     id: string;
     name: string;
@@ -6364,7 +7679,6 @@ export type OnCreateGroupMemberSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -6375,8 +7689,6 @@ export type OnCreateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -6400,7 +7712,7 @@ export type OnCreateGroupMemberSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -6408,9 +7720,7 @@ export type OnCreateGroupMemberSubscription = {
 export type OnUpdateGroupMemberSubscription = {
   __typename: "GroupMember";
   id: string;
-  groupId?: string | null;
-  memberId?: string | null;
-  group?: {
+  group: {
     __typename: "Group";
     id: string;
     name: string;
@@ -6424,18 +7734,23 @@ export type OnUpdateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     type: GroupType;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     members?: {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
@@ -6443,8 +7758,8 @@ export type OnUpdateGroupMemberSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  member?: {
+  };
+  member: {
     __typename: "Member";
     id: string;
     name: string;
@@ -6452,7 +7767,6 @@ export type OnUpdateGroupMemberSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -6463,8 +7777,6 @@ export type OnUpdateGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -6488,7 +7800,7 @@ export type OnUpdateGroupMemberSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -6496,9 +7808,7 @@ export type OnUpdateGroupMemberSubscription = {
 export type OnDeleteGroupMemberSubscription = {
   __typename: "GroupMember";
   id: string;
-  groupId?: string | null;
-  memberId?: string | null;
-  group?: {
+  group: {
     __typename: "Group";
     id: string;
     name: string;
@@ -6512,18 +7822,23 @@ export type OnDeleteGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
     };
     type: GroupType;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
+    admins?: Array<{
+      __typename: "Member";
+      id: string;
+      name: string;
+      email: string;
+      type: string;
+      title?: string | null;
+      bio?: string | null;
+      searchField?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
     members?: {
       __typename: "ModelGroupMemberConnection";
       nextToken?: string | null;
@@ -6531,8 +7846,8 @@ export type OnDeleteGroupMemberSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
-  member?: {
+  };
+  member: {
     __typename: "Member";
     id: string;
     name: string;
@@ -6540,7 +7855,6 @@ export type OnDeleteGroupMemberSubscription = {
     type: string;
     title?: string | null;
     bio?: string | null;
-    institutionId?: string | null;
     institution: {
       __typename: "Institution";
       id: string;
@@ -6551,8 +7865,6 @@ export type OnDeleteGroupMemberSubscription = {
       phone?: string | null;
       logo?: string | null;
       bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
       searchField?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -6576,7 +7888,7 @@ export type OnDeleteGroupMemberSubscription = {
     searchField?: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -6639,41 +7951,89 @@ export class APIService {
           phone
           logo
           bio
-          adminId
           admins {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
-          memberId
           members {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -6706,41 +8066,89 @@ export class APIService {
           phone
           logo
           bio
-          adminId
           admins {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
-          memberId
           members {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -6773,41 +8181,89 @@ export class APIService {
           phone
           logo
           bio
-          adminId
           admins {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
-          memberId
           members {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -6824,375 +8280,6 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteInstitutionMutation>response.data.deleteInstitution;
-  }
-  async CreateAnnouncement(
-    input: CreateAnnouncementInput,
-    condition?: ModelAnnouncementConditionInput
-  ): Promise<CreateAnnouncementMutation> {
-    const statement = `mutation CreateAnnouncement($input: CreateAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
-        createAnnouncement(input: $input, condition: $condition) {
-          __typename
-          id
-          title
-          authorId
-          author {
-            __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institutionId
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
-            groups {
-              __typename
-              nextToken
-            }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          message
-          recipientId
-          recipients {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          groupId
-          groups {
-            __typename
-            items {
-              __typename
-              id
-              name
-              type
-              adminId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          seenById
-          seenBy {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          searchField
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <CreateAnnouncementMutation>response.data.createAnnouncement;
-  }
-  async UpdateAnnouncement(
-    input: UpdateAnnouncementInput,
-    condition?: ModelAnnouncementConditionInput
-  ): Promise<UpdateAnnouncementMutation> {
-    const statement = `mutation UpdateAnnouncement($input: UpdateAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
-        updateAnnouncement(input: $input, condition: $condition) {
-          __typename
-          id
-          title
-          authorId
-          author {
-            __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institutionId
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
-            groups {
-              __typename
-              nextToken
-            }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          message
-          recipientId
-          recipients {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          groupId
-          groups {
-            __typename
-            items {
-              __typename
-              id
-              name
-              type
-              adminId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          seenById
-          seenBy {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          searchField
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <UpdateAnnouncementMutation>response.data.updateAnnouncement;
-  }
-  async DeleteAnnouncement(
-    input: DeleteAnnouncementInput,
-    condition?: ModelAnnouncementConditionInput
-  ): Promise<DeleteAnnouncementMutation> {
-    const statement = `mutation DeleteAnnouncement($input: DeleteAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
-        deleteAnnouncement(input: $input, condition: $condition) {
-          __typename
-          id
-          title
-          authorId
-          author {
-            __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institutionId
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
-            groups {
-              __typename
-              nextToken
-            }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          message
-          recipientId
-          recipients {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          groupId
-          groups {
-            __typename
-            items {
-              __typename
-              id
-              name
-              type
-              adminId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          seenById
-          seenBy {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          searchField
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <DeleteAnnouncementMutation>response.data.deleteAnnouncement;
   }
   async CreateGroup(
     input: CreateGroupInput,
@@ -7213,25 +8300,7 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          type
-          adminId
-          admins {
-            __typename
-            items {
               __typename
               id
               name
@@ -7239,20 +8308,74 @@ export class APIService {
               type
               title
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          type
+          admins {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           members {
             __typename
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -7293,25 +8416,7 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          type
-          adminId
-          admins {
-            __typename
-            items {
               __typename
               id
               name
@@ -7319,20 +8424,74 @@ export class APIService {
               type
               title
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          type
+          admins {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           members {
             __typename
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -7373,25 +8532,7 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          type
-          adminId
-          admins {
-            __typename
-            items {
               __typename
               id
               name
@@ -7399,20 +8540,74 @@ export class APIService {
               type
               title
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          type
+          admins {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           members {
             __typename
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -7447,7 +8642,6 @@ export class APIService {
           type
           title
           bio
-          institutionId
           institution {
             __typename
             id
@@ -7458,15 +8652,29 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
-            memberId
             members {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -7477,8 +8685,6 @@ export class APIService {
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -7489,8 +8695,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -7501,8 +8705,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -7513,8 +8715,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -7549,7 +8749,6 @@ export class APIService {
           type
           title
           bio
-          institutionId
           institution {
             __typename
             id
@@ -7560,15 +8759,29 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
-            memberId
             members {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -7579,8 +8792,6 @@ export class APIService {
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -7591,8 +8802,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -7603,8 +8812,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -7615,8 +8822,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -7651,7 +8856,6 @@ export class APIService {
           type
           title
           bio
-          institutionId
           institution {
             __typename
             id
@@ -7662,15 +8866,29 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
-            memberId
             members {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -7681,8 +8899,6 @@ export class APIService {
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -7693,8 +8909,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -7705,8 +8919,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -7717,8 +8929,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -7740,6 +8950,579 @@ export class APIService {
     )) as any;
     return <DeleteMemberMutation>response.data.deleteMember;
   }
+  async CreateAnnouncement(
+    input: CreateAnnouncementInput,
+    condition?: ModelAnnouncementConditionInput
+  ): Promise<CreateAnnouncementMutation> {
+    const statement = `mutation CreateAnnouncement($input: CreateAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
+        createAnnouncement(input: $input, condition: $condition) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          seenBy {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateAnnouncementMutation>response.data.createAnnouncement;
+  }
+  async UpdateAnnouncement(
+    input: UpdateAnnouncementInput,
+    condition?: ModelAnnouncementConditionInput
+  ): Promise<UpdateAnnouncementMutation> {
+    const statement = `mutation UpdateAnnouncement($input: UpdateAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
+        updateAnnouncement(input: $input, condition: $condition) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          seenBy {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateAnnouncementMutation>response.data.updateAnnouncement;
+  }
+  async DeleteAnnouncement(
+    input: DeleteAnnouncementInput,
+    condition?: ModelAnnouncementConditionInput
+  ): Promise<DeleteAnnouncementMutation> {
+    const statement = `mutation DeleteAnnouncement($input: DeleteAnnouncementInput!, $condition: ModelAnnouncementConditionInput) {
+        deleteAnnouncement(input: $input, condition: $condition) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          seenBy {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteAnnouncementMutation>response.data.deleteAnnouncement;
+  }
   async CreateCourse(
     input: CreateCourseInput,
     condition?: ModelCourseConditionInput
@@ -7753,8 +9536,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -7765,8 +9546,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -7777,8 +9556,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -7787,26 +9564,21 @@ export class APIService {
           start
           end
           creditHours
-          assignmentId
           assignments {
             __typename
-            items {
+            id
+            title
+            course {
               __typename
               id
-              title
-              deadline
-              points
-              instructions
-              taskId
+              start
+              end
+              creditHours
+              searchField
               createdAt
               updatedAt
             }
-            nextToken
-          }
-          courseSectionId
-          sections {
-            __typename
-            items {
+            section {
               __typename
               id
               name
@@ -7814,7 +9586,37 @@ export class APIService {
               createdAt
               updatedAt
             }
-            nextToken
+            deadline
+            points
+            instructions
+            tasks {
+              __typename
+              id
+              task
+              type
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          sections {
+            __typename
+            id
+            name
+            index
+            course {
+              __typename
+              id
+              start
+              end
+              creditHours
+              searchField
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -7845,8 +9647,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -7857,8 +9657,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -7869,8 +9667,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -7879,26 +9675,21 @@ export class APIService {
           start
           end
           creditHours
-          assignmentId
           assignments {
             __typename
-            items {
+            id
+            title
+            course {
               __typename
               id
-              title
-              deadline
-              points
-              instructions
-              taskId
+              start
+              end
+              creditHours
+              searchField
               createdAt
               updatedAt
             }
-            nextToken
-          }
-          courseSectionId
-          sections {
-            __typename
-            items {
+            section {
               __typename
               id
               name
@@ -7906,7 +9697,37 @@ export class APIService {
               createdAt
               updatedAt
             }
-            nextToken
+            deadline
+            points
+            instructions
+            tasks {
+              __typename
+              id
+              task
+              type
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          sections {
+            __typename
+            id
+            name
+            index
+            course {
+              __typename
+              id
+              start
+              end
+              creditHours
+              searchField
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -7937,8 +9758,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -7949,8 +9768,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -7961,8 +9778,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -7971,26 +9786,21 @@ export class APIService {
           start
           end
           creditHours
-          assignmentId
           assignments {
             __typename
-            items {
+            id
+            title
+            course {
               __typename
               id
-              title
-              deadline
-              points
-              instructions
-              taskId
+              start
+              end
+              creditHours
+              searchField
               createdAt
               updatedAt
             }
-            nextToken
-          }
-          courseSectionId
-          sections {
-            __typename
-            items {
+            section {
               __typename
               id
               name
@@ -7998,7 +9808,37 @@ export class APIService {
               createdAt
               updatedAt
             }
-            nextToken
+            deadline
+            points
+            instructions
+            tasks {
+              __typename
+              id
+              task
+              type
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          sections {
+            __typename
+            id
+            name
+            index
+            course {
+              __typename
+              id
+              start
+              end
+              creditHours
+              searchField
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -8044,15 +9884,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8101,15 +9949,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8158,15 +10014,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8214,15 +10078,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8239,8 +10111,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -8251,18 +10121,13 @@ export class APIService {
           deadline
           points
           instructions
-          taskId
           tasks {
             __typename
-            items {
-              __typename
-              id
-              task
-              type
-              createdAt
-              updatedAt
-            }
-            nextToken
+            id
+            task
+            type
+            createdAt
+            updatedAt
           }
           createdAt
           updatedAt
@@ -8306,15 +10171,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8331,8 +10204,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -8343,18 +10214,13 @@ export class APIService {
           deadline
           points
           instructions
-          taskId
           tasks {
             __typename
-            items {
-              __typename
-              id
-              task
-              type
-              createdAt
-              updatedAt
-            }
-            nextToken
+            id
+            task
+            type
+            createdAt
+            updatedAt
           }
           createdAt
           updatedAt
@@ -8398,15 +10264,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8423,8 +10297,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -8435,18 +10307,13 @@ export class APIService {
           deadline
           points
           instructions
-          taskId
           tasks {
             __typename
-            items {
-              __typename
-              id
-              task
-              type
-              createdAt
-              updatedAt
-            }
-            nextToken
+            id
+            task
+            type
+            createdAt
+            updatedAt
           }
           createdAt
           updatedAt
@@ -8546,8 +10413,6 @@ export class APIService {
         createCourseInstructor(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          instructorId
           course {
             __typename
             id
@@ -8566,15 +10431,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8588,7 +10461,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -8599,8 +10471,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -8648,8 +10518,6 @@ export class APIService {
         updateCourseInstructor(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          instructorId
           course {
             __typename
             id
@@ -8668,15 +10536,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8690,7 +10566,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -8701,8 +10576,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -8750,8 +10623,6 @@ export class APIService {
         deleteCourseInstructor(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          instructorId
           course {
             __typename
             id
@@ -8770,15 +10641,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8792,7 +10671,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -8803,8 +10681,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -8852,8 +10728,6 @@ export class APIService {
         createCourseAssistant(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          assistantId
           course {
             __typename
             id
@@ -8872,15 +10746,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8894,7 +10776,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -8905,8 +10786,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -8954,8 +10833,6 @@ export class APIService {
         updateCourseAssistant(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          assistantId
           course {
             __typename
             id
@@ -8974,15 +10851,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -8996,7 +10881,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9007,8 +10891,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9056,8 +10938,6 @@ export class APIService {
         deleteCourseAssistant(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          assistantId
           course {
             __typename
             id
@@ -9076,15 +10956,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -9098,7 +10986,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9109,8 +10996,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9158,8 +11043,6 @@ export class APIService {
         createCourseLearner(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          learnerId
           course {
             __typename
             id
@@ -9178,15 +11061,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -9200,7 +11091,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9211,8 +11101,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9260,8 +11148,6 @@ export class APIService {
         updateCourseLearner(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          learnerId
           course {
             __typename
             id
@@ -9280,15 +11166,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -9302,7 +11196,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9313,8 +11206,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9362,8 +11253,6 @@ export class APIService {
         deleteCourseLearner(input: $input, condition: $condition) {
           __typename
           id
-          courseId
-          learnerId
           course {
             __typename
             id
@@ -9382,15 +11271,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -9404,7 +11301,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9415,8 +11311,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9464,8 +11358,6 @@ export class APIService {
         createGroupMember(input: $input, condition: $condition) {
           __typename
           id
-          groupId
-          memberId
           group {
             __typename
             id
@@ -9480,17 +11372,22 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
             }
             type
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             members {
               __typename
@@ -9508,7 +11405,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9519,8 +11415,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9568,8 +11462,6 @@ export class APIService {
         updateGroupMember(input: $input, condition: $condition) {
           __typename
           id
-          groupId
-          memberId
           group {
             __typename
             id
@@ -9584,17 +11476,22 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
             }
             type
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             members {
               __typename
@@ -9612,7 +11509,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9623,8 +11519,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9672,8 +11566,6 @@ export class APIService {
         deleteGroupMember(input: $input, condition: $condition) {
           __typename
           id
-          groupId
-          memberId
           group {
             __typename
             id
@@ -9688,17 +11580,22 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
             }
             type
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             members {
               __typename
@@ -9716,7 +11613,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9727,8 +11623,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9780,41 +11674,89 @@ export class APIService {
           phone
           logo
           bio
-          adminId
           admins {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
-          memberId
           members {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -9847,15 +11789,29 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
-            memberId
             members {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -9879,14 +11835,52 @@ export class APIService {
     )) as any;
     return <ListInstitutionsQuery>response.data.listInstitutions;
   }
-  async GetAnnouncement(id: string): Promise<GetAnnouncementQuery> {
-    const statement = `query GetAnnouncement($id: ID!) {
-        getAnnouncement(id: $id) {
+  async GetGroup(id: string): Promise<GetGroupQuery> {
+    const statement = `query GetGroup($id: ID!) {
+        getGroup(id: $id) {
           __typename
           id
-          title
-          authorId
-          author {
+          name
+          institution {
+            __typename
+            id
+            name
+            location
+            city
+            website
+            phone
+            logo
+            bio
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          type
+          admins {
             __typename
             id
             name
@@ -9894,7 +11888,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -9905,8 +11898,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -9931,191 +11922,11 @@ export class APIService {
             createdAt
             updatedAt
           }
-          message
-          recipientId
-          recipients {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          groupId
-          groups {
-            __typename
-            items {
-              __typename
-              id
-              name
-              type
-              adminId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          seenById
-          seenBy {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          searchField
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      id
-    };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetAnnouncementQuery>response.data.getAnnouncement;
-  }
-  async ListAnnouncements(
-    filter?: ModelAnnouncementFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListAnnouncementsQuery> {
-    const statement = `query ListAnnouncements($filter: ModelAnnouncementFilterInput, $limit: Int, $nextToken: String) {
-        listAnnouncements(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            id
-            title
-            authorId
-            author {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            message
-            recipientId
-            recipients {
-              __typename
-              nextToken
-            }
-            groupId
-            groups {
-              __typename
-              nextToken
-            }
-            seenById
-            seenBy {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <ListAnnouncementsQuery>response.data.listAnnouncements;
-  }
-  async GetGroup(id: string): Promise<GetGroupQuery> {
-    const statement = `query GetGroup($id: ID!) {
-        getGroup(id: $id) {
-          __typename
-          id
-          name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          type
-          adminId
-          admins {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
           members {
             __typename
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -10156,17 +11967,22 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
             }
             type
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             members {
               __typename
@@ -10204,7 +12020,6 @@ export class APIService {
           type
           title
           bio
-          institutionId
           institution {
             __typename
             id
@@ -10215,15 +12030,29 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
-            memberId
             members {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -10234,8 +12063,6 @@ export class APIService {
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -10246,8 +12073,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -10258,8 +12083,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -10270,8 +12093,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -10306,7 +12127,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -10317,8 +12137,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -10361,6 +12179,271 @@ export class APIService {
     )) as any;
     return <ListMembersQuery>response.data.listMembers;
   }
+  async GetAnnouncement(id: string): Promise<GetAnnouncementQuery> {
+    const statement = `query GetAnnouncement($id: ID!) {
+        getAnnouncement(id: $id) {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          seenBy {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetAnnouncementQuery>response.data.getAnnouncement;
+  }
+  async ListAnnouncements(
+    filter?: ModelAnnouncementFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListAnnouncementsQuery> {
+    const statement = `query ListAnnouncements($filter: ModelAnnouncementFilterInput, $limit: Int, $nextToken: String) {
+        listAnnouncements(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            title
+            author {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            message
+            recipients {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              id
+              name
+              type
+              searchField
+              createdAt
+              updatedAt
+            }
+            seenBy {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListAnnouncementsQuery>response.data.listAnnouncements;
+  }
   async GetCourse(id: string): Promise<GetCourseQuery> {
     const statement = `query GetCourse($id: ID!) {
         getCourse(id: $id) {
@@ -10371,8 +12454,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -10383,8 +12464,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -10395,8 +12474,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -10405,26 +12482,21 @@ export class APIService {
           start
           end
           creditHours
-          assignmentId
           assignments {
             __typename
-            items {
+            id
+            title
+            course {
               __typename
               id
-              title
-              deadline
-              points
-              instructions
-              taskId
+              start
+              end
+              creditHours
+              searchField
               createdAt
               updatedAt
             }
-            nextToken
-          }
-          courseSectionId
-          sections {
-            __typename
-            items {
+            section {
               __typename
               id
               name
@@ -10432,7 +12504,37 @@ export class APIService {
               createdAt
               updatedAt
             }
-            nextToken
+            deadline
+            points
+            instructions
+            tasks {
+              __typename
+              id
+              task
+              type
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          sections {
+            __typename
+            id
+            name
+            index
+            course {
+              __typename
+              id
+              start
+              end
+              creditHours
+              searchField
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -10473,15 +12575,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -10530,15 +12640,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -10575,8 +12693,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -10626,15 +12742,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -10651,8 +12775,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -10663,18 +12785,13 @@ export class APIService {
           deadline
           points
           instructions
-          taskId
           tasks {
             __typename
-            items {
-              __typename
-              id
-              task
-              type
-              createdAt
-              updatedAt
-            }
-            nextToken
+            id
+            task
+            type
+            createdAt
+            updatedAt
           }
           createdAt
           updatedAt
@@ -10706,8 +12823,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -10723,10 +12838,13 @@ export class APIService {
             deadline
             points
             instructions
-            taskId
             tasks {
               __typename
-              nextToken
+              id
+              task
+              type
+              createdAt
+              updatedAt
             }
             createdAt
             updatedAt
@@ -10822,15 +12940,29 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
-            memberId
             members {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -10876,41 +13008,89 @@ export class APIService {
           phone
           logo
           bio
-          adminId
           admins {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
-          memberId
           members {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -10935,41 +13115,89 @@ export class APIService {
           phone
           logo
           bio
-          adminId
           admins {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
-          memberId
           members {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -10994,41 +13222,89 @@ export class APIService {
           phone
           logo
           bio
-          adminId
           admins {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
-          memberId
           members {
             __typename
-            items {
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
               __typename
               id
               name
-              email
-              type
-              title
+              location
+              city
+              website
+              phone
+              logo
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -11037,351 +13313,6 @@ export class APIService {
       }`
     )
   ) as Observable<SubscriptionResponse<OnDeleteInstitutionSubscription>>;
-
-  OnCreateAnnouncementListener: Observable<
-    SubscriptionResponse<OnCreateAnnouncementSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnCreateAnnouncement {
-        onCreateAnnouncement {
-          __typename
-          id
-          title
-          authorId
-          author {
-            __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institutionId
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
-            groups {
-              __typename
-              nextToken
-            }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          message
-          recipientId
-          recipients {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          groupId
-          groups {
-            __typename
-            items {
-              __typename
-              id
-              name
-              type
-              adminId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          seenById
-          seenBy {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          searchField
-          createdAt
-          updatedAt
-        }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnCreateAnnouncementSubscription>>;
-
-  OnUpdateAnnouncementListener: Observable<
-    SubscriptionResponse<OnUpdateAnnouncementSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnUpdateAnnouncement {
-        onUpdateAnnouncement {
-          __typename
-          id
-          title
-          authorId
-          author {
-            __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institutionId
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
-            groups {
-              __typename
-              nextToken
-            }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          message
-          recipientId
-          recipients {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          groupId
-          groups {
-            __typename
-            items {
-              __typename
-              id
-              name
-              type
-              adminId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          seenById
-          seenBy {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          searchField
-          createdAt
-          updatedAt
-        }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnUpdateAnnouncementSubscription>>;
-
-  OnDeleteAnnouncementListener: Observable<
-    SubscriptionResponse<OnDeleteAnnouncementSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnDeleteAnnouncement {
-        onDeleteAnnouncement {
-          __typename
-          id
-          title
-          authorId
-          author {
-            __typename
-            id
-            name
-            email
-            type
-            title
-            bio
-            institutionId
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
-            groups {
-              __typename
-              nextToken
-            }
-            instructor {
-              __typename
-              nextToken
-            }
-            assistant {
-              __typename
-              nextToken
-            }
-            learner {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          message
-          recipientId
-          recipients {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          groupId
-          groups {
-            __typename
-            items {
-              __typename
-              id
-              name
-              type
-              adminId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          seenById
-          seenBy {
-            __typename
-            items {
-              __typename
-              id
-              name
-              email
-              type
-              title
-              bio
-              institutionId
-              searchField
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          searchField
-          createdAt
-          updatedAt
-        }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnDeleteAnnouncementSubscription>>;
 
   OnCreateGroupListener(
     admins?: string
@@ -11401,25 +13332,7 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          type
-          adminId
-          admins {
-            __typename
-            items {
               __typename
               id
               name
@@ -11427,20 +13340,74 @@ export class APIService {
               type
               title
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          type
+          admins {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           members {
             __typename
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -11478,25 +13445,7 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          type
-          adminId
-          admins {
-            __typename
-            items {
               __typename
               id
               name
@@ -11504,20 +13453,74 @@ export class APIService {
               type
               title
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          type
+          admins {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           members {
             __typename
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -11555,25 +13558,7 @@ export class APIService {
             phone
             logo
             bio
-            adminId
             admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
-          type
-          adminId
-          admins {
-            __typename
-            items {
               __typename
               id
               name
@@ -11581,20 +13566,74 @@ export class APIService {
               type
               title
               bio
-              institutionId
               searchField
               createdAt
               updatedAt
             }
-            nextToken
+            members {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          type
+          admins {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
           }
           members {
             __typename
             items {
               __typename
               id
-              groupId
-              memberId
               createdAt
               updatedAt
             }
@@ -11614,6 +13653,555 @@ export class APIService {
     ) as Observable<SubscriptionResponse<OnDeleteGroupSubscription>>;
   }
 
+  OnCreateAnnouncementListener: Observable<
+    SubscriptionResponse<OnCreateAnnouncementSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateAnnouncement {
+        onCreateAnnouncement {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          seenBy {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateAnnouncementSubscription>>;
+
+  OnUpdateAnnouncementListener: Observable<
+    SubscriptionResponse<OnUpdateAnnouncementSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateAnnouncement {
+        onUpdateAnnouncement {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          seenBy {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateAnnouncementSubscription>>;
+
+  OnDeleteAnnouncementListener: Observable<
+    SubscriptionResponse<OnDeleteAnnouncementSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteAnnouncement {
+        onDeleteAnnouncement {
+          __typename
+          id
+          title
+          author {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          message
+          recipients {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          groups {
+            __typename
+            id
+            name
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            type
+            admins {
+              __typename
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            members {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          seenBy {
+            __typename
+            id
+            name
+            email
+            type
+            title
+            bio
+            institution {
+              __typename
+              id
+              name
+              location
+              city
+              website
+              phone
+              logo
+              bio
+              searchField
+              createdAt
+              updatedAt
+            }
+            groups {
+              __typename
+              nextToken
+            }
+            instructor {
+              __typename
+              nextToken
+            }
+            assistant {
+              __typename
+              nextToken
+            }
+            learner {
+              __typename
+              nextToken
+            }
+            searchField
+            createdAt
+            updatedAt
+          }
+          searchField
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteAnnouncementSubscription>>;
+
   OnCreateCourseListener(
     instructors?: string
   ): Observable<SubscriptionResponse<OnCreateCourseSubscription>> {
@@ -11626,8 +14214,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -11638,8 +14224,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -11650,8 +14234,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -11660,26 +14242,21 @@ export class APIService {
           start
           end
           creditHours
-          assignmentId
           assignments {
             __typename
-            items {
+            id
+            title
+            course {
               __typename
               id
-              title
-              deadline
-              points
-              instructions
-              taskId
+              start
+              end
+              creditHours
+              searchField
               createdAt
               updatedAt
             }
-            nextToken
-          }
-          courseSectionId
-          sections {
-            __typename
-            items {
+            section {
               __typename
               id
               name
@@ -11687,7 +14264,37 @@ export class APIService {
               createdAt
               updatedAt
             }
-            nextToken
+            deadline
+            points
+            instructions
+            tasks {
+              __typename
+              id
+              task
+              type
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          sections {
+            __typename
+            id
+            name
+            index
+            course {
+              __typename
+              id
+              start
+              end
+              creditHours
+              searchField
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -11715,8 +14322,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -11727,8 +14332,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -11739,8 +14342,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -11749,26 +14350,21 @@ export class APIService {
           start
           end
           creditHours
-          assignmentId
           assignments {
             __typename
-            items {
+            id
+            title
+            course {
               __typename
               id
-              title
-              deadline
-              points
-              instructions
-              taskId
+              start
+              end
+              creditHours
+              searchField
               createdAt
               updatedAt
             }
-            nextToken
-          }
-          courseSectionId
-          sections {
-            __typename
-            items {
+            section {
               __typename
               id
               name
@@ -11776,7 +14372,37 @@ export class APIService {
               createdAt
               updatedAt
             }
-            nextToken
+            deadline
+            points
+            instructions
+            tasks {
+              __typename
+              id
+              task
+              type
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          sections {
+            __typename
+            id
+            name
+            index
+            course {
+              __typename
+              id
+              start
+              end
+              creditHours
+              searchField
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -11804,8 +14430,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              instructorId
               createdAt
               updatedAt
             }
@@ -11816,8 +14440,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              assistantId
               createdAt
               updatedAt
             }
@@ -11828,8 +14450,6 @@ export class APIService {
             items {
               __typename
               id
-              courseId
-              learnerId
               createdAt
               updatedAt
             }
@@ -11838,26 +14458,21 @@ export class APIService {
           start
           end
           creditHours
-          assignmentId
           assignments {
             __typename
-            items {
+            id
+            title
+            course {
               __typename
               id
-              title
-              deadline
-              points
-              instructions
-              taskId
+              start
+              end
+              creditHours
+              searchField
               createdAt
               updatedAt
             }
-            nextToken
-          }
-          courseSectionId
-          sections {
-            __typename
-            items {
+            section {
               __typename
               id
               name
@@ -11865,7 +14480,37 @@ export class APIService {
               createdAt
               updatedAt
             }
-            nextToken
+            deadline
+            points
+            instructions
+            tasks {
+              __typename
+              id
+              task
+              type
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          sections {
+            __typename
+            id
+            name
+            index
+            course {
+              __typename
+              id
+              start
+              end
+              creditHours
+              searchField
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
           }
           searchField
           createdAt
@@ -11909,15 +14554,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -11958,15 +14611,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12007,15 +14668,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12055,15 +14724,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12080,8 +14757,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -12092,18 +14767,13 @@ export class APIService {
           deadline
           points
           instructions
-          taskId
           tasks {
             __typename
-            items {
-              __typename
-              id
-              task
-              type
-              createdAt
-              updatedAt
-            }
-            nextToken
+            id
+            task
+            type
+            createdAt
+            updatedAt
           }
           createdAt
           updatedAt
@@ -12139,15 +14809,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12164,8 +14842,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -12176,18 +14852,13 @@ export class APIService {
           deadline
           points
           instructions
-          taskId
           tasks {
             __typename
-            items {
-              __typename
-              id
-              task
-              type
-              createdAt
-              updatedAt
-            }
-            nextToken
+            id
+            task
+            type
+            createdAt
+            updatedAt
           }
           createdAt
           updatedAt
@@ -12223,15 +14894,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12248,8 +14927,6 @@ export class APIService {
               start
               end
               creditHours
-              assignmentId
-              courseSectionId
               searchField
               createdAt
               updatedAt
@@ -12260,18 +14937,13 @@ export class APIService {
           deadline
           points
           instructions
-          taskId
           tasks {
             __typename
-            items {
-              __typename
-              id
-              task
-              type
-              createdAt
-              updatedAt
-            }
-            nextToken
+            id
+            task
+            type
+            createdAt
+            updatedAt
           }
           createdAt
           updatedAt
@@ -12339,8 +15011,6 @@ export class APIService {
         onCreateCourseInstructor {
           __typename
           id
-          courseId
-          instructorId
           course {
             __typename
             id
@@ -12359,15 +15029,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12381,7 +15059,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -12392,8 +15069,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -12433,8 +15108,6 @@ export class APIService {
         onUpdateCourseInstructor {
           __typename
           id
-          courseId
-          instructorId
           course {
             __typename
             id
@@ -12453,15 +15126,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12475,7 +15156,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -12486,8 +15166,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -12527,8 +15205,6 @@ export class APIService {
         onDeleteCourseInstructor {
           __typename
           id
-          courseId
-          instructorId
           course {
             __typename
             id
@@ -12547,15 +15223,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12569,7 +15253,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -12580,8 +15263,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -12621,8 +15302,6 @@ export class APIService {
         onCreateCourseAssistant {
           __typename
           id
-          courseId
-          assistantId
           course {
             __typename
             id
@@ -12641,15 +15320,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12663,7 +15350,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -12674,8 +15360,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -12715,8 +15399,6 @@ export class APIService {
         onUpdateCourseAssistant {
           __typename
           id
-          courseId
-          assistantId
           course {
             __typename
             id
@@ -12735,15 +15417,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12757,7 +15447,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -12768,8 +15457,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -12809,8 +15496,6 @@ export class APIService {
         onDeleteCourseAssistant {
           __typename
           id
-          courseId
-          assistantId
           course {
             __typename
             id
@@ -12829,15 +15514,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12851,7 +15544,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -12862,8 +15554,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -12903,8 +15593,6 @@ export class APIService {
         onCreateCourseLearner {
           __typename
           id
-          courseId
-          learnerId
           course {
             __typename
             id
@@ -12923,15 +15611,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -12945,7 +15641,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -12956,8 +15651,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -12997,8 +15690,6 @@ export class APIService {
         onUpdateCourseLearner {
           __typename
           id
-          courseId
-          learnerId
           course {
             __typename
             id
@@ -13017,15 +15708,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -13039,7 +15738,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -13050,8 +15748,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -13091,8 +15787,6 @@ export class APIService {
         onDeleteCourseLearner {
           __typename
           id
-          courseId
-          learnerId
           course {
             __typename
             id
@@ -13111,15 +15805,23 @@ export class APIService {
             start
             end
             creditHours
-            assignmentId
             assignments {
               __typename
-              nextToken
+              id
+              title
+              deadline
+              points
+              instructions
+              createdAt
+              updatedAt
             }
-            courseSectionId
             sections {
               __typename
-              nextToken
+              id
+              name
+              index
+              createdAt
+              updatedAt
             }
             searchField
             createdAt
@@ -13133,7 +15835,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -13144,8 +15845,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -13185,8 +15884,6 @@ export class APIService {
         onCreateGroupMember {
           __typename
           id
-          groupId
-          memberId
           group {
             __typename
             id
@@ -13201,17 +15898,22 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
             }
             type
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             members {
               __typename
@@ -13229,7 +15931,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -13240,8 +15941,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -13281,8 +15980,6 @@ export class APIService {
         onUpdateGroupMember {
           __typename
           id
-          groupId
-          memberId
           group {
             __typename
             id
@@ -13297,17 +15994,22 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
             }
             type
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             members {
               __typename
@@ -13325,7 +16027,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -13336,8 +16037,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
@@ -13377,8 +16076,6 @@ export class APIService {
         onDeleteGroupMember {
           __typename
           id
-          groupId
-          memberId
           group {
             __typename
             id
@@ -13393,17 +16090,22 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt
             }
             type
-            adminId
             admins {
               __typename
-              nextToken
+              id
+              name
+              email
+              type
+              title
+              bio
+              searchField
+              createdAt
+              updatedAt
             }
             members {
               __typename
@@ -13421,7 +16123,6 @@ export class APIService {
             type
             title
             bio
-            institutionId
             institution {
               __typename
               id
@@ -13432,8 +16133,6 @@ export class APIService {
               phone
               logo
               bio
-              adminId
-              memberId
               searchField
               createdAt
               updatedAt

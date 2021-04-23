@@ -256,13 +256,13 @@ This is a join table that ties courses with Instructors
 This is the way to establish many-to-many relationships
 """
 type CourseInstructor
-  @model
+  @model(queries: null)
   @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "The course that this instructor belongs to"
-  course: Course @connection(name: "CourseInstructorConnection")
+  course: Course! @connection(name: "CourseInstructorConnection")
   "The instructor(s) in the course"
-  instructor: Member @connection(name: "InstructorCourseConnection")
+  instructor: Member! @connection(name: "InstructorCourseConnection")
 }
 
 """
@@ -271,13 +271,13 @@ This is a join table that ties courses with Assistants
 This is the way to establish many-to-many relationships
 """
 type CourseAssistant
-  @model
+  @model(queries: null)
   @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "The course that this instructor belongs to"
-  course: Course @connection(name: "CourseAssistantConnection")
+  course: Course! @connection(name: "CourseAssistantConnection")
   "The instructor(s) in the course"
-  assistant: Member @connection(name: "AssistantCourseConnection")
+  assistant: Member! @connection(name: "AssistantCourseConnection")
 }
 
 """
@@ -286,13 +286,13 @@ This is a join table that ties courses with Learners
 This is the way to establish many-to-many relationships
 """
 type CourseLearner
-  @model
+  @model(queries: null)
   @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "The course that this instructor belongs to"
-  course: Course @connection(name: "CourseLearnerConnection")
+  course: Course! @connection(name: "CourseLearnerConnection")
   "The instructor(s) in the course"
-  learner: Member @connection(name: "LearnerCourseConnection")
+  learner: Member! @connection(name: "LearnerCourseConnection")
 }
 
 """
@@ -301,11 +301,11 @@ This is a join table that ties groups with Members
 This is the way to establish many-to-many relationships
 """
 type GroupMember
-  @model
+  @model(queries: null)
   @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }]) {
   id: ID!
   "The group that the member belongs to"
-  group: Group @connection(name: "GroupMemberConnection")
+  group: Group! @connection(name: "GroupMemberConnection")
   "The members in the group"
-  member: Member @connection(name: "MemberGroupConnection")
+  member: Member! @connection(name: "MemberGroupConnection")
 }

@@ -9,37 +9,77 @@ subscription OnCreateInstitution {
     phone
     logo
     bio
-    adminId
     admins {
-      items {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
         id
         name
-        email
-        type
-        title
+        location
+        city
+        website
+        phone
+        logo
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
-    memberId
     members {
-      items {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
         id
         name
-        email
-        type
-        title
+        location
+        city
+        website
+        phone
+        logo
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
     searchField
     createdAt
@@ -56,37 +96,77 @@ subscription OnUpdateInstitution {
     phone
     logo
     bio
-    adminId
     admins {
-      items {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
         id
         name
-        email
-        type
-        title
+        location
+        city
+        website
+        phone
+        logo
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
-    memberId
     members {
-      items {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
         id
         name
-        email
-        type
-        title
+        location
+        city
+        website
+        phone
+        logo
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
     searchField
     createdAt
@@ -103,56 +183,49 @@ subscription OnDeleteInstitution {
     phone
     logo
     bio
-    adminId
     admins {
-      items {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
         id
         name
-        email
-        type
-        title
+        location
+        city
+        website
+        phone
+        logo
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
-    memberId
     members {
-      items {
-        id
-        name
-        email
-        type
-        title
-        bio
-        institutionId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    searchField
-    createdAt
-    updatedAt
-  }
-}
-subscription OnCreateAnnouncement {
-  onCreateAnnouncement {
-    id
-    title
-    authorId
-    author {
       id
       name
       email
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -162,8 +235,6 @@ subscription OnCreateAnnouncement {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -183,242 +254,6 @@ subscription OnCreateAnnouncement {
       searchField
       createdAt
       updatedAt
-    }
-    message
-    recipientId
-    recipients {
-      items {
-        id
-        name
-        email
-        type
-        title
-        bio
-        institutionId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    groupId
-    groups {
-      items {
-        id
-        name
-        type
-        adminId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    seenById
-    seenBy {
-      items {
-        id
-        name
-        email
-        type
-        title
-        bio
-        institutionId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    searchField
-    createdAt
-    updatedAt
-  }
-}
-subscription OnUpdateAnnouncement {
-  onUpdateAnnouncement {
-    id
-    title
-    authorId
-    author {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institutionId
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
-    message
-    recipientId
-    recipients {
-      items {
-        id
-        name
-        email
-        type
-        title
-        bio
-        institutionId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    groupId
-    groups {
-      items {
-        id
-        name
-        type
-        adminId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    seenById
-    seenBy {
-      items {
-        id
-        name
-        email
-        type
-        title
-        bio
-        institutionId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    searchField
-    createdAt
-    updatedAt
-  }
-}
-subscription OnDeleteAnnouncement {
-  onDeleteAnnouncement {
-    id
-    title
-    authorId
-    author {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institutionId
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
-    message
-    recipientId
-    recipients {
-      items {
-        id
-        name
-        email
-        type
-        title
-        bio
-        institutionId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    groupId
-    groups {
-      items {
-        id
-        name
-        type
-        adminId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    seenById
-    seenBy {
-      items {
-        id
-        name
-        email
-        type
-        title
-        bio
-        institutionId
-        searchField
-        createdAt
-        updatedAt
-      }
-      nextToken
     }
     searchField
     createdAt
@@ -438,40 +273,72 @@ subscription OnCreateGroup($admins: String) {
       phone
       logo
       bio
-      adminId
       admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
-    type
-    adminId
-    admins {
-      items {
         id
         name
         email
         type
         title
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      members {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    type
+    admins {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
     members {
       items {
         id
-        groupId
-        memberId
         createdAt
         updatedAt
       }
@@ -495,40 +362,72 @@ subscription OnUpdateGroup($admins: String) {
       phone
       logo
       bio
-      adminId
       admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
-    type
-    adminId
-    admins {
-      items {
         id
         name
         email
         type
         title
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      members {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    type
+    admins {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
     members {
       items {
         id
-        groupId
-        memberId
         createdAt
         updatedAt
       }
@@ -552,11 +451,187 @@ subscription OnDeleteGroup($admins: String) {
       phone
       logo
       bio
-      adminId
       admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    type
+    admins {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
         nextToken
       }
-      memberId
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    members {
+      items {
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateAnnouncement {
+  onCreateAnnouncement {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
       members {
         nextToken
       }
@@ -564,32 +639,347 @@ subscription OnDeleteGroup($admins: String) {
       createdAt
       updatedAt
     }
-    type
-    adminId
-    admins {
-      items {
+    seenBy {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateAnnouncement {
+  onUpdateAnnouncement {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
         id
         name
         email
         type
         title
         bio
-        institutionId
         searchField
         createdAt
         updatedAt
       }
-      nextToken
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
-    members {
-      items {
+    seenBy {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
         id
-        groupId
-        memberId
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
         createdAt
         updatedAt
       }
-      nextToken
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    searchField
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteAnnouncement {
+  onDeleteAnnouncement {
+    id
+    title
+    author {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    message
+    recipients {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    groups {
+      id
+      name
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      type
+      admins {
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      members {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
+    }
+    seenBy {
+      id
+      name
+      email
+      type
+      title
+      bio
+      institution {
+        id
+        name
+        location
+        city
+        website
+        phone
+        logo
+        bio
+        searchField
+        createdAt
+        updatedAt
+      }
+      groups {
+        nextToken
+      }
+      instructor {
+        nextToken
+      }
+      assistant {
+        nextToken
+      }
+      learner {
+        nextToken
+      }
+      searchField
+      createdAt
+      updatedAt
     }
     searchField
     createdAt
@@ -602,8 +992,6 @@ subscription OnCreateCourse($instructors: String) {
     instructors {
       items {
         id
-        courseId
-        instructorId
         createdAt
         updatedAt
       }
@@ -612,8 +1000,6 @@ subscription OnCreateCourse($instructors: String) {
     assistants {
       items {
         id
-        courseId
-        assistantId
         createdAt
         updatedAt
       }
@@ -622,8 +1008,6 @@ subscription OnCreateCourse($instructors: String) {
     learners {
       items {
         id
-        courseId
-        learnerId
         createdAt
         updatedAt
       }
@@ -632,30 +1016,53 @@ subscription OnCreateCourse($instructors: String) {
     start
     end
     creditHours
-    assignmentId
     assignments {
-      items {
+      id
+      title
+      course {
         id
-        title
-        deadline
-        points
-        instructions
-        taskId
+        start
+        end
+        creditHours
+        searchField
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    courseSectionId
-    sections {
-      items {
+      section {
         id
         name
         index
         createdAt
         updatedAt
       }
-      nextToken
+      deadline
+      points
+      instructions
+      tasks {
+        id
+        task
+        type
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    sections {
+      id
+      name
+      index
+      course {
+        id
+        start
+        end
+        creditHours
+        searchField
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
     }
     searchField
     createdAt
@@ -668,8 +1075,6 @@ subscription OnUpdateCourse($instructors: String) {
     instructors {
       items {
         id
-        courseId
-        instructorId
         createdAt
         updatedAt
       }
@@ -678,8 +1083,6 @@ subscription OnUpdateCourse($instructors: String) {
     assistants {
       items {
         id
-        courseId
-        assistantId
         createdAt
         updatedAt
       }
@@ -688,8 +1091,6 @@ subscription OnUpdateCourse($instructors: String) {
     learners {
       items {
         id
-        courseId
-        learnerId
         createdAt
         updatedAt
       }
@@ -698,30 +1099,53 @@ subscription OnUpdateCourse($instructors: String) {
     start
     end
     creditHours
-    assignmentId
     assignments {
-      items {
+      id
+      title
+      course {
         id
-        title
-        deadline
-        points
-        instructions
-        taskId
+        start
+        end
+        creditHours
+        searchField
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    courseSectionId
-    sections {
-      items {
+      section {
         id
         name
         index
         createdAt
         updatedAt
       }
-      nextToken
+      deadline
+      points
+      instructions
+      tasks {
+        id
+        task
+        type
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    sections {
+      id
+      name
+      index
+      course {
+        id
+        start
+        end
+        creditHours
+        searchField
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
     }
     searchField
     createdAt
@@ -734,8 +1158,6 @@ subscription OnDeleteCourse($instructors: String) {
     instructors {
       items {
         id
-        courseId
-        instructorId
         createdAt
         updatedAt
       }
@@ -744,8 +1166,6 @@ subscription OnDeleteCourse($instructors: String) {
     assistants {
       items {
         id
-        courseId
-        assistantId
         createdAt
         updatedAt
       }
@@ -754,8 +1174,6 @@ subscription OnDeleteCourse($instructors: String) {
     learners {
       items {
         id
-        courseId
-        learnerId
         createdAt
         updatedAt
       }
@@ -764,30 +1182,53 @@ subscription OnDeleteCourse($instructors: String) {
     start
     end
     creditHours
-    assignmentId
     assignments {
-      items {
+      id
+      title
+      course {
         id
-        title
-        deadline
-        points
-        instructions
-        taskId
+        start
+        end
+        creditHours
+        searchField
         createdAt
         updatedAt
       }
-      nextToken
-    }
-    courseSectionId
-    sections {
-      items {
+      section {
         id
         name
         index
         createdAt
         updatedAt
       }
-      nextToken
+      deadline
+      points
+      instructions
+      tasks {
+        id
+        task
+        type
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    sections {
+      id
+      name
+      index
+      course {
+        id
+        start
+        end
+        creditHours
+        searchField
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
     }
     searchField
     createdAt
@@ -813,13 +1254,21 @@ subscription OnCreateCourseSection {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -848,13 +1297,21 @@ subscription OnUpdateCourseSection {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -883,13 +1340,21 @@ subscription OnDeleteCourseSection {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -917,13 +1382,21 @@ subscription OnCreateAssignment {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -938,8 +1411,6 @@ subscription OnCreateAssignment {
         start
         end
         creditHours
-        assignmentId
-        courseSectionId
         searchField
         createdAt
         updatedAt
@@ -950,16 +1421,12 @@ subscription OnCreateAssignment {
     deadline
     points
     instructions
-    taskId
     tasks {
-      items {
-        id
-        task
-        type
-        createdAt
-        updatedAt
-      }
-      nextToken
+      id
+      task
+      type
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -983,13 +1450,21 @@ subscription OnUpdateAssignment {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1004,8 +1479,6 @@ subscription OnUpdateAssignment {
         start
         end
         creditHours
-        assignmentId
-        courseSectionId
         searchField
         createdAt
         updatedAt
@@ -1016,16 +1489,12 @@ subscription OnUpdateAssignment {
     deadline
     points
     instructions
-    taskId
     tasks {
-      items {
-        id
-        task
-        type
-        createdAt
-        updatedAt
-      }
-      nextToken
+      id
+      task
+      type
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -1049,13 +1518,21 @@ subscription OnDeleteAssignment {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1070,8 +1547,6 @@ subscription OnDeleteAssignment {
         start
         end
         creditHours
-        assignmentId
-        courseSectionId
         searchField
         createdAt
         updatedAt
@@ -1082,16 +1557,12 @@ subscription OnDeleteAssignment {
     deadline
     points
     instructions
-    taskId
     tasks {
-      items {
-        id
-        task
-        type
-        createdAt
-        updatedAt
-      }
-      nextToken
+      id
+      task
+      type
+      createdAt
+      updatedAt
     }
     createdAt
     updatedAt
@@ -1127,8 +1598,6 @@ subscription OnDeleteTask {
 subscription OnCreateCourseInstructor {
   onCreateCourseInstructor {
     id
-    courseId
-    instructorId
     course {
       id
       instructors {
@@ -1143,13 +1612,21 @@ subscription OnCreateCourseInstructor {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1162,7 +1639,6 @@ subscription OnCreateCourseInstructor {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1172,8 +1648,6 @@ subscription OnCreateCourseInstructor {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1201,8 +1675,6 @@ subscription OnCreateCourseInstructor {
 subscription OnUpdateCourseInstructor {
   onUpdateCourseInstructor {
     id
-    courseId
-    instructorId
     course {
       id
       instructors {
@@ -1217,13 +1689,21 @@ subscription OnUpdateCourseInstructor {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1236,7 +1716,6 @@ subscription OnUpdateCourseInstructor {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1246,8 +1725,6 @@ subscription OnUpdateCourseInstructor {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1275,8 +1752,6 @@ subscription OnUpdateCourseInstructor {
 subscription OnDeleteCourseInstructor {
   onDeleteCourseInstructor {
     id
-    courseId
-    instructorId
     course {
       id
       instructors {
@@ -1291,13 +1766,21 @@ subscription OnDeleteCourseInstructor {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1310,7 +1793,6 @@ subscription OnDeleteCourseInstructor {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1320,8 +1802,6 @@ subscription OnDeleteCourseInstructor {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1349,8 +1829,6 @@ subscription OnDeleteCourseInstructor {
 subscription OnCreateCourseAssistant {
   onCreateCourseAssistant {
     id
-    courseId
-    assistantId
     course {
       id
       instructors {
@@ -1365,13 +1843,21 @@ subscription OnCreateCourseAssistant {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1384,7 +1870,6 @@ subscription OnCreateCourseAssistant {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1394,8 +1879,6 @@ subscription OnCreateCourseAssistant {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1423,8 +1906,6 @@ subscription OnCreateCourseAssistant {
 subscription OnUpdateCourseAssistant {
   onUpdateCourseAssistant {
     id
-    courseId
-    assistantId
     course {
       id
       instructors {
@@ -1439,13 +1920,21 @@ subscription OnUpdateCourseAssistant {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1458,7 +1947,6 @@ subscription OnUpdateCourseAssistant {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1468,8 +1956,6 @@ subscription OnUpdateCourseAssistant {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1497,8 +1983,6 @@ subscription OnUpdateCourseAssistant {
 subscription OnDeleteCourseAssistant {
   onDeleteCourseAssistant {
     id
-    courseId
-    assistantId
     course {
       id
       instructors {
@@ -1513,13 +1997,21 @@ subscription OnDeleteCourseAssistant {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1532,7 +2024,6 @@ subscription OnDeleteCourseAssistant {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1542,8 +2033,6 @@ subscription OnDeleteCourseAssistant {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1571,8 +2060,6 @@ subscription OnDeleteCourseAssistant {
 subscription OnCreateCourseLearner {
   onCreateCourseLearner {
     id
-    courseId
-    learnerId
     course {
       id
       instructors {
@@ -1587,13 +2074,21 @@ subscription OnCreateCourseLearner {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1606,7 +2101,6 @@ subscription OnCreateCourseLearner {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1616,8 +2110,6 @@ subscription OnCreateCourseLearner {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1645,8 +2137,6 @@ subscription OnCreateCourseLearner {
 subscription OnUpdateCourseLearner {
   onUpdateCourseLearner {
     id
-    courseId
-    learnerId
     course {
       id
       instructors {
@@ -1661,13 +2151,21 @@ subscription OnUpdateCourseLearner {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1680,7 +2178,6 @@ subscription OnUpdateCourseLearner {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1690,8 +2187,6 @@ subscription OnUpdateCourseLearner {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1719,8 +2214,6 @@ subscription OnUpdateCourseLearner {
 subscription OnDeleteCourseLearner {
   onDeleteCourseLearner {
     id
-    courseId
-    learnerId
     course {
       id
       instructors {
@@ -1735,13 +2228,21 @@ subscription OnDeleteCourseLearner {
       start
       end
       creditHours
-      assignmentId
       assignments {
-        nextToken
+        id
+        title
+        deadline
+        points
+        instructions
+        createdAt
+        updatedAt
       }
-      courseSectionId
       sections {
-        nextToken
+        id
+        name
+        index
+        createdAt
+        updatedAt
       }
       searchField
       createdAt
@@ -1754,7 +2255,6 @@ subscription OnDeleteCourseLearner {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1764,8 +2264,6 @@ subscription OnDeleteCourseLearner {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1793,8 +2291,6 @@ subscription OnDeleteCourseLearner {
 subscription OnCreateGroupMember {
   onCreateGroupMember {
     id
-    groupId
-    memberId
     group {
       id
       name
@@ -1807,16 +2303,21 @@ subscription OnCreateGroupMember {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
       }
       type
-      adminId
       admins {
-        nextToken
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
       }
       members {
         nextToken
@@ -1832,7 +2333,6 @@ subscription OnCreateGroupMember {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1842,8 +2342,6 @@ subscription OnCreateGroupMember {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1871,8 +2369,6 @@ subscription OnCreateGroupMember {
 subscription OnUpdateGroupMember {
   onUpdateGroupMember {
     id
-    groupId
-    memberId
     group {
       id
       name
@@ -1885,16 +2381,21 @@ subscription OnUpdateGroupMember {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
       }
       type
-      adminId
       admins {
-        nextToken
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
       }
       members {
         nextToken
@@ -1910,7 +2411,6 @@ subscription OnUpdateGroupMember {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1920,8 +2420,6 @@ subscription OnUpdateGroupMember {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
@@ -1949,8 +2447,6 @@ subscription OnUpdateGroupMember {
 subscription OnDeleteGroupMember {
   onDeleteGroupMember {
     id
-    groupId
-    memberId
     group {
       id
       name
@@ -1963,16 +2459,21 @@ subscription OnDeleteGroupMember {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
       }
       type
-      adminId
       admins {
-        nextToken
+        id
+        name
+        email
+        type
+        title
+        bio
+        searchField
+        createdAt
+        updatedAt
       }
       members {
         nextToken
@@ -1988,7 +2489,6 @@ subscription OnDeleteGroupMember {
       type
       title
       bio
-      institutionId
       institution {
         id
         name
@@ -1998,8 +2498,6 @@ subscription OnDeleteGroupMember {
         phone
         logo
         bio
-        adminId
-        memberId
         searchField
         createdAt
         updatedAt
