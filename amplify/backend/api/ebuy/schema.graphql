@@ -57,20 +57,20 @@ type Institution
   "Short bio, could be their school motto"
   bio: String
 
-  "ids of the admins of this institution"
-  adminIds: [String]
+  "Ids of the admins of this institution"
+  adminId: ID
 
   "Admins of the institution manage the institution's properties"
   admins: [Member]
     @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
-    @connection(fields: ["adminIds"])
+    @connection(fields: ["adminId"])
 
   "Ids of the members of the institution"
-  memberIds: [String]
+  memberId: ID
   "All Members belonging to the institution"
   members: [Member]
     @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
-    @connection(fields: ["memberIds"])
+    @connection(fields: ["memberId"])
 
   "Search Field for searching the entire table for a string"
   searchField: String
@@ -99,7 +99,7 @@ type Announcement
   title: String!
 
   "The user id of the author"
-  authorId: String!
+  authorId: ID!
 
   "The person who is making the announcement"
   author: Member! @connection(fields: ["authorId"])
@@ -108,22 +108,22 @@ type Announcement
   message: String!
 
   "The person who is making the announcement"
-  recipentIds: [String]
+  recipientId: ID
 
   "List of members that the announcement should be delivered to"
-  recipients: [Member] @connection(fields: ["recipientIds"])
+  recipients: [Member] @connection(fields: ["recipientId"])
 
   "The Ids of the groups that this announcement is for"
-  groupIds: [String]
+  groupId: ID
 
   "List of groups that this announcement should be delivered to"
-  groups: [Group] @connection(fields: ["groupIds"])
+  groups: [Group] @connection(fields: ["groupId"])
 
   "Ids of the members who've seen this announcement"
-  seenByIds: [String]
+  seenById: ID
 
   "List of members that this announcement has been seen by"
-  seenBy: [Member] @connection(fields: ["seenByIds"])
+  seenBy: [Member] @connection(fields: ["seenById"])
 
   "Search Field for searching the entire table for a string"
   searchField: String
@@ -151,13 +151,13 @@ type Group
   "Type of group this is. It can be Class, Team or Coordinators."
   type: GroupType!
 
-  "ids of the admins of this group"
-  adminIds: [String]
+  "Ids of the admins of this group"
+  adminId: ID
 
   "The admins of the group who can manage members of the class etc"
   admins: [Member]
     @auth(rules: [{ allow: groups, groups: ["SUPER_ADMIN"] }])
-    @connection(fields: ["adminIds"])
+    @connection(fields: ["adminId"])
 
   "List of members in this group"
   members: [GroupMember]
@@ -195,8 +195,8 @@ type Member
   "Bio of the person"
   bio: String
 
-  "ids of the institution that this member belongs to"
-  institutionId: String
+  "Ids of the institution that this member belongs to"
+  institutionId: ID
 
   "Every member will be tied to an institution, instructors, course assistants will be tied to Shuddhi Vidhya"
   institution: Institution!
@@ -264,16 +264,16 @@ type Course
   creditHours: Int
 
   "The assignments' ids"
-  assignmentIds: [String]
+  assignmentId: ID
 
   "Assignments that are part of this course"
-  assignments: [Assignment] @connection(fields: ["assignmentIds"])
+  assignments: [Assignment] @connection(fields: ["assignmentId"])
 
   "CourseSections' Ids"
-  courseSectionIds: [String]
+  courseSectionId: ID
 
   "Sections in the course"
-  sections: [CourseSection] @connection(fields: ["courseSectionIds"])
+  sections: [CourseSection] @connection(fields: ["courseSectionId"])
 
   "Search Field for searching the entire table for a string"
   searchField: String
@@ -323,11 +323,11 @@ type Assignment
   "A description of what needs to be done in the assignment"
   instructions: String
 
-  "Task ids"
-  taskIds: [String]
+  "Task Ids"
+  taskId: ID
 
   "A list of tasks to be completed as part of this assignment"
-  tasks: [Task] @connection(fields: ["taskIds"])
+  tasks: [Task] @connection(fields: ["taskId"])
 }
 
 """
@@ -358,9 +358,9 @@ type CourseInstructor
   ) {
   id: ID!
 
-  courseId: String!
+  courseId: ID!
 
-  instructorId: String!
+  instructorId: ID!
 
   "The course that this instructor belongs to"
   course: Course! @connection(fields: ["courseId"])
@@ -380,15 +380,15 @@ type CourseAssistant
   @key(name: "AssistantCourseConnection", fields: ["assistantId", "courseId"]) {
   id: ID!
 
-  courseId: String
+  courseId: ID
 
-  assistantId: String
+  assistantId: ID
 
   "The course that this instructor belongs to"
   course: Course @connection(fields: ["courseId"])
 
   "The instructor(s) in the course"
-  assistant: Member @connection(field: ["assistantId"])
+  assistant: Member @connection(fields: ["assistantId"])
 }
 
 """
@@ -402,9 +402,9 @@ type CourseLearner
   @key(name: "LearnerCourseConnection", fields: ["learnerId", "courseId"]) {
   id: ID!
 
-  courseId: String
+  courseId: ID
 
-  learnerId: String
+  learnerId: ID
 
   "The course that this instructor belongs to"
   course: Course @connection(fields: ["courseId"])
@@ -424,12 +424,12 @@ type GroupMember
   @key(name: "MemberGroupConnection", fields: ["memberId", "groupId"]) {
   id: ID!
 
-  groupId: String
+  groupId: ID
 
-  memberId: String
+  memberId: ID
 
   "The group that the member belongs to"
-  group: Group @connection(fields: ["grouppId"])
+  group: Group @connection(fields: ["groupId"])
 
   "The members in the group"
   member: Member @connection(fields: ["memberId"])

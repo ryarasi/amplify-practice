@@ -31,77 +31,37 @@ mutation CreateInstitution(
     phone
     logo
     bio
+    adminId
     admins {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
+    memberId
     members {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
     searchField
     createdAt
@@ -121,77 +81,37 @@ mutation UpdateInstitution(
     phone
     logo
     bio
+    adminId
     admins {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
+    memberId
     members {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
     searchField
     createdAt
@@ -211,77 +131,37 @@ mutation DeleteInstitution(
     phone
     logo
     bio
+    adminId
     admins {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
+    memberId
     members {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
     searchField
     createdAt
@@ -295,6 +175,7 @@ mutation CreateAnnouncement(
   createAnnouncement(input: $input, condition: $condition) {
     id
     title
+    authorId
     author {
       id
       name
@@ -302,6 +183,7 @@ mutation CreateAnnouncement(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -311,6 +193,8 @@ mutation CreateAnnouncement(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -332,76 +216,50 @@ mutation CreateAnnouncement(
       updatedAt
     }
     message
+    recipientId
     recipients {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        searchField
-        createdAt
-        updatedAt
-      }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
-    groups {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        searchField
-        createdAt
-        updatedAt
-      }
-      type
-      admins {
+      items {
         id
         name
         email
         type
         title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      members {
-        nextToken
+      nextToken
+    }
+    groupId
+    groups {
+      items {
+        id
+        name
+        type
+        adminId
+        searchField
+        createdAt
+        updatedAt
       }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
+    }
+    seenById
+    seenBy {
+      items {
+        id
+        name
+        email
+        type
+        title
+        bio
+        institutionId
+        searchField
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     searchField
     createdAt
@@ -415,6 +273,7 @@ mutation UpdateAnnouncement(
   updateAnnouncement(input: $input, condition: $condition) {
     id
     title
+    authorId
     author {
       id
       name
@@ -422,6 +281,7 @@ mutation UpdateAnnouncement(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -431,6 +291,8 @@ mutation UpdateAnnouncement(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -452,76 +314,50 @@ mutation UpdateAnnouncement(
       updatedAt
     }
     message
+    recipientId
     recipients {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        searchField
-        createdAt
-        updatedAt
-      }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
-    groups {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        searchField
-        createdAt
-        updatedAt
-      }
-      type
-      admins {
+      items {
         id
         name
         email
         type
         title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      members {
-        nextToken
+      nextToken
+    }
+    groupId
+    groups {
+      items {
+        id
+        name
+        type
+        adminId
+        searchField
+        createdAt
+        updatedAt
       }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
+    }
+    seenById
+    seenBy {
+      items {
+        id
+        name
+        email
+        type
+        title
+        bio
+        institutionId
+        searchField
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     searchField
     createdAt
@@ -535,6 +371,7 @@ mutation DeleteAnnouncement(
   deleteAnnouncement(input: $input, condition: $condition) {
     id
     title
+    authorId
     author {
       id
       name
@@ -542,6 +379,7 @@ mutation DeleteAnnouncement(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -551,6 +389,8 @@ mutation DeleteAnnouncement(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -572,76 +412,50 @@ mutation DeleteAnnouncement(
       updatedAt
     }
     message
+    recipientId
     recipients {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        searchField
-        createdAt
-        updatedAt
-      }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
-    groups {
-      id
-      name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        searchField
-        createdAt
-        updatedAt
-      }
-      type
-      admins {
+      items {
         id
         name
         email
         type
         title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      members {
-        nextToken
+      nextToken
+    }
+    groupId
+    groups {
+      items {
+        id
+        name
+        type
+        adminId
+        searchField
+        createdAt
+        updatedAt
       }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
+    }
+    seenById
+    seenBy {
+      items {
+        id
+        name
+        email
+        type
+        title
+        bio
+        institutionId
+        searchField
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     searchField
     createdAt
@@ -664,72 +478,40 @@ mutation CreateGroup(
       phone
       logo
       bio
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
+      memberId
       members {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
       updatedAt
     }
     type
+    adminId
     admins {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
     members {
       items {
         id
+        groupId
+        memberId
         createdAt
         updatedAt
       }
@@ -756,72 +538,40 @@ mutation UpdateGroup(
       phone
       logo
       bio
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
+      memberId
       members {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
       updatedAt
     }
     type
+    adminId
     admins {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
     members {
       items {
         id
+        groupId
+        memberId
         createdAt
         updatedAt
       }
@@ -848,72 +598,40 @@ mutation DeleteGroup(
       phone
       logo
       bio
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
+      memberId
       members {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
       updatedAt
     }
     type
+    adminId
     admins {
-      id
-      name
-      email
-      type
-      title
-      bio
-      institution {
+      items {
         id
         name
-        location
-        city
-        website
-        phone
-        logo
+        email
+        type
+        title
         bio
+        institutionId
         searchField
         createdAt
         updatedAt
       }
-      groups {
-        nextToken
-      }
-      instructor {
-        nextToken
-      }
-      assistant {
-        nextToken
-      }
-      learner {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
+      nextToken
     }
     members {
       items {
         id
+        groupId
+        memberId
         createdAt
         updatedAt
       }
@@ -935,6 +653,7 @@ mutation CreateMember(
     type
     title
     bio
+    institutionId
     institution {
       id
       name
@@ -944,27 +663,13 @@ mutation CreateMember(
       phone
       logo
       bio
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
+      memberId
       members {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -973,6 +678,8 @@ mutation CreateMember(
     groups {
       items {
         id
+        groupId
+        memberId
         createdAt
         updatedAt
       }
@@ -981,6 +688,8 @@ mutation CreateMember(
     instructor {
       items {
         id
+        courseId
+        instructorId
         createdAt
         updatedAt
       }
@@ -989,6 +698,8 @@ mutation CreateMember(
     assistant {
       items {
         id
+        courseId
+        assistantId
         createdAt
         updatedAt
       }
@@ -997,6 +708,8 @@ mutation CreateMember(
     learner {
       items {
         id
+        courseId
+        learnerId
         createdAt
         updatedAt
       }
@@ -1018,6 +731,7 @@ mutation UpdateMember(
     type
     title
     bio
+    institutionId
     institution {
       id
       name
@@ -1027,27 +741,13 @@ mutation UpdateMember(
       phone
       logo
       bio
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
+      memberId
       members {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1056,6 +756,8 @@ mutation UpdateMember(
     groups {
       items {
         id
+        groupId
+        memberId
         createdAt
         updatedAt
       }
@@ -1064,6 +766,8 @@ mutation UpdateMember(
     instructor {
       items {
         id
+        courseId
+        instructorId
         createdAt
         updatedAt
       }
@@ -1072,6 +776,8 @@ mutation UpdateMember(
     assistant {
       items {
         id
+        courseId
+        assistantId
         createdAt
         updatedAt
       }
@@ -1080,6 +786,8 @@ mutation UpdateMember(
     learner {
       items {
         id
+        courseId
+        learnerId
         createdAt
         updatedAt
       }
@@ -1101,6 +809,7 @@ mutation DeleteMember(
     type
     title
     bio
+    institutionId
     institution {
       id
       name
@@ -1110,27 +819,13 @@ mutation DeleteMember(
       phone
       logo
       bio
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
+      memberId
       members {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1139,6 +834,8 @@ mutation DeleteMember(
     groups {
       items {
         id
+        groupId
+        memberId
         createdAt
         updatedAt
       }
@@ -1147,6 +844,8 @@ mutation DeleteMember(
     instructor {
       items {
         id
+        courseId
+        instructorId
         createdAt
         updatedAt
       }
@@ -1155,6 +854,8 @@ mutation DeleteMember(
     assistant {
       items {
         id
+        courseId
+        assistantId
         createdAt
         updatedAt
       }
@@ -1163,6 +864,8 @@ mutation DeleteMember(
     learner {
       items {
         id
+        courseId
+        learnerId
         createdAt
         updatedAt
       }
@@ -1182,6 +885,8 @@ mutation CreateCourse(
     instructors {
       items {
         id
+        courseId
+        instructorId
         createdAt
         updatedAt
       }
@@ -1190,6 +895,8 @@ mutation CreateCourse(
     assistants {
       items {
         id
+        courseId
+        assistantId
         createdAt
         updatedAt
       }
@@ -1198,6 +905,8 @@ mutation CreateCourse(
     learners {
       items {
         id
+        courseId
+        learnerId
         createdAt
         updatedAt
       }
@@ -1206,53 +915,30 @@ mutation CreateCourse(
     start
     end
     creditHours
+    assignmentId
     assignments {
-      id
-      title
-      course {
+      items {
         id
-        start
-        end
-        creditHours
-        searchField
+        title
+        deadline
+        points
+        instructions
+        taskId
         createdAt
         updatedAt
       }
-      section {
+      nextToken
+    }
+    courseSectionId
+    sections {
+      items {
         id
         name
         index
         createdAt
         updatedAt
       }
-      deadline
-      points
-      instructions
-      tasks {
-        id
-        task
-        type
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    sections {
-      id
-      name
-      index
-      course {
-        id
-        start
-        end
-        creditHours
-        searchField
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      nextToken
     }
     searchField
     createdAt
@@ -1268,6 +954,8 @@ mutation UpdateCourse(
     instructors {
       items {
         id
+        courseId
+        instructorId
         createdAt
         updatedAt
       }
@@ -1276,6 +964,8 @@ mutation UpdateCourse(
     assistants {
       items {
         id
+        courseId
+        assistantId
         createdAt
         updatedAt
       }
@@ -1284,6 +974,8 @@ mutation UpdateCourse(
     learners {
       items {
         id
+        courseId
+        learnerId
         createdAt
         updatedAt
       }
@@ -1292,53 +984,30 @@ mutation UpdateCourse(
     start
     end
     creditHours
+    assignmentId
     assignments {
-      id
-      title
-      course {
+      items {
         id
-        start
-        end
-        creditHours
-        searchField
+        title
+        deadline
+        points
+        instructions
+        taskId
         createdAt
         updatedAt
       }
-      section {
+      nextToken
+    }
+    courseSectionId
+    sections {
+      items {
         id
         name
         index
         createdAt
         updatedAt
       }
-      deadline
-      points
-      instructions
-      tasks {
-        id
-        task
-        type
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    sections {
-      id
-      name
-      index
-      course {
-        id
-        start
-        end
-        creditHours
-        searchField
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      nextToken
     }
     searchField
     createdAt
@@ -1354,6 +1023,8 @@ mutation DeleteCourse(
     instructors {
       items {
         id
+        courseId
+        instructorId
         createdAt
         updatedAt
       }
@@ -1362,6 +1033,8 @@ mutation DeleteCourse(
     assistants {
       items {
         id
+        courseId
+        assistantId
         createdAt
         updatedAt
       }
@@ -1370,6 +1043,8 @@ mutation DeleteCourse(
     learners {
       items {
         id
+        courseId
+        learnerId
         createdAt
         updatedAt
       }
@@ -1378,53 +1053,30 @@ mutation DeleteCourse(
     start
     end
     creditHours
+    assignmentId
     assignments {
-      id
-      title
-      course {
+      items {
         id
-        start
-        end
-        creditHours
-        searchField
+        title
+        deadline
+        points
+        instructions
+        taskId
         createdAt
         updatedAt
       }
-      section {
+      nextToken
+    }
+    courseSectionId
+    sections {
+      items {
         id
         name
         index
         createdAt
         updatedAt
       }
-      deadline
-      points
-      instructions
-      tasks {
-        id
-        task
-        type
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    sections {
-      id
-      name
-      index
-      course {
-        id
-        start
-        end
-        creditHours
-        searchField
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      nextToken
     }
     searchField
     createdAt
@@ -1453,21 +1105,13 @@ mutation CreateCourseSection(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1499,21 +1143,13 @@ mutation UpdateCourseSection(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1545,21 +1181,13 @@ mutation DeleteCourseSection(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1590,21 +1218,13 @@ mutation CreateAssignment(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1619,6 +1239,8 @@ mutation CreateAssignment(
         start
         end
         creditHours
+        assignmentId
+        courseSectionId
         searchField
         createdAt
         updatedAt
@@ -1629,12 +1251,16 @@ mutation CreateAssignment(
     deadline
     points
     instructions
+    taskId
     tasks {
-      id
-      task
-      type
-      createdAt
-      updatedAt
+      items {
+        id
+        task
+        type
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     createdAt
     updatedAt
@@ -1661,21 +1287,13 @@ mutation UpdateAssignment(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1690,6 +1308,8 @@ mutation UpdateAssignment(
         start
         end
         creditHours
+        assignmentId
+        courseSectionId
         searchField
         createdAt
         updatedAt
@@ -1700,12 +1320,16 @@ mutation UpdateAssignment(
     deadline
     points
     instructions
+    taskId
     tasks {
-      id
-      task
-      type
-      createdAt
-      updatedAt
+      items {
+        id
+        task
+        type
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     createdAt
     updatedAt
@@ -1732,21 +1356,13 @@ mutation DeleteAssignment(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1761,6 +1377,8 @@ mutation DeleteAssignment(
         start
         end
         creditHours
+        assignmentId
+        courseSectionId
         searchField
         createdAt
         updatedAt
@@ -1771,12 +1389,16 @@ mutation DeleteAssignment(
     deadline
     points
     instructions
+    taskId
     tasks {
-      id
-      task
-      type
-      createdAt
-      updatedAt
+      items {
+        id
+        task
+        type
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     createdAt
     updatedAt
@@ -1824,6 +1446,8 @@ mutation CreateCourseInstructor(
 ) {
   createCourseInstructor(input: $input, condition: $condition) {
     id
+    courseId
+    instructorId
     course {
       id
       instructors {
@@ -1838,21 +1462,13 @@ mutation CreateCourseInstructor(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1865,6 +1481,7 @@ mutation CreateCourseInstructor(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -1874,6 +1491,8 @@ mutation CreateCourseInstructor(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -1904,6 +1523,8 @@ mutation UpdateCourseInstructor(
 ) {
   updateCourseInstructor(input: $input, condition: $condition) {
     id
+    courseId
+    instructorId
     course {
       id
       instructors {
@@ -1918,21 +1539,13 @@ mutation UpdateCourseInstructor(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -1945,6 +1558,7 @@ mutation UpdateCourseInstructor(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -1954,6 +1568,8 @@ mutation UpdateCourseInstructor(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -1984,6 +1600,8 @@ mutation DeleteCourseInstructor(
 ) {
   deleteCourseInstructor(input: $input, condition: $condition) {
     id
+    courseId
+    instructorId
     course {
       id
       instructors {
@@ -1998,21 +1616,13 @@ mutation DeleteCourseInstructor(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -2025,6 +1635,7 @@ mutation DeleteCourseInstructor(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2034,6 +1645,8 @@ mutation DeleteCourseInstructor(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2064,6 +1677,8 @@ mutation CreateCourseAssistant(
 ) {
   createCourseAssistant(input: $input, condition: $condition) {
     id
+    courseId
+    assistantId
     course {
       id
       instructors {
@@ -2078,21 +1693,13 @@ mutation CreateCourseAssistant(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -2105,6 +1712,7 @@ mutation CreateCourseAssistant(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2114,6 +1722,8 @@ mutation CreateCourseAssistant(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2144,6 +1754,8 @@ mutation UpdateCourseAssistant(
 ) {
   updateCourseAssistant(input: $input, condition: $condition) {
     id
+    courseId
+    assistantId
     course {
       id
       instructors {
@@ -2158,21 +1770,13 @@ mutation UpdateCourseAssistant(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -2185,6 +1789,7 @@ mutation UpdateCourseAssistant(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2194,6 +1799,8 @@ mutation UpdateCourseAssistant(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2224,6 +1831,8 @@ mutation DeleteCourseAssistant(
 ) {
   deleteCourseAssistant(input: $input, condition: $condition) {
     id
+    courseId
+    assistantId
     course {
       id
       instructors {
@@ -2238,21 +1847,13 @@ mutation DeleteCourseAssistant(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -2265,6 +1866,7 @@ mutation DeleteCourseAssistant(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2274,6 +1876,8 @@ mutation DeleteCourseAssistant(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2304,6 +1908,8 @@ mutation CreateCourseLearner(
 ) {
   createCourseLearner(input: $input, condition: $condition) {
     id
+    courseId
+    learnerId
     course {
       id
       instructors {
@@ -2318,21 +1924,13 @@ mutation CreateCourseLearner(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -2345,6 +1943,7 @@ mutation CreateCourseLearner(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2354,6 +1953,8 @@ mutation CreateCourseLearner(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2384,6 +1985,8 @@ mutation UpdateCourseLearner(
 ) {
   updateCourseLearner(input: $input, condition: $condition) {
     id
+    courseId
+    learnerId
     course {
       id
       instructors {
@@ -2398,21 +2001,13 @@ mutation UpdateCourseLearner(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -2425,6 +2020,7 @@ mutation UpdateCourseLearner(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2434,6 +2030,8 @@ mutation UpdateCourseLearner(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2464,6 +2062,8 @@ mutation DeleteCourseLearner(
 ) {
   deleteCourseLearner(input: $input, condition: $condition) {
     id
+    courseId
+    learnerId
     course {
       id
       instructors {
@@ -2478,21 +2078,13 @@ mutation DeleteCourseLearner(
       start
       end
       creditHours
+      assignmentId
       assignments {
-        id
-        title
-        deadline
-        points
-        instructions
-        createdAt
-        updatedAt
+        nextToken
       }
+      courseSectionId
       sections {
-        id
-        name
-        index
-        createdAt
-        updatedAt
+        nextToken
       }
       searchField
       createdAt
@@ -2505,6 +2097,7 @@ mutation DeleteCourseLearner(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2514,6 +2107,8 @@ mutation DeleteCourseLearner(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2544,6 +2139,8 @@ mutation CreateGroupMember(
 ) {
   createGroupMember(input: $input, condition: $condition) {
     id
+    groupId
+    memberId
     group {
       id
       name
@@ -2556,21 +2153,16 @@ mutation CreateGroupMember(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
       }
       type
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       members {
         nextToken
@@ -2586,6 +2178,7 @@ mutation CreateGroupMember(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2595,6 +2188,8 @@ mutation CreateGroupMember(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2625,6 +2220,8 @@ mutation UpdateGroupMember(
 ) {
   updateGroupMember(input: $input, condition: $condition) {
     id
+    groupId
+    memberId
     group {
       id
       name
@@ -2637,21 +2234,16 @@ mutation UpdateGroupMember(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
       }
       type
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       members {
         nextToken
@@ -2667,6 +2259,7 @@ mutation UpdateGroupMember(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2676,6 +2269,8 @@ mutation UpdateGroupMember(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
@@ -2706,6 +2301,8 @@ mutation DeleteGroupMember(
 ) {
   deleteGroupMember(input: $input, condition: $condition) {
     id
+    groupId
+    memberId
     group {
       id
       name
@@ -2718,21 +2315,16 @@ mutation DeleteGroupMember(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
       }
       type
+      adminId
       admins {
-        id
-        name
-        email
-        type
-        title
-        bio
-        searchField
-        createdAt
-        updatedAt
+        nextToken
       }
       members {
         nextToken
@@ -2748,6 +2340,7 @@ mutation DeleteGroupMember(
       type
       title
       bio
+      institutionId
       institution {
         id
         name
@@ -2757,6 +2350,8 @@ mutation DeleteGroupMember(
         phone
         logo
         bio
+        adminId
+        memberId
         searchField
         createdAt
         updatedAt
