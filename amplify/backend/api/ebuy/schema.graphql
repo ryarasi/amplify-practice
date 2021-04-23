@@ -123,6 +123,47 @@ type Member
 }
 
 """
+Announcements to members and groups.
+This can be created by certain user groups and
+audience can be specified for each announcement.
+"""
+type Announcement
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["SUPER_ADMIN"] }
+      {
+        allow: owner
+        ownerField: "author"
+        operations: [create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+
+  "Title of the announcement"
+  title: String!
+
+  "The person who is making the announcement"
+  author: Member!
+
+  "Message of the announcement"
+  message: String!
+
+  "List of members that the announcement should be delivered to"
+  recipients: [Member]
+
+  "List of groups that this announcement should be delivered to"
+  groups: [Group]
+
+  "List of members that this announcement has been seen by"
+  seenBy: [Member]
+
+  "Search Field for searching the entire table for a string"
+  searchField: String
+}
+
+"""
 Courses are created by instructors
 """
 type Course
