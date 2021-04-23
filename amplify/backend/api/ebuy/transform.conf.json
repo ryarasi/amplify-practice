@@ -1,4 +1,8 @@
 {
     "Version": 5,
-    "ElasticsearchWarning": true
+    "ElasticsearchWarning": true,
+    "StackMapping": {
+        "InstitutionadminsResolver": "Institution",
+        "InstitutionmembersResolver": "Institution"
+    }
 }
