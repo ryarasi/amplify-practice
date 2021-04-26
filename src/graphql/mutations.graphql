@@ -237,6 +237,7 @@ mutation CreateAnnouncement(
       items {
         id
         name
+        institutionId
         type
         adminId
         searchField
@@ -335,6 +336,7 @@ mutation UpdateAnnouncement(
       items {
         id
         name
+        institutionId
         type
         adminId
         searchField
@@ -433,6 +435,7 @@ mutation DeleteAnnouncement(
       items {
         id
         name
+        institutionId
         type
         adminId
         searchField
@@ -469,27 +472,7 @@ mutation CreateGroup(
   createGroup(input: $input, condition: $condition) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      adminId
-      admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
+    institutionId
     type
     adminId
     admins {
@@ -529,27 +512,7 @@ mutation UpdateGroup(
   updateGroup(input: $input, condition: $condition) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      adminId
-      admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
+    institutionId
     type
     adminId
     admins {
@@ -589,27 +552,7 @@ mutation DeleteGroup(
   deleteGroup(input: $input, condition: $condition) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      adminId
-      admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
+    institutionId
     type
     adminId
     admins {
@@ -2144,21 +2087,7 @@ mutation CreateGroupMember(
     group {
       id
       name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
+      institutionId
       type
       adminId
       admins {
@@ -2225,21 +2154,7 @@ mutation UpdateGroupMember(
     group {
       id
       name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
+      institutionId
       type
       adminId
       admins {
@@ -2306,21 +2221,7 @@ mutation DeleteGroupMember(
     group {
       id
       name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
+      institutionId
       type
       adminId
       admins {

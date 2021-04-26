@@ -193,7 +193,7 @@ export class GroupState {
         const newValues = {
           name: values.name,
           type: values.type,
-          institution: { id: values.institution },
+          institutionId: values.institutionId,
         };
         client
           .mutate({
@@ -204,6 +204,7 @@ export class GroupState {
             },
           })
           .then((res: any) => {
+            console.log('Created group => ', res);
             formSubmitting = false;
             form.reset();
             formDirective.resetForm();

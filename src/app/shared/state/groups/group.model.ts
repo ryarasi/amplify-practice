@@ -5,7 +5,7 @@ export const emptyGroupFormRecord: Group = {
   __typename: 'Group',
   id: null,
   name: null,
-  institution: null,
+  institutionId: null,
   type: null,
   admins: null,
   members: null,

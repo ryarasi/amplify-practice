@@ -134,6 +134,7 @@ Groups of students. Groups can be of these types - class, team or coordinators.
 """
 type Group
   @model
+  @key(name: "byInstitution", fields: ["institutionId", "id"])
   @auth(
     rules: [
       { allow: groups, groups: ["SUPER_ADMIN"] }
@@ -146,7 +147,7 @@ type Group
   name: String!
 
   "The id of the insitition that this group belongs to"
-  institution: Institution!
+  institutionId: String!
 
   "Type of group this is. It can be Class, Team or Coordinators."
   type: GroupType!

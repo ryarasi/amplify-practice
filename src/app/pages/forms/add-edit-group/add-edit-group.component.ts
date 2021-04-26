@@ -73,7 +73,7 @@ export class AddEditGroupComponent implements OnInit {
     return this.fb.group({
       id: [groupFormRecord.id],
       name: [groupFormRecord.name, Validators.required],
-      institution: [groupFormRecord.institution, Validators.required],
+      institutionId: [groupFormRecord.institutionId, Validators.required],
       type: [groupFormRecord.type, Validators.required],
       admins: [groupFormRecord.admins],
       members: [groupFormRecord.members],

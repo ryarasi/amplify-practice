@@ -206,6 +206,7 @@ subscription OnCreateAnnouncement {
       items {
         id
         name
+        institutionId
         type
         adminId
         searchField
@@ -301,6 +302,7 @@ subscription OnUpdateAnnouncement {
       items {
         id
         name
+        institutionId
         type
         adminId
         searchField
@@ -396,6 +398,7 @@ subscription OnDeleteAnnouncement {
       items {
         id
         name
+        institutionId
         type
         adminId
         searchField
@@ -429,27 +432,7 @@ subscription OnCreateGroup($admins: String) {
   onCreateGroup(admins: $admins) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      adminId
-      admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
+    institutionId
     type
     adminId
     admins {
@@ -486,27 +469,7 @@ subscription OnUpdateGroup($admins: String) {
   onUpdateGroup(admins: $admins) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      adminId
-      admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
+    institutionId
     type
     adminId
     admins {
@@ -543,27 +506,7 @@ subscription OnDeleteGroup($admins: String) {
   onDeleteGroup(admins: $admins) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      adminId
-      admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
+    institutionId
     type
     adminId
     admins {
@@ -1798,21 +1741,7 @@ subscription OnCreateGroupMember {
     group {
       id
       name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
+      institutionId
       type
       adminId
       admins {
@@ -1876,21 +1805,7 @@ subscription OnUpdateGroupMember {
     group {
       id
       name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
+      institutionId
       type
       adminId
       admins {
@@ -1954,21 +1869,7 @@ subscription OnDeleteGroupMember {
     group {
       id
       name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
+      institutionId
       type
       adminId
       admins {

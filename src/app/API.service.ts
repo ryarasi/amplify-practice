@@ -159,7 +159,7 @@ export type Group = {
   __typename: "Group";
   id?: string;
   name?: string;
-  institution?: Institution;
+  institutionId?: string;
   type?: GroupType;
   adminId?: string | null;
   admins?: ModelMemberConnection;
@@ -380,6 +380,7 @@ export type DeleteAnnouncementInput = {
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   searchField?: string | null;
@@ -387,6 +388,7 @@ export type CreateGroupInput = {
 
 export type ModelGroupConditionInput = {
   name?: ModelStringInput | null;
+  institutionId?: ModelStringInput | null;
   type?: ModelGroupTypeInput | null;
   adminId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
@@ -403,6 +405,7 @@ export type ModelGroupTypeInput = {
 export type UpdateGroupInput = {
   id: string;
   name?: string | null;
+  institutionId?: string | null;
   type?: GroupType | null;
   adminId?: string | null;
   searchField?: string | null;
@@ -734,6 +737,7 @@ export type ModelAnnouncementConnection = {
 export type ModelGroupFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
+  institutionId?: ModelStringInput | null;
   type?: ModelGroupTypeInput | null;
   adminId?: ModelIDInput | null;
   searchField?: ModelStringInput | null;
@@ -1116,6 +1120,7 @@ export type CreateAnnouncementMutation = {
       __typename: "Group";
       id: string;
       name: string;
+      institutionId: string;
       type: GroupType;
       adminId?: string | null;
       searchField?: string | null;
@@ -1223,6 +1228,7 @@ export type UpdateAnnouncementMutation = {
       __typename: "Group";
       id: string;
       name: string;
+      institutionId: string;
       type: GroupType;
       adminId?: string | null;
       searchField?: string | null;
@@ -1330,6 +1336,7 @@ export type DeleteAnnouncementMutation = {
       __typename: "Group";
       id: string;
       name: string;
+      institutionId: string;
       type: GroupType;
       adminId?: string | null;
       searchField?: string | null;
@@ -1365,30 +1372,7 @@ export type CreateGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   admins?: {
@@ -1429,30 +1413,7 @@ export type UpdateGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   admins?: {
@@ -1493,30 +1454,7 @@ export type DeleteGroupMutation = {
   __typename: "Group";
   id: string;
   name: string;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   admins?: {
@@ -3200,22 +3138,7 @@ export type CreateGroupMemberMutation = {
     __typename: "Group";
     id: string;
     name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
+    institutionId: string;
     type: GroupType;
     adminId?: string | null;
     admins?: {
@@ -3288,22 +3211,7 @@ export type UpdateGroupMemberMutation = {
     __typename: "Group";
     id: string;
     name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
+    institutionId: string;
     type: GroupType;
     adminId?: string | null;
     admins?: {
@@ -3376,22 +3284,7 @@ export type DeleteGroupMemberMutation = {
     __typename: "Group";
     id: string;
     name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
+    institutionId: string;
     type: GroupType;
     adminId?: string | null;
     admins?: {
@@ -3611,6 +3504,7 @@ export type GetAnnouncementQuery = {
       __typename: "Group";
       id: string;
       name: string;
+      institutionId: string;
       type: GroupType;
       adminId?: string | null;
       searchField?: string | null;
@@ -3689,30 +3583,7 @@ export type GetGroupQuery = {
   __typename: "Group";
   id: string;
   name: string;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   admins?: {
@@ -3755,22 +3626,7 @@ export type ListGroupsQuery = {
     __typename: "Group";
     id: string;
     name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
+    institutionId: string;
     type: GroupType;
     adminId?: string | null;
     admins?: {
@@ -4500,6 +4356,7 @@ export type OnCreateAnnouncementSubscription = {
       __typename: "Group";
       id: string;
       name: string;
+      institutionId: string;
       type: GroupType;
       adminId?: string | null;
       searchField?: string | null;
@@ -4607,6 +4464,7 @@ export type OnUpdateAnnouncementSubscription = {
       __typename: "Group";
       id: string;
       name: string;
+      institutionId: string;
       type: GroupType;
       adminId?: string | null;
       searchField?: string | null;
@@ -4714,6 +4572,7 @@ export type OnDeleteAnnouncementSubscription = {
       __typename: "Group";
       id: string;
       name: string;
+      institutionId: string;
       type: GroupType;
       adminId?: string | null;
       searchField?: string | null;
@@ -4749,30 +4608,7 @@ export type OnCreateGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   admins?: {
@@ -4813,30 +4649,7 @@ export type OnUpdateGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   admins?: {
@@ -4877,30 +4690,7 @@ export type OnDeleteGroupSubscription = {
   __typename: "Group";
   id: string;
   name: string;
-  institution: {
-    __typename: "Institution";
-    id: string;
-    name: string;
-    location: string;
-    city: string;
-    website?: string | null;
-    phone?: string | null;
-    logo?: string | null;
-    bio?: string | null;
-    adminId?: string | null;
-    admins?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    memberId?: string | null;
-    members?: {
-      __typename: "ModelMemberConnection";
-      nextToken?: string | null;
-    } | null;
-    searchField?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  institutionId: string;
   type: GroupType;
   adminId?: string | null;
   admins?: {
@@ -6326,22 +6116,7 @@ export type OnCreateGroupMemberSubscription = {
     __typename: "Group";
     id: string;
     name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
+    institutionId: string;
     type: GroupType;
     adminId?: string | null;
     admins?: {
@@ -6414,22 +6189,7 @@ export type OnUpdateGroupMemberSubscription = {
     __typename: "Group";
     id: string;
     name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
+    institutionId: string;
     type: GroupType;
     adminId?: string | null;
     admins?: {
@@ -6502,22 +6262,7 @@ export type OnDeleteGroupMemberSubscription = {
     __typename: "Group";
     id: string;
     name: string;
-    institution: {
-      __typename: "Institution";
-      id: string;
-      name: string;
-      location: string;
-      city: string;
-      website?: string | null;
-      phone?: string | null;
-      logo?: string | null;
-      bio?: string | null;
-      adminId?: string | null;
-      memberId?: string | null;
-      searchField?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    };
+    institutionId: string;
     type: GroupType;
     adminId?: string | null;
     admins?: {
@@ -6906,6 +6651,7 @@ export class APIService {
               __typename
               id
               name
+              institutionId
               type
               adminId
               searchField
@@ -7029,6 +6775,7 @@ export class APIService {
               __typename
               id
               name
+              institutionId
               type
               adminId
               searchField
@@ -7152,6 +6899,7 @@ export class APIService {
               __typename
               id
               name
+              institutionId
               type
               adminId
               searchField
@@ -7203,30 +6951,7 @@ export class APIService {
           __typename
           id
           name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
+          institutionId
           type
           adminId
           admins {
@@ -7283,30 +7008,7 @@ export class APIService {
           __typename
           id
           name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
+          institutionId
           type
           adminId
           admins {
@@ -7363,30 +7065,7 @@ export class APIService {
           __typename
           id
           name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
+          institutionId
           type
           adminId
           admins {
@@ -9470,22 +9149,7 @@ export class APIService {
             __typename
             id
             name
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
+            institutionId
             type
             adminId
             admins {
@@ -9574,22 +9238,7 @@ export class APIService {
             __typename
             id
             name
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
+            institutionId
             type
             adminId
             admins {
@@ -9678,22 +9327,7 @@ export class APIService {
             __typename
             id
             name
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
+            institutionId
             type
             adminId
             admins {
@@ -9957,6 +9591,7 @@ export class APIService {
               __typename
               id
               name
+              institutionId
               type
               adminId
               searchField
@@ -10066,30 +9701,7 @@ export class APIService {
           __typename
           id
           name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
+          institutionId
           type
           adminId
           admins {
@@ -10146,22 +9758,7 @@ export class APIService {
             __typename
             id
             name
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
+            institutionId
             type
             adminId
             admins {
@@ -11119,6 +10716,7 @@ export class APIService {
               __typename
               id
               name
+              institutionId
               type
               adminId
               searchField
@@ -11234,6 +10832,7 @@ export class APIService {
               __typename
               id
               name
+              institutionId
               type
               adminId
               searchField
@@ -11349,6 +10948,7 @@ export class APIService {
               __typename
               id
               name
+              institutionId
               type
               adminId
               searchField
@@ -11391,30 +10991,7 @@ export class APIService {
           __typename
           id
           name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
+          institutionId
           type
           adminId
           admins {
@@ -11468,30 +11045,7 @@ export class APIService {
           __typename
           id
           name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
+          institutionId
           type
           adminId
           admins {
@@ -11545,30 +11099,7 @@ export class APIService {
           __typename
           id
           name
-          institution {
-            __typename
-            id
-            name
-            location
-            city
-            website
-            phone
-            logo
-            bio
-            adminId
-            admins {
-              __typename
-              nextToken
-            }
-            memberId
-            members {
-              __typename
-              nextToken
-            }
-            searchField
-            createdAt
-            updatedAt
-          }
+          institutionId
           type
           adminId
           admins {
@@ -13191,22 +12722,7 @@ export class APIService {
             __typename
             id
             name
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
+            institutionId
             type
             adminId
             admins {
@@ -13287,22 +12803,7 @@ export class APIService {
             __typename
             id
             name
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
+            institutionId
             type
             adminId
             admins {
@@ -13383,22 +12884,7 @@ export class APIService {
             __typename
             id
             name
-            institution {
-              __typename
-              id
-              name
-              location
-              city
-              website
-              phone
-              logo
-              bio
-              adminId
-              memberId
-              searchField
-              createdAt
-              updatedAt
-            }
+            institutionId
             type
             adminId
             admins {

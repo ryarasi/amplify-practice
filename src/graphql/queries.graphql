@@ -142,6 +142,7 @@ query GetAnnouncement($id: ID!) {
       items {
         id
         name
+        institutionId
         type
         adminId
         searchField
@@ -217,27 +218,7 @@ query GetGroup($id: ID!) {
   getGroup(id: $id) {
     id
     name
-    institution {
-      id
-      name
-      location
-      city
-      website
-      phone
-      logo
-      bio
-      adminId
-      admins {
-        nextToken
-      }
-      memberId
-      members {
-        nextToken
-      }
-      searchField
-      createdAt
-      updatedAt
-    }
+    institutionId
     type
     adminId
     admins {
@@ -279,21 +260,7 @@ query ListGroups(
     items {
       id
       name
-      institution {
-        id
-        name
-        location
-        city
-        website
-        phone
-        logo
-        bio
-        adminId
-        memberId
-        searchField
-        createdAt
-        updatedAt
-      }
+      institutionId
       type
       adminId
       admins {
